@@ -1,0 +1,10 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>kanalearn</title>
+</head>
+<body>
+<h1>kanalearn</h1>
+<p>A place to practice writing Japanese Hiragana, Katakana, and Kanji.</p>
+</body>
+</html>
