@@ -42,6 +42,11 @@
         font-size: 12px;
         word-break: break-all;
     }
+    li.spacer {
+    background-color: transparent;
+    visibility: hidden;
+}
+
     ul {
         display: grid;
         grid-template-columns: repeat(5, 70px);
@@ -170,6 +175,8 @@
       <button onclick="startTest()">Test</button>
       <p id="testPrompt"></p>
       <p id="testScore"></p>
+      <button onclick="speakChar(document.getElementById('targetChar').textContent, true)">🔊 Listen</button>
+<button id="btnSound" onclick="toggleSound()">Sound: ON</button>
     </div>
 
   </div>
@@ -180,6 +187,67 @@
 </div>
 
 <script>
+  // ---------- Sound system ----------
+let soundOn = true;
+let audioCtx = null;
+
+function getAudio() {
+  if (!audioCtx) audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+  if (audioCtx.state === "suspended") audioCtx.resume();
+  return audioCtx;
+}
+
+function playTone(freq, start, dur, type, vol) {
+  const ac = getAudio();
+  const osc = ac.createOscillator();
+  const gain = ac.createGain();
+  osc.type = type || "sine";
+  osc.frequency.value = freq;
+  const t = ac.currentTime + start;
+  gain.gain.setValueAtTime(0.0001, t);
+  gain.gain.exponentialRampToValueAtTime(vol || 0.2, t + 0.01);
+  gain.gain.exponentialRampToValueAtTime(0.0001, t + dur);
+  osc.connect(gain);
+  gain.connect(ac.destination);
+  osc.start(t);
+  osc.stop(t + dur + 0.05);
+}
+
+function playSound(name) {
+  if (!soundOn) return;
+  if (name === "stroke") {
+    playTone(660, 0, 0.12, "sine", 0.2);
+    playTone(880, 0.08, 0.15, "sine", 0.2);
+  } else if (name === "wrong") {
+    playTone(180, 0, 0.25, "sawtooth", 0.12);
+  } else if (name === "tick") {
+    playTone(500, 0, 0.06, "sine", 0.12);
+  } else if (name === "success") {
+    [523, 659, 784, 1047].forEach(function(f, i) {
+      playTone(f, i * 0.12, 0.25, "triangle", 0.25);
+    });
+  } else if (name === "fail") {
+    [330, 262, 196].forEach(function(f, i) {
+      playTone(f, i * 0.2, 0.3, "square", 0.1);
+    });
+  }
+}
+
+function speakChar(text, force) {
+  if (!soundOn && !force) return;
+  if (!window.speechSynthesis) return;
+  speechSynthesis.cancel();
+  const u = new SpeechSynthesisUtterance(text);
+  u.lang = "ja-JP";
+  u.rate = 0.8;
+  speechSynthesis.speak(u);
+}
+
+function toggleSound() {
+  soundOn = !soundOn;
+  if (!soundOn && window.speechSynthesis) speechSynthesis.cancel();
+  document.getElementById("btnSound").textContent = "Sound: " + (soundOn ? "ON" : "OFF");
+}
 const hiragana = [
   { char: "あ", romaji: "a" },
   { char: "い", romaji: "i" },
@@ -452,6 +520,17 @@ function buildList() {
   list.innerHTML = "";
   const set = getSet();
   for (let i = 0; i < set.length; i++) {
+
+    // yu, yo, wo, n er age 1 ta kore khali jayga
+    if (currentScript !== "kanji" &&
+        (set[i].romaji === "yu" || set[i].romaji === "yo" ||
+         set[i].romaji === "wo" || set[i].romaji === "n")) {
+      const sp = document.createElement("li");
+      sp.className = "spacer";
+      sp.innerHTML = "&nbsp;<br><small>&nbsp;</small>";
+      list.appendChild(sp);
+    }
+
     const li = document.createElement("li");
     li.innerHTML = set[i].char + "<br><small>" + set[i].romaji + "</small>";
     li.style.cursor = "pointer";
@@ -467,15 +546,6 @@ function buildList() {
 
 buildList();
 
-function startPractice() {
-  exitTestMode();
-  const set = getSet();
-  const randomChar = set[Math.floor(Math.random() * set.length)];
-  document.getElementById("targetChar").textContent = randomChar.char;
-  document.getElementById("practiceBox").style.display = "block";
-  startStrokeChecking();
-  document.getElementById("practiceBox").scrollIntoView({ behavior: "smooth" });
-}
 
 // ---------- Test mode ----------
 function startTest() {
@@ -509,7 +579,7 @@ function exitTestMode() {
 
 function checkTestStroke(strokes, sx, sy, ex, ey) {
   if (testDone) return;
-
+  playSound("tick");
   // compare with the expected stroke, but never stop: just count it
   if (strokeMatches(strokes[currentStrokeIndex], sx, sy, ex, ey)) {
     testCorrect++;
@@ -523,7 +593,6 @@ function checkTestStroke(strokes, sx, sy, ex, ey) {
     finishTest(strokes.length);
   }
 }
-
 function finishTest(totalStrokes) {
   testDone = true;
   const score = Math.round(testCorrect / totalStrokes * 100);
@@ -536,20 +605,23 @@ function finishTest(totalStrokes) {
   if (passed) {
     document.getElementById("strokeStatus").textContent = "Right! You got " + score + "%.";
     showBigCheck();
+    playSound("success");
   } else {
     document.getElementById("strokeStatus").textContent =
       "Wrong. You got " + score + "%, need " + PASS_PERCENT + "%. Press Clear to retry or Test for a new one.";
     showBigCross();
+    playSound("fail");
   }
+  setTimeout(function() { speakChar(c); }, 1000);
 }
 
-// ---------- Canvas drawing ----------
 const canvas = document.getElementById("drawBoard");
 const ctx = canvas.getContext("2d");
 let isDrawing = false;
 let completedStrokes = [];
 let strokeStartX = 0, strokeStartY = 0;
 let lastX = 0, lastY = 0;
+
 
 function getPos(e) {
   const rect = canvas.getBoundingClientRect();
@@ -1252,6 +1324,7 @@ function startStrokeChecking() {
   redrawCanvas();
 
   const targetChar = document.getElementById("targetChar").textContent;
+    if (!testMode) speakChar(targetChar);
   const strokes = strokeData[targetChar];
 
   if (!strokes) {
@@ -1312,7 +1385,6 @@ function strokeMatches(expected, userStartX, userStartY, userEndX, userEndY) {
 
   return angleDiff <= angleTolerance && startDist <= startTolerance;
 }
-
 function checkUserStroke(userStartX, userStartY, userEndX, userEndY) {
   const targetChar = document.getElementById("targetChar").textContent;
   const strokes = strokeData[targetChar];
@@ -1338,20 +1410,22 @@ function checkUserStroke(userStartX, userStartY, userEndX, userEndY) {
     redrawCanvas();
     flashStrokeCheck(expected.x2, expected.y2);
     if (currentStrokeIndex < strokes.length) {
+      playSound("stroke");
       document.getElementById("strokeStatus").textContent =
         "Correct! Now draw stroke " + (currentStrokeIndex + 1) + ".";
     } else {
+      playSound("success");
       document.getElementById("strokeStatus").textContent = "All strokes correct!";
       showBigCheck();
     }
   } else {
+    playSound("wrong");
     redrawCanvas();
     drawWrongStroke(expected);
     document.getElementById("strokeStatus").textContent =
       "Wrong direction. Follow the red line, then try again.";
   }
 }
-
 function drawStroke(stroke, number) {
   const { x1, y1, x2, y2 } = stroke;
 
