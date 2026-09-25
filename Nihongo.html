@@ -123,6 +123,15 @@
         font-weight: 700;
         color: rgb(24, 10, 214);
     }
+    button.orderBtn {
+        background-color: rgb(213, 232, 216);
+        color: rgb(4, 107, 73);
+        border: 2px solid rgb(8, 147, 73);
+    }
+    button.orderBtn.seq {
+        background-color: rgb(8, 147, 73);
+        color: white;
+    }
 </style>
 </head>
 <body>
@@ -173,8 +182,13 @@
       <p id="modeLabel">Practice mode</p>
       <button onclick="startPractice()">Practice</button>
       <button onclick="startTest()">Test</button>
+      <button id="btnNextTest" onclick="startTest()" style="display:none;">Next word</button>
       <p id="testPrompt"></p>
       <p id="testScore"></p>
+      <h2>Test Order</h2>
+      <button id="btnOrderRandom" class="orderBtn" onclick="setTestOrder('random')">Random</button>
+      <button id="btnOrderSeq" class="orderBtn" onclick="setTestOrder('sequential')">Sequential</button>
+      <button onclick="resetSequentialOrder()">Reset order</button>
       <button onclick="speakChar(document.getElementById('targetChar').textContent, true)">🔊 Listen</button>
 <button id="btnSound" onclick="toggleSound()">Sound: ON</button>
     </div>
@@ -514,6 +528,30 @@ let testCorrect = 0;
 let testDone = false;
 let inkSnapshot = null;
 
+// ---------- Test order (random / sequential) ----------
+let testOrder = "random"; // "random" | "sequential"
+let seqIndex = { hiragana: 0, katakana: 0, kanji: 0 };
+
+function setTestOrder(mode) {
+  testOrder = mode;
+  document.getElementById("btnOrderRandom").classList.toggle("seq", mode === "random");
+  document.getElementById("btnOrderSeq").classList.toggle("seq", mode === "sequential");
+}
+
+function resetSequentialOrder() {
+  seqIndex[currentScript] = 0;
+}
+
+function pickTestChar() {
+  const set = getSet();
+  if (testOrder === "sequential") {
+    const idx = seqIndex[currentScript] % set.length;
+    seqIndex[currentScript] = idx + 1;
+    return set[idx];
+  }
+  return set[Math.floor(Math.random() * set.length)];
+}
+
 const list = document.getElementById("charList");
 
 function buildList() {
@@ -545,18 +583,19 @@ function buildList() {
 }
 
 buildList();
+setTestOrder("random");
 
 
 // ---------- Test mode ----------
 function startTest() {
-  const set = getSet();
-  const c = set[Math.floor(Math.random() * set.length)];
+  const c = pickTestChar();
   testMode = true;
   testCorrect = 0;
   testDone = false;
   document.getElementById("targetChar").textContent = c.char;
   document.getElementById("practiceLine").style.display = "none";
-  document.getElementById("modeLabel").textContent = "Test mode (" + scriptNames[currentScript] + ")";
+  document.getElementById("modeLabel").textContent = "Test mode (" + scriptNames[currentScript] +
+    ", " + (testOrder === "sequential" ? "sequential" : "random") + ")";
   if (currentScript === "kanji") {
     document.getElementById("testPrompt").textContent = 'Write the kanji for: "' + c.romaji + '"';
   } else {
@@ -564,6 +603,7 @@ function startTest() {
   }
   document.getElementById("testScore").textContent = "";
   document.getElementById("practiceBox").style.display = "block";
+  document.getElementById("btnNextTest").style.display = "inline-block";
   startStrokeChecking();
   document.getElementById("practiceBox").scrollIntoView({ behavior: "smooth" });
 }
@@ -575,6 +615,7 @@ function exitTestMode() {
   document.getElementById("modeLabel").textContent = "Practice mode";
   document.getElementById("testPrompt").textContent = "";
   document.getElementById("testScore").textContent = "";
+  document.getElementById("btnNextTest").style.display = "none";
 }
 
 function checkTestStroke(strokes, sx, sy, ex, ey) {
