@@ -17,11 +17,14 @@ export interface KanaTable {
   rows: KanaCell[][];
 }
 
-export function defineKanaSet(
-  id: string,
-  tables: KanaTable[],
-  mapChar: (c: string) => string = (c) => c,
-): CharSet {
+export interface KanaSetOptions {
+  /** Convert table characters (hiragana) to this script. */
+  mapChar?: (c: string) => string;
+  /** Section explanations, keyed by table id. */
+  descriptions?: Record<string, string>;
+}
+
+export function defineKanaSet(id: string, tables: KanaTable[], { mapChar = (c) => c, descriptions = {} }: KanaSetOptions = {}): CharSet {
   const sections: ChartSection[] = tables.map((t) => {
     const items: CharItem[] = [];
     const rows: ChartRow[] = t.rows.map((row) =>
@@ -32,7 +35,7 @@ export function defineKanaSet(
         return item;
       }),
     );
-    return { id: t.id, title: t.title, tab: t.tab ?? t.title, subtitle: t.subtitle, rows, items };
+    return { id: t.id, title: t.title, tab: t.tab ?? t.title, subtitle: t.subtitle, description: descriptions[t.id], rows, items };
   });
   return { id, kind: "kana", sections, items: sections.flatMap((s) => s.items) };
 }

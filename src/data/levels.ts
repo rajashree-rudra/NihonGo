@@ -27,6 +27,8 @@ export const LEVELS: Level[] = [
         title: "Hiragana",
         jp: "ひらがな",
         description: "The core phonetic script — start here.",
+        intro:
+          "Hiragana is the main Japanese alphabet. Each character stands for one sound, and any Japanese word can be written with it — it's the first script Japanese children learn.",
         status: "available",
         charSet: HIRAGANA,
       },
@@ -35,6 +37,8 @@ export const LEVELS: Level[] = [
         title: "Katakana",
         jp: "カタカナ",
         description: "For loanwords, names and emphasis.",
+        intro:
+          "Katakana is the second Japanese alphabet. It has the same sounds as hiragana but different, more angular shapes, and is mainly used for foreign words and names.",
         status: "available",
         charSet: KATAKANA,
       },
@@ -43,6 +47,8 @@ export const LEVELS: Level[] = [
         title: "Kanji",
         jp: "漢字",
         description: `${N5_KANJI.items.length} essential N5 kanji with readings.`,
+        intro:
+          "Kanji are characters that carry a meaning, like 山 = mountain. Most have more than one reading: kun'yomi, the native Japanese reading, and on'yomi, which came from Chinese.",
         status: "available",
         charSet: N5_KANJI,
       },

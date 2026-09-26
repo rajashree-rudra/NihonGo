@@ -22,6 +22,8 @@ export interface ChartSection {
   /** Short label for the practice/test section tabs. */
   tab: string;
   subtitle: string;
+  /** Beginner-friendly explanation shown at the start of the section. */
+  description?: string;
   /** Present for kana (fixed 5-column grid); kanji sections are a flowing grid of items. */
   rows?: ChartRow[];
   items: CharItem[];
@@ -46,6 +48,8 @@ export interface LearnModule {
   title: string;
   jp: string;
   description: string;
+  /** "What is this?" intro shown on the chart page. */
+  intro?: string;
   status: Status;
   charSet?: CharSet;
 }

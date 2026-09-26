@@ -1,6 +1,7 @@
 "use client";
 
 import { useRef, useState } from "react";
+import { Lightbulb } from "lucide-react";
 import type { CharItem, CharSet } from "@/data/types";
 import { pronounce } from "@/lib/audio";
 import { progressStore } from "@/lib/settings";
@@ -42,6 +43,14 @@ export function CharChart({ charSet, basePath }: { charSet: CharSet; basePath: s
             </h2>
             <span className="font-jp text-sm text-muted">{section.subtitle}</span>
           </div>
+          {section.description && (
+            <p
+              className={`mb-5 flex gap-3 rounded-2xl border border-line bg-card/70 p-4 text-[14px] leading-relaxed text-ink-soft sm:text-[15px] ${section.rows ? "mx-auto max-w-3xl" : ""}`}
+            >
+              <Lightbulb className="mt-0.5 size-[18px] shrink-0 text-kin" aria-hidden />
+              <span className="text-pretty">{section.description}</span>
+            </p>
+          )}
           {section.rows ? (
             <div
               className="mx-auto grid max-w-3xl gap-2 sm:gap-3"
