@@ -1,10 +1,10 @@
-# Deploys to Vercel production on every push to main.
+# Deploys to Vercel production on every push to the publish/main branch.
 # Needs three repository secrets: VERCEL_TOKEN, VERCEL_ORG_ID, VERCEL_PROJECT_ID.
 name: Deploy to Vercel
 
 on:
   push:
-    branches: [main]
+    branches: ["publish/main"]
   workflow_dispatch: # allows a manual run from the Actions tab
 
 # Only one production deploy at a time; a newer push replaces a queued one.
