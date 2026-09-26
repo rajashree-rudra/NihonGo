@@ -1,0 +1,130 @@
+@import "tailwindcss";
+
+@theme {
+  --color-paper: #f8f4ee;
+  --color-card: #fffdf9;
+  --color-ink: #1d1a17;
+  --color-ink-soft: #4a433c;
+  --color-muted: #8b8279;
+  --color-line: #e9e1d6;
+  --color-line-strong: #d9cfc1;
+  --color-shu: #d8452e;
+  --color-shu-soft: #fbe6e1;
+  --color-ai: #2c4f86;
+  --color-ai-soft: #e3eaf6;
+  --color-matcha: #3f8a5a;
+  --color-matcha-soft: #e1f1e6;
+  --color-kin: #c9912e;
+  --color-kin-soft: #f8edd6;
+
+  --font-sans: var(--font-jakarta), var(--font-noto-jp), ui-sans-serif, system-ui, sans-serif;
+  --font-jp: var(--font-noto-jp), "Hiragino Sans", "Yu Gothic", sans-serif;
+  --font-brush: var(--font-klee), var(--font-noto-jp), "Hiragino Mincho ProN", serif;
+
+  --shadow-soft: 0 1px 2px rgb(60 40 20 / 0.04), 0 4px 16px -4px rgb(60 40 20 / 0.08);
+  --shadow-lift: 0 2px 4px rgb(60 40 20 / 0.05), 0 16px 40px -12px rgb(60 40 20 / 0.18);
+
+  --animate-pop: pop 0.5s cubic-bezier(0.2, 1.4, 0.4, 1) both;
+  --animate-fade-up: fade-up 0.5s cubic-bezier(0.2, 0.8, 0.2, 1) both;
+  --animate-ping-once: ping-once 0.6s cubic-bezier(0, 0, 0.2, 1) both;
+  --animate-shake: shake 0.35s ease-in-out;
+}
+
+@keyframes pop {
+  0% { transform: scale(0.4); opacity: 0; }
+  100% { transform: scale(1); opacity: 1; }
+}
+@keyframes fade-up {
+  0% { transform: translateY(10px); opacity: 0; }
+  100% { transform: translateY(0); opacity: 1; }
+}
+@keyframes ping-once {
+  0% { transform: scale(1); opacity: 0.55; }
+  100% { transform: scale(1.35); opacity: 0; }
+}
+@keyframes shake {
+  0%, 100% { transform: translateX(0); }
+  25% { transform: translateX(-5px); }
+  75% { transform: translateX(5px); }
+}
+
+/* Stroke drawing: paths use pathLength="1" so a dash of 1 covers the whole stroke. */
+/* Hidden until it starts: round caps would otherwise show a dot at the stroke's start. */
+@keyframes draw-stroke {
+  0% { stroke-dashoffset: 1; opacity: 0; }
+  1% { opacity: 1; }
+  100% { stroke-dashoffset: 0; opacity: 1; }
+}
+@keyframes ink-fade {
+  0% { opacity: 1; }
+  100% { opacity: 0; }
+}
+@keyframes hint-pulse {
+  0%, 100% { opacity: 0.35; }
+  50% { opacity: 0.8; }
+}
+@keyframes dot-pulse {
+  0%, 100% { r: 2.6; opacity: 0.9; }
+  50% { r: 3.6; opacity: 0.5; }
+}
+
+@keyframes hint-trace {
+  0% { stroke-dashoffset: 1; opacity: 0; }
+  10% { opacity: 1; }
+  65% { stroke-dashoffset: 0; opacity: 1; }
+  100% { stroke-dashoffset: 0; opacity: 0; }
+}
+.hint-trace {
+  stroke-dasharray: 1;
+  animation: hint-trace 1.9s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+}
+.stroke-draw {
+  stroke-dasharray: 1;
+  stroke-dashoffset: 1;
+  animation: draw-stroke var(--dur, 0.45s) cubic-bezier(0.4, 0, 0.2, 1) var(--delay, 0s) both;
+}
+.ink-fade {
+  animation: ink-fade 0.7s ease-in 0.25s forwards;
+}
+.hint-pulse {
+  animation: hint-pulse 1.6s ease-in-out infinite;
+}
+.dot-pulse {
+  animation: dot-pulse 1.4s ease-in-out infinite;
+}
+
+@layer base {
+  html {
+    -webkit-tap-highlight-color: transparent;
+  }
+  body {
+    @apply bg-paper text-ink font-sans antialiased;
+  }
+  ::selection {
+    @apply bg-shu-soft;
+  }
+  :focus-visible {
+    @apply outline-2 outline-offset-2 outline-ai;
+  }
+}
+
+@utility no-scrollbar {
+  scrollbar-width: none;
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+@utility paper-grain {
+  background-image:
+    radial-gradient(circle at 20% 0%, rgb(216 69 46 / 0.07), transparent 45%),
+    radial-gradient(circle at 100% 30%, rgb(44 79 134 / 0.06), transparent 40%);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.001ms !important;
+    animation-delay: 0s !important;
+    transition-duration: 0.001ms !important;
+  }
+}
