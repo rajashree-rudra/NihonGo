@@ -1,17 +1,36 @@
-// Level registry. To add a level: create its character file(s) in ./characters,
-// flip its status to "available" and attach the char sets to its modules.
-// Routes, charts, practice and test pages are generated from this registry.
-import type { CharSet, LearnModule, Level } from "./types.ts";
+// Level registry. To add a level: create its content files (characters/, vocabulary/,
+// grammar/), flip its status to "available" and attach the sets to its modules.
+// Routes, charts, lists, practice and test pages are generated from this registry.
+import type { CharSet, GrammarSet, LearnModule, Level, VocabSet } from "./types.ts";
 import { HIRAGANA } from "./characters/hiragana.ts";
 import { KATAKANA } from "./characters/katakana.ts";
 import { N5_KANJI } from "./characters/n5-kanji.ts";
+import { N4_KANJI } from "./characters/n4-kanji.ts";
+import { N5_VOCAB } from "./vocabulary/n5/index.ts";
+import { N4_VOCAB } from "./vocabulary/n4/index.ts";
+import { N5_GRAMMAR, N4_GRAMMAR } from "./grammar/index.ts";
 
-const soon = (id: string, title: string, jp: string, description: string): LearnModule => ({
-  id,
-  title,
-  jp,
-  description,
-  status: "soon",
+const KANJI_INTRO =
+  "Kanji are characters that carry a meaning, like 山 = mountain. Most have more than one reading: kun'yomi, the native Japanese reading, and on'yomi, which came from Chinese.";
+
+const vocabModule = (set: VocabSet, level: string, intro: string): LearnModule => ({
+  id: "vocabulary",
+  title: "Vocabulary",
+  jp: "語彙",
+  description: `${set.items.length} ${level} words, each with 2 example sentences.`,
+  intro,
+  status: "available",
+  vocabSet: set,
+});
+
+const grammarModule = (set: GrammarSet, level: string, intro: string): LearnModule => ({
+  id: "grammar",
+  title: "Grammar",
+  jp: "文法",
+  description: `${set.items.length} ${level} grammar points explained simply.`,
+  intro,
+  status: "available",
+  grammarSet: set,
 });
 
 export const LEVELS: Level[] = [
@@ -47,22 +66,49 @@ export const LEVELS: Level[] = [
         title: "Kanji",
         jp: "漢字",
         description: `${N5_KANJI.items.length} essential N5 kanji with readings.`,
-        intro:
-          "Kanji are characters that carry a meaning, like 山 = mountain. Most have more than one reading: kun'yomi, the native Japanese reading, and on'yomi, which came from Chinese.",
+        intro: KANJI_INTRO,
         status: "available",
         charSet: N5_KANJI,
       },
-      soon("vocabulary", "Vocabulary", "語彙", "Everyday words with audio."),
-      soon("grammar", "Grammar", "文法", "Core sentence patterns."),
+      vocabModule(
+        N5_VOCAB,
+        "N5",
+        "The words you need for JLPT N5 — greetings, family, food, time, everyday verbs and adjectives. Tap a word to hear it, and open its examples to see how it's used in a real sentence.",
+      ),
+      grammarModule(
+        N5_GRAMMAR,
+        "N5",
+        "Grammar is how words fit together into sentences. These are the basic patterns for JLPT N5, from “A is B” to asking, wanting and inviting — each explained in plain English with two examples.",
+      ),
     ],
   },
   {
     id: "n4",
     title: "N4",
     tagline: "Elementary",
-    description: "Everyday conversations and ~300 kanji.",
-    status: "soon",
-    modules: [],
+    description: "Everyday conversations, more kanji and grammar.",
+    status: "available",
+    modules: [
+      {
+        id: "kanji",
+        title: "Kanji",
+        jp: "漢字",
+        description: `${N4_KANJI.items.length} new N4 kanji with readings.`,
+        intro: `${KANJI_INTRO} These are the kanji added at N4 — learn the N5 kanji first.`,
+        status: "available",
+        charSet: N4_KANJI,
+      },
+      vocabModule(
+        N4_VOCAB,
+        "N4",
+        "The next set of everyday words for JLPT N4 — work, travel, feelings, more verbs and describing words. Build on your N5 vocabulary with two example sentences for every word.",
+      ),
+      grammarModule(
+        N4_GRAMMAR,
+        "N4",
+        "N4 grammar lets you say much more: conditions (if/when), giving and receiving, possibility, plans, guesses and polite speech. Each pattern comes with a simple explanation and two examples.",
+      ),
+    ],
   },
   {
     id: "n3",
@@ -94,20 +140,32 @@ export function getLevel(levelId: string): Level | undefined {
   return LEVELS.find((l) => l.id === levelId && l.status === "available");
 }
 
-export function getModule(levelId: string, moduleId: string) {
+/** Any available module (characters, vocabulary or grammar). */
+export function getLearnModule(levelId: string, moduleId: string) {
   const level = getLevel(levelId);
   const mod = level?.modules.find((m) => m.id === moduleId && m.status === "available");
-  if (!level || !mod?.charSet) return undefined;
-  return { level, module: mod, charSet: mod.charSet };
+  return level && mod ? { level, module: mod } : undefined;
 }
 
-/** Every [level, module] pair that has a character set — used for static route generation. */
-export function allCharModules() {
+/** A character module (the only kind with practice and test pages). */
+export function getModule(levelId: string, moduleId: string) {
+  const found = getLearnModule(levelId, moduleId);
+  if (!found?.module.charSet) return undefined;
+  return { ...found, charSet: found.module.charSet };
+}
+
+/** Every available [level, module] pair — used for static route generation. */
+export function allModules() {
   return LEVELS.filter((l) => l.status === "available").flatMap((level) =>
-    level.modules
-      .filter((m) => m.status === "available" && m.charSet)
-      .map((m) => ({ level, module: m, charSet: m.charSet! })),
+    level.modules.filter((m) => m.status === "available").map((m) => ({ level, module: m })),
   );
+}
+
+/** Every [level, module] pair that has a character set. */
+export function allCharModules() {
+  return allModules()
+    .filter(({ module }) => module.charSet)
+    .map(({ level, module }) => ({ level, module, charSet: module.charSet! }));
 }
 
 /** Unique char sets across all levels (a set may be shared by several levels). */
@@ -115,4 +173,12 @@ export function allCharSets(): CharSet[] {
   const seen = new Map<string, CharSet>();
   for (const { charSet } of allCharModules()) seen.set(charSet.id, charSet);
   return [...seen.values()];
+}
+
+export function allVocabSets(): VocabSet[] {
+  return allModules().flatMap(({ module }) => (module.vocabSet ? [module.vocabSet] : []));
+}
+
+export function allGrammarSets(): GrammarSet[] {
+  return allModules().flatMap(({ module }) => (module.grammarSet ? [module.grammarSet] : []));
 }

@@ -9,3 +9,4 @@ public/audio/.tmp/
 
 .vercel
 .env*
+.audio-cache/

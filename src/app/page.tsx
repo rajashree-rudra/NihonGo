@@ -45,7 +45,9 @@ export default function HomePage() {
               <div className="flex items-center justify-between">
                 <span className={cn("text-[11px] font-bold uppercase tracking-[0.18em]", open ? "text-white/60" : "text-muted")}>JLPT</span>
                 {open ? (
-                  <span className="rounded-full bg-shu px-2.5 py-0.5 text-[11px] font-bold uppercase tracking-wider text-white">Start here</span>
+                  <span className="rounded-full bg-shu px-2.5 py-0.5 text-[11px] font-bold uppercase tracking-wider text-white">
+                    {i === 0 ? "Start here" : "Open"}
+                  </span>
                 ) : (
                   <span className="inline-flex items-center gap-1 rounded-full bg-ink/6 px-2.5 py-0.5 text-[11px] font-bold uppercase tracking-wider text-muted">
                     <Lock className="size-3" /> Soon
@@ -78,7 +80,7 @@ export default function HomePage() {
                 "bg-ink shadow-lift ring-1 ring-ink transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_24px_60px_-20px_rgb(29_26_23/0.55)]",
               )}
             >
-              <div className="pointer-events-none absolute -left-10 -top-10 size-40 rounded-full bg-shu/40 blur-3xl" />
+              <div className={cn("pointer-events-none absolute -left-10 -top-10 size-40 rounded-full blur-3xl", i === 0 ? "bg-shu/40" : "bg-ai/60")} />
               {body}
             </Link>
           ) : (

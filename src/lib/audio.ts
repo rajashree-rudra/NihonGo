@@ -1,7 +1,7 @@
 "use client";
 
 import type { CharItem } from "@/data/types";
-import { audioKey, speechText } from "@/data/speech";
+import { audioKey, speechText, textAudioKey } from "@/data/speech";
 import { soundStore } from "./settings";
 
 // ---------- Pronunciation ----------
@@ -31,7 +31,11 @@ function speakWithBrowser(text: string) {
   synth.speak(u);
 }
 
+/** Bumped on every new sound or stop, so a slow fetch can't start playing a stale clip. */
+let token = 0;
+
 function stopAll() {
+  token++;
   playing?.pause();
   playing = null;
   if (typeof window !== "undefined") window.speechSynthesis?.cancel();
@@ -43,11 +47,100 @@ soundStore.subscribe(() => {
 });
 
 /** Speak a character. Does nothing while sound is muted. */
-export async function pronounce(item: CharItem) {
+export function pronounce(item: CharItem) {
+  return play(audioKey(item.char), speechText(item));
+}
+
+// ---------- Words & sentences: packed clips ----------
+// scripts/generate-audio.mjs concatenates word/sentence clips into a few "pack" files and
+// writes index.json (hash → [pack, byte offset, length]). A clip is fetched with an HTTP
+// Range request and played from a Blob URL.
+
+interface PackIndex {
+  packs: string[];
+  clips: Record<string, [pack: number, offset: number, length: number]>;
+}
+
+let packIndex: Promise<PackIndex | null> | null = null;
+const textUrls = new Map<string, Promise<string | null>>();
+
+function loadPackIndex() {
+  packIndex ??= fetch("/audio/packs/index.json")
+    .then((r) => (r.ok ? (r.json() as Promise<PackIndex>) : null))
+    .catch(() => null);
+  return packIndex;
+}
+
+/** Fetch the index ahead of time so the first tap plays quickly. */
+export function warmTextAudio() {
+  if (typeof window !== "undefined") void loadPackIndex();
+}
+
+function textClipUrl(hash: string): Promise<string | null> {
+  let url = textUrls.get(hash);
+  if (!url) {
+    url = (async () => {
+      const index = await loadPackIndex();
+      const entry = index?.clips[hash];
+      if (!entry) return null;
+      const [pack, offset, length] = entry;
+      const res = await fetch(`/audio/packs/${index.packs[pack]}`, { headers: { Range: `bytes=${offset}-${offset + length - 1}` } });
+      if (!res.ok) return null;
+      let bytes = await res.arrayBuffer();
+      // A server that ignores Range sends the whole pack — cut the clip out ourselves.
+      if (res.status === 200) bytes = bytes.slice(offset, offset + length);
+      return URL.createObjectURL(new Blob([bytes], { type: "audio/mpeg" }));
+    })().catch(() => null);
+    url.then((u) => u === null && textUrls.delete(hash));
+    textUrls.set(hash, url);
+  }
+  return url;
+}
+
+// One shared element for packed clips. iOS only lets script start audio on an element that
+// has already played during a tap, so it is "unlocked" with silence on the first touch.
+let textPlayer: HTMLAudioElement | null = null;
+const SILENCE = "data:audio/wav;base64,UklGRiQAAABXQVZFZm10IBAAAAABAAEAQB8AAIA+AAACABAAZGF0YQAAAAA=";
+function sharedPlayer() {
+  textPlayer ??= new Audio();
+  return textPlayer;
+}
+if (typeof window !== "undefined") {
+  // Only while sound is on, so a muted app never touches the audio element.
+  const unlock = () => {
+    if (!soundStore.get()) return;
+    window.removeEventListener("pointerdown", unlock, true);
+    const p = sharedPlayer();
+    if (p.src) return;
+    p.src = SILENCE;
+    p.play().catch(() => {});
+  };
+  window.addEventListener("pointerdown", unlock, true);
+}
+
+/** Speak any Japanese text (a word or sentence) from its pre-generated clip. */
+export async function speak(text: string) {
+  if (typeof window === "undefined" || !soundStore.get()) return;
+  stopAll();
+  const mine = token;
+  const url = await textClipUrl(textAudioKey(text).slice(2));
+  if (mine !== token || !soundStore.get()) return;
+  if (!url) return speakWithBrowser(text);
+  const p = sharedPlayer();
+  p.src = url;
+  playing = p;
+  try {
+    await p.play();
+  } catch (e) {
+    const name = (e as DOMException)?.name;
+    if (name !== "NotAllowedError" && name !== "AbortError" && mine === token) speakWithBrowser(text);
+  }
+}
+
+async function play(key: string, fallbackText: string) {
   if (typeof window === "undefined" || !soundStore.get()) return;
   stopAll();
 
-  const key = audioKey(item.char);
   if (!missing.has(key)) {
     let clip = clips.get(key);
     if (!clip) {
@@ -68,7 +161,7 @@ export async function pronounce(item: CharItem) {
       missing.add(key);
     }
   }
-  if (soundStore.get()) speakWithBrowser(speechText(item));
+  if (soundStore.get()) speakWithBrowser(fallbackText);
 }
 
 /** Warm the cache so the first tap on a character is instant. */

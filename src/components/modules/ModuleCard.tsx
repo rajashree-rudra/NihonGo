@@ -2,18 +2,18 @@
 
 import Link from "next/link";
 import { ArrowUpRight, Lock } from "lucide-react";
-import type { LearnModule } from "@/data/types";
 import { progressStore } from "@/lib/settings";
 import { cn } from "@/components/ui/cn";
 import { ProgressBar } from "@/components/ui/ProgressBar";
+import type { ModuleSummary } from "./summary";
 import { moduleTheme } from "./theme";
 
-export function ModuleCard({ levelId, module, index }: { levelId: string; module: LearnModule; index: number }) {
+export function ModuleCard({ levelId, module, index }: { levelId: string; module: ModuleSummary; index: number }) {
   const theme = moduleTheme(module.id);
   const [progress] = progressStore.useValue();
-  const open = module.status === "available" && module.charSet;
-  const total = module.charSet?.items.length ?? 0;
-  const learned = module.charSet ? (progress[module.charSet.id]?.length ?? 0) : 0;
+  const open = module.status === "available" && module.total > 0;
+  const total = module.total;
+  const learned = module.charSetId ? (progress[module.charSetId]?.length ?? 0) : 0;
 
   const content = (
     <>
@@ -43,7 +43,7 @@ export function ModuleCard({ levelId, module, index }: { levelId: string; module
         <span className="font-jp text-sm text-muted">{module.jp}</span>
       </div>
       <p className="mt-1.5 text-sm leading-relaxed text-ink-soft">{module.description}</p>
-      {open && (
+      {open && module.charSetId && (
         <div className="mt-auto pt-6">
           <div className="mb-2 flex justify-between text-xs font-semibold text-muted">
             <span>Learned</span>
@@ -52,6 +52,13 @@ export function ModuleCard({ levelId, module, index }: { levelId: string; module
             </span>
           </div>
           <ProgressBar value={learned} max={total} tone={theme.bar} />
+        </div>
+      )}
+      {open && !module.charSetId && (
+        <div className="mt-auto pt-6">
+          <span className={cn("inline-flex rounded-full px-3 py-1 text-xs font-bold tabular-nums", theme.soft, theme.text)}>
+            {total} {module.unit}
+          </span>
         </div>
       )}
     </>

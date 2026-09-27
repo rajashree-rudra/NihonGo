@@ -7,6 +7,11 @@ export const strictStore = createPersistentStore("nihongo:strict", true);
 export const practiceGuideStore = createPersistentStore("nihongo:guide:practice", true);
 export const testGuideStore = createPersistentStore("nihongo:guide:test", false);
 
+/** Vocabulary & grammar: whether example sentences start expanded. */
+export const examplesOpenStore = createPersistentStore("nihongo:examples-open", false);
+/** Vocabulary & grammar: show romaji under Japanese text. */
+export const romajiStore = createPersistentStore("nihongo:show-romaji", true);
+
 /** Characters the learner has written correctly at least once, per char set. */
 export const progressStore = createPersistentStore<Record<string, string[]>>("nihongo:progress", {});
 

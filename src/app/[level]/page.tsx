@@ -3,6 +3,7 @@ import { notFound } from "next/navigation";
 import { LEVELS, getLevel } from "@/data/levels";
 import { Breadcrumbs } from "@/components/layout/Breadcrumbs";
 import { ModuleCard } from "@/components/modules/ModuleCard";
+import { summarizeModule } from "@/components/modules/summary";
 
 export const dynamicParams = false;
 
@@ -30,13 +31,17 @@ export default async function LevelPage({ params }: Props) {
             {level.title} · {level.tagline}
           </p>
           <h1 className="mt-2 text-3xl font-extrabold tracking-tight sm:text-5xl">What would you like to learn?</h1>
-          <p className="mt-3 max-w-xl text-ink-soft">Start with hiragana, then katakana, then kanji. Each has a chart, practice and test.</p>
+          <p className="mt-3 max-w-xl text-ink-soft">
+            {level.modules.some((m) => m.id === "hiragana")
+              ? "Start with hiragana, then katakana and kanji — each has a chart, practice and test. Then learn words and grammar."
+              : "Build on N5: new kanji to write, plus the words and grammar you need for this level."}
+          </p>
         </div>
       </div>
 
       <div className="mt-10 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
         {level.modules.map((m, i) => (
-          <ModuleCard key={m.id} levelId={level.id} module={m} index={i} />
+          <ModuleCard key={m.id} levelId={level.id} module={summarizeModule(m)} index={i} />
         ))}
       </div>
     </div>

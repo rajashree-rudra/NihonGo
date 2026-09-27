@@ -1,7 +1,62 @@
 // Helpers that turn compact character tables into CharSets. New levels reuse these —
 // a new kanji file is just `defineKanjiSet("n4-kanji", [...groups])`.
-import type { CharItem, CharSet, ChartRow, ChartSection } from "./types.ts";
+import type { CharItem, CharSet, ChartRow, ChartSection, GrammarCategory, GrammarPoint, GrammarSet, VocabEntry, VocabSet } from "./types.ts";
+import { VOCAB_CATEGORIES } from "./types.ts";
 import { kanaToRomaji } from "./romaji.ts";
+
+// ---------- Vocabulary ----------
+
+/** Short tab labels for the vocabulary categories. */
+const VOCAB_TABS: Record<string, string> = {
+  greetings: "Greetings",
+  people: "People",
+  body: "Body",
+  food: "Food",
+  home: "Home",
+  places: "Places",
+  transport: "Transport",
+  time: "Time",
+  numbers: "Numbers",
+  nature: "Nature",
+  school: "School",
+  shopping: "Shopping",
+  hobbies: "Hobbies",
+  society: "Society",
+  ideas: "Ideas",
+  colors: "Colors",
+  position: "Position",
+  pointing: "Question words",
+  verbs: "Verbs",
+  "i-adj": "い-adj",
+  "na-adj": "な-adj",
+  adverbs: "Adverbs",
+  grammar: "Grammar words",
+  other: "Other",
+};
+
+/** Merge vocabulary parts and group them by category, in the category order of VOCAB_CATEGORIES. */
+export function defineVocabSet(id: string, parts: VocabEntry[][]): VocabSet {
+  const all = parts.flat();
+  const sections = (Object.keys(VOCAB_CATEGORIES) as (keyof typeof VOCAB_CATEGORIES)[])
+    .map((cat) => ({
+      id: cat,
+      title: VOCAB_CATEGORIES[cat].title,
+      jp: VOCAB_CATEGORIES[cat].jp,
+      tab: VOCAB_TABS[cat] ?? VOCAB_CATEGORIES[cat].title,
+      items: all.filter((w) => w.category === cat),
+    }))
+    .filter((s) => s.items.length);
+  return { id, sections, items: sections.flatMap((s) => s.items) };
+}
+
+// ---------- Grammar ----------
+
+export function defineGrammarSet(id: string, categories: GrammarCategory[], points: GrammarPoint[]): GrammarSet {
+  const sections = categories
+    .map((c) => ({ id: c.id, title: c.title, jp: c.jp, tab: c.title.split(/,| [&·] /)[0], items: points.filter((p) => p.category === c.id) }))
+    .filter((s) => s.items.length);
+  return { id, sections, items: sections.flatMap((s) => s.items) };
+}
 
 // ---------- Kana ----------
 

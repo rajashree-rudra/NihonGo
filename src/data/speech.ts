@@ -7,6 +7,24 @@ export function audioKey(char: string): string {
   return [...char].map((c) => c.codePointAt(0)!.toString(16)).join("-");
 }
 
+/**
+ * Audio file key for arbitrary spoken text (vocabulary words, example sentences):
+ * "t/<fnv1a-hash>" → public/audio/t/<hash>.mp3
+ */
+export function textAudioKey(text: string): string {
+  let h = 0x811c9dc5;
+  for (const ch of text.normalize("NFC")) {
+    h ^= ch.codePointAt(0)!;
+    h = Math.imul(h, 0x01000193) >>> 0;
+  }
+  return `t/${h.toString(16).padStart(8, "0")}`;
+}
+
+/** What to say for a vocabulary word: its kana reading, so the voice never misreads the kanji. */
+export function wordSpeech(entry: { word: string; reading: string }): string {
+  return entry.reading.replace(/[～〜]/g, "");
+}
+
 function katakanaToHiragana(s: string): string {
   return s.replace(/[ァ-ヶ]/g, (c) => String.fromCharCode(c.charCodeAt(0) - 0x60));
 }

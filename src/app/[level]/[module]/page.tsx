@@ -1,69 +1,76 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
-import { PenLine, Target, Volume2 } from "lucide-react";
-import { allCharModules, getModule } from "@/data/levels";
-import { Breadcrumbs } from "@/components/layout/Breadcrumbs";
+import { PenLine, Target } from "lucide-react";
+import { allModules, getLearnModule } from "@/data/levels";
 import { ButtonLink } from "@/components/ui/Button";
 import { CharChart } from "@/components/chart/CharChart";
-import { moduleTheme } from "@/components/modules/theme";
-import { cn } from "@/components/ui/cn";
+import { ModuleHeader } from "@/components/modules/ModuleHeader";
+import { GrammarBrowser, VocabBrowser } from "@/components/study/Browsers";
 
 export const dynamicParams = false;
 
 export function generateStaticParams() {
-  return allCharModules().map(({ level, module }) => ({ level: level.id, module: module.id }));
+  return allModules().map(({ level, module }) => ({ level: level.id, module: module.id }));
 }
 
 type Props = { params: Promise<{ level: string; module: string }> };
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { level, module } = await params;
-  const found = getModule(level, module);
-  return { title: found ? `${found.module.title} chart · ${found.level.title}` : undefined };
+  const found = getLearnModule(level, module);
+  if (!found) return {};
+  const kind = found.module.charSet ? "chart" : "list";
+  return { title: `${found.level.title} ${found.module.title}${kind === "chart" ? " chart" : ""}` };
 }
 
-export default async function ChartPage({ params }: Props) {
+export default async function ModulePage({ params }: Props) {
   const { level: levelId, module: moduleId } = await params;
-  const found = getModule(levelId, moduleId);
+  const found = getLearnModule(levelId, moduleId);
   if (!found) notFound();
-  const { level, module, charSet } = found;
-  const theme = moduleTheme(module.id);
+  const { level, module } = found;
   const base = `/${level.id}/${module.id}`;
 
+  if (module.charSet) {
+    return (
+      <div className="mx-auto max-w-6xl px-5 pt-8">
+        <ModuleHeader
+          level={level}
+          module={module}
+          hint={`${module.charSet.items.length} characters · tap any character to hear it`}
+          actions={
+            <>
+              <ButtonLink href={`${base}/practice`} variant="primary" size="lg" icon={<PenLine className="size-5" />} className="flex-1 lg:flex-none">
+                Practice
+              </ButtonLink>
+              <ButtonLink href={`${base}/test`} variant="accent" size="lg" icon={<Target className="size-5" />} className="flex-1 lg:flex-none">
+                Test
+              </ButtonLink>
+            </>
+          }
+        />
+        <div className="mt-10">
+          <CharChart charSet={module.charSet} basePath={base} />
+        </div>
+      </div>
+    );
+  }
+
+  const vocab = module.vocabSet;
+  const grammar = module.grammarSet;
+  if (!vocab && !grammar) notFound();
+
   return (
-    <div className="mx-auto max-w-6xl px-5 pt-8">
-      <Breadcrumbs items={[{ label: "Levels", href: "/" }, { label: `JLPT ${level.title}`, href: `/${level.id}` }, { label: module.title }]} />
-
-      <div className="mt-6 flex flex-col gap-6 rounded-3xl border border-line bg-card p-5 shadow-soft sm:p-8 lg:flex-row lg:items-center">
-        <div className="flex-1">
-          <div className="flex items-center gap-4 sm:gap-5">
-            <span className={cn("grid size-16 shrink-0 place-items-center rounded-2xl font-brush text-4xl font-semibold sm:size-20 sm:text-5xl", theme.soft, theme.text)}>
-              {theme.glyph}
-            </span>
-            <div className="flex flex-wrap items-baseline gap-x-3">
-              <h1 className="text-3xl font-extrabold tracking-tight sm:text-4xl">{module.title}</h1>
-              <span className="font-jp text-lg text-muted">{module.jp}</span>
-            </div>
-          </div>
-          {module.intro && <p className="mt-4 max-w-3xl text-pretty text-[15px] leading-relaxed text-ink-soft sm:text-base">{module.intro}</p>}
-          <p className="mt-2 flex items-center gap-1.5 text-sm text-muted">
-            <Volume2 className="size-4 shrink-0" />
-            {charSet.items.length} characters · tap any character to hear it
-          </p>
-        </div>
-        <div className="flex gap-3">
-          <ButtonLink href={`${base}/practice`} variant="primary" size="lg" icon={<PenLine className="size-5" />} className="flex-1 lg:flex-none">
-            Practice
-          </ButtonLink>
-          <ButtonLink href={`${base}/test`} variant="accent" size="lg" icon={<Target className="size-5" />} className="flex-1 lg:flex-none">
-            Test
-          </ButtonLink>
-        </div>
-      </div>
-
-      <div className="mt-10">
-        <CharChart charSet={charSet} basePath={base} />
-      </div>
+    <div className="mx-auto max-w-6xl px-4 pt-8 sm:px-5">
+      <ModuleHeader
+        level={level}
+        module={module}
+        hint={
+          vocab
+            ? `${vocab.items.length} words · tap the speaker to hear any word or sentence`
+            : `${grammar!.items.length} grammar points · tap the speaker to hear any example`
+        }
+      />
+      <div className="mt-6">{vocab ? <VocabBrowser set={vocab} /> : <GrammarBrowser set={grammar!} />}</div>
     </div>
   );
 }
