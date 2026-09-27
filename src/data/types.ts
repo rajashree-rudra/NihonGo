@@ -11,6 +11,38 @@ export interface CharItem {
   on?: string[];
   /** Kun'yomi in hiragana, okurigana separated by "." (kanji only). */
   kun?: string[];
+  /** JLPT level tag of the character itself, e.g. "N2" (kanji books). */
+  level?: string;
+}
+
+// ---------- Kanji books (grouped kanji with rich details) ----------
+
+export interface KanjiExample {
+  ja: string;
+  kana: string;
+  romaji: string;
+  en: string;
+  /** The highlighted word inside `ja` / `kana`. */
+  hl?: string;
+  hlKana?: string;
+  /** JLPT level of the highlighted word. */
+  level?: string;
+}
+
+export interface KanjiVocab {
+  word: string;
+  reading: string;
+  meaning: string;
+  level?: string;
+  /** One short sentence using the word, with the word in **…**. */
+  example?: string;
+  /** English translation of the example sentence. */
+  exampleEn?: string;
+}
+
+export interface KanjiDetail {
+  examples: KanjiExample[];
+  vocab: KanjiVocab[];
 }
 
 /** A chart row in gojūon position; null marks an empty cell. */
@@ -24,6 +56,9 @@ export interface ChartSection {
   subtitle: string;
   /** Beginner-friendly explanation shown at the start of the section. */
   description?: string;
+  /** Kanji books: group number and what the group's kanji have in common. */
+  number?: number;
+  note?: string;
   /** Present for kana (fixed 5-column grid); kanji sections are a flowing grid of items. */
   rows?: ChartRow[];
   items: CharItem[];
@@ -38,6 +73,8 @@ export interface CharSet {
   sections: ChartSection[];
   /** All items in study order (flattened sections). */
   items: CharItem[];
+  /** Kanji books: examples and extra vocabulary per character. Omitted when sent to practice/test. */
+  details?: Record<string, KanjiDetail>;
 }
 
 // ---------- Vocabulary & grammar ----------
@@ -171,6 +208,8 @@ export interface Level {
   title: string;
   tagline: string;
   description: string;
+  /** One-line intro on the level page. */
+  lead?: string;
   status: Status;
   modules: LearnModule[];
 }

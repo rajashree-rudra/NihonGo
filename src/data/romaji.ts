@@ -25,6 +25,35 @@ export function toHiragana(s: string): string {
   return s.replace(/[ァ-ヶ]/g, (c) => String.fromCharCode(c.charCodeAt(0) - 0x60));
 }
 
+const PARTICLE: Record<string, string> = { は: "wa", へ: "e", を: "o" };
+const TOPIC_COMPOUNDS = ["には", "では", "とは", "からは", "までは", "へは", "のは", "とこは"];
+
+/**
+ * Romanise a spaced kana sentence ("ちきゅう は まるい です。" → "Chikyuu wa marui desu.").
+ * Words must be separated by spaces so particles can be recognised.
+ */
+export function kanaSentenceToRomaji(sentence: string): string {
+  const words = sentence
+    .replace(/\*\*/g, "")
+    .replace(/[、，]/g, " , ")
+    .replace(/[。．]/g, " . ")
+    .replace(/[？]/g, " ? ")
+    .replace(/[！]/g, " ! ")
+    .replace(/[「『]/g, ' "')
+    .replace(/[」』]/g, '" ')
+    .split(/[\s　]+/)
+    .filter(Boolean)
+    .map((w) => {
+      if (/^[,.?!"]+$/.test(w)) return w;
+      if (PARTICLE[w]) return PARTICLE[w];
+      const compound = TOPIC_COMPOUNDS.find((c) => w === c || (w.endsWith(c) && c.length > 2));
+      if (compound && w.endsWith("は")) return kanaToRomaji(w.slice(0, -1)) + "wa";
+      return kanaToRomaji(w);
+    });
+  const text = words.join(" ").replace(/ ([,.?!])/g, "$1").replace(/\s+/g, " ").trim();
+  return text.charAt(0).toUpperCase() + text.slice(1);
+}
+
 export function kanaToRomaji(input: string): string {
   const s = toHiragana(input);
   let out = "";

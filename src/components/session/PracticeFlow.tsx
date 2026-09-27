@@ -16,7 +16,7 @@ interface Props {
 
 /**
  * Practice: characters in chart order, filtered by section tab (?s=basic).
- * ?c=index (from the chart) starts at that character within "All".
+ * ?c=index starts at that character within the opening section (e.g. ?s=g12&c=1).
  */
 export function PracticeFlow({ charSet, title, backHref }: Props) {
   const params = useSearchParams();
@@ -69,7 +69,7 @@ export function PracticeFlow({ charSet, title, backHref }: Props) {
       mode="practice"
       title={title}
       backHref={backHref}
-      startIndex={run === 0 && section === ALL ? start : 0}
+      startIndex={run === 0 ? start : 0}
       onFinish={setFinished}
       tabs={<SectionTabs charSet={charSet} value={section} onChange={changeSection} />}
     />

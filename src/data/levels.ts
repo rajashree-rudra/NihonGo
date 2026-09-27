@@ -6,6 +6,7 @@ import { HIRAGANA } from "./characters/hiragana.ts";
 import { KATAKANA } from "./characters/katakana.ts";
 import { N5_KANJI } from "./characters/n5-kanji.ts";
 import { N4_KANJI } from "./characters/n4-kanji.ts";
+import { N2_KANJI } from "./characters/n2-kanji/index.ts";
 import { N5_VOCAB } from "./vocabulary/n5/index.ts";
 import { N4_VOCAB } from "./vocabulary/n4/index.ts";
 import { N5_GRAMMAR, N4_GRAMMAR } from "./grammar/index.ts";
@@ -87,6 +88,7 @@ export const LEVELS: Level[] = [
     title: "N4",
     tagline: "Elementary",
     description: "Everyday conversations, more kanji and grammar.",
+    lead: "Build on N5: new kanji to write, plus the words and grammar you need for this level.",
     status: "available",
     modules: [
       {
@@ -123,8 +125,34 @@ export const LEVELS: Level[] = [
     title: "N2",
     tagline: "Upper intermediate",
     description: "News, articles and business settings.",
-    status: "soon",
-    modules: [],
+    lead: "445 kanji grouped by look-alike shapes, so you learn to tell them apart — each with example sentences, extra vocabulary and writing practice.",
+    status: "available",
+    modules: [
+      {
+        id: "kanji",
+        title: "Kanji",
+        jp: "漢字",
+        description: `${N2_KANJI.items.length} kanji in ${N2_KANJI.sections.length} look-alike groups.`,
+        intro:
+          "The N2 kanji, grouped by visual similarity so easily confused characters sit side by side. A few N5–N3 kanji are included where they look like an N2 one. Open any kanji for its readings, stroke order, example sentences and more vocabulary.",
+        status: "available",
+        charSet: N2_KANJI,
+      },
+      {
+        id: "vocabulary",
+        title: "Vocabulary",
+        jp: "語彙",
+        description: "N2 words with example sentences.",
+        status: "soon",
+      },
+      {
+        id: "grammar",
+        title: "Grammar",
+        jp: "文法",
+        description: "N2 grammar patterns explained.",
+        status: "soon",
+      },
+    ],
   },
   {
     id: "n1",

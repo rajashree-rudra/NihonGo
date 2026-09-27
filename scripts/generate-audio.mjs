@@ -30,7 +30,10 @@ const PUBLIC_AUDIO = path.join(ROOT, "public/audio");
 const PACK_DIR = path.join(PUBLIC_AUDIO, "packs");
 const CACHE = path.join(ROOT, ".audio-cache");
 const RAW = path.join(CACHE, "raw");
-const SMALL = path.join(CACHE, "32k");
+// Speech stays clear at low bitrates; this keeps the whole site under the free hosting
+// plan's 100 MB upload limit. Raise TEXT_KBPS (32/48) if hosting allows.
+const TEXT_KBPS = process.env.TEXT_KBPS ?? "24";
+const SMALL = path.join(CACHE, `${TEXT_KBPS}k`);
 const TMP = path.join(CACHE, "tmp");
 const run = promisify(execFile);
 const exists = (p) => stat(p).then(() => true, () => false);
@@ -39,7 +42,7 @@ const exists = (p) => stat(p).then(() => true, () => false);
 
 const charJobs = [];
 for (const item of allCharSets().flatMap((s) => s.items)) {
-  charJobs.push({ file: path.join(PUBLIC_AUDIO, `${audioKey(item.char)}.mp3`), text: speechText(item), format: OUTPUT_FORMAT.AUDIO_24KHZ_96KBITRATE_MONO_MP3 });
+  charJobs.push({ file: path.join(PUBLIC_AUDIO, `${audioKey(item.char)}.mp3`), text: speechText(item), format: OUTPUT_FORMAT.AUDIO_24KHZ_48KBITRATE_MONO_MP3 });
 }
 
 /** hash → { text, pack } — the first section a text appears in owns its clip. */
@@ -60,6 +63,16 @@ for (const set of allVocabSets())
 for (const set of allGrammarSets())
   for (const section of set.sections)
     for (const point of section.items) for (const ex of point.examples) addText(ex.ja, `${set.id}-${section.id}`);
+// Kanji books: example sentences and "more vocabulary" sentences, ten groups per pack.
+for (const set of allCharSets().filter((s) => s.details))
+  for (const section of set.sections) {
+    const pack = `${set.id}-${String(Math.ceil((section.number ?? 1) / 10)).padStart(2, "0")}`;
+    for (const k of section.items) {
+      const d = set.details[k.char];
+      for (const ex of d?.examples ?? []) addText(ex.ja, pack);
+      for (const v of d?.vocab ?? []) addText(v.example ? v.example.replace(/\*\*/g, "") : v.reading.split("・")[0], pack);
+    }
+  }
 
 const textJobs = [...textClips].map(([hash, { text }]) => ({
   file: path.join(RAW, `${hash}.mp3`),
@@ -122,12 +135,12 @@ await Promise.all(
       const src = path.join(RAW, `${hash}.mp3`);
       const dst = path.join(SMALL, `${hash}.mp3`);
       if (!(await exists(src)) || (await exists(dst))) continue;
-      await run(ffmpegPath, ["-loglevel", "error", "-y", "-i", src, "-ac", "1", "-ar", "24000", "-b:a", "32k", "-codec:a", "libmp3lame", dst]);
+      await run(ffmpegPath, ["-loglevel", "error", "-y", "-i", src, "-ac", "1", "-ar", "24000", "-b:a", `${TEXT_KBPS}k`, "-codec:a", "libmp3lame", dst]);
       encoded++;
     }
   }),
 );
-console.log(`Re-encoded ${encoded} clips to 32 kbps.`);
+console.log(`Re-encoded ${encoded} clips to ${TEXT_KBPS} kbps.`);
 
 // ---------- Pack ----------
 

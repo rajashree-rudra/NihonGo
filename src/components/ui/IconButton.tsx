@@ -4,19 +4,28 @@ import { cn } from "./cn";
 interface Props extends Omit<ComponentProps<"button">, "children"> {
   label: string;
   active?: boolean;
+  /** Softly highlighted in the theme's cream/gold, with a pulsing ring: "press this next". */
+  attention?: boolean;
+  /** Size classes (default "size-10"). Passed separately so they reliably replace the default. */
+  size?: string;
   children: ReactNode;
 }
 
 /** Square icon button with an accessible label and a hover tooltip. */
-export function IconButton({ label, active, className, children, ...rest }: Props) {
+export function IconButton({ label, active, attention, size = "size-10", className, children, ...rest }: Props) {
   return (
     <button
       type="button"
       aria-label={label}
       aria-pressed={active}
       className={cn(
-        "group relative inline-flex size-10 items-center justify-center rounded-xl transition-all duration-200 active:scale-90 disabled:pointer-events-none disabled:opacity-35",
-        active ? "bg-ink text-white shadow-soft" : "text-ink-soft hover:bg-ink/6 hover:text-ink",
+        "group relative inline-flex items-center justify-center rounded-xl transition-all duration-200 active:scale-90 disabled:pointer-events-none disabled:opacity-35",
+        size,
+        active
+          ? "bg-ink text-white shadow-soft"
+          : attention
+            ? "border border-kin/50 bg-kin-soft text-ink animate-attention hover:border-kin"
+            : "text-ink-soft hover:bg-ink/6 hover:text-ink",
         className,
       )}
       {...rest}

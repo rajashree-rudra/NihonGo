@@ -32,9 +32,7 @@ export default async function LevelPage({ params }: Props) {
           </p>
           <h1 className="mt-2 text-3xl font-extrabold tracking-tight sm:text-5xl">What would you like to learn?</h1>
           <p className="mt-3 max-w-xl text-ink-soft">
-            {level.modules.some((m) => m.id === "hiragana")
-              ? "Start with hiragana, then katakana and kanji — each has a chart, practice and test. Then learn words and grammar."
-              : "Build on N5: new kanji to write, plus the words and grammar you need for this level."}
+            {level.lead ?? "Start with hiragana, then katakana and kanji — each has a chart, practice and test. Then learn words and grammar."}
           </p>
         </div>
       </div>

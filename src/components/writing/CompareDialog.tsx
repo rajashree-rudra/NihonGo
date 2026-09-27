@@ -14,6 +14,8 @@ interface Props {
   passed: boolean;
   onRetry: () => void;
   onNext: () => void;
+  /** Dismissed by clicking outside or pressing Escape: keep the drawing on the pad. */
+  onClose: () => void;
 }
 
 function verdict(score: number, passed: boolean) {
@@ -23,7 +25,7 @@ function verdict(score: number, passed: boolean) {
 }
 
 /** Easy-mode result: the model character and the learner's drawing side by side. */
-export function CompareDialog({ shapes, drawing, score, passed, onRetry, onNext }: Props) {
+export function CompareDialog({ shapes, drawing, score, passed, onRetry, onNext, onClose }: Props) {
   const v = verdict(score, passed);
   const nextRef = useRef<HTMLButtonElement>(null);
   const C = 2 * Math.PI * 26;
@@ -31,15 +33,18 @@ export function CompareDialog({ shapes, drawing, score, passed, onRetry, onNext 
   useEffect(() => {
     nextRef.current?.focus();
     const onKey = (e: KeyboardEvent) => {
-      if (e.key === "Escape") onRetry();
+      if (e.key === "Escape") onClose();
     };
     window.addEventListener("keydown", onKey);
     return () => window.removeEventListener("keydown", onKey);
-  }, [onRetry]);
+  }, [onClose]);
 
   return (
-    <div className="fixed inset-0 z-50 grid place-items-end bg-ink/30 p-3 backdrop-blur-sm animate-fade-up [animation-duration:0.2s] sm:place-items-center">
-      <div role="dialog" aria-modal aria-labelledby="compare-title" className="w-full max-w-lg rounded-[28px] bg-card p-5 shadow-lift sm:p-7">
+    <div
+      onClick={(e) => e.target === e.currentTarget && onClose()}
+      className="fixed inset-0 z-50 grid cursor-pointer place-items-end bg-ink/30 p-3 backdrop-blur-sm animate-fade-up [animation-duration:0.2s] sm:place-items-center"
+    >
+      <div role="dialog" aria-modal aria-labelledby="compare-title" className="w-full max-w-lg cursor-default rounded-[28px] bg-card p-5 shadow-lift sm:p-7">
         <div className="flex items-center gap-4">
           <svg viewBox="0 0 60 60" className="size-16 shrink-0 -rotate-90">
             <circle cx="30" cy="30" r="26" fill="none" stroke="#efe7dc" strokeWidth="6" />

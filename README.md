@@ -27,8 +27,13 @@ All routes are generated from the level registry (`src/data/levels.ts`), so new 
 | Folder | What | Format |
 | --- | --- | --- |
 | `src/data/characters/` | kana tables, kanji per level | `defineKanaSet` / `defineKanjiSet` |
+| `src/data/characters/n2-kanji/` | kanji book: look-alike groups, each kanji with examples + more vocabulary | `defineKanjiBook` + `bk(...)` |
 | `src/data/vocabulary/<level>/part-*.ts` | words: reading, romaji, meaning, part of speech, category, 2 examples | `WORDS: VocabEntry[]` |
 | `src/data/grammar/<level>.ts` | grammar points: pattern, meaning, structure, explanation, notes, 2 examples | `CATEGORIES`, `POINTS` |
+
+A character set built with `defineKanjiBook` (it has `details`) is shown as the grouped,
+collapsible kanji list with per-group practice; other sets use the classic chart. To move N5/N4
+kanji to the list view, rewrite their files in the `bk(...)` format.
 
 Types live in `src/data/types.ts`. Check any content file with:
 

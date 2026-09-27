@@ -2,7 +2,7 @@
 // a new kanji file is just `defineKanjiSet("n4-kanji", [...groups])`.
 import type { CharItem, CharSet, ChartRow, ChartSection, GrammarCategory, GrammarPoint, GrammarSet, VocabEntry, VocabSet } from "./types.ts";
 import { VOCAB_CATEGORIES } from "./types.ts";
-import { kanaToRomaji } from "./romaji.ts";
+import { kanaSentenceToRomaji, kanaToRomaji } from "./romaji.ts";
 
 // ---------- Vocabulary ----------
 
@@ -131,6 +131,82 @@ export function defineKanjiSet(id: string, groups: KanjiGroup[]): CharSet {
     }),
   }));
   return { id, kind: "kanji", sections, items: sections.flatMap((s) => s.items) };
+}
+
+// ---------- Kanji books (N2+): grouped kanji with examples and extra vocabulary ----------
+
+/**
+ * [ja, kana, en, level of the bold word, romaji override] — wrap the target word in **…**.
+ * Romaji is generated from the spaced kana; override it only when a noun looks like a particle (歯 は).
+ */
+export type BookExample = readonly [ja: string, kana: string, en: string, level?: string, romaji?: string];
+/** [word, reading, meaning, level, one Japanese example sentence with the word in **…**, its English translation] */
+export type BookVocab = readonly [word: string, reading: string, meaning: string, level?: string, example?: string, exampleEn?: string];
+
+export interface BookKanji {
+  char: string;
+  level: string;
+  meaning: string;
+  /** On'yomi in katakana, space separated. */
+  on: string;
+  /** Kun'yomi in hiragana, space separated, "." before okurigana. */
+  kun: string;
+  examples: BookExample[];
+  vocab: BookVocab[];
+}
+
+export interface BookGroup {
+  n: number;
+  /** What the group's kanji have in common, e.g. "small curved strokes". */
+  note: string;
+  items: BookKanji[];
+}
+
+/** Compact constructor for a kanji book entry. */
+export function bk(
+  char: string,
+  level: string,
+  meaning: string,
+  on: string,
+  kun: string,
+  examples: BookExample[],
+  vocab: BookVocab[] = [],
+): BookKanji {
+  return { char, level, meaning, on, kun, examples, vocab };
+}
+
+const firstBold = (s: string) => s.match(/\*\*(.+?)\*\*/)?.[1];
+const unbold = (s: string) => s.replace(/\*\*/g, "");
+
+export function defineKanjiBook(id: string, groups: BookGroup[]): CharSet {
+  const details: CharSet["details"] = {};
+  const sections: ChartSection[] = groups.map((g) => ({
+    id: `g${g.n}`,
+    number: g.n,
+    title: `Group ${g.n}`,
+    tab: g.items.map((k) => k.char).join(""),
+    subtitle: g.note,
+    note: g.note,
+    items: g.items.map((k) => {
+      const on = splitReadings(k.on);
+      const kun = splitReadings(k.kun);
+      details[k.char] = {
+        examples: k.examples.map(([ja, kana, en, level, romaji]) => ({
+          ja: unbold(ja),
+          kana: unbold(kana),
+          romaji: romaji ?? kanaSentenceToRomaji(kana),
+          en,
+          hl: firstBold(ja),
+          hlKana: firstBold(kana),
+          level,
+        })),
+        vocab: k.vocab.map(([word, reading, meaning, level, example, exampleEn]) => ({ word, reading, meaning, level, example, exampleEn })),
+      };
+      const primary = kun[0] ?? on[0] ?? "";
+      return { char: k.char, meaning: k.meaning, on, kun, level: k.level, romaji: kanaToRomaji(primary.replace(".", "")) };
+    }),
+  }));
+  return { id, kind: "kanji", sections, items: sections.flatMap((s) => s.items), details };
 }
 
 /** "た.べる" → "た(べる)" for display. */

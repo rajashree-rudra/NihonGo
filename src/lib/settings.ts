@@ -12,6 +12,9 @@ export const examplesOpenStore = createPersistentStore("nihongo:examples-open", 
 /** Vocabulary & grammar: show romaji under Japanese text. */
 export const romajiStore = createPersistentStore("nihongo:show-romaji", true);
 
+/** Kanji list: show the meaning and readings next to each kanji (hide them to self-test). */
+export const kanjiInfoStore = createPersistentStore("nihongo:kanji-info", true);
+
 /** Characters the learner has written correctly at least once, per char set. */
 export const progressStore = createPersistentStore<Record<string, string[]>>("nihongo:progress", {});
 
@@ -21,3 +24,5 @@ export function markLearned(setId: string, char: string) {
     return list.includes(char) ? p : { ...p, [setId]: [...list, char] };
   });
 }
+/** Practice examples: show the Japanese (hide it to translate from the English). */
+export const practiceJapaneseStore = createPersistentStore("nihongo:practice-japanese", true);

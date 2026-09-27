@@ -4,6 +4,7 @@ import { PenLine, Target } from "lucide-react";
 import { allModules, getLearnModule } from "@/data/levels";
 import { ButtonLink } from "@/components/ui/Button";
 import { CharChart } from "@/components/chart/CharChart";
+import { KanjiBook } from "@/components/kanji/KanjiBook";
 import { ModuleHeader } from "@/components/modules/ModuleHeader";
 import { GrammarBrowser, VocabBrowser } from "@/components/study/Browsers";
 
@@ -36,7 +37,11 @@ export default async function ModulePage({ params }: Props) {
         <ModuleHeader
           level={level}
           module={module}
-          hint={`${module.charSet.items.length} characters · tap any character to hear it`}
+          hint={
+            module.charSet.details
+              ? `${module.charSet.items.length} kanji · open a kanji for examples, or tap the speaker to hear it`
+              : `${module.charSet.items.length} characters · tap any character to hear it`
+          }
           actions={
             <>
               <ButtonLink href={`${base}/practice`} variant="primary" size="lg" icon={<PenLine className="size-5" />} className="flex-1 lg:flex-none">
@@ -48,8 +53,9 @@ export default async function ModulePage({ params }: Props) {
             </>
           }
         />
-        <div className="mt-10">
-          <CharChart charSet={module.charSet} basePath={base} />
+        {/* Kanji books (grouped, with examples) use the list view; other sets use the chart. */}
+        <div className={module.charSet.details ? "mt-6" : "mt-10"}>
+          {module.charSet.details ? <KanjiBook charSet={module.charSet} basePath={base} /> : <CharChart charSet={module.charSet} basePath={base} />}
         </div>
       </div>
     );

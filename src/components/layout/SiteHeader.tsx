@@ -7,10 +7,10 @@ import { soundStore } from "@/lib/settings";
 import { IconButton } from "@/components/ui/IconButton";
 import { cn } from "@/components/ui/cn";
 
-export function SoundToggle({ className }: { className?: string }) {
+export function SoundToggle({ className, size }: { className?: string; size?: string }) {
   const [sound, setSound] = soundStore.useValue();
   return (
-    <IconButton className={className} label={sound ? "Sound on" : "Sound off"} onClick={() => setSound(!sound)}>
+    <IconButton size={size} className={className} label={sound ? "Sound on" : "Sound off"} onClick={() => setSound(!sound)}>
       {sound ? <Volume2 className="size-5" /> : <VolumeX className="size-5" />}
     </IconButton>
   );

@@ -18,6 +18,7 @@ import { WritingPad, type StrokeFeedback, type WritingPadHandle } from "@/compon
 import { ResultBurst } from "@/components/writing/ResultBurst";
 import { CompareDialog } from "@/components/writing/CompareDialog";
 import { SoundToggle } from "@/components/layout/SiteHeader";
+import { PracticeExamples } from "@/components/kanji/PracticeExamples";
 import { CharStrip } from "./CharStrip";
 import { PromptCard } from "./PromptCard";
 import type { Result, SessionMode } from "./types";
@@ -27,6 +28,8 @@ const TOOL = "size-8 min-[360px]:size-9 sm:size-10";
 type Phase =
   | { kind: "writing" }
   | { kind: "burst"; ok: boolean; caption: string }
+  /** Practice: the finished character stays on the pad until the learner clears it or moves on. */
+  | { kind: "done"; ok: boolean }
   | { kind: "compare"; score: number; passed: boolean; drawing: Pt[][] };
 
 interface Props {
@@ -80,6 +83,13 @@ export function StudySession({ charSet, queue, mode, title, backHref, startIndex
     else goTo(index + 1);
   }, [index, queue.length, goTo, onFinish]);
 
+  const isLast = index >= queue.length - 1;
+  // On the last character, "next" finishes the session once it has been written.
+  const canNext = !isLast || phase.kind === "done";
+  const next = useCallback(() => {
+    if (canNext) advance();
+  }, [canNext, advance]);
+
   useEffect(() => () => clearTimeout(timer.current), []);
 
   // Size the writing box to the space between its top edge and the bottom of the screen.
@@ -132,7 +142,8 @@ export function StudySession({ charSet, queue, mode, title, backHref, startIndex
     const caption = isTest ? (ok ? "Correct!" : "Needs review") : mistakes === 0 ? "Perfect!" : "Well done!";
     setPhase({ kind: "burst", ok, caption });
     clearTimeout(timer.current);
-    timer.current = setTimeout(advance, ok ? 1350 : 1900);
+    // A test moves on by itself; practice keeps the character so it can be admired or rewritten.
+    timer.current = isTest ? setTimeout(advance, ok ? 1350 : 1900) : setTimeout(() => setPhase({ kind: "done", ok: true }), 650);
   };
 
   const checkEasy = () => {
@@ -173,7 +184,7 @@ export function StudySession({ charSet, queue, mode, title, backHref, startIndex
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => {
       if (phase.kind === "compare" || (e.target as HTMLElement)?.closest("input,textarea")) return;
-      if (e.key === "ArrowRight") goTo(index + 1);
+      if (e.key === "ArrowRight") next();
       else if (e.key === "ArrowLeft") goTo(index - 1);
       else if ((e.ctrlKey || e.metaKey) && e.key === "z") {
         e.preventDefault();
@@ -182,11 +193,17 @@ export function StudySession({ charSet, queue, mode, title, backHref, startIndex
     };
     window.addEventListener("keydown", onKey);
     return () => window.removeEventListener("keydown", onKey);
-  }, [goTo, index, phase.kind]);
+  }, [goTo, next, index, phase.kind]);
 
   const done = Object.keys(results).length;
   const correct = Object.values(results).filter((r) => r === "correct").length;
-  const status = statusText(feedback, strict, total, guide);
+  const status =
+    phase.kind === "done"
+      ? {
+          text: `${phase.ok ? "Written!" : "Not quite."} Clear to write it again, or ${isLast ? "finish" : "go to the next"} →`,
+          tone: phase.ok ? "text-matcha" : "text-shu",
+        }
+      : statusText(feedback, strict, total, guide);
 
   return (
     <div className="mx-auto max-w-5xl px-4 pb-6 pt-2 sm:px-5 sm:pt-5">
@@ -205,7 +222,7 @@ export function StudySession({ charSet, queue, mode, title, backHref, startIndex
           </Badge>
         </div>
         <div className="flex items-center gap-1.5 sm:gap-3">
-          <SoundToggle className="size-9 sm:hidden" />
+          <SoundToggle size="size-9" className="sm:hidden" />
           {isTest && (
             <span className="hidden text-sm font-semibold text-muted sm:inline" aria-label={`${correct} correct of ${done} answered`}>
               <span className="text-matcha">✓ {correct}</span> <span className="ml-1 text-shu">✗ {done - correct}</span>
@@ -235,21 +252,13 @@ export function StudySession({ charSet, queue, mode, title, backHref, startIndex
             strokeCount={data ? total : undefined}
             onSpeak={() => void pronounce(item)}
           />
-          <div className="hidden gap-2 lg:flex">
-            <Button variant="outline" className="flex-1" onClick={() => goTo(index - 1)} disabled={index === 0} icon={<ChevronLeft className="size-4" />}>
-              Previous
-            </Button>
-            <Button variant="outline" className="flex-1" onClick={() => goTo(index + 1)} disabled={index === queue.length - 1}>
-              Next <ChevronRight className="size-4" />
-            </Button>
-          </div>
           <Tips strict={strict} isTest={isTest} />
         </aside>
 
         {/* Width is also capped by the space left below the box's top edge, so the whole box stays on screen. */}
-        <section className="mx-auto w-full min-w-0 max-w-[30rem]">
+        <section className="mx-auto w-full min-w-0 max-w-[30rem] sm:max-w-[35.5rem]">
           {/* Toolbar */}
-          <div className="mb-2 flex items-center justify-between gap-1 sm:mb-3 sm:gap-2">
+          <div className="mb-2 flex items-center gap-1 min-[360px]:gap-1.5 sm:mb-3 sm:gap-2">
             <Segmented
               label="Writing mode"
               value={strict ? "strict" : "easy"}
@@ -259,24 +268,31 @@ export function StudySession({ charSet, queue, mode, title, backHref, startIndex
                 { value: "easy", label: "Easy", icon: <Feather className="size-3.5" />, hint: "Write freely; compare the result" },
               ]}
             />
-            <div className="flex shrink-0 items-center">
-              <IconButton className={TOOL} label={guide ? "Hide guide" : "Show guide"} active={guide} onClick={() => setGuide(!guide)}>
+            <div className="ml-auto flex shrink-0 items-center">
+              <IconButton size={TOOL} label={guide ? "Hide guide" : "Show guide"} active={guide} onClick={() => setGuide(!guide)}>
                 {guide ? <Eye className="size-[18px]" /> : <EyeOff className="size-[18px]" />}
               </IconButton>
-              <IconButton className={TOOL} label="Show stroke order" onClick={() => setDemoKey((k) => k + 1)} disabled={!total}>
+              <IconButton size={TOOL} label="Show stroke order" onClick={() => setDemoKey((k) => k + 1)} disabled={!total}>
                 <Play className="size-[18px]" />
               </IconButton>
-              <IconButton className={TOOL} label="Undo (Ctrl+Z)" onClick={() => padRef.current?.undo()}>
+              <IconButton size={TOOL} label="Undo (Ctrl+Z)" onClick={() => padRef.current?.undo()}>
                 <Undo2 className="size-[18px]" />
               </IconButton>
-              <IconButton className={TOOL} label="Clear" onClick={retry}>
+              <IconButton
+                size={TOOL}
+                label="Clear"
+                onClick={retry}
+                attention={phase.kind === "done"}
+              >
                 <Eraser className="size-[18px]" />
               </IconButton>
             </div>
           </div>
 
-          {/* Pad */}
-          <div ref={padSlot} className="mx-auto" style={{ maxWidth: fitSize ? `clamp(15rem, ${fitSize}px, 30rem)` : undefined }}>
+          {/* Pad, flanked by slim previous / next rails. On phones the rails sit in the page gutter so the pad keeps its width. */}
+          <div className="-mx-3 flex justify-center gap-1 sm:mx-0 sm:gap-2.5">
+          <SideNav dir="prev" label="Previous (←)" onClick={() => goTo(index - 1)} disabled={index === 0} />
+          <div ref={padSlot} className="min-w-0 flex-1" style={{ maxWidth: fitSize ? `clamp(15rem, ${fitSize}px, 30rem)` : undefined }}>
           {error ? (
             <div className="grid aspect-square place-items-center rounded-[28px] border border-dashed border-line-strong bg-card p-8 text-center text-sm text-muted">
               Couldn&apos;t load stroke data. Run <code className="rounded bg-ink/5 px-1">npm run data:strokes</code>.
@@ -304,6 +320,14 @@ export function StudySession({ charSet, queue, mode, title, backHref, startIndex
             />
           )}
           </div>
+          <SideNav
+            dir="next"
+            label={isLast ? "Finish (→)" : isTest ? "Skip (→)" : "Next (→)"}
+            onClick={next}
+            disabled={!canNext}
+            highlight={phase.kind === "done"}
+          />
+          </div>
 
           {/* Status */}
           <div className="mt-2 flex min-h-11 items-center justify-between gap-3 sm:mt-4">
@@ -322,22 +346,40 @@ export function StudySession({ charSet, queue, mode, title, backHref, startIndex
               </Button>
             )}
           </div>
-
-          <div className="mt-2 flex gap-2 lg:hidden">
-            <Button variant="outline" className="flex-1" onClick={() => goTo(index - 1)} disabled={index === 0} icon={<ChevronLeft className="size-4" />}>
-              Previous
-            </Button>
-            <Button variant="outline" className="flex-1" onClick={() => goTo(index + 1)} disabled={index === queue.length - 1}>
-              {isTest ? "Skip" : "Next"} <ChevronRight className="size-4" />
-            </Button>
-          </div>
         </section>
       </div>
 
+      {/* Kanji books: this kanji's example sentences and extra vocabulary */}
+      {charSet.details?.[item.char] && (
+        <div className="mt-6 lg:mt-10">
+          <PracticeExamples item={item} detail={charSet.details[item.char]} hidden={isTest && phase.kind === "writing" && !results[index]} />
+        </div>
+      )}
+
       {phase.kind === "compare" && (
-        <CompareDialog shapes={shapes} drawing={phase.drawing} score={phase.score} passed={phase.passed} onRetry={retry} onNext={advance} />
+        <CompareDialog shapes={shapes} drawing={phase.drawing} score={phase.score} passed={phase.passed} onRetry={retry} onNext={advance} onClose={() => setPhase({ kind: "done", ok: phase.passed })} />
       )}
     </div>
+  );
+}
+
+/** Tall, slim previous/next rail beside the writing pad. */
+function SideNav({ dir, label, onClick, disabled, highlight }: { dir: "prev" | "next"; label: string; onClick: () => void; disabled?: boolean; highlight?: boolean }) {
+  const Icon = dir === "prev" ? ChevronLeft : ChevronRight;
+  return (
+    <button
+      type="button"
+      aria-label={label}
+      title={label}
+      onClick={onClick}
+      disabled={disabled}
+      className={cn(
+        "group flex w-6 shrink-0 items-center justify-center rounded-2xl transition-all duration-200 active:scale-95 disabled:pointer-events-none disabled:opacity-25 sm:w-10",
+        highlight ? "bg-ink/[0.06] text-ink hover:bg-ink hover:text-white" : "bg-ink/[0.035] text-ink-soft hover:bg-ink hover:text-white",
+      )}
+    >
+      <Icon className={cn("size-5 transition-transform sm:size-6", dir === "prev" ? "group-hover:-translate-x-0.5" : "group-hover:translate-x-0.5")} />
+    </button>
   );
 }
 
