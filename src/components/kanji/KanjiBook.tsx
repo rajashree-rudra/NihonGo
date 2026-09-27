@@ -87,6 +87,7 @@ export function KanjiBook({ charSet, basePath }: { charSet: CharSet; basePath: s
         .filter((g) => g.items.length),
     [charSet, level, matches],
   );
+  const mixedLevels = LEVELS.filter((l) => levelCounts[l]).length > 1;
   const groupOptions: GroupOption[] = useMemo(
     () => groups.map((g) => ({ value: g.id, number: g.number, chars: g.items.map((k) => k.char).join(""), note: g.note ?? g.subtitle, count: g.items.length })),
     [groups],
@@ -209,24 +210,29 @@ export function KanjiBook({ charSet, basePath }: { charSet: CharSet; basePath: s
         </div>
 
         <div className="flex items-center gap-2">
-          <div role="radiogroup" aria-label="JLPT level" className="no-scrollbar flex min-w-0 flex-1 gap-1 overflow-x-auto">
-            {[{ id: "all", label: "All", n: charSet.items.length }, ...LEVELS.filter((l) => levelCounts[l]).map((l) => ({ id: l, label: l, n: levelCounts[l] }))].map((o) => (
-              <button
-                key={o.id}
-                type="button"
-                role="radio"
-                aria-checked={level === o.id}
-                onClick={() => setLevel(o.id)}
-                className={cn(
-                  "inline-flex h-8 shrink-0 items-center gap-1.5 rounded-lg px-2.5 text-[13px] font-semibold transition",
-                  level === o.id ? "bg-ink text-white" : "bg-ink/5 text-ink-soft hover:bg-ink/10 hover:text-ink",
-                )}
-              >
-                {o.label}
-                <span className={cn("text-[11px] tabular-nums", level === o.id ? "text-white/60" : "text-muted")}>{o.n}</span>
-              </button>
-            ))}
-          </div>
+          {/* Level filter only when the book mixes levels (N2 includes some N5–N3 kanji). */}
+          {mixedLevels ? (
+            <div role="radiogroup" aria-label="JLPT level" className="no-scrollbar flex min-w-0 flex-1 gap-1 overflow-x-auto">
+              {[{ id: "all", label: "All", n: charSet.items.length }, ...LEVELS.filter((l) => levelCounts[l]).map((l) => ({ id: l, label: l, n: levelCounts[l] }))].map((o) => (
+                <button
+                  key={o.id}
+                  type="button"
+                  role="radio"
+                  aria-checked={level === o.id}
+                  onClick={() => setLevel(o.id)}
+                  className={cn(
+                    "inline-flex h-8 shrink-0 items-center gap-1.5 rounded-lg px-2.5 text-[13px] font-semibold transition",
+                    level === o.id ? "bg-ink text-white" : "bg-ink/5 text-ink-soft hover:bg-ink/10 hover:text-ink",
+                  )}
+                >
+                  {o.label}
+                  <span className={cn("text-[11px] tabular-nums", level === o.id ? "text-white/60" : "text-muted")}>{o.n}</span>
+                </button>
+              ))}
+            </div>
+          ) : (
+            <div className="flex-1" />
+          )}
           <div className="shrink-0">
             <GroupPicker
               options={groupOptions}
@@ -261,6 +267,7 @@ export function KanjiBook({ charSet, basePath }: { charSet: CharSet; basePath: s
               key={g.id}
               id={g.id}
               number={g.number ?? 0}
+              showLevel={mixedLevels}
               note={g.note ?? g.subtitle}
               items={g.items}
               total={g.total}

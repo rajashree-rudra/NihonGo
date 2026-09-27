@@ -140,8 +140,11 @@ export function defineKanjiSet(id: string, groups: KanjiGroup[]): CharSet {
  * Romaji is generated from the spaced kana; override it only when a noun looks like a particle (歯 は).
  */
 export type BookExample = readonly [ja: string, kana: string, en: string, level?: string, romaji?: string];
-/** [word, reading, meaning, level, one Japanese example sentence with the word in **…**, its English translation] */
-export type BookVocab = readonly [word: string, reading: string, meaning: string, level?: string, example?: string, exampleEn?: string];
+/**
+ * [word, reading, meaning, level, one Japanese example sentence with the word in **…**, its English translation,
+ *  its reading as spaced kana with the same **…** (optional; romaji is generated from it)]
+ */
+export type BookVocab = readonly [word: string, reading: string, meaning: string, level?: string, example?: string, exampleEn?: string, exampleKana?: string];
 
 export interface BookKanji {
   char: string;
@@ -200,7 +203,16 @@ export function defineKanjiBook(id: string, groups: BookGroup[]): CharSet {
           hlKana: firstBold(kana),
           level,
         })),
-        vocab: k.vocab.map(([word, reading, meaning, level, example, exampleEn]) => ({ word, reading, meaning, level, example, exampleEn })),
+        vocab: k.vocab.map(([word, reading, meaning, level, example, exampleEn, exampleKana]) => ({
+          word,
+          reading,
+          meaning,
+          level,
+          example,
+          exampleEn,
+          exampleKana,
+          exampleRomaji: exampleKana ? kanaSentenceToRomaji(unbold(exampleKana)) : undefined,
+        })),
       };
       const primary = kun[0] ?? on[0] ?? "";
       return { char: k.char, meaning: k.meaning, on, kun, level: k.level, romaji: kanaToRomaji(primary.replace(".", "")) };

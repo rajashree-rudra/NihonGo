@@ -14,8 +14,11 @@ interface Props<T extends string> {
   onChange: (v: T) => void;
   label: string;
   className?: string;
-  /** Show only icons below the sm breakpoint (labels stay available to screen readers). */
-  compact?: boolean;
+  /**
+   * Show only icons on small screens (labels stay available to screen readers):
+   * true = below the sm breakpoint, "tiny" = only on the narrowest phones (< 360px).
+   */
+  compact?: boolean | "tiny";
 }
 
 export function Segmented<T extends string>({ value, options, onChange, label, className, compact }: Props<T>) {
@@ -33,12 +36,16 @@ export function Segmented<T extends string>({ value, options, onChange, label, c
             onClick={() => onChange(o.value)}
             className={cn(
               "inline-flex h-8 items-center gap-1.5 whitespace-nowrap rounded-lg text-[13px] font-semibold transition-all duration-200",
-              compact ? "w-8 justify-center min-[360px]:w-9 sm:w-auto sm:px-3" : "px-2 min-[360px]:px-2.5 sm:px-3",
+              compact === "tiny"
+                ? "w-8 justify-center min-[360px]:w-auto min-[360px]:px-2.5 sm:px-3"
+                : compact
+                  ? "w-8 justify-center min-[360px]:w-9 sm:w-auto sm:px-3"
+                  : "px-2 min-[360px]:px-2.5 sm:px-3",
               selected ? "bg-card text-ink shadow-soft" : "text-muted hover:text-ink",
             )}
           >
             {o.icon}
-            <span className={compact ? "max-sm:sr-only" : undefined}>{o.label}</span>
+            <span className={compact === "tiny" ? "max-[359px]:sr-only" : compact ? "max-sm:sr-only" : undefined}>{o.label}</span>
           </button>
         );
       })}

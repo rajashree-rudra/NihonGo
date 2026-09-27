@@ -26,3 +26,5 @@ export function markLearned(setId: string, char: string) {
 }
 /** Practice examples: show the Japanese (hide it to translate from the English). */
 export const practiceJapaneseStore = createPersistentStore("nihongo:practice-japanese", true);
+/** Kanji practice: clear the pad by itself after each finished character, ready to write it again. */
+export const autoClearStore = createPersistentStore("nihongo:auto-clear", false);

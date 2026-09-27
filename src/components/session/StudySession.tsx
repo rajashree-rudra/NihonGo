@@ -6,7 +6,7 @@ import { ArrowLeft, ChevronLeft, ChevronRight, Eraser, Eye, EyeOff, Feather, Loa
 import type { CharItem, CharSet } from "@/data/types";
 import { EASY_PASS_SCORE, alignDrawing, similarity, toShape, type Pt } from "@/lib/geometry";
 import { preloadClips, pronounce, sfx } from "@/lib/audio";
-import { markLearned, practiceGuideStore, strictStore, testGuideStore } from "@/lib/settings";
+import { autoClearStore, markLearned, practiceGuideStore, strictStore, testGuideStore } from "@/lib/settings";
 import { useStrokeSet } from "@/lib/strokes";
 import { Badge } from "@/components/ui/Badge";
 import { Button } from "@/components/ui/Button";
@@ -54,6 +54,10 @@ export function StudySession({ charSet, queue, mode, title, backHref, startIndex
   const [demoKey, setDemoKey] = useState(0);
   const [strict, setStrict] = strictStore.useValue();
   const [guide, setGuide] = (isTest ? testGuideStore : practiceGuideStore).useValue();
+  const [autoClearSetting, setAutoClear] = autoClearStore.useValue();
+  // Kanji practice only: a test moves on by itself anyway.
+  const canAutoClear = !isTest && charSet.kind === "kanji";
+  const autoClear = canAutoClear && autoClearSetting;
 
   const padRef = useRef<WritingPadHandle>(null);
   const timer = useRef<ReturnType<typeof setTimeout>>(undefined);
@@ -143,7 +147,9 @@ export function StudySession({ charSet, queue, mode, title, backHref, startIndex
     setPhase({ kind: "burst", ok, caption });
     clearTimeout(timer.current);
     // A test moves on by itself; practice keeps the character so it can be admired or rewritten.
-    timer.current = isTest ? setTimeout(advance, ok ? 1350 : 1900) : setTimeout(() => setPhase({ kind: "done", ok: true }), 650);
+    timer.current = isTest
+      ? setTimeout(advance, ok ? 1350 : 1900)
+      : setTimeout(() => (autoClear ? retry() : setPhase({ kind: "done", ok: true })), 650);
   };
 
   const checkEasy = () => {
@@ -260,6 +266,7 @@ export function StudySession({ charSet, queue, mode, title, backHref, startIndex
           {/* Toolbar */}
           <div className="mb-2 flex items-center gap-1 min-[360px]:gap-1.5 sm:mb-3 sm:gap-2">
             <Segmented
+              compact={canAutoClear ? "tiny" : undefined}
               label="Writing mode"
               value={strict ? "strict" : "easy"}
               onChange={(v) => switchMode(v === "strict")}
@@ -278,6 +285,29 @@ export function StudySession({ charSet, queue, mode, title, backHref, startIndex
               <IconButton size={TOOL} label="Undo (Ctrl+Z)" onClick={() => padRef.current?.undo()}>
                 <Undo2 className="size-[18px]" />
               </IconButton>
+              {canAutoClear && (
+                <IconButton
+                  size={TOOL}
+                  label={autoClear ? "Auto-clear on" : "Auto-clear off"}
+                  active={autoClear}
+                  onClick={() => {
+                    setAutoClear(!autoClear);
+                    if (!autoClear && phase.kind === "done") retry();
+                  }}
+                >
+                  <span className="relative">
+                    <Eraser className="size-[18px]" />
+                    <span
+                      className={cn(
+                        "absolute -right-2 -top-1.5 rounded-[4px] px-[3px] text-[8px] font-extrabold leading-[11px]",
+                        autoClear ? "bg-white text-ink" : "bg-ink text-white",
+                      )}
+                    >
+                      A
+                    </span>
+                  </span>
+                </IconButton>
+              )}
               <IconButton
                 size={TOOL}
                 label="Clear"
@@ -357,7 +387,7 @@ export function StudySession({ charSet, queue, mode, title, backHref, startIndex
       )}
 
       {phase.kind === "compare" && (
-        <CompareDialog shapes={shapes} drawing={phase.drawing} score={phase.score} passed={phase.passed} onRetry={retry} onNext={advance} onClose={() => setPhase({ kind: "done", ok: phase.passed })} />
+        <CompareDialog shapes={shapes} drawing={phase.drawing} score={phase.score} passed={phase.passed} onRetry={retry} onNext={advance} onClose={() => (autoClear ? retry() : setPhase({ kind: "done", ok: phase.passed }))} />
       )}
     </div>
   );

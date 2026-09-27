@@ -4,7 +4,7 @@
 import type { CharSet, GrammarSet, LearnModule, Level, VocabSet } from "./types.ts";
 import { HIRAGANA } from "./characters/hiragana.ts";
 import { KATAKANA } from "./characters/katakana.ts";
-import { N5_KANJI } from "./characters/n5-kanji.ts";
+import { N5_KANJI } from "./characters/n5-kanji/index.ts";
 import { N4_KANJI } from "./characters/n4-kanji.ts";
 import { N2_KANJI } from "./characters/n2-kanji/index.ts";
 import { N5_VOCAB } from "./vocabulary/n5/index.ts";
@@ -66,8 +66,8 @@ export const LEVELS: Level[] = [
         id: "kanji",
         title: "Kanji",
         jp: "漢字",
-        description: `${N5_KANJI.items.length} essential N5 kanji with readings.`,
-        intro: KANJI_INTRO,
+        description: `${N5_KANJI.items.length} essential kanji in ${N5_KANJI.sections.length} themed groups.`,
+        intro: `${KANJI_INTRO} The N5 kanji come in small themed groups — numbers, time, nature, people and more. Open any kanji for its readings, stroke order, example sentences and more vocabulary.`,
         status: "available",
         charSet: N5_KANJI,
       },

@@ -27,7 +27,7 @@ All routes are generated from the level registry (`src/data/levels.ts`), so new 
 | Folder | What | Format |
 | --- | --- | --- |
 | `src/data/characters/` | kana tables, kanji per level | `defineKanaSet` / `defineKanjiSet` |
-| `src/data/characters/n2-kanji/` | kanji book: look-alike groups, each kanji with examples + more vocabulary | `defineKanjiBook` + `bk(...)` |
+| `src/data/characters/n5-kanji/`, `n2-kanji/` | kanji books: N5 in themed groups, N2 in look-alike groups; each kanji with examples + more vocabulary (with English) | `defineKanjiBook` + `bk(...)` |
 | `src/data/vocabulary/<level>/part-*.ts` | words: reading, romaji, meaning, part of speech, category, 2 examples | `WORDS: VocabEntry[]` |
 | `src/data/grammar/<level>.ts` | grammar points: pattern, meaning, structure, explanation, notes, 2 examples | `CATEGORIES`, `POINTS` |
 

@@ -24,6 +24,8 @@ interface Props {
   /** Position of each kanji inside its own group (practice starts there). */
   groupIndexOf: Map<string, number>;
   showInfo: boolean;
+  /** Show each kanji's JLPT badge (only useful when the book mixes levels). */
+  showLevel: boolean;
 }
 
 /** A look-alike group: header with practice + open/close-all, then the kanji rows. */
@@ -71,6 +73,7 @@ export const KanjiGroup = memo(function KanjiGroup(p: Props) {
             item={item}
             number={(p.indexOf.get(item.char) ?? 0) + 1}
             showInfo={p.showInfo}
+            showLevel={p.showLevel}
             detail={p.details[item.char]}
             open={p.openSet.has(item.char)}
             onToggle={p.onToggle}

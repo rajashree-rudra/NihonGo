@@ -15,6 +15,7 @@ interface Props {
   number: number;
   /** Show the meaning and readings beside the kanji (hidden when self-testing). */
   showInfo: boolean;
+  showLevel: boolean;
   detail?: KanjiDetail;
   open: boolean;
   onToggle: (char: string) => void;
@@ -23,7 +24,7 @@ interface Props {
 }
 
 /** One kanji as a list row; the details slide open underneath. */
-export const KanjiRow = memo(function KanjiRow({ item, number, showInfo, detail, open, onToggle, setId, practiceHref }: Props) {
+export const KanjiRow = memo(function KanjiRow({ item, number, showInfo, showLevel, detail, open, onToggle, setId, practiceHref }: Props) {
   // Mount the details the first time the row opens, then keep them for a smooth close.
   const [mounted, setMounted] = useState(open);
   useEffect(() => {
@@ -83,7 +84,7 @@ export const KanjiRow = memo(function KanjiRow({ item, number, showInfo, detail,
           <span className="min-w-0 flex-1">
             <span className="flex items-center gap-2">
               {showInfo && <span className="truncate text-[15px] font-bold text-ink first-letter:uppercase sm:text-base">{item.meaning}</span>}
-              {item.level && <LevelBadge level={item.level} className="shrink-0" />}
+              {showLevel && item.level && <LevelBadge level={item.level} className="shrink-0" />}
             </span>
             {showInfo ? (
               <span lang="ja" className="mt-0.5 block truncate font-jp text-[13px] text-ink-soft">

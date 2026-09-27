@@ -80,6 +80,12 @@ function VocabRow({ v, char, englishOnly }: { v: KanjiVocab; char: string; engli
             <Marked text={v.example} char={char} />
           </p>
         )}
+        {v.exampleKana && (
+          <p lang="ja" className="mt-0.5 font-jp text-[13px] leading-relaxed text-ink-soft">
+            <Marked text={v.exampleKana} char={char} />
+          </p>
+        )}
+        {showRomaji && v.exampleRomaji && <p className="text-[12px] italic text-muted">{v.exampleRomaji}</p>}
         {v.exampleEn && <p className="mt-0.5 text-[13px] text-muted">{v.exampleEn}</p>}
       </div>
       )}

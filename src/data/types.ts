@@ -38,6 +38,9 @@ export interface KanjiVocab {
   example?: string;
   /** English translation of the example sentence. */
   exampleEn?: string;
+  /** Reading of the example as spaced kana, with the word in **…**. */
+  exampleKana?: string;
+  exampleRomaji?: string;
 }
 
 export interface KanjiDetail {
