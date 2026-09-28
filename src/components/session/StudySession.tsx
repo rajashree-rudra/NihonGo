@@ -396,7 +396,7 @@ export function StudySession({ charSet, queue, mode, title, backHref, startIndex
       {/* Kanji books: this kanji's example sentences and extra vocabulary */}
       {charSet.details?.[item.char] && (
         <div className="mt-6 lg:mt-10">
-          <PracticeExamples setId={charSet.id} item={item} detail={charSet.details[item.char]} hidden={!written && (isTest ? !results[index] : hideUnwritten)} />
+          <PracticeExamples setId={charSet.id} item={item} detail={charSet.details[item.char]} hidden={isTest && !written && !results[index]} />
         </div>
       )}
 

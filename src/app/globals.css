@@ -141,3 +141,12 @@
 ::highlight(mark-blue) { background-color: rgb(127 176 234 / 0.45); }
 ::highlight(mark-pink) { background-color: rgb(242 155 184 / 0.5); }
 ::highlight(mark-orange) { background-color: rgb(245 164 91 / 0.5); }
+
+/* Writing pad pointer: a vermilion crosshair ring with a white halo, visible over both the
+   paper and black ink (the default black crosshair disappears on strokes). Hotspot = centre. */
+.pad-cursor {
+  cursor:
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24'%3E%3Cg fill='none' stroke-linecap='round'%3E%3Cpath d='M12 2v6M12 16v6M2 12h6M16 12h6' stroke='white' stroke-width='4'/%3E%3Ccircle cx='12' cy='12' r='3.2' stroke='white' stroke-width='4'/%3E%3Cpath d='M12 2v6M12 16v6M2 12h6M16 12h6' stroke='%23d8452e' stroke-width='2'/%3E%3Ccircle cx='12' cy='12' r='3.2' stroke='%23d8452e' stroke-width='2'/%3E%3C/g%3E%3C/svg%3E")
+      12 12,
+    crosshair;
+}

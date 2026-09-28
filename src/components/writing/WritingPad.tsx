@@ -165,7 +165,7 @@ export function WritingPad({ shapes, strict, showGuide, disabled, demoKey = 0, o
         viewBox={`0 0 ${BOX} ${BOX}`}
         className={cn(
           "size-full touch-none rounded-[28px] border border-line bg-white shadow-lift",
-          locked ? "cursor-default" : "cursor-crosshair",
+          locked ? "cursor-default" : "pad-cursor",
         )}
         onPointerDown={onPointerDown}
         onPointerMove={onPointerMove}
