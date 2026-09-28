@@ -2,11 +2,19 @@
 
 import type { CharItem } from "@/data/types";
 import { audioKey, speechText, textAudioKey } from "@/data/speech";
-import { soundStore } from "./settings";
+import { soundStore, voiceStore, type Voice } from "./settings";
 
 // ---------- Pronunciation ----------
-// Prefers the pre-generated neural voice clips (public/audio); falls back to the
-// best Japanese voice the browser offers if a clip is missing.
+// Prefers the pre-generated neural voice clips; falls back to the best Japanese voice the
+// browser offers if a clip is missing.
+//
+// Clips live in public/audio (female) and public/audio/male. Production serves them from
+// GitHub Pages (NEXT_PUBLIC_AUDIO_BASE, set by the deploy workflow) to stay within the free
+// Vercel plan; locally they come from /audio.
+const AUDIO_BASE = (process.env.NEXT_PUBLIC_AUDIO_BASE || "/audio").replace(/\/$/, "");
+const baseFor = (voice: Voice) => (voice === "male" ? `${AUDIO_BASE}/male` : AUDIO_BASE);
+/** The chosen voice first; the female set (the most complete) as a fallback. */
+const voiceOrder = (): Voice[] => (voiceStore.get() === "male" ? ["male", "female"] : ["female"]);
 
 const clips = new Map<string, HTMLAudioElement>();
 const missing = new Set<string>();
@@ -45,6 +53,7 @@ function stopAll() {
 soundStore.subscribe(() => {
   if (!soundStore.get()) stopAll();
 });
+voiceStore.subscribe(stopAll);
 
 /** Speak a character. Does nothing while sound is muted. */
 export function pronounce(item: CharItem) {
@@ -61,38 +70,51 @@ interface PackIndex {
   clips: Record<string, [pack: number, offset: number, length: number]>;
 }
 
-let packIndex: Promise<PackIndex | null> | null = null;
+const packIndexes = new Map<Voice, Promise<PackIndex | null>>();
 const textUrls = new Map<string, Promise<string | null>>();
 
-function loadPackIndex() {
-  packIndex ??= fetch("/audio/packs/index.json")
-    .then((r) => (r.ok ? (r.json() as Promise<PackIndex>) : null))
-    .catch(() => null);
-  return packIndex;
+function loadPackIndex(voice: Voice) {
+  let index = packIndexes.get(voice);
+  if (!index) {
+    index = fetch(`${baseFor(voice)}/packs/index.json`)
+      .then((r) => (r.ok ? (r.json() as Promise<PackIndex>) : null))
+      .catch(() => null);
+    packIndexes.set(voice, index);
+  }
+  return index;
 }
 
 /** Fetch the index ahead of time so the first tap plays quickly. */
 export function warmTextAudio() {
-  if (typeof window !== "undefined") void loadPackIndex();
+  if (typeof window !== "undefined") void loadPackIndex(voiceStore.get());
 }
 
-function textClipUrl(hash: string): Promise<string | null> {
-  let url = textUrls.get(hash);
+async function textClipUrl(hash: string): Promise<string | null> {
+  for (const voice of voiceOrder()) {
+    const url = await voiceClipUrl(voice, hash);
+    if (url) return url;
+  }
+  return null;
+}
+
+function voiceClipUrl(voice: Voice, hash: string): Promise<string | null> {
+  const key = `${voice}:${hash}`;
+  let url = textUrls.get(key);
   if (!url) {
     url = (async () => {
-      const index = await loadPackIndex();
+      const index = await loadPackIndex(voice);
       const entry = index?.clips[hash];
       if (!entry) return null;
       const [pack, offset, length] = entry;
-      const res = await fetch(`/audio/packs/${index.packs[pack]}`, { headers: { Range: `bytes=${offset}-${offset + length - 1}` } });
+      const res = await fetch(`${baseFor(voice)}/packs/${index.packs[pack]}`, { headers: { Range: `bytes=${offset}-${offset + length - 1}` } });
       if (!res.ok) return null;
       let bytes = await res.arrayBuffer();
       // A server that ignores Range sends the whole pack — cut the clip out ourselves.
       if (res.status === 200) bytes = bytes.slice(offset, offset + length);
       return URL.createObjectURL(new Blob([bytes], { type: "audio/mpeg" }));
     })().catch(() => null);
-    url.then((u) => u === null && textUrls.delete(hash));
-    textUrls.set(hash, url);
+    url.then((u) => u === null && textUrls.delete(key));
+    textUrls.set(key, url);
   }
   return url;
 }
@@ -137,17 +159,26 @@ export async function speak(text: string) {
   }
 }
 
+function charClip(voice: Voice, key: string) {
+  const id = `${voice}:${key}`;
+  let clip = clips.get(id);
+  if (!clip) {
+    clip = new Audio(`${baseFor(voice)}/${key}.mp3`);
+    clip.preload = "auto";
+    clip.addEventListener("error", () => missing.add(id), { once: true });
+    clips.set(id, clip);
+  }
+  return clip;
+}
+
 async function play(key: string, fallbackText: string) {
   if (typeof window === "undefined" || !soundStore.get()) return;
   stopAll();
+  const mine = token;
 
-  if (!missing.has(key)) {
-    let clip = clips.get(key);
-    if (!clip) {
-      clip = new Audio(`/audio/${key}.mp3`);
-      clip.preload = "auto";
-      clips.set(key, clip);
-    }
+  for (const voice of voiceOrder()) {
+    if (missing.has(`${voice}:${key}`)) continue;
+    const clip = charClip(voice, key);
     try {
       clip.currentTime = 0;
       playing = clip;
@@ -156,23 +187,20 @@ async function play(key: string, fallbackText: string) {
     } catch (e) {
       const name = (e as DOMException)?.name;
       // Autoplay blocked (nothing plays until the user interacts) or interrupted by a newer
-      // sound / mute: not a missing clip, so don't fall back to the browser voice.
-      if (name === "NotAllowedError" || name === "AbortError") return;
-      missing.add(key);
+      // sound / mute: not a missing clip, so don't fall back.
+      if (name === "NotAllowedError" || name === "AbortError" || mine !== token) return;
+      missing.add(`${voice}:${key}`);
     }
   }
-  if (soundStore.get()) speakWithBrowser(fallbackText);
+  if (soundStore.get() && mine === token) speakWithBrowser(fallbackText);
 }
 
 /** Warm the cache so the first tap on a character is instant. */
 export function preloadClips(items: CharItem[]) {
+  const voice = voiceStore.get();
   for (const item of items) {
     const key = audioKey(item.char);
-    if (clips.has(key) || missing.has(key)) continue;
-    const clip = new Audio(`/audio/${key}.mp3`);
-    clip.preload = "auto";
-    clip.addEventListener("error", () => missing.add(key), { once: true });
-    clips.set(key, clip);
+    if (!missing.has(`${voice}:${key}`)) charClip(voice, key);
   }
 }
 

@@ -11,13 +11,13 @@ interface Props {
   kind: CharSetKind;
   index: number;
   results: Record<number, Result>;
-  /** Test mode hides characters until they are answered. */
-  hidden: boolean;
+  /** Whether character i may be shown (tests and kanji practice hide what isn't written yet). */
+  isRevealed: (i: number) => boolean;
   onSelect: (i: number) => void;
 }
 
 /** Horizontally scrollable row showing five characters at a time; the current one stays centred. */
-export function CharStrip({ items, kind, index, results, hidden, onSelect }: Props) {
+export function CharStrip({ items, kind, index, results, isRevealed, onSelect }: Props) {
   // Wide items (きゃ …) get three per view, everything else five.
   const perView = items.every((i) => i.char.length > 1) ? 3 : 5;
   const scroller = useRef<HTMLDivElement>(null);
@@ -57,7 +57,7 @@ export function CharStrip({ items, kind, index, results, hidden, onSelect }: Pro
         {items.map((item, i) => {
           const r = results[i];
           const current = i === index;
-          const reveal = !hidden || r;
+          const reveal = isRevealed(i);
           return (
             <button
               key={`${item.char}-${i}`}

@@ -9,7 +9,8 @@
     "start": "next start",
     "typecheck": "tsc --noEmit",
     "data:strokes": "node --experimental-strip-types --no-warnings scripts/fetch-strokes.mjs",
-    "data:audio": "node --experimental-strip-types --no-warnings scripts/generate-audio.mjs"
+    "data:audio": "node --experimental-strip-types --no-warnings scripts/generate-audio.mjs",
+    "data:audio:male": "node --experimental-strip-types --no-warnings scripts/generate-audio.mjs --voice=male"
   },
   "dependencies": {
     "lucide-react": "^1.48.0",

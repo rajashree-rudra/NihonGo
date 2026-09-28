@@ -10,6 +10,7 @@ import { romajiStore } from "@/lib/settings";
 import { ExampleList, emphasize } from "@/components/study/ExampleList";
 import { LevelBadge } from "@/components/ui/LevelBadge";
 import { StrokeOrder } from "./StrokeOrder";
+import { Markable } from "@/components/marker/Markable";
 
 const unbold = (s: string) => s.replace(/\*\*/g, "");
 
@@ -50,8 +51,9 @@ function Readings({ label, list, display }: { label: string; list: string[]; dis
   );
 }
 
-function VocabRow({ v, char, englishOnly }: { v: KanjiVocab; char: string; englishOnly?: boolean }) {
+function VocabRow({ v, char, englishOnly, markId }: { v: KanjiVocab; char: string; englishOnly?: boolean; markId?: string }) {
   const [showRomaji] = romajiStore.useValue();
+  const line = (part: string) => (markId ? `${markId}:${v.word}:${part}` : undefined);
   return (
     <li className="flex gap-3 py-3">
       {englishOnly ? (
@@ -60,7 +62,11 @@ function VocabRow({ v, char, englishOnly }: { v: KanjiVocab; char: string; engli
             <span className="text-[15px] font-bold text-ink first-letter:uppercase">{v.meaning}</span>
             {v.level && <LevelBadge level={v.level} />}
           </div>
-          {v.exampleEn && <p className="mt-0.5 text-[14px] text-ink-soft">{v.exampleEn}</p>}
+          {v.exampleEn && (
+            <Markable markId={line("en")} className="mt-0.5 text-[14px] text-ink-soft">
+              {v.exampleEn}
+            </Markable>
+          )}
         </div>
       ) : (
       <div className="min-w-0 flex-1">
@@ -74,19 +80,29 @@ function VocabRow({ v, char, englishOnly }: { v: KanjiVocab; char: string; engli
           {showRomaji && <span className="text-[12px] italic text-muted">{kanaToRomaji(v.reading.split("・")[0])}</span>}
           {v.level && <LevelBadge level={v.level} />}
         </div>
-        <p className="mt-0.5 text-[14px] text-ink-soft">{v.meaning}</p>
+        <Markable markId={line("meaning")} className="mt-0.5 text-[14px] text-ink-soft">
+          {v.meaning}
+        </Markable>
         {v.example && (
-          <p lang="ja" className="mt-1 font-jp text-[14px] text-ink">
+          <Markable lang="ja" markId={line("ja")} className="mt-1 font-jp text-[14px] text-ink">
             <Marked text={v.example} char={char} />
-          </p>
+          </Markable>
         )}
         {v.exampleKana && (
-          <p lang="ja" className="mt-0.5 font-jp text-[13px] leading-relaxed text-ink-soft">
+          <Markable lang="ja" markId={line("kana")} className="mt-0.5 font-jp text-[13px] leading-relaxed text-ink-soft">
             <Marked text={v.exampleKana} char={char} />
-          </p>
+          </Markable>
         )}
-        {showRomaji && v.exampleRomaji && <p className="text-[12px] italic text-muted">{v.exampleRomaji}</p>}
-        {v.exampleEn && <p className="mt-0.5 text-[13px] text-muted">{v.exampleEn}</p>}
+        {showRomaji && v.exampleRomaji && (
+          <Markable markId={line("ro")} className="text-[12px] italic text-muted">
+            {v.exampleRomaji}
+          </Markable>
+        )}
+        {v.exampleEn && (
+          <Markable markId={line("en")} className="mt-0.5 text-[13px] text-muted">
+            {v.exampleEn}
+          </Markable>
+        )}
       </div>
       )}
       <button
@@ -102,11 +118,11 @@ function VocabRow({ v, char, englishOnly }: { v: KanjiVocab; char: string; engli
 }
 
 /** "More vocabulary" words with meaning, level, example and audio. */
-export function VocabList({ vocab, char, englishOnly }: { vocab: KanjiVocab[]; char: string; englishOnly?: boolean }) {
+export function VocabList({ vocab, char, englishOnly, markId }: { vocab: KanjiVocab[]; char: string; englishOnly?: boolean; markId?: string }) {
   return (
     <ul className="divide-y divide-line/70 rounded-2xl border border-line bg-card px-3 sm:px-4">
       {vocab.map((v) => (
-        <VocabRow key={v.word} v={v} char={char} englishOnly={englishOnly} />
+        <VocabRow key={v.word} v={v} char={char} englishOnly={englishOnly} markId={markId} />
       ))}
     </ul>
   );
@@ -149,7 +165,7 @@ export function KanjiDetails({ item, detail, setId, practiceHref }: Props) {
         {!!detail.examples.length && (
           <section>
             <h4 className="mb-2 text-[11px] font-bold uppercase tracking-[0.14em] text-muted">Examples</h4>
-            <ExampleList examples={detail.examples} emphasis={item.char} />
+            <ExampleList examples={detail.examples} emphasis={item.char} markId={`${setId}:${item.char}:ex`} />
           </section>
         )}
 
@@ -158,7 +174,7 @@ export function KanjiDetails({ item, detail, setId, practiceHref }: Props) {
             <h4 className="mb-1 text-[11px] font-bold uppercase tracking-[0.14em] text-muted">
               More vocabulary <span className="text-muted/70">· {detail.vocab.length}</span>
             </h4>
-            <VocabList vocab={detail.vocab} char={item.char} />
+            <VocabList vocab={detail.vocab} char={item.char} markId={`${setId}:${item.char}:v`} />
           </section>
         )}
       </div>

@@ -11,7 +11,7 @@ import { VocabList } from "./KanjiDetails";
  * Examples and extra vocabulary for the kanji being written, shown under the writing box.
  * In a test they stay hidden until the kanji is answered — they would give it away.
  */
-export function PracticeExamples({ item, detail, hidden }: { item: CharItem; detail: KanjiDetail; hidden: boolean }) {
+export function PracticeExamples({ item, detail, hidden, setId }: { item: CharItem; detail: KanjiDetail; hidden: boolean; setId: string }) {
   const [showJa, setShowJa] = practiceJapaneseStore.useValue();
   if (!detail.examples.length && !detail.vocab.length) return null;
 
@@ -54,13 +54,13 @@ export function PracticeExamples({ item, detail, hidden }: { item: CharItem; det
           {!!detail.examples.length && (
             <div className="min-w-0">
               <h3 className="mb-2 text-[11px] font-bold uppercase tracking-[0.14em] text-muted">Example sentences</h3>
-              <ExampleList examples={detail.examples} emphasis={item.char} englishOnly={!showJa} />
+              <ExampleList examples={detail.examples} emphasis={item.char} englishOnly={!showJa} markId={`${setId}:${item.char}:ex`} />
             </div>
           )}
           {!!detail.vocab.length && (
             <div className="min-w-0">
               <h3 className="mb-2 text-[11px] font-bold uppercase tracking-[0.14em] text-muted">More vocabulary</h3>
-              <VocabList vocab={detail.vocab} char={item.char} englishOnly={!showJa} />
+              <VocabList vocab={detail.vocab} char={item.char} englishOnly={!showJa} markId={`${setId}:${item.char}:v`} />
             </div>
           )}
         </div>

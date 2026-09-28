@@ -136,10 +136,11 @@ export function defineKanjiSet(id: string, groups: KanjiGroup[]): CharSet {
 // ---------- Kanji books (N2+): grouped kanji with examples and extra vocabulary ----------
 
 /**
- * [ja, kana, en, level of the bold word, romaji override] — wrap the target word in **…**.
+ * [ja, kana, en, level of the bold word, romaji override, reading it demonstrates (as written in on/kun)]
+ * — wrap the target word in **…**.
  * Romaji is generated from the spaced kana; override it only when a noun looks like a particle (歯 は).
  */
-export type BookExample = readonly [ja: string, kana: string, en: string, level?: string, romaji?: string];
+export type BookExample = readonly [ja: string, kana: string, en: string, level?: string, romaji?: string, reading?: string];
 /**
  * [word, reading, meaning, level, one Japanese example sentence with the word in **…**, its English translation,
  *  its reading as spaced kana with the same **…** (optional; romaji is generated from it)]
@@ -194,7 +195,7 @@ export function defineKanjiBook(id: string, groups: BookGroup[]): CharSet {
       const on = splitReadings(k.on);
       const kun = splitReadings(k.kun);
       details[k.char] = {
-        examples: k.examples.map(([ja, kana, en, level, romaji]) => ({
+        examples: k.examples.map(([ja, kana, en, level, romaji, reading]) => ({
           ja: unbold(ja),
           kana: unbold(kana),
           romaji: romaji ?? kanaSentenceToRomaji(kana),
@@ -202,6 +203,8 @@ export function defineKanjiBook(id: string, groups: BookGroup[]): CharSet {
           hl: firstBold(ja),
           hlKana: firstBold(kana),
           level,
+          reading,
+          readingKind: reading ? (on.includes(reading) ? ("on" as const) : ("kun" as const)) : undefined,
         })),
         vocab: k.vocab.map(([word, reading, meaning, level, example, exampleEn, exampleKana]) => ({
           word,

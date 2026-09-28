@@ -1,6 +1,12 @@
-# Deploys to Vercel production on every push to the publish/main branch.
-# Needs three repository secrets: VERCEL_TOKEN, VERCEL_ORG_ID, VERCEL_PROJECT_ID.
-name: Deploy to Vercel
+# Deploys on every push to the publish/main branch:
+#   1. audio  → GitHub Pages (free; both voices are too big for the Vercel Hobby upload limit)
+#   2. site   → Vercel production, built to play audio from the GitHub Pages URL
+#
+# One-time setup:
+#   - Repository secrets: VERCEL_TOKEN, VERCEL_ORG_ID, VERCEL_PROJECT_ID.
+#   - Settings → Pages → Build and deployment → Source: "GitHub Actions".
+#   - Settings → Environments → github-pages → Deployment branches: allow "publish/main".
+name: Deploy
 
 on:
   push:
@@ -9,19 +15,52 @@ on:
 
 # Only one production deploy at a time; a newer push replaces a queued one.
 concurrency:
-  group: vercel-production
+  group: production
   cancel-in-progress: true
 
-env:
-  VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
-  VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
-
 jobs:
-  deploy:
+  audio:
+    name: Audio → GitHub Pages
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.pages.outputs.page_url }}
+    outputs:
+      url: ${{ steps.pages.outputs.page_url }}
+    steps:
+      - uses: actions/checkout@v5
+
+      - name: Collect audio
+        run: |
+          mkdir -p _site
+          cp -r public/audio _site/audio
+          touch _site/.nojekyll
+          du -sh _site
+
+      - uses: actions/upload-pages-artifact@v4
+        with:
+          path: _site
+
+      - name: Publish to GitHub Pages
+        id: pages
+        uses: actions/deploy-pages@v4
+
+  site:
+    name: Site → Vercel
+    needs: audio
     runs-on: ubuntu-latest
     environment:
       name: production
       url: ${{ steps.deploy.outputs.url }}
+    env:
+      VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
+      VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
+      # e.g. https://<user>.github.io/<repo>/audio — read by src/lib/audio.ts at build time.
+      NEXT_PUBLIC_AUDIO_BASE: ${{ needs.audio.outputs.url }}audio
     steps:
       - name: Check Vercel secrets
         env:
@@ -48,6 +87,12 @@ jobs:
 
       - name: Type check
         run: npm run typecheck
+
+      # Audio is served from GitHub Pages; leaving it out keeps the Vercel upload small.
+      - name: Drop audio from the Vercel build
+        run: |
+          echo "Audio base: $NEXT_PUBLIC_AUDIO_BASE"
+          rm -rf public/audio
 
       - name: Install Vercel CLI
         run: npm install --global vercel@latest

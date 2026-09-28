@@ -71,7 +71,9 @@ export function PracticeFlow({ charSet, title, backHref }: Props) {
       backHref={backHref}
       startIndex={run === 0 ? start : 0}
       onFinish={setFinished}
-      tabs={<SectionTabs charSet={charSet} value={section} onChange={changeSection} />}
+      tabs={(current) => (
+        <SectionTabs charSet={charSet} value={section} onChange={changeSection} current={current} concealChars={charSet.kind === "kanji"} />
+      )}
     />
   );
 }

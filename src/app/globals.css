@@ -134,3 +134,10 @@
     transition-duration: 0.001ms !important;
   }
 }
+
+/* Highlighter marks (src/lib/marks.ts) — painted with the CSS Custom Highlight API. */
+::highlight(mark-yellow) { background-color: rgb(247 209 74 / 0.5); }
+::highlight(mark-green) { background-color: rgb(124 201 143 / 0.45); }
+::highlight(mark-blue) { background-color: rgb(127 176 234 / 0.45); }
+::highlight(mark-pink) { background-color: rgb(242 155 184 / 0.5); }
+::highlight(mark-orange) { background-color: rgb(245 164 91 / 0.5); }

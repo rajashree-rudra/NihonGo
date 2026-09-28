@@ -2,8 +2,8 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Volume2, VolumeX } from "lucide-react";
-import { soundStore } from "@/lib/settings";
+import { Mars, Venus, Volume2, VolumeX } from "lucide-react";
+import { soundStore, voiceStore, type Voice } from "@/lib/settings";
 import { IconButton } from "@/components/ui/IconButton";
 import { cn } from "@/components/ui/cn";
 
@@ -13,6 +13,42 @@ export function SoundToggle({ className, size }: { className?: string; size?: st
     <IconButton size={size} className={className} label={sound ? "Sound on" : "Sound off"} onClick={() => setSound(!sound)}>
       {sound ? <Volume2 className="size-5" /> : <VolumeX className="size-5" />}
     </IconButton>
+  );
+}
+
+const VOICES: { id: Voice; label: string; Icon: typeof Venus }[] = [
+  { id: "female", label: "Female", Icon: Venus },
+  { id: "male", label: "Male", Icon: Mars },
+];
+
+/** Female / male voice for every clip in the app (remembered on this device). */
+export function VoiceToggle({ compact, className }: { compact?: boolean; className?: string }) {
+  const [voice, setVoice] = voiceStore.useValue();
+  return (
+    <div role="radiogroup" aria-label="Voice" className={cn("inline-flex shrink-0 rounded-xl bg-ink/5 p-0.5", className)}>
+      {VOICES.map(({ id, label, Icon }) => {
+        const on = voice === id;
+        return (
+          <button
+            key={id}
+            type="button"
+            role="radio"
+            aria-checked={on}
+            aria-label={`${label} voice`}
+            title={`${label} voice`}
+            onClick={() => setVoice(id)}
+            className={cn(
+              "inline-flex h-8 items-center justify-center gap-1 rounded-[10px] text-[12px] font-bold transition-all",
+              compact ? "w-8" : "w-8 sm:w-auto sm:px-2.5",
+              on ? (id === "female" ? "bg-card text-shu shadow-soft" : "bg-card text-ai shadow-soft") : "text-muted hover:text-ink",
+            )}
+          >
+            <Icon className="size-4" strokeWidth={2.4} />
+            {!compact && <span className="max-sm:sr-only">{label}</span>}
+          </button>
+        );
+      })}
+    </div>
   );
 }
 
@@ -30,7 +66,10 @@ export function SiteHeader() {
             Nihon<span className="text-shu">Go</span>
           </span>
         </Link>
-        <SoundToggle />
+        <div className="flex items-center gap-2">
+          <VoiceToggle />
+          <SoundToggle />
+        </div>
       </div>
     </header>
   );

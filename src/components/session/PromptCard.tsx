@@ -11,16 +11,15 @@ interface Props {
   item: CharItem;
   kind: CharSetKind;
   mode: SessionMode;
-  /** Test mode: whether the answer may be shown yet. */
-  revealed: boolean;
+  /** Hide the character itself (a test, or kanji practice before it is written). */
+  hideChar: boolean;
   strokeCount?: number;
   onSpeak: () => void;
 }
 
-/** What to write: the character itself in practice, only its sound/meaning in a test. */
-export function PromptCard({ item, kind, mode, revealed, strokeCount, onSpeak }: Props) {
+/** What to write: the character itself, or only its sound/meaning while it is hidden. */
+export function PromptCard({ item, kind, mode, hideChar, strokeCount, onSpeak }: Props) {
   const isKanji = kind === "kanji";
-  const hideChar = mode === "test" && !revealed;
 
   return (
     <div className="flex items-center gap-3.5 rounded-3xl border border-line bg-card p-2.5 shadow-soft sm:gap-5 sm:p-4 lg:flex-col lg:items-stretch lg:p-6">
@@ -38,7 +37,7 @@ export function PromptCard({ item, kind, mode, revealed, strokeCount, onSpeak }:
         >
           {hideChar ? "?" : item.char}
         </span>
-        {mode === "test" && (
+        {(mode === "test" || hideChar) && (
           <span className="absolute left-2 top-2 rounded-md bg-shu-soft px-1.5 py-0.5 text-[10px] font-bold uppercase tracking-wider text-shu">
             Write
           </span>

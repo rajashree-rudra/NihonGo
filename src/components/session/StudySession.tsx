@@ -17,7 +17,7 @@ import { cn } from "@/components/ui/cn";
 import { WritingPad, type StrokeFeedback, type WritingPadHandle } from "@/components/writing/WritingPad";
 import { ResultBurst } from "@/components/writing/ResultBurst";
 import { CompareDialog } from "@/components/writing/CompareDialog";
-import { SoundToggle } from "@/components/layout/SiteHeader";
+import { SoundToggle, VoiceToggle } from "@/components/layout/SiteHeader";
 import { PracticeExamples } from "@/components/kanji/PracticeExamples";
 import { CharStrip } from "./CharStrip";
 import { PromptCard } from "./PromptCard";
@@ -40,8 +40,8 @@ interface Props {
   backHref: string;
   startIndex?: number;
   onFinish: (results: Record<number, Result>) => void;
-  /** Section tabs shown under the top bar. */
-  tabs?: ReactNode;
+  /** Section picker shown under the top bar; a function gets the current character. */
+  tabs?: ReactNode | ((current: CharItem) => ReactNode);
 }
 
 export function StudySession({ charSet, queue, mode, title, backHref, startIndex = 0, onFinish, tabs }: Props) {
@@ -57,6 +57,8 @@ export function StudySession({ charSet, queue, mode, title, backHref, startIndex
   const [autoClearSetting, setAutoClear] = autoClearStore.useValue();
   // Kanji practice only: a test moves on by itself anyway.
   const canAutoClear = !isTest && charSet.kind === "kanji";
+  // Kanji practice: the current and upcoming kanji stay hidden until written (again after Clear).
+  const hideUnwritten = !isTest && charSet.kind === "kanji";
   const autoClear = canAutoClear && autoClearSetting;
 
   const padRef = useRef<WritingPadHandle>(null);
@@ -66,6 +68,8 @@ export function StudySession({ charSet, queue, mode, title, backHref, startIndex
 
   const { data, error } = useStrokeSet(charSet.id);
   const item = queue[index];
+  /** The current character has been written (tick, result or finished drawing on the pad). */
+  const written = phase.kind !== "writing";
   const shapes = useMemo(() => (data?.[item.char] ?? []).map(toShape), [data, item.char]);
   const total = shapes.length;
 
@@ -97,14 +101,16 @@ export function StudySession({ charSet, queue, mode, title, backHref, startIndex
   useEffect(() => () => clearTimeout(timer.current), []);
 
   // Size the writing box to the space between its top edge and the bottom of the screen.
+  // Uses the *small* viewport height (100svh): on phones the browser bar shows and hides while
+  // scrolling, which changes innerHeight and used to make the box grow and shrink.
   const padSlot = useRef<HTMLDivElement>(null);
-  const [fitSize, setFitSize] = useState<number | null>(null);
+  const [padTop, setPadTop] = useState<number | null>(null);
   useLayoutEffect(() => {
     const fit = () => {
       const el = padSlot.current;
       if (!el) return;
-      const top = el.getBoundingClientRect().top + window.scrollY;
-      setFitSize(Math.round(window.innerHeight - top - 12));
+      const top = Math.round(el.getBoundingClientRect().top + window.scrollY);
+      setPadTop((prev) => (prev !== null && Math.abs(prev - top) < 3 ? prev : top));
     };
     fit();
     const ro = new ResizeObserver(fit);
@@ -228,6 +234,7 @@ export function StudySession({ charSet, queue, mode, title, backHref, startIndex
           </Badge>
         </div>
         <div className="flex items-center gap-1.5 sm:gap-3">
+          <VoiceToggle compact className="max-[359px]:hidden sm:hidden" />
           <SoundToggle size="size-9" className="sm:hidden" />
           {isTest && (
             <span className="hidden text-sm font-semibold text-muted sm:inline" aria-label={`${correct} correct of ${done} answered`}>
@@ -240,11 +247,18 @@ export function StudySession({ charSet, queue, mode, title, backHref, startIndex
           </span>
         </div>
       </div>
-      {tabs && <div className="mt-2 sm:mt-4">{tabs}</div>}
+      {tabs && <div className="mt-2 sm:mt-4">{typeof tabs === "function" ? tabs(item) : tabs}</div>}
       <ProgressBar value={index + 1} max={queue.length} className="mt-3 sm:mt-4" tone={isTest ? "bg-shu" : "bg-ai"} />
 
       <div className="mt-1 sm:mt-3">
-        <CharStrip items={queue} kind={charSet.kind} index={index} results={results} hidden={isTest} onSelect={goTo} />
+        <CharStrip
+          items={queue}
+          kind={charSet.kind}
+          index={index}
+          results={results}
+          isRevealed={(i) => (isTest ? !!results[i] : !hideUnwritten || i < index || (i === index && written))}
+          onSelect={goTo}
+        />
       </div>
 
       {/* minmax(0,1fr): let columns shrink below their content's min width so nothing overflows on phones */}
@@ -254,7 +268,7 @@ export function StudySession({ charSet, queue, mode, title, backHref, startIndex
             item={item}
             kind={charSet.kind}
             mode={mode}
-            revealed={phase.kind !== "writing"}
+            hideChar={(isTest || hideUnwritten) && !written}
             strokeCount={data ? total : undefined}
             onSpeak={() => void pronounce(item)}
           />
@@ -322,7 +336,7 @@ export function StudySession({ charSet, queue, mode, title, backHref, startIndex
           {/* Pad, flanked by slim previous / next rails. On phones the rails sit in the page gutter so the pad keeps its width. */}
           <div className="-mx-3 flex justify-center gap-1 sm:mx-0 sm:gap-2.5">
           <SideNav dir="prev" label="Previous (←)" onClick={() => goTo(index - 1)} disabled={index === 0} />
-          <div ref={padSlot} className="min-w-0 flex-1" style={{ maxWidth: fitSize ? `clamp(15rem, ${fitSize}px, 30rem)` : undefined }}>
+          <div ref={padSlot} className="min-w-0 flex-1" style={{ maxWidth: padTop !== null ? `clamp(15rem, calc(100svh - ${padTop + 12}px), 30rem)` : undefined }}>
           {error ? (
             <div className="grid aspect-square place-items-center rounded-[28px] border border-dashed border-line-strong bg-card p-8 text-center text-sm text-muted">
               Couldn&apos;t load stroke data. Run <code className="rounded bg-ink/5 px-1">npm run data:strokes</code>.
@@ -382,7 +396,7 @@ export function StudySession({ charSet, queue, mode, title, backHref, startIndex
       {/* Kanji books: this kanji's example sentences and extra vocabulary */}
       {charSet.details?.[item.char] && (
         <div className="mt-6 lg:mt-10">
-          <PracticeExamples item={item} detail={charSet.details[item.char]} hidden={isTest && phase.kind === "writing" && !results[index]} />
+          <PracticeExamples setId={charSet.id} item={item} detail={charSet.details[item.char]} hidden={!written && (isTest ? !results[index] : hideUnwritten)} />
         </div>
       )}
 

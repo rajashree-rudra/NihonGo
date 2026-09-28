@@ -5,7 +5,7 @@ import type { CharSet, GrammarSet, LearnModule, Level, VocabSet } from "./types.
 import { HIRAGANA } from "./characters/hiragana.ts";
 import { KATAKANA } from "./characters/katakana.ts";
 import { N5_KANJI } from "./characters/n5-kanji/index.ts";
-import { N4_KANJI } from "./characters/n4-kanji.ts";
+import { N4_KANJI } from "./characters/n4-kanji/index.ts";
 import { N2_KANJI } from "./characters/n2-kanji/index.ts";
 import { N5_VOCAB } from "./vocabulary/n5/index.ts";
 import { N4_VOCAB } from "./vocabulary/n4/index.ts";
@@ -95,8 +95,8 @@ export const LEVELS: Level[] = [
         id: "kanji",
         title: "Kanji",
         jp: "漢字",
-        description: `${N4_KANJI.items.length} new N4 kanji with readings.`,
-        intro: `${KANJI_INTRO} These are the kanji added at N4 — learn the N5 kanji first.`,
+        description: `${N4_KANJI.items.length} new kanji in ${N4_KANJI.sections.length} themed groups.`,
+        intro: `${KANJI_INTRO} These are the kanji added at N4 — learn the N5 kanji first. They come in small themed groups; every reading has an example sentence, and each kanji has its stroke order and more vocabulary.`,
         status: "available",
         charSet: N4_KANJI,
       },

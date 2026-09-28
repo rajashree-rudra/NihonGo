@@ -86,7 +86,7 @@ export const VocabCard = memo(function VocabCard({ entry }: { entry: VocabEntry 
       </div>
       <div className="mt-2 border-t border-line/70 pt-1.5">
         <ExamplesToggle count={entry.examples.length}>
-          <ExampleList examples={entry.examples} target={highlightTarget(entry)} />
+          <ExampleList examples={entry.examples} target={highlightTarget(entry)} markId={`vocab:${entry.word}:${entry.reading}`} />
         </ExamplesToggle>
       </div>
     </article>

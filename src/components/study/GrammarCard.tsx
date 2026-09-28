@@ -44,7 +44,7 @@ export const GrammarCard = memo(function GrammarCard({ point, index }: { point: 
 
       <div className="mt-3 border-t border-line/70 pt-1.5">
         <ExamplesToggle count={point.examples.length}>
-          <ExampleList examples={point.examples} />
+          <ExampleList examples={point.examples} markId={`grammar:${point.id}`} />
         </ExamplesToggle>
       </div>
     </article>

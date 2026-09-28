@@ -1,9 +1,12 @@
-// Pre-generates natural Japanese audio with Microsoft's neural "Nanami" voice
-// (free Edge Read Aloud service).
+// Pre-generates natural Japanese audio with Microsoft's neural voices (free Edge Read Aloud
+// service): "Nanami" (female, default) and "Keita" (male, --voice=male).
 //
-//   characters          → public/audio/<codepoints>.mp3          (one small file each)
-//   words and sentences → public/audio/packs/<pack>.<hash>.mp3    (packed, see below)
-//                         public/audio/packs/index.json            (clip → pack, offset, length)
+//   characters          → public/audio[/male]/<codepoints>.mp3          (one small file each)
+//   words and sentences → public/audio[/male]/packs/<pack>.<hash>.mp3    (packed, see below)
+//                         public/audio[/male]/packs/index.json            (clip → pack, offset, length)
+//
+// In production the audio is served from GitHub Pages (see .github/workflows/deploy.yml),
+// not from Vercel, so both voices fit comfortably in free hosting.
 //
 // Thousands of word/sentence clips would exceed the free hosting plan's per-deploy file
 // limits, so they are re-encoded at 32 kbps and concatenated into one pack per section.
@@ -11,7 +14,7 @@
 // HTTP Range request.
 //
 // Raw clips are cached in .audio-cache/ (git-ignored), so re-running only generates what
-// is missing. Run: npm run data:audio
+// is missing. Run: npm run data:audio (female) and npm run data:audio:male
 import { createHash } from "node:crypto";
 import { execFile } from "node:child_process";
 import { mkdir, readFile, rename, rm, stat, writeFile } from "node:fs/promises";
@@ -23,12 +26,17 @@ import { MsEdgeTTS, OUTPUT_FORMAT } from "msedge-tts";
 import { allCharSets, allGrammarSets, allVocabSets } from "../src/data/levels.ts";
 import { audioKey, speechText, textAudioKey, wordSpeech } from "../src/data/speech.ts";
 
-const VOICE = process.env.VOICE ?? "ja-JP-NanamiNeural";
+const VOICES = { female: "ja-JP-NanamiNeural", male: "ja-JP-KeitaNeural" };
+const VOICE_ID = process.argv.find((a) => a.startsWith("--voice="))?.slice(8) ?? process.env.VOICE_ID ?? "female";
+if (!VOICES[VOICE_ID]) throw new Error(`VOICE_ID must be one of: ${Object.keys(VOICES).join(", ")}`);
+const VOICE = process.env.VOICE ?? VOICES[VOICE_ID];
+// The female voice lives at the root of public/audio (its original place); others in a subfolder.
+const SUB = VOICE_ID === "female" ? "" : VOICE_ID;
 const WORKERS = Number(process.env.WORKERS ?? 4);
 const ROOT = fileURLToPath(new URL("../", import.meta.url));
-const PUBLIC_AUDIO = path.join(ROOT, "public/audio");
+const PUBLIC_AUDIO = path.join(ROOT, "public/audio", SUB);
 const PACK_DIR = path.join(PUBLIC_AUDIO, "packs");
-const CACHE = path.join(ROOT, ".audio-cache");
+const CACHE = path.join(ROOT, ".audio-cache", SUB);
 const RAW = path.join(CACHE, "raw");
 // Speech stays clear at low bitrates; this keeps the whole site under the free hosting
 // plan's 100 MB upload limit. Raise TEXT_KBPS (32/48) if hosting allows.
@@ -83,9 +91,10 @@ const textJobs = [...textClips].map(([hash, { text }]) => ({
 // ---------- Generate missing clips ----------
 
 await mkdir(RAW, { recursive: true });
+await mkdir(PUBLIC_AUDIO, { recursive: true });
 const todo = [];
 for (const job of [...charJobs, ...textJobs]) if (!(await exists(job.file))) todo.push(job);
-console.log(`${charJobs.length + textJobs.length} clips, ${todo.length} to generate with ${WORKERS} workers.`);
+console.log(`${VOICE}: ${charJobs.length + textJobs.length} clips, ${todo.length} to generate with ${WORKERS} workers.`);
 
 let made = 0;
 let failed = 0;

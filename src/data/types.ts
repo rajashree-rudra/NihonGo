@@ -27,6 +27,9 @@ export interface KanjiExample {
   hlKana?: string;
   /** JLPT level of the highlighted word. */
   level?: string;
+  /** The on'yomi or kun'yomi this sentence demonstrates, as listed for the kanji ("ラン", "みだ.れる"). */
+  reading?: string;
+  readingKind?: "on" | "kun";
 }
 
 export interface KanjiVocab {

@@ -26,6 +26,8 @@ interface Props {
   className?: string;
   /** Width/alignment of the open list (default: full width of the button, left aligned). */
   panelClassName?: string;
+  /** A row to flag as "Now" (e.g. the group of the kanji being practised in "All groups"). */
+  marked?: string | null;
 }
 
 /**
@@ -33,7 +35,7 @@ interface Props {
  * so this renders its own listbox: number badges, brush-font kanji, notes, counts and a
  * quick filter, with arrow keys / Enter / Escape support.
  */
-export function GroupPicker({ options, value, onChange, label, children, className, panelClassName }: Props) {
+export function GroupPicker({ options, value, onChange, label, children, className, panelClassName, marked }: Props) {
   const [open, setOpen] = useState(false);
   const [query, setQuery] = useState("");
   const [active, setActive] = useState(0);
@@ -51,12 +53,14 @@ export function GroupPicker({ options, value, onChange, label, children, classNa
 
   // Open on the current choice; the filter only takes focus where it won't pop up a phone keyboard.
   // (Options are often rebuilt each render, so read them through a ref instead of re-running this.)
-  const latest = useRef({ options, value });
-  latest.current = { options, value };
+  const latest = useRef({ options, value, marked });
+  latest.current = { options, value, marked };
   useEffect(() => {
     if (!open) return;
     setQuery("");
-    setActive(Math.max(0, latest.current.options.findIndex((o) => o.value === latest.current.value)));
+    const { options: opts, value: v, marked: m } = latest.current;
+    const at = (x: string | null | undefined) => opts.findIndex((o) => o.value === x);
+    setActive(Math.max(0, at(m) >= 0 ? at(m) : at(v)));
     if (window.matchMedia("(pointer: fine)").matches) input.current?.focus({ preventScroll: true });
     else list.current?.focus({ preventScroll: true });
     const onDown = (e: PointerEvent) => {
@@ -182,6 +186,9 @@ export function GroupPicker({ options, value, onChange, label, children, classNa
                       </span>
                       {o.note && <span className={cn("block truncate text-[11px]", selected ? "text-white/60" : "text-muted")}>{o.note}</span>}
                     </span>
+                    {o.value === marked && !selected && (
+                      <span className="shrink-0 rounded-full bg-shu px-2 py-0.5 text-[10px] font-extrabold uppercase tracking-wider text-white">Now</span>
+                    )}
                     <span
                       className={cn(
                         "shrink-0 rounded-full px-2 py-0.5 text-[11px] font-bold tabular-nums",

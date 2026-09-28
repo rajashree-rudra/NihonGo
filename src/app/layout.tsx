@@ -1,6 +1,7 @@
 import type { Metadata, Viewport } from "next";
 import { Klee_One, Noto_Sans_JP, Plus_Jakarta_Sans } from "next/font/google";
 import { SiteHeader } from "@/components/layout/SiteHeader";
+import { MarkerToolbar } from "@/components/marker/MarkerToolbar";
 import "./globals.css";
 
 const jakarta = Plus_Jakarta_Sans({ subsets: ["latin"], variable: "--font-jakarta", display: "swap" });
@@ -31,6 +32,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       <body className="min-h-dvh paper-grain">
         <SiteHeader />
         <main className="pb-12">{children}</main>
+        <MarkerToolbar />
       </body>
     </html>
   );

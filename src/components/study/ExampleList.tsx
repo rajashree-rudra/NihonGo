@@ -5,9 +5,29 @@ import type { Example } from "@/data/types";
 import { speak } from "@/lib/audio";
 import { romajiStore } from "@/lib/settings";
 import { LevelBadge } from "@/components/ui/LevelBadge";
+import { cn } from "@/components/ui/cn";
+import { Markable } from "@/components/marker/Markable";
 
 /** An example sentence, optionally with its own highlighted word and that word's JLPT level. */
-export type ExampleItem = Example & { hl?: string; hlKana?: string; level?: string };
+export type ExampleItem = Example & { hl?: string; hlKana?: string; level?: string; reading?: string; readingKind?: "on" | "kun" };
+
+/** Small "ON ラン" / "KUN みだ(れる)" chip naming the reading a sentence demonstrates. */
+function ReadingChip({ reading, kind }: { reading: string; kind: "on" | "kun" }) {
+  const [stem, okurigana] = reading.split(".");
+  return (
+    <span
+      className={cn(
+        "mb-1 inline-flex items-center gap-1 rounded-md px-1.5 py-0.5 text-[10px] font-bold",
+        kind === "on" ? "bg-ai-soft text-ai" : "bg-matcha-soft text-matcha",
+      )}
+    >
+      <span className="uppercase tracking-wider">{kind}</span>
+      <span lang="ja" className="font-jp text-[12px]">
+        {okurigana ? `${stem}(${okurigana})` : stem}
+      </span>
+    </span>
+  );
+}
 
 /** Show every occurrence of `char` in semibold. */
 export function emphasize(text: string, char?: string) {
@@ -41,32 +61,54 @@ export function highlight(text: string, target?: string, char?: string) {
  * Example sentences with reading, romaji, translation and audio.
  * `emphasis`: a kanji to show in semibold wherever it appears (kanji pages).
  * `englishOnly`: show just the translation, so the learner can say it in Japanese first.
+ * `markId`: stable prefix that makes every line highlightable (marks are saved per line).
  */
-export function ExampleList({ examples, target, emphasis, englishOnly }: { examples: ExampleItem[]; target?: string; emphasis?: string; englishOnly?: boolean }) {
+export function ExampleList({
+  examples,
+  target,
+  emphasis,
+  englishOnly,
+  markId,
+}: {
+  examples: ExampleItem[];
+  target?: string;
+  emphasis?: string;
+  englishOnly?: boolean;
+  markId?: string;
+}) {
   const [showRomaji] = romajiStore.useValue();
   return (
     <ol className="space-y-2.5">
-      {examples.map((ex, i) => (
+      {examples.map((ex, i) => {
+        const line = (part: string) => (markId ? `${markId}:${i}:${part}` : undefined);
+        return (
         <li key={i} className="flex gap-3 rounded-2xl bg-paper/70 p-3 sm:p-3.5">
           <span className="mt-0.5 grid size-6 shrink-0 place-items-center rounded-full bg-ink/6 text-[11px] font-bold text-muted">{i + 1}</span>
           {englishOnly ? (
           <div className="min-w-0 flex-1">
             <p className="text-[15px] leading-relaxed text-ink">
-              {ex.en}
+              <Markable as="span" markId={line("en")}>{ex.en}</Markable>
               {ex.level && <LevelBadge level={ex.level} className="ml-2 align-middle" />}
             </p>
           </div>
           ) : (
           <div className="min-w-0 flex-1">
+            {ex.reading && ex.readingKind && <ReadingChip reading={ex.reading} kind={ex.readingKind} />}
             <p lang="ja" className="font-jp text-[16px] leading-relaxed text-ink sm:text-[17px]">
-              {highlight(ex.ja, ex.hl ?? target, emphasis)}
+              <Markable as="span" markId={line("ja")}>{highlight(ex.ja, ex.hl ?? target, emphasis)}</Markable>
               {ex.level && <LevelBadge level={ex.level} className="ml-2 align-middle" />}
             </p>
-            <p lang="ja" className="mt-0.5 font-jp text-[13px] leading-relaxed text-ink-soft">
+            <Markable lang="ja" markId={line("kana")} className="mt-0.5 font-jp text-[13px] leading-relaxed text-ink-soft">
               {highlight(ex.kana, ex.hlKana)}
-            </p>
-            {showRomaji && <p className="mt-0.5 text-[13px] italic leading-relaxed text-muted">{ex.romaji}</p>}
-            <p className="mt-1.5 text-[14px] leading-relaxed text-ink-soft">{ex.en}</p>
+            </Markable>
+            {showRomaji && (
+              <Markable markId={line("ro")} className="mt-0.5 text-[13px] italic leading-relaxed text-muted">
+                {ex.romaji}
+              </Markable>
+            )}
+            <Markable markId={line("en")} className="mt-1.5 text-[14px] leading-relaxed text-ink-soft">
+              {ex.en}
+            </Markable>
           </div>
           )}
           <button
@@ -78,7 +120,8 @@ export function ExampleList({ examples, target, emphasis, englishOnly }: { examp
             <Volume2 className="size-4" />
           </button>
         </li>
-      ))}
+        );
+      })}
     </ol>
   );
 }
