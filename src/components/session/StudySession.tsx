@@ -40,11 +40,14 @@ interface Props {
   backHref: string;
   startIndex?: number;
   onFinish: (results: Record<number, Result>) => void;
+  /** Practice: step past the last character into the next group / before the first into the previous one. */
+  onNextGroup?: () => void;
+  onPrevGroup?: () => void;
   /** Section picker shown under the top bar; a function gets the current character. */
   tabs?: ReactNode | ((current: CharItem) => ReactNode);
 }
 
-export function StudySession({ charSet, queue, mode, title, backHref, startIndex = 0, onFinish, tabs }: Props) {
+export function StudySession({ charSet, queue, mode, title, backHref, startIndex = 0, onFinish, tabs, onNextGroup, onPrevGroup }: Props) {
   const isTest = mode === "test";
   const [index, setIndex] = useState(() => Math.min(Math.max(0, startIndex), queue.length - 1));
   const [results, setResults] = useState<Record<number, Result>>({});
@@ -92,11 +95,16 @@ export function StudySession({ charSet, queue, mode, title, backHref, startIndex
   }, [index, queue.length, goTo, onFinish]);
 
   const isLast = index >= queue.length - 1;
-  // On the last character, "next" finishes the session once it has been written.
-  const canNext = !isLast || phase.kind === "done";
+  // No restrictions: next/previous always move on — into the neighbouring group when there is
+  // one, otherwise "next" on the last character finishes the session.
   const next = useCallback(() => {
-    if (canNext) advance();
-  }, [canNext, advance]);
+    if (isLast && onNextGroup) onNextGroup();
+    else advance();
+  }, [isLast, onNextGroup, advance]);
+  const prev = useCallback(() => {
+    if (index === 0) onPrevGroup?.();
+    else goTo(index - 1);
+  }, [index, onPrevGroup, goTo]);
 
   useEffect(() => () => clearTimeout(timer.current), []);
 
@@ -197,7 +205,7 @@ export function StudySession({ charSet, queue, mode, title, backHref, startIndex
     const onKey = (e: KeyboardEvent) => {
       if (phase.kind === "compare" || (e.target as HTMLElement)?.closest("input,textarea")) return;
       if (e.key === "ArrowRight") next();
-      else if (e.key === "ArrowLeft") goTo(index - 1);
+      else if (e.key === "ArrowLeft") prev();
       else if ((e.ctrlKey || e.metaKey) && e.key === "z") {
         e.preventDefault();
         padRef.current?.undo();
@@ -205,14 +213,14 @@ export function StudySession({ charSet, queue, mode, title, backHref, startIndex
     };
     window.addEventListener("keydown", onKey);
     return () => window.removeEventListener("keydown", onKey);
-  }, [goTo, next, index, phase.kind]);
+  }, [goTo, next, prev, index, phase.kind]);
 
   const done = Object.keys(results).length;
   const correct = Object.values(results).filter((r) => r === "correct").length;
   const status =
     phase.kind === "done"
       ? {
-          text: `${phase.ok ? "Written!" : "Not quite."} Clear to write it again, or ${isLast ? "finish" : "go to the next"} →`,
+          text: `${phase.ok ? "Written!" : "Not quite."} Clear to write it again, or ${isLast && !onNextGroup ? "finish" : "go to the next"} →`,
           tone: phase.ok ? "text-matcha" : "text-shu",
         }
       : statusText(feedback, strict, total, guide);
@@ -335,7 +343,12 @@ export function StudySession({ charSet, queue, mode, title, backHref, startIndex
 
           {/* Pad, flanked by slim previous / next rails. On phones the rails sit in the page gutter so the pad keeps its width. */}
           <div className="-mx-3 flex justify-center gap-1 sm:mx-0 sm:gap-2.5">
-          <SideNav dir="prev" label="Previous (←)" onClick={() => goTo(index - 1)} disabled={index === 0} />
+          <SideNav
+            dir="prev"
+            label={index === 0 && onPrevGroup ? "Previous group (←)" : "Previous (←)"}
+            onClick={prev}
+            disabled={index === 0 && !onPrevGroup}
+          />
           <div ref={padSlot} className="min-w-0 flex-1" style={{ maxWidth: padTop !== null ? `clamp(15rem, calc(100svh - ${padTop + 12}px), 30rem)` : undefined }}>
           {error ? (
             <div className="grid aspect-square place-items-center rounded-[28px] border border-dashed border-line-strong bg-card p-8 text-center text-sm text-muted">
@@ -366,9 +379,8 @@ export function StudySession({ charSet, queue, mode, title, backHref, startIndex
           </div>
           <SideNav
             dir="next"
-            label={isLast ? "Finish (→)" : isTest ? "Skip (→)" : "Next (→)"}
+            label={isLast ? (onNextGroup ? "Next group (→)" : "Finish (→)") : isTest ? "Skip (→)" : "Next (→)"}
             onClick={next}
-            disabled={!canNext}
             highlight={phase.kind === "done"}
           />
           </div>

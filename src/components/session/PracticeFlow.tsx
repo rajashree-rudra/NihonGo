@@ -26,16 +26,22 @@ export function PracticeFlow({ charSet, title, backHref }: Props) {
     return isSection(charSet, s) ? s : ALL;
   });
   const [run, setRun] = useState(0);
+  const [startAt, setStartAt] = useState(start);
   const [finished, setFinished] = useState<Record<number, Result> | null>(null);
   const queue = useMemo(() => sectionItems(charSet, section), [charSet, section]);
+  // Neighbouring groups, for stepping past either end of a group ("All" has none).
+  const at = charSet.sections.findIndex((s) => s.id === section);
+  const next = at >= 0 ? charSet.sections[at + 1] : undefined;
+  const prev = at > 0 ? charSet.sections[at - 1] : undefined;
 
   useEffect(() => {
     window.scrollTo(0, 0);
   }, [finished, run]);
 
-  const changeSection = (s: string) => {
+  const changeSection = (s: string, at = 0) => {
     if (s === section) return;
     setSection(s);
+    setStartAt(at);
     setFinished(null);
     setRun((r) => r + 1);
     const url = new URL(window.location.href);
@@ -55,6 +61,7 @@ export function PracticeFlow({ charSet, title, backHref }: Props) {
         backHref={backHref}
         onRestart={() => {
           setFinished(null);
+          setStartAt(0);
           setRun((r) => r + 1);
         }}
       />
@@ -69,8 +76,10 @@ export function PracticeFlow({ charSet, title, backHref }: Props) {
       mode="practice"
       title={title}
       backHref={backHref}
-      startIndex={run === 0 ? start : 0}
+      startIndex={startAt}
       onFinish={setFinished}
+      onNextGroup={next ? () => changeSection(next.id) : undefined}
+      onPrevGroup={prev ? () => changeSection(prev.id, prev.items.length - 1) : undefined}
       tabs={(current) => (
         <SectionTabs charSet={charSet} value={section} onChange={changeSection} current={current} concealChars={charSet.kind === "kanji"} />
       )}

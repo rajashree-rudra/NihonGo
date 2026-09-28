@@ -24,7 +24,7 @@ import { promisify } from "node:util";
 import ffmpegPath from "ffmpeg-static";
 import { MsEdgeTTS, OUTPUT_FORMAT } from "msedge-tts";
 import { allCharSets, allGrammarSets, allVocabSets } from "../src/data/levels.ts";
-import { audioKey, speechText, textAudioKey, wordSpeech } from "../src/data/speech.ts";
+import { audioKey, sentenceSpeech, speechText, textAudioKey, wordSpeech } from "../src/data/speech.ts";
 
 const VOICES = { female: "ja-JP-NanamiNeural", male: "ja-JP-KeitaNeural" };
 const VOICE_ID = process.argv.find((a) => a.startsWith("--voice="))?.slice(8) ?? process.env.VOICE_ID ?? "female";
@@ -53,13 +53,18 @@ for (const item of allCharSets().flatMap((s) => s.items)) {
   charJobs.push({ file: path.join(PUBLIC_AUDIO, `${audioKey(item.char)}.mp3`), text: speechText(item), format: OUTPUT_FORMAT.AUDIO_24KHZ_48KBITRATE_MONO_MP3 });
 }
 
-/** hash → { text, pack } — the first section a text appears in owns its clip. */
+/**
+ * hash of the written text (what the app looks up) → { text, speech, pack, file }.
+ * `speech` is what the voice actually says (may differ, see sentenceSpeech); cached files are
+ * named after the hash of `speech`, so changing what is said regenerates the clip.
+ * The first section a text appears in owns its clip.
+ */
 const textClips = new Map();
-function addText(text, pack) {
+function addText(text, pack, speech = text) {
   const hash = textAudioKey(text).slice(2);
   const prev = textClips.get(hash);
   if (prev && prev.text !== text) throw new Error(`Audio key collision: "${prev.text}" and "${text}" → ${hash}`);
-  if (!prev) textClips.set(hash, { text, pack });
+  if (!prev) textClips.set(hash, { text, speech, pack, file: textAudioKey(speech).slice(2) });
 }
 for (const set of allVocabSets())
   for (const section of set.sections)
@@ -77,13 +82,22 @@ for (const set of allCharSets().filter((s) => s.details))
     const pack = `${set.id}-${String(Math.ceil((section.number ?? 1) / 10)).padStart(2, "0")}`;
     for (const k of section.items) {
       const d = set.details[k.char];
-      for (const ex of d?.examples ?? []) addText(ex.ja, pack);
-      for (const v of d?.vocab ?? []) addText(v.example ? v.example.replace(/\*\*/g, "") : v.reading.split("・")[0], pack);
+      for (const ex of d?.examples ?? []) addText(ex.ja, pack, sentenceSpeech(ex.ja, ex.hl, ex.hlKana));
+      for (const v of d?.vocab ?? []) {
+        if (!v.example) {
+          addText(v.reading.split("・")[0], pack);
+          continue;
+        }
+        const ja = v.example.replace(/\*\*/g, "");
+        const bold = (s) => s?.match(/\*\*(.+?)\*\*/)?.[1];
+        addText(ja, pack, sentenceSpeech(ja, bold(v.example), bold(v.exampleKana)));
+      }
     }
   }
 
-const textJobs = [...textClips].map(([hash, { text }]) => ({
-  file: path.join(RAW, `${hash}.mp3`),
+const speechFiles = new Map([...textClips.values()].map(({ file, speech }) => [file, speech]));
+const textJobs = [...speechFiles].map(([file, text]) => ({
+  file: path.join(RAW, `${file}.mp3`),
   text,
   format: OUTPUT_FORMAT.AUDIO_24KHZ_48KBITRATE_MONO_MP3,
 }));
@@ -134,7 +148,7 @@ console.log(`Generated ${made}, failed ${failed}.`);
 // ---------- Re-encode word/sentence clips to 32 kbps ----------
 
 await mkdir(SMALL, { recursive: true });
-const hashes = [...textClips.keys()].filter((h) => textClips.has(h));
+const hashes = [...speechFiles.keys()];
 let encoded = 0;
 let enc = 0;
 await Promise.all(
@@ -154,10 +168,10 @@ console.log(`Re-encoded ${encoded} clips to ${TEXT_KBPS} kbps.`);
 // ---------- Pack ----------
 
 const byPack = new Map();
-for (const [hash, { pack }] of textClips) {
-  if (!(await exists(path.join(SMALL, `${hash}.mp3`)))) continue; // generation failed: app falls back to the browser voice
+for (const [hash, { pack, file }] of textClips) {
+  if (!(await exists(path.join(SMALL, `${file}.mp3`)))) continue; // generation failed: app falls back to the browser voice
   if (!byPack.has(pack)) byPack.set(pack, []);
-  byPack.get(pack).push(hash);
+  byPack.get(pack).push([hash, file]);
 }
 
 await rm(PACK_DIR, { recursive: true, force: true });
@@ -165,12 +179,12 @@ await mkdir(PACK_DIR, { recursive: true });
 const index = { packs: [], clips: {} };
 let totalBytes = 0;
 for (const [pack, list] of [...byPack].sort(([a], [b]) => a.localeCompare(b))) {
-  list.sort();
+  list.sort(([a], [b]) => a.localeCompare(b));
   const parts = [];
   const entries = [];
   let offset = 0;
-  for (const hash of list) {
-    const buf = await readFile(path.join(SMALL, `${hash}.mp3`));
+  for (const [hash, file] of list) {
+    const buf = await readFile(path.join(SMALL, `${file}.mp3`));
     entries.push([hash, offset, buf.length]);
     parts.push(buf);
     offset += buf.length;

@@ -50,3 +50,23 @@ export function createPersistentStore<T>(key: string, initial: T) {
 
   return { get, set, subscribe, useValue };
 }
+
+/** Same API as createPersistentStore, but kept in memory only: back to `initial` on every visit. */
+export function createMemoryStore<T>(initial: T) {
+  let value = initial;
+  const listeners = new Set<() => void>();
+  const get = () => value;
+  const set = (next: T | ((prev: T) => T)) => {
+    value = typeof next === "function" ? (next as (p: T) => T)(value) : next;
+    listeners.forEach((l) => l());
+  };
+  const subscribe = (l: () => void) => {
+    listeners.add(l);
+    return () => listeners.delete(l);
+  };
+  function useValue(): [T, typeof set] {
+    const v = useSyncExternalStore(subscribe, get, () => initial);
+    return [v, set];
+  }
+  return { get, set, subscribe, useValue };
+}
