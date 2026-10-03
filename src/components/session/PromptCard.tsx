@@ -6,6 +6,7 @@ import { formatKun } from "@/data/builders";
 import { kanaToRomaji } from "@/data/romaji";
 import { cn } from "@/components/ui/cn";
 import { LevelBadge } from "@/components/ui/LevelBadge";
+import KANJI_PARTS from "@/data/kanji-parts.json";
 import type { SessionMode } from "./types";
 
 interface Props {
@@ -55,6 +56,8 @@ export function PromptCard({ item, kind, mode, hideChar, strokeCount, onSpeak }:
             <dl className="mt-1 space-y-0.5 text-[13px] sm:mt-2 sm:space-y-1 sm:text-sm">
               {!!item.kun?.length && <Reading label="Kun" values={item.kun.map(formatKun)} raw={item.kun} />}
               {!!item.on?.length && <Reading label="On" values={item.on} raw={item.on} />}
+              {/* The parts would give the answer away in a test until it's written. */}
+              {!(mode === "test" && hideChar) && <Parts char={item.char} />}
             </dl>
           </>
         ) : (
@@ -78,6 +81,30 @@ export function PromptCard({ item, kind, mode, hideChar, strokeCount, onSpeak }:
           )}
         </div>
       </div>
+    </div>
+  );
+}
+
+/** The kanji's building blocks, e.g. 休 = 亻 にんべん (person) + 木 き (tree). */
+function Parts({ char }: { char: string }) {
+  const parts = (KANJI_PARTS as unknown as Record<string, [part: string, name: string, meaning: string][]>)[char];
+  if (!parts?.length) return null;
+  return (
+    <div className="flex gap-2">
+      <dt className="w-8 shrink-0 pt-1 text-[11px] font-bold uppercase tracking-wider text-muted">Parts</dt>
+      <dd className="flex min-w-0 flex-wrap gap-1">
+        {parts.map(([part, name, meaning]) => (
+          <span key={part} className="inline-flex items-baseline gap-1 rounded-md bg-paper px-1.5 py-0.5 text-[12px] leading-snug">
+            <span lang="ja" className="font-jp text-[14px] font-semibold text-ink">
+              {part}
+            </span>
+            <span lang="ja" className="font-jp text-ink-soft">
+              {name}
+            </span>
+            <span className="text-muted">{meaning}</span>
+          </span>
+        ))}
+      </dd>
     </div>
   );
 }

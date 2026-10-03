@@ -47,6 +47,7 @@ node --experimental-strip-types --no-warnings scripts/validate-content.mjs src/d
 3. Generate assets (both scripts only fill in what's missing):
    ```bash
    npm run data:strokes   # stroke order from KanjiVG → public/strokes/<set>.json
+   npm run data:parts     # kanji parts from KanjiVG → src/data/kanji-parts.json (names: src/data/radicals.ts)
    npm run data:audio       # female voice → public/audio/*.mp3 (characters) + public/audio/packs/ (words, sentences)
    npm run data:audio:male  # male voice   → public/audio/male/…
    ```
