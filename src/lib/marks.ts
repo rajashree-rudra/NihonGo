@@ -8,12 +8,21 @@ import { createPersistentStore } from "./store";
 // painted with the CSS Custom Highlight API, so they never touch React's DOM.
 
 export const MARK_COLORS = [
-  { id: "yellow", label: "Yellow", swatch: "#f7d14a" },
-  { id: "green", label: "Green", swatch: "#7cc98f" },
-  { id: "blue", label: "Blue", swatch: "#7fb0ea" },
-  { id: "pink", label: "Pink", swatch: "#f29bb8" },
-  { id: "orange", label: "Orange", swatch: "#f5a45b" },
+  { id: "yellow", label: "Yellow", swatch: "#f7d14a", paint: "rgb(247 209 74 / 0.5)" },
+  { id: "green", label: "Green", swatch: "#7cc98f", paint: "rgb(124 201 143 / 0.45)" },
+  { id: "blue", label: "Blue", swatch: "#7fb0ea", paint: "rgb(127 176 234 / 0.45)" },
+  { id: "pink", label: "Pink", swatch: "#f29bb8", paint: "rgb(242 155 184 / 0.5)" },
+  { id: "orange", label: "Orange", swatch: "#f5a45b", paint: "rgb(245 164 91 / 0.5)" },
 ] as const;
+
+// The ::highlight() rules are added from here rather than globals.css: Next's CSS parser
+// doesn't know the pseudo-element yet and warns on every build.
+if (typeof document !== "undefined" && !document.getElementById("mark-styles")) {
+  const style = document.createElement("style");
+  style.id = "mark-styles";
+  style.textContent = MARK_COLORS.map((c) => `::highlight(mark-${c.id}) { background-color: ${c.paint}; }`).join(" ");
+  document.head.appendChild(style);
+}
 export type MarkColor = (typeof MARK_COLORS)[number]["id"];
 
 /** [start, end, colour, marked text] — the text lets a mark survive small content edits. */
