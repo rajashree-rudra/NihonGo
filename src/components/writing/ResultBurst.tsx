@@ -8,7 +8,7 @@ export function ResultBurst({ ok, caption }: { ok: boolean; caption?: string }) 
         <div className="relative">
           <span className={cn("absolute inset-0 rounded-full animate-ping-once", ok ? "bg-matcha" : "bg-shu")} />
           <svg viewBox="0 0 100 100" className="relative size-28 animate-pop sm:size-32" aria-hidden>
-            <circle cx="50" cy="50" r="46" fill={ok ? "#3f8a5a" : "#d8452e"} />
+            <circle cx="50" cy="50" r="46" fill={ok ? "var(--color-matcha)" : "var(--color-shu)"} />
             <path
               d={ok ? "M29 52 L44 66 L72 36" : "M35 35 L65 65 M65 35 L35 65"}
               pathLength={1}

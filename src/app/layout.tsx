@@ -2,6 +2,7 @@ import type { Metadata, Viewport } from "next";
 import { Klee_One, Noto_Sans_JP, Plus_Jakarta_Sans } from "next/font/google";
 import { SiteHeader } from "@/components/layout/SiteHeader";
 import { MarkerToolbar } from "@/components/marker/MarkerToolbar";
+import { THEME_BOOT_SCRIPT } from "@/lib/theme-boot";
 import "./globals.css";
 
 const jakarta = Plus_Jakarta_Sans({ subsets: ["latin"], variable: "--font-jakarta", display: "swap" });
@@ -21,14 +22,21 @@ export const metadata: Metadata = {
 };
 
 export const viewport: Viewport = {
-  themeColor: "#f8f4ee",
+  themeColor: [
+    { media: "(prefers-color-scheme: light)", color: "#f8f4ee" },
+    { media: "(prefers-color-scheme: dark)", color: "#22272e" },
+  ],
   width: "device-width",
   initialScale: 1,
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en" className={`${jakarta.variable} ${notoJp.variable} ${klee.variable}`}>
+    // data-theme is set before paint by THEME_BOOT_SCRIPT, so it differs from the server HTML.
+    <html lang="en" className={`${jakarta.variable} ${notoJp.variable} ${klee.variable}`} suppressHydrationWarning>
+      <head>
+        <script dangerouslySetInnerHTML={{ __html: THEME_BOOT_SCRIPT }} />
+      </head>
       <body className="min-h-dvh paper-grain">
         <SiteHeader />
         <main className="pb-12">{children}</main>

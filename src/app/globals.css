@@ -1,5 +1,8 @@
 @import "tailwindcss";
 
+/* `dark:` utilities follow the in-app theme switch (data-theme on <html>), not just the OS setting. */
+@custom-variant dark (&:where([data-theme="dark"], [data-theme="dark"] *));
+
 @theme {
   --color-paper: #f8f4ee;
   --color-card: #fffdf9;
@@ -16,6 +19,12 @@
   --color-matcha-soft: #e1f1e6;
   --color-kin: #c9912e;
   --color-kin-soft: #f8edd6;
+  /* Writing boxes: practice grid, frame, model guide, finished strokes */
+  --color-grid: #eadfd1;
+  --color-frame: #f1e9de;
+  --color-guide: #ebe4da;
+  --color-guide-faint: #f1ebe2;
+  --color-done: #2f7a4c;
 
   --font-sans: var(--font-jakarta), var(--font-noto-jp), ui-sans-serif, system-ui, sans-serif;
   --font-jp: var(--font-noto-jp), "Hiragino Sans", "Yu Gothic", sans-serif;
@@ -29,6 +38,49 @@
   --animate-ping-once: ping-once 0.6s cubic-bezier(0, 0, 0.2, 1) both;
   --animate-shake: shake 0.35s ease-in-out;
   --animate-attention: attention 1.6s ease-out infinite;
+}
+
+/* ---------- Dark theme (eye comfort) ----------
+   Modelled on code-editor dark themes made for long reading sessions (GitHub Dark Dimmed,
+   One Dark, VS Code Dark): a soft blue-grey canvas instead of black, light-grey text instead
+   of white, and muted accents. Contrast stays moderate — body text ≈ 9:1, secondary ≈ 6:1,
+   meta ≈ 4.5:1 — rather than the glaring ≈ 18:1 of white on black.
+   "white" is the deepest surface, so inverted elements (bg-ink + text-white) and the writing
+   box (bg-white) flip to soft panels. */
+:root[data-theme="dark"] {
+  color-scheme: dark;
+  --color-paper: #22272e;
+  --color-card: #2a3038;
+  --color-ink: #c5ced8;
+  --color-ink-soft: #a3afbb;
+  --color-muted: #8b97a3;
+  --color-line: #363d47;
+  --color-line-strong: #444c57;
+  --color-shu: #e5876d;
+  --color-shu-soft: #3d302f;
+  --color-ai: #6ea9ec;
+  --color-ai-soft: #2a3647;
+  --color-matcha: #6db872;
+  --color-matcha-soft: #2a3a30;
+  --color-kin: #d6a64f;
+  --color-kin-soft: #3a3428;
+  --color-white: #1c2128;
+  --color-grid: #3a424c;
+  --color-frame: #323943;
+  --color-guide: #424a55;
+  --color-guide-faint: #353c46;
+  --color-done: #6db872;
+  --shadow-soft: 0 1px 2px rgb(0 0 0 / 0.2), 0 4px 16px -4px rgb(0 0 0 / 0.28);
+  --shadow-lift: 0 2px 4px rgb(0 0 0 / 0.2), 0 16px 40px -12px rgb(0 0 0 / 0.4);
+}
+:root[data-theme="dark"] .paper-grain {
+  background-image:
+    radial-gradient(circle at 20% 0%, rgb(229 135 109 / 0.04), transparent 45%),
+    radial-gradient(circle at 100% 30%, rgb(110 169 236 / 0.035), transparent 40%);
+}
+html {
+  background-color: var(--color-paper);
+  color: var(--color-ink);
 }
 
 @keyframes pop {

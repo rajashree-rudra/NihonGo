@@ -34,3 +34,7 @@ export const autoClearStore = createMemoryStore(false);
 /** Voice for all pre-generated audio, everywhere in the app. */
 export type Voice = "female" | "male";
 export const voiceStore = createPersistentStore<Voice>("nihongo:voice", "female");
+/** Colour theme. "system" follows the device until the reader picks one. */
+export type Theme = "light" | "dark" | "system";
+export const themeStore = createPersistentStore<Theme>("nihongo:theme", "system");
+

@@ -20,7 +20,12 @@ export const MARK_COLORS = [
 if (typeof document !== "undefined" && !document.getElementById("mark-styles")) {
   const style = document.createElement("style");
   style.id = "mark-styles";
-  style.textContent = MARK_COLORS.map((c) => `::highlight(mark-${c.id}) { background-color: ${c.paint}; }`).join(" ");
+  // Dark theme: the same hues, much fainter, so marks don't glare on a dark page.
+  style.textContent = MARK_COLORS.map(
+    (c) =>
+      `::highlight(mark-${c.id}) { background-color: ${c.paint}; } ` +
+      `:root[data-theme="dark"] ::highlight(mark-${c.id}) { background-color: ${c.paint.replace(/\/ [\d.]+\)/, "/ 0.24)")}; }`,
+  ).join(" ");
   document.head.appendChild(style);
 }
 export type MarkColor = (typeof MARK_COLORS)[number]["id"];

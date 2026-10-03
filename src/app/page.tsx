@@ -37,13 +37,13 @@ export default function HomePage() {
                 aria-hidden
                 className={cn(
                   "pointer-events-none absolute -bottom-6 -right-3 font-brush text-[8.5rem] leading-none transition-transform duration-500",
-                  open ? "text-white/[0.08] group-hover:-translate-y-1 group-hover:scale-105" : "text-ink/[0.04]",
+                  open ? "text-white/[0.08] group-hover:-translate-y-1 group-hover:scale-105 dark:text-ink/[0.06]" : "text-ink/[0.04]",
                 )}
               >
                 {LEVEL_KANJI[level.id]}
               </span>
               <div className="flex items-center justify-between">
-                <span className={cn("text-[11px] font-bold uppercase tracking-[0.18em]", open ? "text-white/60" : "text-muted")}>JLPT</span>
+                <span className={cn("text-[11px] font-bold uppercase tracking-[0.18em]", open ? "text-white/60 dark:text-ink/50" : "text-muted")}>JLPT</span>
                 {open ? (
                   <span className="rounded-full bg-shu px-2.5 py-0.5 text-[11px] font-bold uppercase tracking-wider text-white">
                     {i === 0 ? "Start here" : "Open"}
@@ -54,10 +54,10 @@ export default function HomePage() {
                   </span>
                 )}
               </div>
-              <div className={cn("mt-8 text-6xl font-extrabold tracking-tight", open ? "text-white" : "text-ink/35")}>{level.title}</div>
-              <div className={cn("mt-1 font-semibold", open ? "text-white" : "text-ink-soft")}>{level.tagline}</div>
-              <p className={cn("mt-2 text-sm leading-relaxed", open ? "text-white/70" : "text-muted")}>{level.description}</p>
-              <div className={cn("mt-auto flex items-center gap-1.5 pt-8 text-sm font-semibold", open ? "text-white" : "text-muted")}>
+              <div className={cn("mt-8 text-6xl font-extrabold tracking-tight", open ? "text-white dark:text-ink" : "text-ink/35")}>{level.title}</div>
+              <div className={cn("mt-1 font-semibold", open ? "text-white dark:text-ink" : "text-ink-soft")}>{level.tagline}</div>
+              <p className={cn("mt-2 text-sm leading-relaxed", open ? "text-white/70 dark:text-ink-soft" : "text-muted")}>{level.description}</p>
+              <div className={cn("mt-auto flex items-center gap-1.5 pt-8 text-sm font-semibold", open ? "text-white dark:text-ink" : "text-muted")}>
                 {open ? (
                   <>
                     Start learning <ArrowRight className="size-4 transition-transform group-hover:translate-x-1" />
@@ -77,7 +77,7 @@ export default function HomePage() {
               style={style}
               className={cn(
                 base,
-                "bg-ink shadow-lift ring-1 ring-ink transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_24px_60px_-20px_rgb(29_26_23/0.55)]",
+                "bg-ink shadow-lift ring-1 ring-ink transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_24px_60px_-20px_rgb(29_26_23/0.55)] dark:bg-card dark:ring-line-strong dark:hover:ring-shu/50",
               )}
             >
               <div className={cn("pointer-events-none absolute -left-10 -top-10 size-40 rounded-full blur-3xl", i === 0 ? "bg-shu/40" : "bg-ai/60")} />

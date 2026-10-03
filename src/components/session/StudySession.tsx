@@ -18,7 +18,7 @@ import { cn } from "@/components/ui/cn";
 import { WritingPad, type StrokeFeedback, type WritingPadHandle } from "@/components/writing/WritingPad";
 import { ResultBurst } from "@/components/writing/ResultBurst";
 import { CompareDialog } from "@/components/writing/CompareDialog";
-import { SoundToggle, VoiceToggle } from "@/components/layout/SiteHeader";
+import { SoundToggle, ThemeToggle, VoiceToggle } from "@/components/layout/SiteHeader";
 import { PracticeExamples } from "@/components/kanji/PracticeExamples";
 import { CharStrip } from "./CharStrip";
 import { PromptCard } from "./PromptCard";
@@ -224,6 +224,27 @@ export function StudySession({ charSet, queue, mode, title, backHref, startIndex
     return () => window.removeEventListener("keydown", onKey);
   }, [goTo, next, prev, index, phase.kind]);
 
+  // ----- swipe (touch screens): left → next, right → previous -----
+  // Not on the writing box (that's drawing), the scrollable strip, menus or dialogs, and only
+  // for quick, mostly horizontal swipes so scrolling the page still works.
+  const swipe = useRef<{ x: number; y: number; t: number } | null>(null);
+  const onSwipeStart = (e: React.TouchEvent) => {
+    const target = e.target as Element;
+    const ignore = 'svg[aria-label="Writing area"], .no-scrollbar, input, [role="listbox"], [role="dialog"], [role="toolbar"]';
+    swipe.current = e.touches.length === 1 && !target.closest(ignore) ? { x: e.touches[0].clientX, y: e.touches[0].clientY, t: Date.now() } : null;
+  };
+  const onSwipeEnd = (e: React.TouchEvent) => {
+    const start = swipe.current;
+    swipe.current = null;
+    if (!start || phase.kind === "compare" || window.getSelection()?.toString()) return;
+    const dx = e.changedTouches[0].clientX - start.x;
+    const dy = e.changedTouches[0].clientY - start.y;
+    if (Date.now() - start.t < 700 && Math.abs(dx) > 60 && Math.abs(dx) > Math.abs(dy) * 1.8) {
+      if (dx < 0) next();
+      else prev();
+    }
+  };
+
   const done = Object.keys(results).length;
   const correct = Object.values(results).filter((r) => r === "correct").length;
   const status =
@@ -235,7 +256,7 @@ export function StudySession({ charSet, queue, mode, title, backHref, startIndex
       : statusText(feedback, strict, total, guide);
 
   return (
-    <div className="mx-auto max-w-5xl px-4 pb-6 pt-2 sm:px-5 sm:pt-5">
+    <div className="mx-auto max-w-5xl px-4 pb-6 pt-2 sm:px-5 sm:pt-5" onTouchStart={onSwipeStart} onTouchEnd={onSwipeEnd}>
       {/* Top bar */}
       <div className="flex items-center justify-between gap-3">
         <Link
@@ -252,6 +273,7 @@ export function StudySession({ charSet, queue, mode, title, backHref, startIndex
         </div>
         <div className="flex items-center gap-1.5 sm:gap-3">
           <VoiceToggle compact className="max-[359px]:hidden sm:hidden" />
+          <ThemeToggle size="size-9" className="max-[359px]:hidden sm:hidden" />
           <SoundToggle size="size-9" className="sm:hidden" />
           {isTest && (
             <span className="hidden text-sm font-semibold text-muted sm:inline" aria-label={`${correct} correct of ${done} answered`}>

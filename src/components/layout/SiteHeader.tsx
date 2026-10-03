@@ -2,8 +2,9 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Mars, Venus, Volume2, VolumeX } from "lucide-react";
-import { soundStore, voiceStore, type Voice } from "@/lib/settings";
+import { useEffect, useSyncExternalStore } from "react";
+import { Mars, Moon, Sun, Venus, Volume2, VolumeX } from "lucide-react";
+import { soundStore, themeStore, voiceStore, type Voice } from "@/lib/settings";
 import { IconButton } from "@/components/ui/IconButton";
 import { cn } from "@/components/ui/cn";
 
@@ -12,6 +13,34 @@ export function SoundToggle({ className, size }: { className?: string; size?: st
   return (
     <IconButton size={size} className={className} label={sound ? "Sound on" : "Sound off"} onClick={() => setSound(!sound)}>
       {sound ? <Volume2 className="size-5" /> : <VolumeX className="size-5" />}
+    </IconButton>
+  );
+}
+
+const darkQuery = () => window.matchMedia("(prefers-color-scheme: dark)");
+function useSystemDark() {
+  return useSyncExternalStore(
+    (cb) => {
+      const q = darkQuery();
+      q.addEventListener("change", cb);
+      return () => q.removeEventListener("change", cb);
+    },
+    () => darkQuery().matches,
+    () => false,
+  );
+}
+
+/** Light / dark switch. Follows the device until the reader picks one; the choice is remembered. */
+export function ThemeToggle({ size = "size-10", className }: { size?: string; className?: string }) {
+  const [theme, setTheme] = themeStore.useValue();
+  const systemDark = useSystemDark();
+  const dark = theme === "dark" || (theme === "system" && systemDark);
+  useEffect(() => {
+    document.documentElement.dataset.theme = dark ? "dark" : "light";
+  }, [dark]);
+  return (
+    <IconButton size={size} className={className} label={dark ? "Light mode" : "Dark mode"} onClick={() => setTheme(dark ? "light" : "dark")}>
+      {dark ? <Sun className="size-5" /> : <Moon className="size-5" />}
     </IconButton>
   );
 }
@@ -59,7 +88,7 @@ export function SiteHeader() {
     <header className={cn("sticky top-0 z-40 border-b border-line/70 bg-paper/80 backdrop-blur-xl", inSession && "max-sm:hidden")}>
       <div className="mx-auto flex h-14 max-w-6xl items-center justify-between px-5 sm:h-16">
         <Link href="/" className="group flex items-center gap-2.5">
-          <span className="grid size-9 place-items-center rounded-xl bg-shu font-brush text-lg font-semibold text-white shadow-[0_6px_16px_-6px_rgb(216_69_46/0.8)] transition-transform group-hover:-rotate-6">
+          <span className="grid size-9 place-items-center rounded-xl bg-shu font-brush text-lg font-semibold text-[#fffdf9] shadow-[0_6px_16px_-6px_rgb(216_69_46/0.8)] transition-transform group-hover:-rotate-6">
             日
           </span>
           <span className="text-[17px] font-extrabold tracking-tight">
@@ -68,6 +97,7 @@ export function SiteHeader() {
         </Link>
         <div className="flex items-center gap-2">
           <VoiceToggle />
+          <ThemeToggle />
           <SoundToggle />
         </div>
       </div>

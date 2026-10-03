@@ -33,8 +33,8 @@ interface Props {
   ref?: Ref<WritingPadHandle>;
 }
 
-const INK = "#1d1a17";
-const SHU = "#d8452e";
+const INK = "var(--color-ink)";
+const SHU = "var(--color-shu)";
 
 const demoTiming = (shapes: StrokeShape[]) => {
   let t = 0.15;
@@ -176,16 +176,16 @@ export function WritingPad({ shapes, strict, showGuide, disabled, demoKey = 0, o
         aria-label="Writing area"
       >
         {/* Practice grid */}
-        <g stroke="#eadfd1" strokeWidth={0.4} strokeDasharray="1.6 1.6" fill="none">
+        <g stroke="var(--color-grid)" strokeWidth={0.4} strokeDasharray="1.6 1.6" fill="none">
           <line x1={BOX / 2} y1={6} x2={BOX / 2} y2={BOX - 6} />
           <line x1={6} y1={BOX / 2} x2={BOX - 6} y2={BOX / 2} />
         </g>
-        <rect x={6} y={6} width={BOX - 12} height={BOX - 12} rx={6} fill="none" stroke="#f1e9de" strokeWidth={0.5} />
+        <rect x={6} y={6} width={BOX - 12} height={BOX - 12} rx={6} fill="none" stroke="var(--color-frame)" strokeWidth={0.5} />
 
         <g fill="none" strokeLinecap="round" strokeLinejoin="round">
           {/* Model character */}
           {(showGuide || demo) &&
-            shapes.map((s, i) => <path key={i} d={s.d} stroke={demo ? "#f1ebe2" : "#ebe4da"} strokeWidth={3.4} />)}
+            shapes.map((s, i) => <path key={i} d={s.d} stroke={demo ? "var(--color-guide-faint)" : "var(--color-guide)"} strokeWidth={3.4} />)}
 
           {/* Strict: strokes already written correctly, snapped to the model */}
           {strict &&
@@ -195,7 +195,7 @@ export function WritingPad({ shapes, strict, showGuide, disabled, demoKey = 0, o
                 key={i}
                 d={s.d}
                 pathLength={1}
-                stroke={complete ? "#2f7a4c" : INK}
+                stroke={complete ? "var(--color-done)" : INK}
                 strokeWidth={3.6}
                 className={cn(i === done - 1 && "stroke-draw", "transition-[stroke] duration-500")}
                 style={{ ["--dur" as string]: "0.28s" }}
@@ -215,7 +215,7 @@ export function WritingPad({ shapes, strict, showGuide, disabled, demoKey = 0, o
                 textAnchor="middle"
                 fontSize={3.6}
                 fontWeight={700}
-                fill="#fff"
+                fill="var(--color-white)"
                 stroke="none"
                 className="pointer-events-none"
               >

@@ -19,9 +19,9 @@ interface Props {
 }
 
 function verdict(score: number, passed: boolean) {
-  if (!passed) return { title: "Keep practicing", jp: "もう一度", tone: "text-shu", ring: "#d8452e" };
-  if (score >= 82) return { title: "Excellent!", jp: "すばらしい", tone: "text-matcha", ring: "#3f8a5a" };
-  return { title: "Good job!", jp: "いいね", tone: "text-matcha", ring: "#3f8a5a" };
+  if (!passed) return { title: "Keep practicing", jp: "もう一度", tone: "text-shu", ring: "var(--color-shu)" };
+  if (score >= 82) return { title: "Excellent!", jp: "すばらしい", tone: "text-matcha", ring: "var(--color-matcha)" };
+  return { title: "Good job!", jp: "いいね", tone: "text-matcha", ring: "var(--color-matcha)" };
 }
 
 /** Easy-mode result: the model character and the learner's drawing side by side. */
@@ -47,7 +47,7 @@ export function CompareDialog({ shapes, drawing, score, passed, onRetry, onNext,
       <div role="dialog" aria-modal aria-labelledby="compare-title" className="w-full max-w-lg cursor-default rounded-[28px] bg-card p-5 shadow-lift sm:p-7">
         <div className="flex items-center gap-4">
           <svg viewBox="0 0 60 60" className="size-16 shrink-0 -rotate-90">
-            <circle cx="30" cy="30" r="26" fill="none" stroke="#efe7dc" strokeWidth="6" />
+            <circle cx="30" cy="30" r="26" fill="none" stroke="var(--color-line)" strokeWidth="6" />
             <circle
               cx="30"
               cy="30"
@@ -60,7 +60,7 @@ export function CompareDialog({ shapes, drawing, score, passed, onRetry, onNext,
               strokeDashoffset={C * (1 - score / 100)}
               className="transition-[stroke-dashoffset] duration-1000 ease-out"
             />
-            <text x="30" y="30" dy="5" textAnchor="middle" fontSize="15" fontWeight="800" fill="#1d1a17" transform="rotate(90 30 30)">
+            <text x="30" y="30" dy="5" textAnchor="middle" fontSize="15" fontWeight="800" fill="var(--color-ink)" transform="rotate(90 30 30)">
               {score}
             </text>
           </svg>
