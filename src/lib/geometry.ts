@@ -77,6 +77,15 @@ function meanDistance(a: Pt[], b: Pt[]): number {
 
 export type StrokeVerdict = "ok" | "reversed" | "wrong";
 
+function centroid(pts: Pt[]): Pt {
+  let x = 0, y = 0;
+  for (const p of pts) {
+    x += p.x;
+    y += p.y;
+  }
+  return { x: x / pts.length, y: y / pts.length };
+}
+
 /** Start→end direction agrees (ignored for strokes that loop back near their start). */
 function sameDirection(u: Pt[], e: Pt[]): boolean {
   const ex = e[e.length - 1].x - e[0].x, ey = e[e.length - 1].y - e[0].y;
@@ -93,6 +102,18 @@ function assess(user: Pt[], expected: StrokeShape): { verdict: StrokeVerdict; di
   const forward = meanDistance(u, e);
   const endsOk = dist(u[0], e[0]) < tol * 1.5 && dist(u[u.length - 1], e[e.length - 1]) < tol * 1.5;
   if (forward < tol && endsOk && sameDirection(u, e)) return { verdict: "ok", distance: forward };
+  // Right shape, started a bit off: compare the stroke moved onto the expected one. A shift of
+  // up to about a quarter of the box is forgiven (the stroke then snaps into place). `distance`
+  // stays the unshifted one, so a stroke drawn where another stroke belongs is still "order".
+  const shift = { x: centroid(e).x - centroid(u).x, y: centroid(e).y - centroid(u).y };
+  if (Math.hypot(shift.x, shift.y) < BOX * 0.25) {
+    const moved = u.map((p) => ({ x: p.x + shift.x, y: p.y + shift.y }));
+    const shapeOk =
+      meanDistance(moved, e) < tol &&
+      dist(moved[0], e[0]) < tol * 1.5 &&
+      dist(moved[moved.length - 1], e[e.length - 1]) < tol * 1.5;
+    if (shapeOk && sameDirection(u, e)) return { verdict: "ok", distance: forward };
+  }
   const reversed = meanDistance(u, [...e].reverse());
   return { verdict: reversed < tol ? "reversed" : "wrong", distance: forward };
 }

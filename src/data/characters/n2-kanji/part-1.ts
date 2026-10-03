@@ -283,6 +283,7 @@ export const GROUPS: BookGroup[] = [
         ["木で**合板**を作ります。", "き で **ごうはん** を つくります。", "Plywood is made from wood.", "N1", undefined, "ハン"],
         ["**黒板**に字を書きます。", "**こくばん** に じ を かきます。", "I write on the blackboard.", "N3", undefined, "バン"],
         ["木の**板**を切りました。", "き の **いた** を きりました。", "I cut a wooden board.", "N3", undefined, "いた"],
+        ["**まな板**の上で野菜を切ります。", "**まないた** の うえ で やさい を きります。", "I cut vegetables on the cutting board.", "N3", undefined, "いた"],
       ], [["看板", "かんばん", "sign, signboard", "N2", "店の前に**看板**があります。", "There is a sign in front of the shop.", "みせ の まえ に **かんばん** が あります。"]]),
       bk("枚", "N2", "counter for flat things", "マイ", "", [
         ["紙を五**枚**ください。", "かみ を ご**まい** ください。", "Five sheets of paper, please.", undefined, undefined, "マイ"],
