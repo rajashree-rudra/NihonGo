@@ -27,16 +27,21 @@ function bestJapaneseVoice(): SpeechSynthesisVoice | undefined {
   return voices.sort((a, b) => rank(b) - rank(a))[0];
 }
 
-function speakWithBrowser(text: string) {
+/** Speak with the browser's own voice; resolves when it finishes (or is cancelled). */
+function speakWithBrowser(text: string): Promise<void> {
   const synth = window.speechSynthesis;
-  if (!synth) return;
+  if (!synth) return Promise.resolve();
   synth.cancel();
   const u = new SpeechSynthesisUtterance(text);
   u.lang = "ja-JP";
   u.rate = 0.85;
   const voice = bestJapaneseVoice();
   if (voice) u.voice = voice;
-  synth.speak(u);
+  return new Promise((resolve) => {
+    u.onend = u.onerror = () => resolve();
+    synth.speak(u);
+    setTimeout(resolve, 12000); // some browsers never fire "end"
+  });
 }
 
 /** Bumped on every new sound or stop, so a slow fetch can't start playing a stale clip. */
@@ -144,18 +149,44 @@ if (typeof window !== "undefined") {
 export async function speak(text: string) {
   if (typeof window === "undefined" || !soundStore.get()) return;
   stopAll();
-  const mine = token;
-  const url = await textClipUrl(textAudioKey(text).slice(2));
+  await playText(text, token);
+}
+
+/** Play one word/sentence clip as part of the sound `mine`; resolves when it has finished. */
+async function playText(text: string, mine: number, ready?: Promise<string | null>): Promise<void> {
+  const url = await (ready ?? textClipUrl(textAudioKey(text).slice(2)));
   if (mine !== token || !soundStore.get()) return;
   if (!url) return speakWithBrowser(text);
   const p = sharedPlayer();
   p.src = url;
   playing = p;
+  const done = new Promise<void>((resolve) => {
+    p.onended = p.onpause = p.onerror = () => resolve();
+  });
   try {
     await p.play();
   } catch (e) {
     const name = (e as DOMException)?.name;
-    if (name !== "NotAllowedError" && name !== "AbortError" && mine === token) speakWithBrowser(text);
+    if (name !== "NotAllowedError" && name !== "AbortError" && mine === token) return speakWithBrowser(text);
+    return;
+  }
+  await done;
+}
+
+/**
+ * Say pairs of parts back to back, e.g. reading → sentence → reading → sentence, with only a
+ * tiny breath inside a pair and a short one between pairs. All clips are fetched up front so
+ * nothing waits on the network mid-way. Any other sound, mute or navigation stops the rest.
+ */
+export async function speakSequence(parts: string[], { inPair = 40, betweenPairs = 160 } = {}) {
+  if (typeof window === "undefined" || !soundStore.get() || !parts.length) return;
+  stopAll();
+  const mine = token;
+  const ready = parts.map((t) => textClipUrl(textAudioKey(t).slice(2)));
+  for (let i = 0; i < parts.length; i++) {
+    if (i) await new Promise((r) => setTimeout(r, i % 2 ? inPair : betweenPairs));
+    if (mine !== token || !soundStore.get()) return;
+    await playText(parts[i], mine, ready[i]);
   }
 }
 

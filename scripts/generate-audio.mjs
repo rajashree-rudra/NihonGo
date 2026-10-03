@@ -24,7 +24,7 @@ import { promisify } from "node:util";
 import ffmpegPath from "ffmpeg-static";
 import { MsEdgeTTS, OUTPUT_FORMAT } from "msedge-tts";
 import { allCharSets, allGrammarSets, allVocabSets } from "../src/data/levels.ts";
-import { audioKey, sentenceSpeech, speechText, textAudioKey, wordSpeech } from "../src/data/speech.ts";
+import { audioKey, kanjiSpeechParts, levelOfSet, sentenceSpeech, speechText, textAudioKey, wordSpeech } from "../src/data/speech.ts";
 
 const VOICES = { female: "ja-JP-NanamiNeural", male: "ja-JP-KeitaNeural" };
 const VOICE_ID = process.argv.find((a) => a.startsWith("--voice="))?.slice(8) ?? process.env.VOICE_ID ?? "female";
@@ -41,7 +41,15 @@ const RAW = path.join(CACHE, "raw");
 // Speech stays clear at low bitrates; this keeps the whole site under the free hosting
 // plan's 100 MB upload limit. Raise TEXT_KBPS (32/48) if hosting allows.
 const TEXT_KBPS = process.env.TEXT_KBPS ?? "24";
-const SMALL = path.join(CACHE, `${TEXT_KBPS}k`);
+// "-trim": the voice service leaves ~0.25 s of silence before and ~1 s after every clip; it is
+// cut down to a short natural edge so clips played back to back don't keep the learner waiting.
+const SMALL = path.join(CACHE, `${TEXT_KBPS}k-trim`);
+const TRIM = [
+  "silenceremove=start_periods=1:start_threshold=-50dB:start_silence=0.03",
+  "areverse",
+  "silenceremove=start_periods=1:start_threshold=-50dB:start_silence=0.08",
+  "areverse",
+].join(",");
 const TMP = path.join(CACHE, "tmp");
 const run = promisify(execFile);
 const exists = (p) => stat(p).then(() => true, () => false);
@@ -82,6 +90,8 @@ for (const set of allCharSets().filter((s) => s.details))
     const pack = `${set.id}-${String(Math.ceil((section.number ?? 1) / 10)).padStart(2, "0")}`;
     for (const k of section.items) {
       const d = set.details[k.char];
+      // The readings said after the kanji is written in practice (sentences are added below).
+      if (d) kanjiSpeechParts(d.examples, levelOfSet(set.id)).forEach((part, i) => i % 2 === 0 && addText(part, pack));
       for (const ex of d?.examples ?? []) addText(ex.ja, pack, sentenceSpeech(ex.ja, ex.hl, ex.hlKana));
       for (const v of d?.vocab ?? []) {
         if (!v.example) {
@@ -158,7 +168,7 @@ await Promise.all(
       const src = path.join(RAW, `${hash}.mp3`);
       const dst = path.join(SMALL, `${hash}.mp3`);
       if (!(await exists(src)) || (await exists(dst))) continue;
-      await run(ffmpegPath, ["-loglevel", "error", "-y", "-i", src, "-ac", "1", "-ar", "24000", "-b:a", `${TEXT_KBPS}k`, "-codec:a", "libmp3lame", dst]);
+      await run(ffmpegPath, ["-loglevel", "error", "-y", "-i", src, "-af", TRIM, "-ac", "1", "-ar", "24000", "-b:a", `${TEXT_KBPS}k`, "-codec:a", "libmp3lame", dst]);
       encoded++;
     }
   }),

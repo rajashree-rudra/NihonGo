@@ -63,3 +63,40 @@ export function sentenceSpeech(ja: string, hl?: string, hlKana?: string): string
   if (fixed) return fixed;
   return hl && hlKana && ja.includes(hl) ? ja.replace(hl, hlKana.replace(/\s+/g, "")) : ja;
 }
+
+/** How to say a single reading: kun'yomi without the okurigana dot, on'yomi in hiragana. */
+export function readingSpeech(reading: string, kind: "on" | "kun"): string {
+  return kind === "on" ? katakanaToHiragana(reading) : reading.replace(".", "");
+}
+
+interface ReadingExample {
+  ja: string;
+  level?: string;
+  reading?: string;
+  readingKind?: "on" | "kun";
+}
+
+/**
+ * What to say after a kanji is written well: a kun'yomi and a sentence using it, then an
+ * on'yomi and a sentence using it (at most two sentences, taken from the kanji's examples).
+ * Sentences at the book's own level come first, then the easiest ones.
+ */
+export function kanjiSpeechParts(examples: ReadingExample[], targetLevel?: string): string[] {
+  const ease = (level?: string) => (level ? 6 - Number(level.slice(1)) : 9); // N5 → 1 … N1 → 5
+  const rank = (ex: ReadingExample) => (ex.level === targetLevel ? 0 : ease(ex.level));
+  const parts: string[] = [];
+  for (const kind of ["kun", "on"] as const) {
+    const best = examples
+      .map((ex, i) => ({ ex, i }))
+      .filter(({ ex }) => ex.readingKind === kind && ex.reading)
+      .sort((a, b) => rank(a.ex) - rank(b.ex) || a.i - b.i)[0]?.ex;
+    if (best) parts.push(readingSpeech(best.reading!, kind), best.ja);
+  }
+  return parts;
+}
+
+/** "n2-kanji" → "N2" */
+export function levelOfSet(setId: string): string | undefined {
+  const m = setId.match(/^n(\d)/i);
+  return m ? `N${m[1]}` : undefined;
+}

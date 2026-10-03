@@ -5,7 +5,8 @@ import { useCallback, useEffect, useLayoutEffect, useMemo, useRef, useState, typ
 import { ArrowLeft, ChevronLeft, ChevronRight, Eraser, Eye, EyeOff, Feather, Loader2, Play, ShieldCheck, Undo2, Wand2 } from "lucide-react";
 import type { CharItem, CharSet } from "@/data/types";
 import { EASY_PASS_SCORE, alignDrawing, similarity, toShape, type Pt } from "@/lib/geometry";
-import { preloadClips, pronounce, sfx } from "@/lib/audio";
+import { preloadClips, pronounce, sfx, speakSequence } from "@/lib/audio";
+import { kanjiSpeechParts, levelOfSet } from "@/data/speech";
 import { autoClearStore, markLearned, practiceGuideStore, strictStore, testGuideStore } from "@/lib/settings";
 import { useStrokeSet } from "@/lib/strokes";
 import { Badge } from "@/components/ui/Badge";
@@ -152,11 +153,19 @@ export function StudySession({ charSet, queue, mode, title, backHref, startIndex
   };
 
   // ----- completion -----
+  // After a kanji is written well in practice: its kun'yomi + a sentence, then its on'yomi + a
+  // sentence (from its examples, preferring this book's level). Otherwise just say the character.
+  const announce = (ok: boolean) => {
+    const detail = charSet.details?.[item.char];
+    const parts = !isTest && ok && detail ? kanjiSpeechParts(detail.examples, levelOfSet(charSet.id)) : [];
+    void (parts.length ? speakSequence(parts) : pronounce(item));
+  };
+
   const onStrictComplete = (mistakes: number) => {
     const ok = !isTest || (mistakes <= 1 && !hinted.current);
     record(ok);
     sfx(ok ? "success" : "fail");
-    setTimeout(() => void pronounce(item), 380);
+    setTimeout(() => announce(ok), 380);
     const caption = isTest ? (ok ? "Correct!" : "Needs review") : mistakes === 0 ? "Perfect!" : "Well done!";
     setPhase({ kind: "burst", ok, caption });
     clearTimeout(timer.current);
@@ -174,7 +183,7 @@ export function StudySession({ charSet, queue, mode, title, backHref, startIndex
     const passed = score >= EASY_PASS_SCORE && !(isTest && hinted.current);
     record(passed);
     sfx(passed ? "success" : "fail");
-    void pronounce(item);
+    announce(passed);
     setPhase({ kind: "compare", score, passed, drawing });
   };
 
