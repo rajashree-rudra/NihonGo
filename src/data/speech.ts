@@ -77,22 +77,27 @@ interface ReadingExample {
 }
 
 /**
- * What to say after a kanji is written well: a kun'yomi and a sentence using it, then an
- * on'yomi and a sentence using it (at most two sentences, taken from the kanji's examples).
- * Sentences at the book's own level come first, then the easiest ones.
+ * What to say after a kanji is written well: two readings, each followed by a sentence using it
+ * (taken from the kanji's examples). Normally one kun'yomi and one on'yomi; a kanji with only one
+ * kind (e.g. 団: ダン, トン) gets two different readings of that kind instead. Sentences at the
+ * book's own level come first, then the easiest ones.
  */
 export function kanjiSpeechParts(examples: ReadingExample[], targetLevel?: string): string[] {
   const ease = (level?: string) => (level ? 6 - Number(level.slice(1)) : 9); // N5 → 1 … N1 → 5
   const rank = (ex: ReadingExample) => (ex.level === targetLevel ? 0 : ease(ex.level));
-  const parts: string[] = [];
-  for (const kind of ["kun", "on"] as const) {
-    const best = examples
-      .map((ex, i) => ({ ex, i }))
-      .filter(({ ex }) => ex.readingKind === kind && ex.reading)
-      .sort((a, b) => rank(a.ex) - rank(b.ex) || a.i - b.i)[0]?.ex;
-    if (best) parts.push(readingSpeech(best.reading!, kind), best.ja);
-  }
-  return parts;
+  // Best sentence for each distinct reading, best first.
+  const best = new Map<string, { ex: ReadingExample; i: number }>();
+  examples
+    .map((ex, i) => ({ ex, i }))
+    .filter(({ ex }) => ex.reading && ex.readingKind)
+    .sort((a, b) => rank(a.ex) - rank(b.ex) || a.i - b.i)
+    .forEach((c) => !best.has(c.ex.reading!) && best.set(c.ex.reading!, c));
+  const ranked = [...best.values()];
+  const firstOf = (kind: "kun" | "on") => ranked.find((c) => c.ex.readingKind === kind);
+  const kun = firstOf("kun");
+  const on = firstOf("on");
+  const picks = kun && on ? [kun, on] : ranked.slice(0, 2);
+  return picks.flatMap(({ ex }) => [readingSpeech(ex.reading!, ex.readingKind!), ex.ja]);
 }
 
 /** "n2-kanji" → "N2" */
