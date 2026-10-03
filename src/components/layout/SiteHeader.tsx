@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useEffect, useSyncExternalStore } from "react";
+import { useEffect } from "react";
 import { Mars, Moon, Sun, Venus, Volume2, VolumeX } from "lucide-react";
 import { soundStore, themeStore, voiceStore, type Voice } from "@/lib/settings";
 import { IconButton } from "@/components/ui/IconButton";
@@ -17,24 +17,10 @@ export function SoundToggle({ className, size }: { className?: string; size?: st
   );
 }
 
-const darkQuery = () => window.matchMedia("(prefers-color-scheme: dark)");
-function useSystemDark() {
-  return useSyncExternalStore(
-    (cb) => {
-      const q = darkQuery();
-      q.addEventListener("change", cb);
-      return () => q.removeEventListener("change", cb);
-    },
-    () => darkQuery().matches,
-    () => false,
-  );
-}
-
-/** Light / dark switch. Follows the device until the reader picks one; the choice is remembered. */
+/** Light (normal, the default) / dark switch; the choice is remembered on this device. */
 export function ThemeToggle({ size = "size-10", className }: { size?: string; className?: string }) {
   const [theme, setTheme] = themeStore.useValue();
-  const systemDark = useSystemDark();
-  const dark = theme === "dark" || (theme === "system" && systemDark);
+  const dark = theme === "dark";
   useEffect(() => {
     document.documentElement.dataset.theme = dark ? "dark" : "light";
   }, [dark]);
