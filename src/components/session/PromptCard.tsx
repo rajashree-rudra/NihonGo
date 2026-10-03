@@ -5,6 +5,7 @@ import type { CharItem, CharSetKind } from "@/data/types";
 import { formatKun } from "@/data/builders";
 import { kanaToRomaji } from "@/data/romaji";
 import { cn } from "@/components/ui/cn";
+import { LevelBadge } from "@/components/ui/LevelBadge";
 import type { SessionMode } from "./types";
 
 interface Props {
@@ -47,7 +48,10 @@ export function PromptCard({ item, kind, mode, hideChar, strokeCount, onSpeak }:
       <div className="min-w-0 flex-1">
         {isKanji ? (
           <>
-            <p className="truncate text-xl font-extrabold tracking-tight first-letter:uppercase lg:text-2xl">{item.meaning}</p>
+            <div className="flex min-w-0 items-center gap-2">
+              <p className="truncate text-xl font-extrabold tracking-tight first-letter:uppercase lg:text-2xl">{item.meaning}</p>
+              {item.level && <LevelBadge level={item.level} className="shrink-0" />}
+            </div>
             <dl className="mt-1 space-y-0.5 text-[13px] sm:mt-2 sm:space-y-1 sm:text-sm">
               {!!item.kun?.length && <Reading label="Kun" values={item.kun.map(formatKun)} raw={item.kun} />}
               {!!item.on?.length && <Reading label="On" values={item.on} raw={item.on} />}

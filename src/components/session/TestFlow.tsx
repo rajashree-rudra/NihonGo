@@ -1,10 +1,11 @@
 "use client";
 
 import Link from "next/link";
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import { ArrowLeft, Feather, ShieldCheck, Shuffle } from "lucide-react";
 import type { CharItem, CharSet } from "@/data/types";
 import { strictStore } from "@/lib/settings";
+import { levelOfSet } from "@/data/speech";
 import { Button } from "@/components/ui/Button";
 import { Segmented } from "@/components/ui/Segmented";
 import { cn } from "@/components/ui/cn";
@@ -37,8 +38,22 @@ function shuffle<T>(arr: T[]): T[] {
 
 const pick = (pool: CharItem[], count: Count) => shuffle(pool).slice(0, count === "all" ? pool.length : count);
 
+/**
+ * A kanji book can include easier kanji that look like its own (e.g. N5 子 in the N2 book).
+ * They stay in the list and practice, but a test checks only the book's own level.
+ * Groups left empty are dropped. Sets without levels (kana) are unchanged.
+ */
+function ownLevelOnly(charSet: CharSet): CharSet {
+  const level = levelOfSet(charSet.id);
+  const keep = (k: CharItem) => !k.level || !level || k.level === level;
+  if (charSet.items.every(keep)) return charSet;
+  const sections = charSet.sections.map((s) => ({ ...s, items: s.items.filter(keep) })).filter((s) => s.items.length);
+  return { ...charSet, sections, items: sections.flatMap((s) => s.items) };
+}
+
 /** Test: characters of the chosen section in random order, answer hidden; setup → session → summary. */
-export function TestFlow({ charSet, title, backHref }: Props) {
+export function TestFlow({ charSet: fullSet, title, backHref }: Props) {
+  const charSet = useMemo(() => ownLevelOnly(fullSet), [fullSet]);
   const [stage, setStage] = useState<Stage>({ kind: "setup" });
   const [section, setSection] = useState(ALL);
   const [count, setCount] = useState<Count>(20);
