@@ -90,8 +90,9 @@ interface ReadingExample {
 /**
  * What to say after a kanji is written well: two readings, each followed by a sentence using it
  * (taken from the kanji's examples). Normally one kun'yomi and one on'yomi; a kanji with only one
- * kind (e.g. 団: ダン, トン) gets two different readings of that kind instead. Sentences at the
- * book's own level come first, then the easiest ones.
+ * kind (e.g. 団: ダン, トン) gets two different readings of that kind instead. For each reading
+ * the sentence at the book's own level is chosen, else the easiest; and the pair whose sentence
+ * is at the book's level is said first.
  */
 export function kanjiSpeechParts(examples: ReadingExample[], targetLevel?: string): string[] {
   const ease = (level?: string) => (level ? 6 - Number(level.slice(1)) : 9); // N5 → 1 … N1 → 5
@@ -107,7 +108,8 @@ export function kanjiSpeechParts(examples: ReadingExample[], targetLevel?: strin
   const firstOf = (kind: "kun" | "on") => ranked.find((c) => c.ex.readingKind === kind);
   const kun = firstOf("kun");
   const on = firstOf("on");
-  const picks = kun && on ? [kun, on] : ranked.slice(0, 2);
+  // Say the sentence at the book's own level first (then the easier one); kun before on on a tie.
+  const picks = (kun && on ? [kun, on] : ranked.slice(0, 2)).sort((a, b) => rank(a.ex) - rank(b.ex));
   return picks.flatMap(({ ex }) => [readingSpeech(ex.reading!, ex.readingKind!), ex.ja]);
 }
 
