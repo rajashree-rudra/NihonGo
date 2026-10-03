@@ -78,10 +78,12 @@ interface PackIndex {
 const packIndexes = new Map<Voice, Promise<PackIndex | null>>();
 const textUrls = new Map<string, Promise<string | null>>();
 
-function loadPackIndex(voice: Voice) {
-  let index = packIndexes.get(voice);
+// Always revalidated ("no-cache"): after audio is regenerated, packs get new names, and a stale
+// index would point at files that no longer exist.
+function loadPackIndex(voice: Voice, reload = false) {
+  let index = reload ? undefined : packIndexes.get(voice);
   if (!index) {
-    index = fetch(`${baseFor(voice)}/packs/index.json`)
+    index = fetch(`${baseFor(voice)}/packs/index.json`, { cache: reload ? "reload" : "no-cache" })
       .then((r) => (r.ok ? (r.json() as Promise<PackIndex>) : null))
       .catch(() => null);
     packIndexes.set(voice, index);
@@ -107,16 +109,22 @@ function voiceClipUrl(voice: Voice, hash: string): Promise<string | null> {
   let url = textUrls.get(key);
   if (!url) {
     url = (async () => {
-      const index = await loadPackIndex(voice);
-      const entry = index?.clips[hash];
-      if (!entry) return null;
-      const [pack, offset, length] = entry;
-      const res = await fetch(`${baseFor(voice)}/packs/${index.packs[pack]}`, { headers: { Range: `bytes=${offset}-${offset + length - 1}` } });
-      if (!res.ok) return null;
-      let bytes = await res.arrayBuffer();
-      // A server that ignores Range sends the whole pack — cut the clip out ourselves.
-      if (res.status === 200) bytes = bytes.slice(offset, offset + length);
-      return URL.createObjectURL(new Blob([bytes], { type: "audio/mpeg" }));
+      const fromIndex = async (index: PackIndex | null): Promise<string | null | "stale"> => {
+        const entry = index?.clips[hash];
+        if (!index || !entry) return null;
+        const [pack, offset, length] = entry;
+        const res = await fetch(`${baseFor(voice)}/packs/${index.packs[pack]}`, { headers: { Range: `bytes=${offset}-${offset + length - 1}` } });
+        if (!res.ok) return "stale";
+        let bytes = await res.arrayBuffer();
+        // A server that ignores Range sends the whole pack — cut the clip out ourselves.
+        if (res.status === 200) bytes = bytes.slice(offset, offset + length);
+        return URL.createObjectURL(new Blob([bytes], { type: "audio/mpeg" }));
+      };
+      let result = await fromIndex(await loadPackIndex(voice));
+      // The pack is gone (audio was regenerated since the index was loaded): reload the index
+      // once and retry, rather than falling back to the other voice.
+      if (result === "stale") result = await fromIndex(await loadPackIndex(voice, true));
+      return result === "stale" ? null : result;
     })().catch(() => null);
     url.then((u) => u === null && textUrls.delete(key));
     textUrls.set(key, url);
@@ -190,11 +198,35 @@ export async function speakSequence(parts: string[], { inPair = 40, betweenPairs
   }
 }
 
-function charClip(voice: Voice, key: string) {
+// Character clips keep fixed names; chars.json lists a content hash per clip, used as ?v= so a
+// regenerated clip is never replaced by a cached old one.
+const charVersions = new Map<Voice, Promise<Record<string, string>>>();
+function loadCharVersions(voice: Voice) {
+  let v = charVersions.get(voice);
+  if (!v) {
+    v = fetch(`${baseFor(voice)}/chars.json`, { cache: "no-cache" })
+      .then((r) => (r.ok ? (r.json() as Promise<Record<string, string>>) : {}))
+      .catch(() => ({}));
+    charVersions.set(voice, v);
+  }
+  return v;
+}
+
+// Load the list as soon as the app starts (and on voice change), so a tap never waits on it —
+// phones only allow audio to start straight from a tap.
+if (typeof window !== "undefined") {
+  void loadCharVersions(voiceStore.get());
+  voiceStore.subscribe(() => void loadCharVersions(voiceStore.get()));
+}
+
+async function charClip(voice: Voice, key: string) {
   const id = `${voice}:${key}`;
   let clip = clips.get(id);
   if (!clip) {
-    clip = new Audio(`${baseFor(voice)}/${key}.mp3`);
+    const version = (await loadCharVersions(voice))[key];
+    clip = clips.get(id); // another call may have created it meanwhile
+    if (clip) return clip;
+    clip = new Audio(`${baseFor(voice)}/${key}.mp3${version ? `?v=${version}` : ""}`);
     clip.preload = "auto";
     clip.addEventListener("error", () => missing.add(id), { once: true });
     clips.set(id, clip);
@@ -209,7 +241,8 @@ async function play(key: string, fallbackText: string) {
 
   for (const voice of voiceOrder()) {
     if (missing.has(`${voice}:${key}`)) continue;
-    const clip = charClip(voice, key);
+    const clip = await charClip(voice, key);
+    if (mine !== token) return;
     try {
       clip.currentTime = 0;
       playing = clip;
@@ -231,7 +264,7 @@ export function preloadClips(items: CharItem[]) {
   const voice = voiceStore.get();
   for (const item of items) {
     const key = audioKey(item.char);
-    if (!missing.has(`${voice}:${key}`)) charClip(voice, key);
+    if (!missing.has(`${voice}:${key}`)) void charClip(voice, key);
   }
 }
 

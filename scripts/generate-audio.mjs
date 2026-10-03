@@ -24,7 +24,7 @@ import { promisify } from "node:util";
 import ffmpegPath from "ffmpeg-static";
 import { MsEdgeTTS, OUTPUT_FORMAT } from "msedge-tts";
 import { allCharSets, allGrammarSets, allVocabSets } from "../src/data/levels.ts";
-import { audioKey, kanjiSpeechParts, levelOfSet, sentenceSpeech, speechText, textAudioKey, wordSpeech } from "../src/data/speech.ts";
+import { audioKey, kanjiSpeechParts, legacySpeechText, levelOfSet, sentenceSpeech, speechText, textAudioKey, wordSpeech } from "../src/data/speech.ts";
 
 const VOICES = { female: "ja-JP-NanamiNeural", male: "ja-JP-KeitaNeural" };
 const VOICE_ID = process.argv.find((a) => a.startsWith("--voice="))?.slice(8) ?? process.env.VOICE_ID ?? "female";
@@ -58,7 +58,13 @@ const exists = (p) => stat(p).then(() => true, () => false);
 
 const charJobs = [];
 for (const item of allCharSets().flatMap((s) => s.items)) {
-  charJobs.push({ file: path.join(PUBLIC_AUDIO, `${audioKey(item.char)}.mp3`), text: speechText(item), format: OUTPUT_FORMAT.AUDIO_24KHZ_48KBITRATE_MONO_MP3 });
+  charJobs.push({
+    key: audioKey(item.char),
+    file: path.join(PUBLIC_AUDIO, `${audioKey(item.char)}.mp3`),
+    text: speechText(item),
+    legacy: legacySpeechText(item),
+    format: OUTPUT_FORMAT.AUDIO_24KHZ_48KBITRATE_MONO_MP3,
+  });
 }
 
 /**
@@ -116,8 +122,14 @@ const textJobs = [...speechFiles].map(([file, text]) => ({
 
 await mkdir(RAW, { recursive: true });
 await mkdir(PUBLIC_AUDIO, { recursive: true });
+// Character clips keep a fixed file name, so remember what each one says: when the spoken text
+// changes (e.g. 団 now says "だん、とん"), the clip is regenerated. Clips made before this record
+// existed said legacySpeechText().
+const SAID = path.join(CACHE, "chars-said.json");
+const said = (await exists(SAID)) ? JSON.parse(await readFile(SAID, "utf8")) : {};
 const todo = [];
-for (const job of [...charJobs, ...textJobs]) if (!(await exists(job.file))) todo.push(job);
+for (const job of charJobs) if (!(await exists(job.file)) || (said[job.key] ?? job.legacy) !== job.text) todo.push(job);
+for (const job of textJobs) if (!(await exists(job.file))) todo.push(job);
 console.log(`${VOICE}: ${charJobs.length + textJobs.length} clips, ${todo.length} to generate with ${WORKERS} workers.`);
 
 let made = 0;
@@ -143,6 +155,7 @@ async function worker(id) {
       } catch (e) {
         if (attempt >= 4) {
           failed++;
+          job.failed = true;
           console.error(`✗ ${job.text}: ${e?.message ?? e}`);
           break;
         }
@@ -154,6 +167,16 @@ async function worker(id) {
 await Promise.all(Array.from({ length: WORKERS }, (_, i) => worker(i)));
 await rm(TMP, { recursive: true, force: true });
 console.log(`Generated ${made}, failed ${failed}.`);
+
+// Record what each character clip says, and publish a version per clip (content hash) so the app
+// can ask for ?v=<hash> — browsers and CDNs then never replay an outdated clip.
+const failedFiles = new Set(todo.filter((j) => j.failed).map((j) => j.file));
+for (const job of charJobs) if (!failedFiles.has(job.file) && (await exists(job.file))) said[job.key] = job.text;
+await writeFile(SAID, JSON.stringify(said));
+const versions = {};
+for (const job of charJobs)
+  if (await exists(job.file)) versions[job.key] = createHash("sha1").update(await readFile(job.file)).digest("hex").slice(0, 8);
+await writeFile(path.join(PUBLIC_AUDIO, "chars.json"), JSON.stringify(versions));
 
 // ---------- Re-encode word/sentence clips to 32 kbps ----------
 

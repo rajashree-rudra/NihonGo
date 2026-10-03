@@ -35,6 +35,17 @@ function katakanaToHiragana(s: string): string {
  */
 export function speechText(item: { char: string; on?: string[]; kun?: string[] }): string {
   if (!item.on && !item.kun) return item.char;
+  const kun = (item.kun ?? []).map((k) => k.replace(".", ""));
+  const on = (item.on ?? []).map(katakanaToHiragana);
+  // One kun'yomi + one on'yomi; a kanji with only one kind says its first two (団 → だん、とん).
+  const picked = kun.length && on.length ? [kun[0], on[0]] : [...kun, ...on].slice(0, 2);
+  const parts = [...new Set(picked.filter(Boolean))];
+  return parts.length ? parts.join("、") : item.char;
+}
+
+/** What speechText() said before kanji with one kind of reading got two readings (used by the audio script). */
+export function legacySpeechText(item: { char: string; on?: string[]; kun?: string[] }): string {
+  if (!item.on && !item.kun) return item.char;
   const parts: string[] = [];
   const kun = item.kun?.[0]?.replace(".", "");
   const on = item.on?.[0] ? katakanaToHiragana(item.on[0]) : undefined;
