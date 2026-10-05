@@ -204,7 +204,7 @@ export const GROUPS: BookGroup[] = [
         ["風で木の枝が**折れ**ました。", "かぜ で き の えだ が **おれ**ました。", "A tree branch broke in the wind.", "N3", undefined, "お.れる"],
       ]),
       bk("祝", "N2", "celebrate", "シュク シュウ", "いわ.う", [
-        ["みんなで二人の結婚を**祝福**しました。", "みんな で ふたり の けっこん を **しゅくふく** しました。", "Everyone blessed the couple's marriage.", "N1", undefined, "シュク"],
+        ["明日は**祝日**です。", "あした は **しゅくじつ** です。", "Tomorrow is a national holiday.", "N3", undefined, "シュク"],
         ["結婚式で**ご祝儀**を渡します。", "けっこんしき で **ごしゅうぎ** を わたします。", "I give a gift of money at the wedding.", undefined, undefined, "シュウ"],
         ["誕生日を**祝い**ます。", "たんじょうび を **いわい**ます。", "We celebrate the birthday.", "N3", undefined, "いわ.う"],
         ["**お祝い**のカードを送りました。", "**おいわい** の カード を おくりました。", "I sent a congratulations card.", "N3", undefined, "いわ.う"],

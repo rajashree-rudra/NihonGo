@@ -190,7 +190,7 @@ export const GROUPS: BookGroup[] = [
     note: "shapes that wrap around something",
     items: [
       bk("包", "N2", "wrap", "ホウ", "つつ.む", [
-        ["警察が建物を**包囲**しました。", "けいさつ が たてもの を **ほうい** しました。", "The police surrounded the building.", "N1", undefined, "ホウ"],
+        ["新しい**包丁**を買いました。", "あたらしい **ほうちょう** を かいました。", "I bought a new kitchen knife.", "N2", undefined, "ホウ"],
         ["プレゼントを紙で**包み**ます。", "プレゼント を かみ で **つつみ**ます。", "I wrap the present in paper.", "N3", undefined, "つつ.む"],
         ["店の人が本を**包んで**くれました。", "みせ の ひと が ほん を **つつんで** くれました。", "The shop staff wrapped the book for me.", "N3", undefined, "つつ.む"],
       ], [
@@ -225,7 +225,7 @@ export const GROUPS: BookGroup[] = [
     note: "small marks beside a shape",
     items: [
       bk("占", "N2", "fortune-telling, occupy", "セン", "うらな.う し.める", [
-        ["その会社が市場を**独占**しています。", "その かいしゃ が しじょう を **どくせん** して います。", "That company monopolizes the market.", "N1", undefined, "セン"],
+        ["弟がソファを**占領**しています。", "おとうと が ソファ を **せんりょう** して います。", "My little brother is taking up the whole sofa.", "N2", undefined, "セン"],
         ["今日の運勢を**占い**ました。", "きょう の うんせい を **うらない**ました。", "I had today's fortune told.", "N2", undefined, "うらな.う"],
         ["女性が半分を**占めて**います。", "じょせい が はんぶん を **しめて** います。", "Women make up half of them.", "N2", undefined, "し.める"],
       ], [["買い占める", "かいしめる", "to buy up", "N2", "店の品物を**買い占め**ました。", "Someone bought up all the goods in the store.", "みせ の しなもの を **かいしめ**ました。"]]),

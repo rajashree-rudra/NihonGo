@@ -25,7 +25,7 @@ export const GROUPS: BookGroup[] = [
       bk("役", "N3", "role, duty, use", "ヤク エキ", "", [
         ["これは**役に立つ**本です。", "これ は **やく に たつ** ほん です。", "This is a useful book.", "N3", undefined, "ヤク"],
         ["彼は大事な**役割**をしています。", "かれ は だいじ な **やくわり** を して います。", "He plays an important role.", "N3", undefined, "ヤク"],
-        ["祖父は若いころ**兵役**に就きました。", "そふ は わかい ころ **へいえき** に つきました。", "My grandfather did military service when he was young.", "N1", undefined, "エキ"],
+        ["父はまだ**現役**で働いています。", "ちち は まだ **げんえき** で はたらいて います。", "My father is still actively working.", "N1", undefined, "エキ"],
       ]),
       bk("投", "N3", "throw", "トウ", "な.げる", [
         ["選挙で**投票**しました。", "せんきょ で **とうひょう** しました。", "I voted in the election.", "N3", undefined, "トウ"],
@@ -146,7 +146,7 @@ export const GROUPS: BookGroup[] = [
     note: "釒 metal",
     items: [
       bk("針", "N2", "needle, hand (of a clock)", "シン", "はり", [
-        ["船の**針路**を変えます。", "ふね の **しんろ** を かえます。", "We change the ship's course.", "N1", undefined, "シン"],
+        ["これが学校の新しい**方針**です。", "これ が がっこう の あたらしい **ほうしん** です。", "This is the school's new policy.", "N2", undefined, "シン"],
         ["**針**で指を刺しました。", "**はり** で ゆび を さしました。", "I pricked my finger with a needle.", "N3", undefined, "はり"],
       ], [
         ["針金", "はりがね", "wire", "N2", "**針金**で形を作ります。", "I make shapes with wire.", "**はりがね** で かたち を つくります。"],
@@ -538,7 +538,7 @@ export const GROUPS: BookGroup[] = [
       ]),
       bk("童", "N2", "child", "ドウ", "わらべ", [
         ["子どもに**童話**を読みます。", "こども に **どうわ** を よみます。", "I read fairy tales to my child.", "N2", undefined, "ドウ"],
-        ["子どもと**童謡**を歌います。", "こども と **どうよう** を うたいます。", "I sing nursery rhymes with my child.", "N1", undefined, "ドウ"],
+        ["公園で**児童**が遊んでいます。", "こうえん で **じどう** が あそんで います。", "Children are playing in the park.", "N2", undefined, "ドウ"],
         ["祖母が古い**童歌**を教えてくれました。", "そぼ が ふるい **わらべうた** を おしえて くれました。", "My grandmother taught me an old children's song.", "N1", undefined, "わらべ"],
       ]),
       bk("重", "N4", "heavy, important", "ジュウ チョウ", "おも.い かさ.ねる", [

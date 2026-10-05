@@ -280,7 +280,7 @@ export const GROUPS: BookGroup[] = [
     note: "反 family, plus 片 inside 版",
     items: [
       bk("板", "N2", "board, plank", "ハン バン", "いた", [
-        ["木で**合板**を作ります。", "き で **ごうはん** を つくります。", "Plywood is made from wood.", "N1", undefined, "ハン"],
+        ["**鉄板**で肉を焼きます。", "**てっぱん** で にく を やきます。", "I grill meat on an iron plate.", "N1", undefined, "ハン"],
         ["**黒板**に字を書きます。", "**こくばん** に じ を かきます。", "I write on the blackboard.", "N3", undefined, "バン"],
         ["木の**板**を切りました。", "き の **いた** を きりました。", "I cut a wooden board.", "N3", undefined, "いた"],
         ["**まな板**の上で野菜を切ります。", "**まないた** の うえ で やさい を きります。", "I cut vegetables on the cutting board.", "N3", undefined, "いた"],
@@ -779,7 +779,7 @@ export const GROUPS: BookGroup[] = [
         ["石油", "せきゆ", "oil, petroleum, kerosene", "N3", "**石油**の値段が上がりました。", "The price of oil has gone up.", "**せきゆ** の ねだん が あがりました。"],
       ]),
       bk("由", "N4", "reason, cause", "ユ ユウ", "よし", [
-        ["町の名前の**由来**を調べました。", "まち の なまえ の **ゆらい** を しらべました。", "I looked into the origin of the town's name.", "N1", undefined, "ユ"],
+        ["大阪**経由**で東京へ行きます。", "おおさか **けいゆ** で とうきょう へ いきます。", "I'm going to Tokyo via Osaka.", "N2", undefined, "ユ"],
         ["**理由**を教えてください。", "**りゆう** を おしえて ください。", "Please tell me the reason.", undefined, undefined, "ユウ"],
         ["**自由**な時間が欲しいです。", "**じゆう** な じかん が ほしい です。", "I want some free time.", undefined, undefined, "ユウ"],
         ["彼が何を考えているか、私には知る**由**もありません。", "かれ が なに を かんがえて いる か、 わたし に は しる **よし** も ありません。", "I have no way of knowing what he is thinking.", "N1", undefined, "よし"],
