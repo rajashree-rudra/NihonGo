@@ -9,16 +9,22 @@ import { cn } from "@/components/ui/cn";
 import { Markable } from "@/components/marker/Markable";
 
 /** An example sentence, optionally with its own highlighted word and that word's JLPT level. */
-export type ExampleItem = Example & { hl?: string; hlKana?: string; level?: string; reading?: string; readingKind?: "on" | "kun" };
+export type ExampleItem = Example & {
+  hl?: string;
+  hlKana?: string;
+  level?: string;
+  reading?: string;
+  readingKind?: "on" | "kun" | "special";
+};
 
-/** Small "ON ラン" / "KUN みだ(れる)" chip naming the reading a sentence demonstrates. */
-function ReadingChip({ reading, kind }: { reading: string; kind: "on" | "kun" }) {
+/** Small "ON ラン" / "KUN みだ(れる)" / "SPECIAL きょう" chip naming the reading a sentence demonstrates. */
+function ReadingChip({ reading, kind }: { reading: string; kind: "on" | "kun" | "special" }) {
   const [stem, okurigana] = reading.split(".");
   return (
     <span
       className={cn(
         "mb-1 inline-flex items-center gap-1 rounded-md px-1.5 py-0.5 text-[10px] font-bold",
-        kind === "on" ? "bg-ai-soft text-ai" : "bg-matcha-soft text-matcha",
+        kind === "on" ? "bg-ai-soft text-ai" : kind === "kun" ? "bg-matcha-soft text-matcha" : "bg-kin-soft text-kin",
       )}
     >
       <span className="uppercase tracking-wider">{kind}</span>

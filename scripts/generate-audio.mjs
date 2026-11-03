@@ -97,7 +97,7 @@ for (const set of allCharSets().filter((s) => s.details))
     for (const k of section.items) {
       const d = set.details[k.char];
       // The readings said after the kanji is written in practice (sentences are added below).
-      if (d) kanjiSpeechParts(speechCandidates(d), levelOfSet(set.id)).forEach((part, i) => i % 2 === 0 && addText(part, pack));
+      if (d) kanjiSpeechParts(speechCandidates(d), k.level ?? levelOfSet(set.id)).forEach((part, i) => i % 2 === 0 && addText(part, pack));
       for (const ex of d?.examples ?? []) addText(ex.ja, pack, sentenceSpeech(ex.ja, ex.hl, ex.hlKana));
       for (const v of d?.vocab ?? []) {
         if (!v.example) {

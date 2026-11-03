@@ -90,7 +90,7 @@ interface ReadingExample {
   ja: string;
   level?: string;
   reading?: string;
-  readingKind?: "on" | "kun";
+  readingKind?: "on" | "kun" | "special";
 }
 
 /**
@@ -116,7 +116,8 @@ export function speechCandidates(detail: {
  * (taken from the kanji's examples). Normally one kun'yomi and one on'yomi; a kanji with only one
  * kind (e.g. 団: ダン, トン) gets two different readings of that kind instead. For each reading
  * the sentence at the book's own level is chosen, else the easiest; and the pair whose sentence
- * is at the book's level is said first.
+ * is at the book's level is said first. Words read as a whole (今日 きょう) aren't a reading of
+ * the kanji, so they're skipped.
  */
 export function kanjiSpeechParts(examples: ReadingExample[], targetLevel?: string): string[] {
   const ease = (level?: string) => (level ? 6 - Number(level.slice(1)) : 9); // N5 → 1 … N1 → 5
@@ -125,7 +126,7 @@ export function kanjiSpeechParts(examples: ReadingExample[], targetLevel?: strin
   const best = new Map<string, { ex: ReadingExample; i: number }>();
   examples
     .map((ex, i) => ({ ex, i }))
-    .filter(({ ex }) => ex.reading && ex.readingKind)
+    .filter(({ ex }) => ex.reading && (ex.readingKind === "on" || ex.readingKind === "kun"))
     .sort((a, b) => rank(a.ex) - rank(b.ex) || a.i - b.i)
     .forEach((c) => !best.has(c.ex.reading!) && best.set(c.ex.reading!, c));
   const ranked = [...best.values()];
@@ -134,7 +135,7 @@ export function kanjiSpeechParts(examples: ReadingExample[], targetLevel?: strin
   const on = firstOf("on");
   // Say the sentence at the book's own level first (then the easier one); kun before on on a tie.
   const picks = (kun && on ? [kun, on] : ranked.slice(0, 2)).sort((a, b) => rank(a.ex) - rank(b.ex));
-  return picks.flatMap(({ ex }) => [readingSpeech(ex.reading!, ex.readingKind!), ex.ja]);
+  return picks.flatMap(({ ex }) => [readingSpeech(ex.reading!, ex.readingKind as "on" | "kun"), ex.ja]);
 }
 
 /** "n2-kanji" → "N2" */

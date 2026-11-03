@@ -161,7 +161,7 @@ export function StudySession({ charSet, queue, mode, title, backHref, startIndex
   // sentence (from its examples, preferring this book's level). Otherwise just say the character.
   const announce = (ok: boolean) => {
     const detail = charSet.details?.[item.char];
-    const parts = !isTest && ok && detail ? kanjiSpeechParts(speechCandidates(detail), levelOfSet(charSet.id)) : [];
+    const parts = !isTest && ok && detail ? kanjiSpeechParts(speechCandidates(detail), item.level ?? levelOfSet(charSet.id)) : [];
     void (parts.length ? speakSequence(parts) : pronounce(item));
   };
 
