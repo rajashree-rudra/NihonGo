@@ -44,6 +44,9 @@ export interface KanjiVocab {
   /** Reading of the example as spaced kana, with the word in **…**. */
   exampleKana?: string;
   exampleRomaji?: string;
+  /** Which of the kanji's readings this word uses (worked out from its reading), if clear. */
+  kanjiReading?: string;
+  kanjiReadingKind?: "on" | "kun";
 }
 
 export interface KanjiDetail {

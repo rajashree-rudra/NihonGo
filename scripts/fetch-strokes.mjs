@@ -6,7 +6,7 @@
 // scaled into the left of the box and the small kana into the lower right.
 //
 // Run: npm run data:strokes   (re-run after adding characters)
-import { mkdir, writeFile } from "node:fs/promises";
+import { mkdir, readFile, writeFile } from "node:fs/promises";
 import { allCharSets } from "../src/data/levels.ts";
 
 const BASE = "https://cdn.jsdelivr.net/gh/KanjiVG/kanjivg@master/kanji/";
@@ -19,9 +19,18 @@ function fetchStrokes(char) {
   return cache.get(char);
 }
 
+/** The CDN sometimes refuses bursts of requests (HTTP 403/429): wait and try again. */
+export async function fetchRetry(url, tries = 5) {
+  for (let i = 1; ; i++) {
+    const res = await fetch(url);
+    if (res.ok || i >= tries || (res.status !== 403 && res.status !== 429 && res.status < 500)) return res;
+    await new Promise((r) => setTimeout(r, 2000 * i));
+  }
+}
+
 async function download(char) {
   const hex = char.codePointAt(0).toString(16).padStart(5, "0");
-  const res = await fetch(`${BASE}${hex}.svg`);
+  const res = await fetchRetry(`${BASE}${hex}.svg`);
   if (!res.ok) throw new Error(`${char} (${hex}): HTTP ${res.status}`);
   const svg = await res.text();
   // Stroke paths carry ids like kvg:03042-s1 — the number is the stroke order.
@@ -91,11 +100,13 @@ for (const set of allCharSets()) {
   const dupes = chars.filter((c, i) => chars.indexOf(c) !== i);
   if (dupes.length) throw new Error(`${set.id}: duplicate characters ${dupes.join(" ")}`);
 
-  const strokes = await mapLimit(chars, 8, (c) =>
+  // A character that can't be downloaded keeps the strokes it already had.
+  const previous = JSON.parse(await readFile(new URL(`${set.id}.json`, OUT_DIR), "utf8").catch(() => "{}"));
+  const strokes = await mapLimit(chars, 4, (c) =>
     strokesFor(c).catch((e) => {
       failed++;
-      console.error("✗", e.message);
-      return null;
+      console.error("✗", e.message, previous[c] ? "(kept the previous strokes)" : "");
+      return previous[c] ?? null;
     }),
   );
   const data = Object.fromEntries(chars.map((c, i) => [c, strokes[i]]).filter(([, s]) => s));

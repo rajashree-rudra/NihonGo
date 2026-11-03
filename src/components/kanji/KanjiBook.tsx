@@ -1,11 +1,11 @@
 "use client";
 
 import { useCallback, useDeferredValue, useEffect, useMemo, useRef, useState } from "react";
-import { ChevronDown, ChevronsDownUp, ChevronsUpDown, Eye, EyeOff, Layers, Search, SearchX, X } from "lucide-react";
+import { ChevronDown, ChevronsDownUp, ChevronsUpDown, Eye, EyeOff, Layers, Search, SearchX, Star, X } from "lucide-react";
 import type { CharSet } from "@/data/types";
 import { kanaToRomaji, toHiragana } from "@/data/romaji";
 import { warmTextAudio } from "@/lib/audio";
-import { kanjiInfoStore, romajiStore } from "@/lib/settings";
+import { kanjiInfoStore, romajiStore, starStore } from "@/lib/settings";
 import { GroupPicker, type GroupOption } from "@/components/ui/GroupPicker";
 import { cn } from "@/components/ui/cn";
 import { KanjiGroup } from "./KanjiGroup";
@@ -27,6 +27,16 @@ export function KanjiBook({ charSet, basePath }: { charSet: CharSet; basePath: s
   const deferred = useDeferredValue(query);
   const sentinel = useRef<HTMLDivElement>(null);
   const pendingJump = useRef<string | null>(null);
+  const pendingRow = useRef<string | null>(null);
+  const [stars, setStars] = starStore.useValue();
+  const [starredOnly, setStarredOnly] = useState(false);
+  const starKey = useCallback((char: string) => `${charSet.id}:${char}`, [charSet.id]);
+  const starred = useMemo(() => new Set(stars), [stars]);
+  const starCount = useMemo(() => charSet.items.filter((k) => starred.has(starKey(k.char))).length, [charSet, starred, starKey]);
+  const toggleStar = useCallback(
+    (char: string) => setStars((prev) => (prev.includes(starKey(char)) ? prev.filter((k) => k !== starKey(char)) : [...prev, starKey(char)])),
+    [setStars, starKey],
+  );
 
   useEffect(() => warmTextAudio(), []);
 
@@ -82,10 +92,12 @@ export function KanjiBook({ charSet, basePath }: { charSet: CharSet; basePath: s
         .map((s) => ({
           ...s,
           total: s.items.length,
-          items: s.items.filter((k) => (level === "all" || k.level === level) && (!matches || matches(k.char))),
+          items: s.items.filter(
+            (k) => (level === "all" || k.level === level) && (!matches || matches(k.char)) && (!starredOnly || starred.has(starKey(k.char))),
+          ),
         }))
         .filter((g) => g.items.length),
-    [charSet, level, matches],
+    [charSet, level, matches, starredOnly, starred, starKey],
   );
   const mixedLevels = LEVELS.filter((l) => levelCounts[l]).length > 1;
   const groupOptions: GroupOption[] = useMemo(
@@ -93,9 +105,9 @@ export function KanjiBook({ charSet, basePath }: { charSet: CharSet; basePath: s
     [groups],
   );
   const shownKanji = groups.reduce((n, g) => n + g.items.length, 0);
-  const filtering = !!matches || level !== "all";
+  const filtering = !!matches || level !== "all" || starredOnly;
 
-  useEffect(() => setLimit(PAGE), [level, q]);
+  useEffect(() => setLimit(PAGE), [level, q, starredOnly]);
   useEffect(() => {
     const el = sentinel.current;
     if (!el || limit >= groups.length) return;
@@ -149,6 +161,40 @@ export function KanjiBook({ charSet, basePath }: { charSet: CharSet; basePath: s
       return next;
     });
   }, []);
+
+  // Previous / next kanji from an open one (in the list as currently filtered): close this one,
+  // open that one and bring its row under the toolbar, rendering its group first if needed.
+  const order = useMemo(() => groups.flatMap((g) => g.items.map((k) => k.char)), [groups]);
+  const step = useCallback(
+    (char: string, dir: 1 | -1) => {
+      const target = order[order.indexOf(char) + dir];
+      if (!target) return;
+      setOpen((prev) => {
+        const next = new Set(prev);
+        next.delete(char);
+        next.add(target);
+        return next;
+      });
+      const gi = groups.findIndex((g) => g.items.some((k) => k.char === target));
+      setLimit((l) => Math.max(l, gi + 1));
+      pendingRow.current = target;
+    },
+    [order, groups],
+  );
+  useEffect(() => {
+    const char = pendingRow.current;
+    const row = char ? document.getElementById(`k-${char}`)?.closest("li") : null;
+    if (!row) return;
+    pendingRow.current = null;
+    // The row above may still be closing (300 ms), so keep re-aligning for a moment.
+    let tries = 0;
+    const align = () => {
+      const bar = document.querySelector("[data-kanji-toolbar]")?.getBoundingClientRect().bottom ?? 0;
+      window.scrollBy({ top: row.getBoundingClientRect().top - bar - 8, behavior: "instant" });
+      if (++tries < 6) setTimeout(() => requestAnimationFrame(align), 70);
+    };
+    align();
+  });
 
   const visibleChars = groups.slice(0, limit).flatMap((g) => g.items.map((k) => k.char));
   const allOpen = visibleChars.length > 0 && visibleChars.every((c) => open.has(c));
@@ -204,6 +250,17 @@ export function KanjiBook({ charSet, basePath }: { charSet: CharSet; basePath: s
             {showInfo ? <Eye className="size-4" /> : <EyeOff className="size-4" />}
             <span className="max-sm:hidden">{showInfo ? "Hide info" : "Show info"}</span>
           </button>
+          <button
+            type="button"
+            onClick={() => setStarredOnly(!starredOnly)}
+            aria-pressed={starredOnly}
+            title={starredOnly ? "Show all kanji" : "Show only starred kanji"}
+            className={pill(starredOnly)}
+          >
+            <Star className={cn("size-4", starredOnly ? "fill-current" : starCount > 0 && "fill-kin text-kin")} />
+            <span className="max-sm:hidden">Starred</span>
+            <span className="text-[12px] tabular-nums opacity-70">{starCount}</span>
+          </button>
           <button type="button" onClick={() => setRomaji(!romaji)} aria-pressed={romaji} title="Show romaji" className={pill(romaji)}>
             Aa<span className="max-sm:hidden">Romaji</span>
           </button>
@@ -254,7 +311,13 @@ export function KanjiBook({ charSet, basePath }: { charSet: CharSet; basePath: s
       </div>
 
       {/* Groups */}
-      {groups.length === 0 ? (
+      {groups.length === 0 && starredOnly && !matches && level === "all" ? (
+        <div className="mt-16 flex flex-col items-center text-center text-muted">
+          <Star className="size-10 opacity-40" />
+          <p className="mt-3 font-semibold text-ink-soft">No starred kanji yet</p>
+          <p className="mt-1 text-sm">Tap the ☆ on any kanji to star it — this view then shows just those.</p>
+        </div>
+      ) : groups.length === 0 ? (
         <div className="mt-16 flex flex-col items-center text-center text-muted">
           <SearchX className="size-10 opacity-40" />
           <p className="mt-3 font-semibold text-ink-soft">No kanji match “{deferred.trim()}”</p>
@@ -280,6 +343,11 @@ export function KanjiBook({ charSet, basePath }: { charSet: CharSet; basePath: s
               indexOf={indexOf}
               groupIndexOf={groupIndexOf}
               showInfo={showInfo}
+              isStarred={(c) => starred.has(starKey(c))}
+              onStar={toggleStar}
+              onStep={step}
+              firstChar={order[0]}
+              lastChar={order[order.length - 1]}
             />
           ))}
           {limit < groups.length && (

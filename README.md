@@ -17,6 +17,7 @@ npm run build && npm start
 | `/n5/hiragana` | Chart — tap a character to hear it |
 | `/n5/hiragana/practice?s=yoon&c=5` | Practice in chart order (optional group tab and start index) |
 | `/n5/hiragana/test` | Randomised test |
+| `/n2/kanji/quiz`, `/n5/vocabulary/quiz` | Multiple-choice quiz: kanji → reading or reading → kanji |
 | `/n5/vocabulary?s=verbs` | Word list by category, search, collapsible example sentences |
 | `/n4/grammar` | Grammar points with structure, notes and examples |
 
@@ -69,7 +70,7 @@ Locally (no `NEXT_PUBLIC_AUDIO_BASE`) audio is served from `/audio`.
 
 ## Settings kept on the device
 
-Sound on/off, **voice (female/male)**, strict/easy, guides, auto-clear, romaji, and **highlighter marks**
+Starred kanji, sound on/off, **voice (female/male)**, strict/easy, guides, auto-clear, romaji, and **highlighter marks**
 (select text in any example sentence or vocabulary line, pick a colour; tap a mark to recolour or erase it)
 are stored in `localStorage` (`src/lib/settings.ts`, `src/lib/marks.ts`).
 

@@ -53,7 +53,8 @@ export function PromptCard({ item, kind, mode, hideChar, strokeCount, onSpeak }:
               <p className="truncate text-xl font-extrabold tracking-tight first-letter:uppercase lg:text-2xl">{item.meaning}</p>
               {item.level && <LevelBadge level={item.level} className="shrink-0" />}
             </div>
-            <dl className="mt-1 space-y-0.5 text-[13px] sm:mt-2 sm:space-y-1 sm:text-sm">
+            {/* Same height for every kanji on phones (one line per row), so the writing box below stays put. */}
+            <dl className="mt-1 min-h-[4.25rem] space-y-0.5 text-[13px] sm:mt-2 sm:min-h-[4.75rem] sm:space-y-1 sm:text-sm lg:min-h-0">
               {!!item.kun?.length && <Reading label="Kun" values={item.kun.map(formatKun)} raw={item.kun} />}
               {!!item.on?.length && <Reading label="On" values={item.on} raw={item.on} />}
               {/* The parts would give the answer away in a test until it's written. */}
@@ -92,9 +93,9 @@ function Parts({ char }: { char: string }) {
   return (
     <div className="flex gap-2">
       <dt className="w-8 shrink-0 pt-1 text-[11px] font-bold uppercase tracking-wider text-muted">Parts</dt>
-      <dd className="flex min-w-0 flex-wrap gap-1">
+      <dd className="no-scrollbar flex min-w-0 gap-1 overflow-x-auto lg:flex-wrap">
         {parts.map(([part, name, meaning]) => (
-          <span key={part} className="inline-flex items-baseline gap-1 rounded-md bg-paper px-1.5 py-0.5 text-[12px] leading-snug">
+          <span key={part} className="inline-flex shrink-0 items-baseline gap-1 whitespace-nowrap rounded-md bg-paper px-1.5 py-0.5 text-[12px] leading-snug">
             <span lang="ja" className="font-jp text-[14px] font-semibold text-ink">
               {part}
             </span>
@@ -113,7 +114,7 @@ function Reading({ label, values, raw }: { label: string; values: string[]; raw:
   return (
     <div className="flex gap-2">
       <dt className="w-8 shrink-0 pt-0.5 text-[11px] font-bold uppercase tracking-wider text-muted">{label}</dt>
-      <dd className="min-w-0">
+      <dd className="no-scrollbar min-w-0 overflow-x-auto whitespace-nowrap lg:whitespace-normal">
         <span className="font-jp text-ink">{values.join("、")}</span>
         <span className="ml-2 text-xs text-muted">{raw.map((r) => kanaToRomaji(r.replace(".", ""))).join(", ")}</span>
       </dd>

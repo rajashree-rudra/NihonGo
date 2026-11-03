@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
-import { PenLine, Target } from "lucide-react";
+import { ListChecks, PenLine, Target } from "lucide-react";
 import { allModules, getLearnModule } from "@/data/levels";
 import { ButtonLink } from "@/components/ui/Button";
 import { CharChart } from "@/components/chart/CharChart";
@@ -50,6 +50,11 @@ export default async function ModulePage({ params }: Props) {
               <ButtonLink href={`${base}/test`} variant="accent" size="lg" icon={<Target className="size-5" />} className="flex-1 lg:flex-none">
                 Test
               </ButtonLink>
+              {module.charSet.details && (
+                <ButtonLink href={`${base}/quiz`} variant="outline" size="lg" icon={<ListChecks className="size-5" />} className="flex-1 lg:flex-none">
+                  Quiz
+                </ButtonLink>
+              )}
             </>
           }
         />
@@ -74,6 +79,13 @@ export default async function ModulePage({ params }: Props) {
           vocab
             ? `${vocab.items.length} words · tap the speaker to hear any word or sentence`
             : `${grammar!.items.length} grammar points · tap the speaker to hear any example`
+        }
+        actions={
+          vocab && (
+            <ButtonLink href={`${base}/quiz`} variant="primary" size="lg" icon={<ListChecks className="size-5" />} className="flex-1 lg:flex-none">
+              Quiz
+            </ButtonLink>
+          )
         }
       />
       <div className="mt-6">{vocab ? <VocabBrowser set={vocab} /> : <GrammarBrowser set={grammar!} />}</div>

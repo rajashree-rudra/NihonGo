@@ -6,7 +6,7 @@ import { ArrowLeft, ChevronLeft, ChevronRight, Eraser, Eye, EyeOff, Feather, Loa
 import type { CharItem, CharSet } from "@/data/types";
 import { EASY_PASS_SCORE, alignDrawing, similarity, toShape, type Pt } from "@/lib/geometry";
 import { preloadClips, pronounce, sfx, speakSequence } from "@/lib/audio";
-import { kanjiSpeechParts, levelOfSet } from "@/data/speech";
+import { kanjiSpeechParts, levelOfSet, speechCandidates } from "@/data/speech";
 import { autoClearStore, markLearned, practiceGuideStore, strictStore, testGuideStore } from "@/lib/settings";
 import { useStrokeSet } from "@/lib/strokes";
 import { Badge } from "@/components/ui/Badge";
@@ -109,26 +109,30 @@ export function StudySession({ charSet, queue, mode, title, backHref, startIndex
 
   useEffect(() => () => clearTimeout(timer.current), []);
 
-  // Size the writing box to the space between its top edge and the bottom of the screen.
-  // Uses the *small* viewport height (100svh): on phones the browser bar shows and hides while
-  // scrolling, which changes innerHeight and used to make the box grow and shrink.
+  // Size the writing box once, to the space between its top edge and the bottom of the screen,
+  // so it is the same size for every character. It is measured again only when the screen width
+  // changes (rotation, resized window) — never when the content above it changes from one kanji
+  // to the next, nor when the phone's browser bar slides in and out while scrolling.
   const padSlot = useRef<HTMLDivElement>(null);
-  const [padTop, setPadTop] = useState<number | null>(null);
+  const [padSize, setPadSize] = useState<number | null>(null);
   useLayoutEffect(() => {
+    let width = 0;
     const fit = () => {
       const el = padSlot.current;
-      if (!el) return;
-      const top = Math.round(el.getBoundingClientRect().top + window.scrollY);
-      setPadTop((prev) => (prev !== null && Math.abs(prev - top) < 3 ? prev : top));
+      if (!el || window.innerWidth === width) return;
+      width = window.innerWidth;
+      const top = el.getBoundingClientRect().top + window.scrollY;
+      // The smallest viewport height (browser bar shown), so the box never ends up under it.
+      const probe = document.createElement("div");
+      probe.style.cssText = "position:fixed;top:0;height:100svh;visibility:hidden;pointer-events:none";
+      document.body.appendChild(probe);
+      const screen = probe.getBoundingClientRect().height || window.innerHeight;
+      probe.remove();
+      setPadSize(Math.round(Math.min(480, Math.max(240, screen - top - 12))));
     };
     fit();
-    const ro = new ResizeObserver(fit);
-    ro.observe(document.body);
     window.addEventListener("resize", fit);
-    return () => {
-      ro.disconnect();
-      window.removeEventListener("resize", fit);
-    };
+    return () => window.removeEventListener("resize", fit);
   }, []);
 
   // New character: speak it, warm upcoming clips, reset hint tracking.
@@ -157,7 +161,7 @@ export function StudySession({ charSet, queue, mode, title, backHref, startIndex
   // sentence (from its examples, preferring this book's level). Otherwise just say the character.
   const announce = (ok: boolean) => {
     const detail = charSet.details?.[item.char];
-    const parts = !isTest && ok && detail ? kanjiSpeechParts(detail.examples, levelOfSet(charSet.id)) : [];
+    const parts = !isTest && ok && detail ? kanjiSpeechParts(speechCandidates(detail), levelOfSet(charSet.id)) : [];
     void (parts.length ? speakSequence(parts) : pronounce(item));
   };
 
@@ -273,8 +277,8 @@ export function StudySession({ charSet, queue, mode, title, backHref, startIndex
         </div>
         <div className="flex items-center gap-1.5 sm:gap-3">
           <VoiceToggle compact className="max-[359px]:hidden sm:hidden" />
-          <ThemeToggle size="size-9" className="max-[359px]:hidden sm:hidden" />
           <SoundToggle size="size-9" className="sm:hidden" />
+          <ThemeToggle size="size-9" className="max-[359px]:hidden sm:hidden" />
           {isTest && (
             <span className="hidden text-sm font-semibold text-muted sm:inline" aria-label={`${correct} correct of ${done} answered`}>
               <span className="text-matcha">✓ {correct}</span> <span className="ml-1 text-shu">✗ {done - correct}</span>
@@ -380,7 +384,7 @@ export function StudySession({ charSet, queue, mode, title, backHref, startIndex
             onClick={prev}
             disabled={index === 0 && !onPrevGroup}
           />
-          <div ref={padSlot} className="min-w-0 flex-1" style={{ maxWidth: padTop !== null ? `clamp(15rem, calc(100svh - ${padTop + 12}px), 30rem)` : undefined }}>
+          <div ref={padSlot} className="min-w-0 flex-1" style={{ maxWidth: padSize ?? undefined }}>
           {error ? (
             <div className="grid aspect-square place-items-center rounded-[28px] border border-dashed border-line-strong bg-card p-8 text-center text-sm text-muted">
               Couldn&apos;t load stroke data. Run <code className="rounded bg-ink/5 px-1">npm run data:strokes</code>.

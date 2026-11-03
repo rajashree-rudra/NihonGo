@@ -83,8 +83,8 @@ export function SiteHeader() {
         </Link>
         <div className="flex items-center gap-2">
           <VoiceToggle />
-          <ThemeToggle />
           <SoundToggle />
+          <ThemeToggle />
         </div>
       </div>
     </header>

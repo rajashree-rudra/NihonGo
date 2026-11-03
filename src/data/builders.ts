@@ -182,8 +182,43 @@ export function bk(
 const firstBold = (s: string) => s.match(/\*\*(.+?)\*\*/)?.[1];
 const unbold = (s: string) => s.replace(/\*\*/g, "");
 
+/**
+ * Display order for a kanji's sentences and words: the book's own level first, then easier
+ * levels (nearest first), then harder ones (N1 last), unknown last. Ties keep the written order.
+ */
+function byLevel<T extends { level?: string }>(list: T[], book?: number): T[] {
+  const rank = (level?: string) => {
+    if (!level || !book) return 99;
+    const n = Number(level.slice(1));
+    return n === book ? 0 : n > book ? n - book : 10 + (book - n);
+  };
+  return list
+    .map((x, i) => ({ x, i }))
+    .sort((a, b) => rank(a.x.level) - rank(b.x.level) || a.i - b.i)
+    .map(({ x }) => x);
+}
+
+const toHira = (s: string) => s.replace(/[ァ-ヶ]/g, (c) => String.fromCharCode(c.charCodeAt(0) - 0x60));
+
+/**
+ * Which of the kanji's readings a vocabulary word uses, judged from the word's kana: on'yomi in
+ * full, kun'yomi as stem + first okurigana kana (か.れる → かれ). Longest match wins; sound
+ * changes (がっこう) simply don't match and the word stays untagged.
+ */
+function readingOfWord(wordKana: string, on: string[], kun: string[]) {
+  const options = [
+    ...on.map((r) => ({ reading: r, kind: "on" as const, sound: toHira(r) })),
+    ...kun.map((r) => {
+      const [stem, oku = ""] = r.split(".");
+      return { reading: r, kind: "kun" as const, sound: stem + oku.slice(0, 1) };
+    }),
+  ].filter((o) => o.sound && wordKana.includes(o.sound));
+  return options.sort((a, b) => b.sound.length - a.sound.length)[0];
+}
+
 export function defineKanjiBook(id: string, groups: BookGroup[]): CharSet {
   const details: CharSet["details"] = {};
+  const book = Number(id.match(/^n(\d)/i)?.[1]) || undefined;
   const sections: ChartSection[] = groups.map((g) => ({
     id: `g${g.n}`,
     number: g.n,
@@ -195,7 +230,7 @@ export function defineKanjiBook(id: string, groups: BookGroup[]): CharSet {
       const on = splitReadings(k.on);
       const kun = splitReadings(k.kun);
       details[k.char] = {
-        examples: k.examples.map(([ja, kana, en, level, romaji, reading]) => ({
+        examples: byLevel(k.examples.map(([ja, kana, en, level, romaji, reading]) => ({
           ja: unbold(ja),
           kana: unbold(kana),
           romaji: romaji ?? kanaSentenceToRomaji(kana),
@@ -205,17 +240,25 @@ export function defineKanjiBook(id: string, groups: BookGroup[]): CharSet {
           level,
           reading,
           readingKind: reading ? (on.includes(reading) ? ("on" as const) : ("kun" as const)) : undefined,
-        })),
-        vocab: k.vocab.map(([word, reading, meaning, level, example, exampleEn, exampleKana]) => ({
-          word,
-          reading,
-          meaning,
-          level,
-          example,
-          exampleEn,
-          exampleKana,
-          exampleRomaji: exampleKana ? kanaSentenceToRomaji(unbold(exampleKana)) : undefined,
-        })),
+        })), book),
+        vocab: byLevel(
+          k.vocab.map(([word, reading, meaning, level, example, exampleEn, exampleKana]) => {
+            const tag = readingOfWord(reading.split("・")[0], on, kun);
+            return {
+              word,
+              reading,
+              meaning,
+              level,
+              example,
+              exampleEn,
+              exampleKana,
+              exampleRomaji: exampleKana ? kanaSentenceToRomaji(unbold(exampleKana)) : undefined,
+              kanjiReading: tag?.reading,
+              kanjiReadingKind: tag?.kind,
+            };
+          }),
+          book,
+        ),
       };
       const primary = kun[0] ?? on[0] ?? "";
       return { char: k.char, meaning: k.meaning, on, kun, level: k.level, romaji: kanaToRomaji(primary.replace(".", "")) };

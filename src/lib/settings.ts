@@ -38,3 +38,5 @@ export const voiceStore = createPersistentStore<Voice>("nihongo:voice", "female"
 export type Theme = "light" | "dark";
 export const themeStore = createPersistentStore<Theme>("nihongo:theme", "light");
 
+/** Starred kanji, as "<set id>:<kanji>" (e.g. "n2-kanji:乱"); the list can show only these. */
+export const starStore = createPersistentStore<string[]>("nihongo:stars", []);

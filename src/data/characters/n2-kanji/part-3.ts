@@ -1,12 +1,14 @@
-// N2 kanji book — groups 57–83 (kanji 237–353). See part-1.ts for the format.
+// N2 kanji book — groups 58–84 (kanji 240–356). See part-1.ts for the format.
 import { bk, type BookGroup } from "../../builders.ts";
 
 export const GROUPS: BookGroup[] = [
   {
-    n: 57,
+    n: 58,
     note: "訁 speech, light right side",
     items: [
-      bk("訓", "N2", "instruct, kun reading", "クン", "", [["今日は**訓練**があります。", "きょう は **くんれん** が あります。", "I have training today.", "N3", undefined, "クン"]]),
+      bk("訓", "N2", "instruct, kun reading", "クン", "", [
+        ["今日は**訓練**があります。", "きょう は **くんれん** が あります。", "I have training today.", "N3", undefined, "クン"],
+      ]),
       bk("川", "N5", "river", "セン", "かわ", [
         ["大雨で**河川**の水が増えました。", "おおあめ で **かせん** の みず が ふえました。", "The rivers rose because of the heavy rain.", "N2", undefined, "セン"],
         ["**川**で泳ぎました。", "**かわ** で およぎました。", "I swam in the river.", "N3", undefined, "かわ"],
@@ -46,14 +48,18 @@ export const GROUPS: BookGroup[] = [
         ["警察が男を厳しく**詰問**しました。", "けいさつ が おとこ を きびしく **きつもん** しました。", "The police questioned the man sharply.", "N1", undefined, "キツ"],
         ["かばんに服を**詰め**ます。", "かばん に ふく を **つめ**ます。", "I pack clothes into the bag.", "N3", undefined, "つ.める"],
         ["風邪で鼻が**詰まって**います。", "かぜ で はな が **つまって** います。", "My nose is blocked from a cold.", "N2", undefined, "つ.まる"],
-      ], [["見詰める", "みつめる", "to stare at, to gaze at", "N2", "彼はじっと私を**見詰め**ました。", "He stared at me intently.", "かれ は じっと わたし を **みつめ**ました。"]]),
+      ], [
+        ["見詰める", "みつめる", "to stare at, to gaze at", "N2", "彼はじっと私を**見詰め**ました。", "He stared at me intently.", "かれ は じっと わたし を **みつめ**ました。"],
+      ]),
     ],
   },
   {
-    n: 58,
+    n: 59,
     note: "訁 speech, heavy right side",
     items: [
-      bk("誌", "N2", "magazine, record", "シ", "", [["電車で**雑誌**を読みます。", "でんしゃ で **ざっし** を よみます。", "I read a magazine on the train.", "N3", undefined, "シ"]]),
+      bk("誌", "N2", "magazine, record", "シ", "", [
+        ["電車で**雑誌**を読みます。", "でんしゃ で **ざっし** を よみます。", "I read a magazine on the train.", "N3", undefined, "シ"],
+      ]),
       bk("課", "N2", "section, lesson, assign", "カ", "", [
         ["**課長**に話しました。", "**かちょう** に はなしました。", "I spoke to the section chief.", "N2", undefined, "カ"],
         ["今日の**課題**は難しいです。", "きょう の **かだい** は むずかしい です。", "Today's assignment is difficult.", "N2", undefined, "カ"],
@@ -82,10 +88,12 @@ export const GROUPS: BookGroup[] = [
     ],
   },
   {
-    n: 59,
+    n: 60,
     note: "貝 shell = money",
     items: [
-      bk("貝", "N2", "shellfish, shell", "", "かい", [["海で**貝**を拾いました。", "うみ で **かい** を ひろいました。", "I picked up shells at the beach.", "N2", undefined, "かい"]]),
+      bk("貝", "N2", "shellfish, shell", "", "かい", [
+        ["海で**貝**を拾いました。", "うみ で **かい** を ひろいました。", "I picked up shells at the beach.", "N2", undefined, "かい"],
+      ]),
       bk("見", "N5", "see, look", "ケン", "み.る み.せる", [
         ["クラスで工場を**見学**しました。", "クラス で こうじょう を **けんがく** しました。", "Our class toured a factory.", "N3", undefined, "ケン"],
         ["昨日、映画を**見**ました。", "きのう、 えいが を **み**ました。", "I watched a movie yesterday.", "N5", undefined, "み.る"],
@@ -94,11 +102,15 @@ export const GROUPS: BookGroup[] = [
       bk("貨", "N2", "goods, currency", "カ", "", [
         ["この電車は**貨物**を運びます。", "この でんしゃ は **かもつ** を はこびます。", "This train carries freight.", "N2", undefined, "カ"],
         ["財布に**硬貨**がたくさんあります。", "さいふ に **こうか** が たくさん あります。", "There are a lot of coins in my wallet.", "N3", undefined, "カ"],
-      ], [["通貨", "つうか", "currency", "N3", "この国の**通貨**は何ですか。", "What is this country's currency?", "この くに の **つうか** は なん です か。"]]),
+      ], [
+        ["通貨", "つうか", "currency", "N3", "この国の**通貨**は何ですか。", "What is this country's currency?", "この くに の **つうか** は なん です か。"],
+      ]),
       bk("販", "N2", "sell", "ハン", "", [
         ["ここで切符を**販売**しています。", "ここ で きっぷ を **はんばい** して います。", "Tickets are sold here.", "N3", undefined, "ハン"],
         ["**販売者**に連絡しました。", "**はんばいしゃ** に れんらく しました。", "I contacted the seller.", "N2", undefined, "ハン"],
-      ], [["通信販売", "つうしんはんばい", "mail order; online shopping", "N2", "**通信販売**で服を買います。", "I buy clothes by mail order.", "**つうしんはんばい** で ふく を かいます。"]]),
+      ], [
+        ["通信販売", "つうしんはんばい", "mail order; online shopping", "N2", "**通信販売**で服を買います。", "I buy clothes by mail order.", "**つうしんはんばい** で ふく を かいます。"],
+      ]),
       bk("貯", "N2", "save, store", "チョ", "た.める た.まる", [
         ["毎月、少し**貯金**します。", "まいつき、 すこし **ちょきん** します。", "I save a little every month.", "N3", undefined, "チョ"],
         ["野菜を倉庫に**貯蔵**します。", "やさい を そうこ に **ちょぞう** します。", "We store the vegetables in a warehouse.", "N2", undefined, "チョ"],
@@ -108,11 +120,13 @@ export const GROUPS: BookGroup[] = [
         ["貯まる", "たまる", "to be saved up (of money)", "N3", "お金が少し**貯まり**ました。", "I've saved up a little money.", "おかね が すこし **たまり**ました。"],
         ["貯める", "ためる", "to save up (money)", "N3", "旅行のためにお金を**貯め**ます。", "I'm saving money for a trip.", "りょこう の ため に おかね を **ため**ます。"],
       ]),
-      bk("貿", "N2", "trade", "ボウ", "", [["父は**貿易**の仕事をしています。", "ちち は **ぼうえき** の しごと を して います。", "My father works in trade.", "N3", undefined, "ボウ"]]),
+      bk("貿", "N2", "trade", "ボウ", "", [
+        ["父は**貿易**の仕事をしています。", "ちち は **ぼうえき** の しごと を して います。", "My father works in trade.", "N3", undefined, "ボウ"],
+      ]),
     ],
   },
   {
-    n: 60,
+    n: 61,
     note: "貝 sitting at the bottom",
     items: [
       bk("賞", "N2", "prize, praise", "ショウ", "", [
@@ -142,7 +156,7 @@ export const GROUPS: BookGroup[] = [
     ],
   },
   {
-    n: 61,
+    n: 62,
     note: "釒 metal",
     items: [
       bk("針", "N2", "needle, hand (of a clock)", "シン", "はり", [
@@ -187,7 +201,7 @@ export const GROUPS: BookGroup[] = [
     ],
   },
   {
-    n: 62,
+    n: 63,
     note: "触 is 角 + 虫",
     items: [
       bk("角", "N2", "corner, angle, horn", "カク", "かど つの", [
@@ -222,7 +236,7 @@ export const GROUPS: BookGroup[] = [
     ],
   },
   {
-    n: 63,
+    n: 64,
     note: "亻 person, light right side",
     items: [
       bk("介", "N2", "mediate, introduce", "カイ", "", [
@@ -236,7 +250,9 @@ export const GROUPS: BookGroup[] = [
         ["日本には**仏教**のお寺が多いです。", "にほん に は **ぶっきょう** の おてら が おおい です。", "There are many Buddhist temples in Japan.", "N3", undefined, "ブツ"],
         ["大きな**仏**の像を見ました。", "おおきな **ほとけ** の ぞう を みました。", "I saw a big statue of Buddha.", "N3", undefined, "ほとけ"],
       ]),
-      bk("令", "N2", "order, command", "レイ", "", [["それは社長の**命令**です。", "それ は しゃちょう の **めいれい** です。", "That's the president's order.", "N3", undefined, "レイ"]]),
+      bk("令", "N2", "order, command", "レイ", "", [
+        ["それは社長の**命令**です。", "それ は しゃちょう の **めいれい** です。", "That's the president's order.", "N3", undefined, "レイ"],
+      ]),
       bk("仲", "N2", "relationship, go-between", "チュウ", "なか", [
         ["不動産屋が家の売買を**仲介**します。", "ふどうさんや が いえ の ばいばい を **ちゅうかい** します。", "The real estate agent mediates the sale of the house.", "N1", undefined, "チュウ"],
         ["二人はとても**仲**がいいです。", "ふたり は とても **なか** が いい です。", "The two get along very well.", "N3", undefined, "なか"],
@@ -257,7 +273,7 @@ export const GROUPS: BookGroup[] = [
     ],
   },
   {
-    n: 64,
+    n: 65,
     note: "亻 person, boxy right side",
     items: [
       bk("依", "N2", "depend on, request", "イ エ", "", [
@@ -287,14 +303,16 @@ export const GROUPS: BookGroup[] = [
     ],
   },
   {
-    n: 65,
+    n: 66,
     note: "象 hides inside 像",
     items: [
       bk("傾", "N2", "lean, tilt, tendency", "ケイ", "かたむ.く かたむ.ける", [
         ["最近、値段が上がる**傾向**があります。", "さいきん、 ねだん が あがる **けいこう** が あります。", "Lately there's a tendency for prices to rise.", "N2", undefined, "ケイ"],
         ["壁の絵が**傾いて**います。", "かべ の え が **かたむいて** います。", "The picture on the wall is tilted.", "N2", undefined, "かたむ.く"],
         ["先生の話に耳を**傾け**ました。", "せんせい の はなし に みみ を **かたむけ**ました。", "I listened closely to the teacher.", "N2", undefined, "かたむ.ける"],
-      ], [["傾らか", "なだらか", "gradual, gentle", "N2", "**傾らか**な坂をゆっくり上ります。", "I slowly walk up the gentle slope.", "**なだらか** な さか を ゆっくり のぼります。"]]),
+      ], [
+        ["傾らか", "なだらか", "gradual, gentle", "N2", "**傾らか**な坂をゆっくり上ります。", "I slowly walk up the gentle slope.", "**なだらか** な さか を ゆっくり のぼります。"],
+      ]),
       bk("像", "N2", "statue, image", "ゾウ", "", [
         ["公園に大きな**像**があります。", "こうえん に おおきな **ぞう** が あります。", "There is a big statue in the park.", "N2", undefined, "ゾウ"],
         ["そんなことは**想像**もできません。", "そんな こと は **そうぞう** も できません。", "I can't even imagine such a thing.", "N3", undefined, "ゾウ"],
@@ -308,11 +326,13 @@ export const GROUPS: BookGroup[] = [
         ["対象", "たいしょう", "target; object (of study, etc.); subject", "N3", "子どもを**対象**にした本です。", "This is a book aimed at children.", "こども を **たいしょう** に した ほん です。"],
         ["対象外", "たいしょうがい", "not covered by; not subject to", "N2", "この商品は割引の**対象外**です。", "This item is not eligible for the discount.", "この しょうひん は わりびき の **たいしょうがい** です。"],
       ]),
-      bk("億", "N2", "hundred million", "オク", "", [["日本の人口は**一億**人以上です。", "にほん の じんこう は **いちおく** にん いじょう です。", "Japan's population is over one hundred million.", "N3", undefined, "オク"]]),
+      bk("億", "N2", "hundred million", "オク", "", [
+        ["日本の人口は**一億**人以上です。", "にほん の じんこう は **いちおく** にん いじょう です。", "Japan's population is over one hundred million.", "N3", undefined, "オク"],
+      ]),
     ],
   },
   {
-    n: 66,
+    n: 67,
     note: "普 is 並 with 日 under it",
     items: [
       bk("並", "N2", "line up, row, ordinary", "ヘイ", "なら.ぶ なら.べる なみ", [
@@ -328,11 +348,13 @@ export const GROUPS: BookGroup[] = [
       bk("普", "N2", "universal, general", "フ", "", [
         ["**普通**の電車に乗ります。", "**ふつう** の でんしゃ に のります。", "I take the local train.", "N3", undefined, "フ"],
         ["スマホが世界中に**普及**しました。", "スマホ が せかいじゅう に **ふきゅう** しました。", "Smartphones have spread worldwide.", "N1", undefined, "フ"],
-      ], [["普段", "ふだん", "in everyday situations, usually, ordinarily", "N3", "**普段**は八時に起きます。", "I usually get up at eight.", "**ふだん** は はちじ に おきます。"]]),
+      ], [
+        ["普段", "ふだん", "in everyday situations, usually, ordinarily", "N3", "**普段**は八時に起きます。", "I usually get up at eight.", "**ふだん** は はちじ に おきます。"],
+      ]),
     ],
   },
   {
-    n: 67,
+    n: 68,
     note: "刂 blade on the right",
     items: [
       bk("刷", "N2", "print", "サツ", "す.る", [
@@ -351,11 +373,15 @@ export const GROUPS: BookGroup[] = [
       bk("則", "N2", "rule, law", "ソク", "", [
         ["学校の**規則**を守ります。", "がっこう の **きそく** を まもります。", "I follow the school rules.", "N3", undefined, "ソク"],
         ["生活が**不規則**になりました。", "せいかつ が **ふきそく** に なりました。", "My daily routine became irregular.", "N2", undefined, "ソク"],
-      ], [["法則", "ほうそく", "law, rule", "N2", "自然の**法則**を学びます。", "I study the laws of nature.", "しぜん の **ほうそく** を まなびます。"]]),
+      ], [
+        ["法則", "ほうそく", "law, rule", "N2", "自然の**法則**を学びます。", "I study the laws of nature.", "しぜん の **ほうそく** を まなびます。"],
+      ]),
       bk("副", "N2", "vice-, secondary", "フク", "", [
         ["彼は**副社長**です。", "かれ は **ふくしゃちょう** です。", "He is the vice president.", "N2", undefined, "フク"],
         ["この薬は**副作用**が少ないです。", "この くすり は **ふくさよう** が すくない です。", "This medicine has few side effects.", "N2", undefined, "フク"],
-      ], [["副詞", "ふくし", "adverb", "N2", "「とても」は**副詞**です。", "\"Totemo\" is an adverb.", "「とても」 は **ふくし** です。"]]),
+      ], [
+        ["副詞", "ふくし", "adverb", "N2", "「とても」は**副詞**です。", "\"Totemo\" is an adverb.", "「とても」 は **ふくし** です。"],
+      ]),
       bk("劇", "N2", "drama, play", "ゲキ", "", [
         ["昨日、**劇**を見に行きました。", "きのう、 **げき** を み に いきました。", "I went to see a play yesterday.", "N3", undefined, "ゲキ"],
         ["大学で**演劇**をしています。", "だいがく で **えんげき** を して います。", "I do theatre at university.", "N2", undefined, "ゲキ"],
@@ -367,7 +393,7 @@ export const GROUPS: BookGroup[] = [
     ],
   },
   {
-    n: 68,
+    n: 69,
     note: "identical tops",
     items: [
       bk("券", "N2", "ticket", "ケン", "", [
@@ -381,11 +407,13 @@ export const GROUPS: BookGroup[] = [
         ["この漫画の**第一巻**を買いました。", "この まんが の **だいいっかん** を かいました。", "I bought the first volume of this manga.", "N2", undefined, "カン"],
         ["首にマフラーを**巻き**ます。", "くび に マフラー を **まき**ます。", "I wrap a scarf around my neck.", "N2", undefined, "ま.く"],
         ["お風呂の後、**寝巻**に着替えます。", "おふろ の あと、 **ねまき** に きがえます。", "After the bath I change into pyjamas.", "N2", undefined, "まき"],
-      ], [["巻き込む", "まきこむ", "to roll up; to involve; to drag into", "N2", "事故に**巻き込まれ**ました。", "I got caught up in an accident.", "じこ に **まきこまれ**ました。"]]),
+      ], [
+        ["巻き込む", "まきこむ", "to roll up; to involve; to drag into", "N2", "事故に**巻き込まれ**ました。", "I got caught up in an accident.", "じこ に **まきこまれ**ました。"],
+      ]),
     ],
   },
   {
-    n: 69,
+    n: 70,
     note: "交 shapes and 阝 on the right",
     items: [
       bk("効", "N2", "effect, work", "コウ", "き.く", [
@@ -397,7 +425,9 @@ export const GROUPS: BookGroup[] = [
         ["効用", "こうよう", "use; utility; effect", "N2", "毎日の運動の**効用**は大きいです。", "Daily exercise has great benefits.", "まいにち の うんどう の **こうよう** は おおきい です。"],
         ["特効薬", "とっこうやく", "specific medicine; wonder drug", "N2", "風邪の**特効薬**はありません。", "There is no cure-all for colds.", "かぜ の **とっこうやく** は ありません。"],
       ]),
-      bk("郊", "N2", "suburbs, outskirts", "コウ", "", [["**郊外**に住んでいます。", "**こうがい** に すんで います。", "I live in the suburbs.", "N2", undefined, "コウ"]]),
+      bk("郊", "N2", "suburbs, outskirts", "コウ", "", [
+        ["**郊外**に住んでいます。", "**こうがい** に すんで います。", "I live in the suburbs.", "N2", undefined, "コウ"],
+      ]),
       bk("交", "N4", "mix, exchange, cross", "コウ", "まじ.わる ま.ぜる か.わす", [
         ["この町は**交通**が便利です。", "この まち は **こうつう** が べんり です。", "Transport is convenient in this town.", "N4", undefined, "コウ"],
         ["外国人と**交流**します。", "がいこくじん と **こうりゅう** します。", "I interact with people from other countries.", "N2", undefined, "コウ"],
@@ -408,11 +438,13 @@ export const GROUPS: BookGroup[] = [
       bk("郵", "N2", "mail", "ユウ", "", [
         ["**郵便局**で切手を買います。", "**ゆうびんきょく** で きって を かいます。", "I buy stamps at the post office.", "N4", undefined, "ユウ"],
         ["**郵便**が届きました。", "**ゆうびん** が とどきました。", "The mail arrived.", "N3", undefined, "ユウ"],
-      ], [["郵送", "ゆうそう", "mailing", "N2", "書類を**郵送**します。", "I will send the documents by mail.", "しょるい を **ゆうそう** します。"]]),
+      ], [
+        ["郵送", "ゆうそう", "mailing", "N2", "書類を**郵送**します。", "I will send the documents by mail.", "しょるい を **ゆうそう** します。"],
+      ]),
     ],
   },
   {
-    n: 70,
+    n: 71,
     note: "力 at the bottom",
     items: [
       bk("勇", "N2", "courage", "ユウ", "いさ.む いさ.ましい", [
@@ -428,11 +460,13 @@ export const GROUPS: BookGroup[] = [
       bk("勢", "N2", "force, energy", "セイ", "いきお.い", [
         ["公園に**大勢**の人がいます。", "こうえん に **おおぜい** の ひと が います。", "There are a lot of people in the park.", "N3", undefined, "セイ"],
         ["火の**勢い**が強いです。", "ひ の **いきおい** が つよい です。", "The fire's force is strong.", "N2", undefined, "いきお.い"],
-      ], [["姿勢", "しせい", "attitude; posture", "N2", "**姿勢**をよくして座ります。", "I sit with good posture.", "**しせい** を よく して すわります。"]]),
+      ], [
+        ["姿勢", "しせい", "attitude; posture", "N2", "**姿勢**をよくして座ります。", "I sit with good posture.", "**しせい** を よく して すわります。"],
+      ]),
     ],
   },
   {
-    n: 71,
+    n: 72,
     note: "儿 legs at the bottom",
     items: [
       bk("兆", "N2", "trillion, sign", "チョウ", "きざ.し", [
@@ -442,11 +476,15 @@ export const GROUPS: BookGroup[] = [
       bk("児", "N2", "child", "ジ ニ", "", [
         ["**児童**は無料です。", "**じどう** は むりょう です。", "Children get in free.", "N2", undefined, "ジ"],
         ["子どもを**小児科**に連れて行きました。", "こども を **しょうにか** に つれて いきました。", "I took my child to the pediatrician.", "N2", undefined, "ニ"],
-      ], [["育児", "いくじ", "childcare, nursing", "N2", "**育児**は大変ですが楽しいです。", "Raising children is hard but fun.", "**いくじ** は たいへん です が たのしい です。"]]),
+      ], [
+        ["育児", "いくじ", "childcare, nursing", "N2", "**育児**は大変ですが楽しいです。", "Raising children is hard but fun.", "**いくじ** は たいへん です が たのしい です。"],
+      ]),
       bk("党", "N2", "party, faction", "トウ", "", [
         ["新しい**党**ができました。", "あたらしい **とう** が できました。", "A new party was formed.", "N2", undefined, "トウ"],
         ["新しい**政党**ができました。", "あたらしい **せいとう** が できました。", "A new political party was formed.", "N2", undefined, "トウ"],
-      ], [["野党", "やとう", "opposition party", "N3", "**野党**が計画に反対しました。", "The opposition party opposed the plan.", "**やとう** が けいかく に はんたい しました。"]]),
+      ], [
+        ["野党", "やとう", "opposition party", "N3", "**野党**が計画に反対しました。", "The opposition party opposed the plan.", "**やとう** が けいかく に はんたい しました。"],
+      ]),
       bk("兵", "N2", "soldier", "ヘイ ヒョウ", "", [
         ["門の前に**兵士**が立っています。", "もん の まえ に **へいし** が たって います。", "A soldier is standing in front of the gate.", "N2", undefined, "ヘイ"],
         ["昔、祖父は**兵隊**でした。", "むかし、 そふ は **へいたい** でした。", "Long ago, my grandfather was a soldier.", "N2", undefined, "ヘイ"],
@@ -455,7 +493,7 @@ export const GROUPS: BookGroup[] = [
     ],
   },
   {
-    n: 72,
+    n: 73,
     note: "阝 mound on the left",
     items: [
       bk("防", "N2", "prevent, defend", "ボウ", "ふせ.ぐ", [
@@ -487,7 +525,9 @@ export const GROUPS: BookGroup[] = [
       bk("階", "N2", "floor, story, stairs", "カイ", "", [
         ["私の部屋は**三階**です。", "わたし の へや は **さんがい** です。", "My room is on the third floor.", "N5", undefined, "カイ"],
         ["**階段**を使ってください。", "**かいだん** を つかって ください。", "Please use the stairs.", "N4", undefined, "カイ"],
-      ], [["段階", "だんかい", "gradation, grade, stage", "N2", "次の**段階**に進みます。", "We move on to the next stage.", "つぎ の **だんかい** に すすみます。"]]),
+      ], [
+        ["段階", "だんかい", "gradation, grade, stage", "N2", "次の**段階**に進みます。", "We move on to the next stage.", "つぎ の **だんかい** に すすみます。"],
+      ]),
       bk("皆", "N3", "all, everyone", "カイ", "みな みんな", [
         ["この町では事故は**皆無**です。", "この まち で は じこ は **かいむ** です。", "There are no accidents at all in this town.", "N1", undefined, "カイ"],
         ["**皆さん**、おはようございます。", "**みなさん**、 おはよう ございます。", "Good morning, everyone.", "N4", undefined, "みな"],
@@ -496,7 +536,7 @@ export const GROUPS: BookGroup[] = [
     ],
   },
   {
-    n: 73,
+    n: 74,
     note: "雨 crown on top",
     items: [
       bk("雲", "N2", "cloud", "ウン", "くも", [
@@ -510,7 +550,9 @@ export const GROUPS: BookGroup[] = [
       bk("零", "N2", "zero", "レイ", "", [
         ["気温は**零度**です。", "きおん は **れいど** です。", "The temperature is zero degrees.", "N2", undefined, "レイ"],
         ["今朝は**零下**でした。", "けさ は **れいか** でした。", "It was below zero this morning.", "N2", undefined, "レイ"],
-      ], [["零点", "れいてん", "zero, no marks", "N2", "テストで**零点**を取りました。", "I got a zero on the test.", "テスト で **れいてん** を とりました。"]]),
+      ], [
+        ["零点", "れいてん", "zero, no marks", "N2", "テストで**零点**を取りました。", "I got a zero on the test.", "テスト で **れいてん** を とりました。"],
+      ]),
       bk("震", "N2", "quake, tremble", "シン", "ふる.える ふる.う", [
         ["昨日、**地震**がありました。", "きのう、 **じしん** が ありました。", "There was an earthquake yesterday.", "N4", undefined, "シン"],
         ["寒くて手が**震え**ます。", "さむくて て が **ふるえ**ます。", "My hands are shaking from the cold.", "N2", undefined, "ふる.える"],
@@ -523,7 +565,7 @@ export const GROUPS: BookGroup[] = [
     ],
   },
   {
-    n: 74,
+    n: 75,
     note: "立 on top",
     items: [
       bk("章", "N2", "chapter, badge", "ショウ", "", [
@@ -574,19 +616,23 @@ export const GROUPS: BookGroup[] = [
     ],
   },
   {
-    n: 75,
+    n: 76,
     note: "奥 is 央 under a lid",
     items: [
-      bk("央", "N2", "center", "オウ", "", [["部屋の**中央**にテーブルがあります。", "へや の **ちゅうおう** に テーブル が あります。", "There's a table in the center of the room.", "N2", undefined, "オウ"]]),
+      bk("央", "N2", "center", "オウ", "", [
+        ["部屋の**中央**にテーブルがあります。", "へや の **ちゅうおう** に テーブル が あります。", "There's a table in the center of the room.", "N2", undefined, "オウ"],
+      ]),
       bk("奥", "N2", "interior, depths", "オウ", "おく", [
         ["先生から茶道の**奥義**を学びました。", "せんせい から さどう の **おうぎ** を まなびました。", "I learned the secrets of the tea ceremony from my teacher.", "N1", undefined, "オウ"],
         ["店の**奥**に席があります。", "みせ の **おく** に せき が あります。", "There are seats at the back of the shop.", "N2", undefined, "おく"],
         ["**奥さん**によろしく伝えてください。", "**おくさん** に よろしく つたえて ください。", "Please say hello to your wife.", "N4", undefined, "おく"],
-      ], [["奥底", "おくそこ", "depths; bottom (of one's heart)", "N2", "心の**奥底**でそう思っています。", "I think so deep down in my heart.", "こころ の **おくそこ** で そう おもって います。"]]),
+      ], [
+        ["奥底", "おくそこ", "depths; bottom (of one's heart)", "N2", "心の**奥底**でそう思っています。", "I think so deep down in my heart.", "こころ の **おくそこ** で そう おもって います。"],
+      ]),
     ],
   },
   {
-    n: 76,
+    n: 77,
     note: "口 mouth, small",
     items: [
       bk("叫", "N2", "shout", "キョウ", "さけ.ぶ", [
@@ -611,11 +657,13 @@ export const GROUPS: BookGroup[] = [
         ["この値段は税金を**含み**ます。", "この ねだん は ぜいきん を **ふくみ**ます。", "This price includes tax.", "N2", undefined, "ふく.む"],
         ["このジュースは砂糖を**含んで**います。", "この ジュース は さとう を **ふくんで** います。", "This juice contains sugar.", "N2", undefined, "ふく.む"],
         ["私を**含めて**五人が来ました。", "わたし を **ふくめて** ごにん が きました。", "Five people came, including me.", "N2", undefined, "ふく.める"],
-      ], [["含める", "ふくめる", "to include", "N3", "税金を**含め**て計算します。", "I calculate it including tax.", "ぜいきん を **ふくめ**て けいさん します。"]]),
+      ], [
+        ["含める", "ふくめる", "to include", "N3", "税金を**含め**て計算します。", "I calculate it including tax.", "ぜいきん を **ふくめ**て けいさん します。"],
+      ]),
     ],
   },
   {
-    n: 77,
+    n: 78,
     note: "口 mouth, in bigger shapes",
     items: [
       bk("周", "N2", "around, circumference", "シュウ", "まわ.り", [
@@ -634,13 +682,15 @@ export const GROUPS: BookGroup[] = [
         ["**喫茶店**でコーヒーを飲みました。", "**きっさてん** で コーヒー を のみました。", "I had coffee at a coffee shop.", "N3", undefined, "キツ"],
         ["ここは**喫煙**できません。", "ここ は **きつえん** できません。", "You can't smoke here.", "N2", undefined, "キツ"],
       ]),
-      bk("史", "N2", "history", "シ", "", [["日本の**歴史**を勉強しています。", "にほん の **れきし** を べんきょう して います。", "I'm studying Japanese history.", "N3", undefined, "シ"]], [
+      bk("史", "N2", "history", "シ", "", [
+        ["日本の**歴史**を勉強しています。", "にほん の **れきし** を べんきょう して います。", "I'm studying Japanese history.", "N3", undefined, "シ"],
+      ], [
         ["女史", "じょし", "Ms.", "N3", "田中**女史**が話しました。", "Ms. Tanaka spoke.", "たなか **じょし** が はなしました。"],
       ]),
     ],
   },
   {
-    n: 78,
+    n: 79,
     note: "忄 heart on the left",
     items: [
       bk("快", "N2", "pleasant, cheerful", "カイ", "こころよ.い", [
@@ -670,7 +720,7 @@ export const GROUPS: BookGroup[] = [
     ],
   },
   {
-    n: 79,
+    n: 80,
     note: "心 sitting at the bottom",
     items: [
       bk("恋", "N2", "romantic love", "レン", "こい こい.しい", [
@@ -689,22 +739,26 @@ export const GROUPS: BookGroup[] = [
     ],
   },
   {
-    n: 80,
+    n: 81,
     note: "彳 on the left",
     items: [
       bk("律", "N2", "law, rhythm", "リツ リチ", "", [
         ["**法律**を守りましょう。", "**ほうりつ** を まもりましょう。", "Let's obey the law.", "N3", undefined, "リツ"],
         ["学校の**規律**を守ります。", "がっこう の **きりつ** を まもります。", "I follow the school rules.", "N1", undefined, "リツ"],
         ["彼はとても**律儀**な人です。", "かれ は とても **りちぎ** な ひと です。", "He is a very conscientious person.", "N1", undefined, "リチ"],
-      ], [["自律", "じりつ", "autonomy; self-control", "N2", "**自律**した生活を送ります。", "I lead an independent life.", "**じりつ** した せいかつ を おくります。"]]),
+      ], [
+        ["自律", "じりつ", "autonomy; self-control", "N2", "**自律**した生活を送ります。", "I lead an independent life.", "**じりつ** した せいかつ を おくります。"],
+      ]),
       bk("復", "N2", "restore, return, again", "フク", "", [
         ["毎日、漢字を**復習**します。", "まいにち、 かんじ を **ふくしゅう** します。", "I review kanji every day.", "N4", undefined, "フク"],
         ["**往復**の切符を買いました。", "**おうふく** の きっぷ を かいました。", "I bought a round-trip ticket.", "N3", undefined, "フク"],
-      ], [["回復", "かいふく", "recovery (from illness), rehabilitation, restoration", "N3", "病気から**回復**しました。", "I recovered from my illness.", "びょうき から **かいふく** しました。"]]),
+      ], [
+        ["回復", "かいふく", "recovery (from illness), rehabilitation, restoration", "N3", "病気から**回復**しました。", "I recovered from my illness.", "びょうき から **かいふく** しました。"],
+      ]),
     ],
   },
   {
-    n: 81,
+    n: 82,
     note: "艹 grass, light",
     items: [
       bk("芸", "N2", "art, performance", "ゲイ", "", [
@@ -721,7 +775,9 @@ export const GROUPS: BookGroup[] = [
         ["彼は言葉づかいが**荒い**です。", "かれ は ことばづかい が **あらい** です。", "He speaks roughly.", "N2", undefined, "あら.い"],
         ["今日は海が**荒れて**います。", "きょう は うみ が **あれて** います。", "The sea is rough today.", "N2", undefined, "あ.れる"],
         ["冬は手が**荒れ**ます。", "ふゆ は て が **あれ**ます。", "My hands get chapped in winter.", "N2", undefined, "あ.れる"],
-      ], [["荒廃", "こうはい", "ruin", "N3", "戦争で町が**荒廃**しました。", "The town was devastated by the war.", "せんそう で まち が **こうはい** しました。"]]),
+      ], [
+        ["荒廃", "こうはい", "ruin", "N3", "戦争で町が**荒廃**しました。", "The town was devastated by the war.", "せんそう で まち が **こうはい** しました。"],
+      ]),
       bk("荷", "N2", "baggage, load", "カ", "に", [
         ["工場から商品を**出荷**します。", "こうじょう から しょうひん を **しゅっか** します。", "We ship the goods from the factory.", "N1", undefined, "カ"],
         ["**荷物**が重いです。", "**にもつ** が おもい です。", "The luggage is heavy.", "N4", undefined, "に"],
@@ -729,15 +785,19 @@ export const GROUPS: BookGroup[] = [
     ],
   },
   {
-    n: 82,
+    n: 83,
     note: "艹 grass, heavy",
     items: [
-      bk("菓", "N2", "sweets, confectionery", "カ", "", [["**お菓子**を食べます。", "**おかし** を たべます。", "I eat sweets.", "N4", undefined, "カ"]]),
+      bk("菓", "N2", "sweets, confectionery", "カ", "", [
+        ["**お菓子**を食べます。", "**おかし** を たべます。", "I eat sweets.", "N4", undefined, "カ"],
+      ]),
       bk("果", "N3", "fruit, result", "カ", "は.たす は.てる", [
         ["テストの**結果**を待っています。", "テスト の **けっか** を まって います。", "I'm waiting for the test results.", "N3", undefined, "カ"],
         ["約束を**果たし**ました。", "やくそく を **はたし**ました。", "I kept my promise.", "N2", undefined, "は.たす"],
         ["この道は**果て**しなく続いています。", "この みち は **はて**しなく つづいて います。", "This road goes on endlessly.", "N1", undefined, "は.てる"],
-      ], [["果物", "くだもの", "fruit (special reading)", "N5", "**果物**をたくさん食べます。", "I eat a lot of fruit.", "**くだもの** を たくさん たべます。"]]),
+      ], [
+        ["果物", "くだもの", "fruit (special reading)", "N5", "**果物**をたくさん食べます。", "I eat a lot of fruit.", "**くだもの** を たくさん たべます。"],
+      ]),
       bk("菜", "N2", "vegetable, greens", "サイ", "な", [
         ["**野菜**をたくさん食べます。", "**やさい** を たくさん たべます。", "I eat a lot of vegetables.", "N4", undefined, "サイ"],
         ["春になると**菜の花**が咲きます。", "はる に なる と **なのはな** が さきます。", "Rapeseed flowers bloom in spring.", "N1", undefined, "な"],
@@ -764,7 +824,7 @@ export const GROUPS: BookGroup[] = [
     ],
   },
   {
-    n: 83,
+    n: 84,
     note: "車 vehicle",
     items: [
       bk("軍", "N2", "army, military", "グン", "", [
@@ -779,7 +839,9 @@ export const GROUPS: BookGroup[] = [
         ["彼女は体が**柔軟**です。", "かのじょ は からだ が **じゅうなん** です。", "Her body is flexible.", "N1", undefined, "ナン"],
         ["この肉は**軟らか**で食べやすいです。", "この にく は **やわらか** で たべやすい です。", "This meat is tender and easy to eat.", "N2", undefined, "やわ.らか"],
         ["**軟らかい**ご飯が好きです。", "**やわらかい** ごはん が すき です。", "I like soft rice.", "N3", undefined, "やわ.らかい"],
-      ], [["軟弱", "なんじゃく", "weakness; feebleness", "N2", "雨で地面が**軟弱**になりました。", "The ground became soft because of the rain.", "あめ で じめん が **なんじゃく** に なりました。"]]),
+      ], [
+        ["軟弱", "なんじゃく", "weakness; feebleness", "N2", "雨で地面が**軟弱**になりました。", "The ground became soft because of the rain.", "あめ で じめん が **なんじゃく** に なりました。"],
+      ]),
       bk("軽", "N2", "light (weight)", "ケイ", "かる.い", [
         ["危険を**軽視**してはいけません。", "きけん を **けいし** して は いけません。", "You must not make light of danger.", "N1", undefined, "ケイ"],
         ["このかばんは**軽い**です。", "この かばん は **かるい** です。", "This bag is light.", "N4", undefined, "かる.い"],
@@ -788,7 +850,9 @@ export const GROUPS: BookGroup[] = [
         ["自転車の**車輪**が回ります。", "じてんしゃ の **しゃりん** が まわります。", "The bicycle's wheels are turning.", "N2", undefined, "リン"],
         ["**指輪**をもらいました。", "**ゆびわ** を もらいました。", "I received a ring.", "N3", undefined, "わ"],
         ["みんなで**輪**になりました。", "みんな で **わ** に なりました。", "We all formed a circle.", "N2", undefined, "わ"],
-      ], [["車輪", "しゃりん", "(car) wheel", "N2", "自転車の**車輪**が回ります。", "The bicycle's wheels are turning.", "じてんしゃ の **しゃりん** が まわります。"]]),
+      ], [
+        ["車輪", "しゃりん", "(car) wheel", "N2", "自転車の**車輪**が回ります。", "The bicycle's wheels are turning.", "じてんしゃ の **しゃりん** が まわります。"],
+      ]),
       bk("論", "N3", "argument, theory", "ロン", "", [
         ["会議で**議論**しました。", "かいぎ で **ぎろん** しました。", "We debated at the meeting.", "N2", undefined, "ロン"],
         ["**論文**を書いています。", "**ろんぶん** を かいて います。", "I'm writing a paper.", "N2", undefined, "ロン"],

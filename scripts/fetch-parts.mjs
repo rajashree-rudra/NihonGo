@@ -5,7 +5,7 @@
 // きへん), else from the part's own entry in the kanji books; unnamed rare parts are left out.
 //
 // Run: npm run data:parts   (re-run after adding kanji)
-import { writeFile } from "node:fs/promises";
+import { readFile, writeFile } from "node:fs/promises";
 import { allCharSets } from "../src/data/levels.ts";
 import { PART_NAMES, POSITION_NAMES } from "../src/data/radicals.ts";
 
@@ -61,7 +61,12 @@ function partsOf(kanjiGroup) {
 
 async function partsFor(char) {
   const hex = char.codePointAt(0).toString(16).padStart(5, "0");
-  const res = await fetch(`${BASE}${hex}.svg`);
+  let res;
+  for (let i = 1; i <= 5; i++) {
+    res = await fetch(`${BASE}${hex}.svg`);
+    if (res.ok || (res.status !== 403 && res.status !== 429)) break;
+    await new Promise((r) => setTimeout(r, 2000 * i)); // the CDN refuses bursts; wait and retry
+  }
   if (!res.ok) throw new Error(`${char}: HTTP ${res.status}`);
   const tree = parseGroups(await res.text());
   const strokes = tree.children.find((g) => g.attrs.id?.startsWith("kvg:StrokePaths"));
@@ -70,11 +75,13 @@ async function partsFor(char) {
 }
 
 const kanji = [...new Set(allCharSets().filter((s) => s.kind === "kanji").flatMap((s) => s.items.map((k) => k.char)))];
+// A kanji that can't be downloaded keeps the parts it already had.
+const previous = JSON.parse(await readFile(OUT, "utf8").catch(() => "{}"));
 const result = {};
 let next = 0;
 let failed = 0;
 await Promise.all(
-  Array.from({ length: 8 }, async () => {
+  Array.from({ length: 4 }, async () => {
     while (next < kanji.length) {
       const char = kanji[next++];
       try {
@@ -91,6 +98,7 @@ await Promise.all(
       } catch (e) {
         failed++;
         console.error(`✗ ${e.message}`);
+        if (previous[char]) result[char] = previous[char];
       }
     }
   }),

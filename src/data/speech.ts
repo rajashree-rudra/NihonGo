@@ -61,18 +61,24 @@ export function legacySpeechText(item: { char: string; on?: string[]; kun?: stri
  */
 export const SPEECH_FIXES: Record<string, string> = {
   // 戦い was read おののい (戦く) instead of たたかい.
-  "チームが一丸となって戦いました。": "チームがいちがんとなってたたかいました。",
+  "チームが一丸となって戦いました。": "チームがイチガンとなってタタカイました。",
+  // この町 was read このちょう instead of このまち.
+  "この町の人口が減少しています。": "このマチの人口がゲンショウしています。",
 };
+
+const toKatakana = (s: string) => s.replace(/[ぁ-ゖ]/g, (c) => String.fromCharCode(c.charCodeAt(0) + 0x60));
 
 /**
  * What the voice should say for a kanji-book sentence. The clip is still looked up by the written
  * sentence; only the spoken text changes. The highlighted word — the reading being taught, often a
- * rare one — is spoken from its kana so the voice can't pick the wrong reading.
+ * rare one — is given to the voice in katakana, so it can't pick the wrong reading. (Not hiragana:
+ * next to hiragana particles that blurred word boundaries — 水はきよい was read "mizu ha kiyoi",
+ * 昨夜でいすい "sakuya de isui". Katakana always reads as a word of its own.)
  */
 export function sentenceSpeech(ja: string, hl?: string, hlKana?: string): string {
   const fixed = SPEECH_FIXES[ja];
   if (fixed) return fixed;
-  return hl && hlKana && ja.includes(hl) ? ja.replace(hl, hlKana.replace(/\s+/g, "")) : ja;
+  return hl && hlKana && ja.includes(hl) ? ja.replace(hl, toKatakana(hlKana.replace(/\s+/g, ""))) : ja;
 }
 
 /** How to say a single reading: kun'yomi without the okurigana dot, on'yomi in hiragana. */
@@ -85,6 +91,24 @@ interface ReadingExample {
   level?: string;
   reading?: string;
   readingKind?: "on" | "kun";
+}
+
+/**
+ * Every sentence that can be said after a kanji is written: its examples, then its vocabulary
+ * sentences (tagged with the reading the word uses). E.g. 査's only N2 sentence is in 巡査.
+ */
+export function speechCandidates(detail: {
+  examples: ReadingExample[];
+  vocab: { example?: string; level?: string; kanjiReading?: string; kanjiReadingKind?: "on" | "kun" }[];
+}): ReadingExample[] {
+  return [
+    ...detail.examples,
+    ...detail.vocab.flatMap((v) =>
+      v.example && v.kanjiReading
+        ? [{ ja: v.example.replace(/\*\*/g, ""), level: v.level, reading: v.kanjiReading, readingKind: v.kanjiReadingKind }]
+        : [],
+    ),
+  ];
 }
 
 /**

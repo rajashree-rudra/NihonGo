@@ -1,7 +1,7 @@
 "use client";
 
 import { memo, useEffect, useRef, useState } from "react";
-import { ChevronDown, ChevronUp, Volume2 } from "lucide-react";
+import { ChevronDown, ChevronLeft, ChevronRight, ChevronUp, Star, Volume2 } from "lucide-react";
 import type { CharItem, KanjiDetail } from "@/data/types";
 import { formatKun } from "@/data/builders";
 import { pronounce } from "@/lib/audio";
@@ -21,10 +21,30 @@ interface Props {
   onToggle: (char: string) => void;
   setId: string;
   practiceHref: string;
+  starred: boolean;
+  onStar: (char: string) => void;
+  onStep: (char: string, dir: 1 | -1) => void;
+  hasPrev: boolean;
+  hasNext: boolean;
 }
 
 /** One kanji as a list row; the details slide open underneath. */
-export const KanjiRow = memo(function KanjiRow({ item, number, showInfo, showLevel, detail, open, onToggle, setId, practiceHref }: Props) {
+export const KanjiRow = memo(function KanjiRow({
+  item,
+  number,
+  showInfo,
+  showLevel,
+  detail,
+  open,
+  onToggle,
+  setId,
+  practiceHref,
+  starred,
+  onStar,
+  onStep,
+  hasPrev,
+  hasNext,
+}: Props) {
   // Mount the details the first time the row opens, then keep them for a smooth close.
   const [mounted, setMounted] = useState(open);
   useEffect(() => {
@@ -98,6 +118,19 @@ export const KanjiRow = memo(function KanjiRow({ item, number, showInfo, showLev
         </button>
         <button
           type="button"
+          onClick={() => onStar(item.char)}
+          aria-pressed={starred}
+          aria-label={starred ? `Unstar ${item.char}` : `Star ${item.char}`}
+          title={starred ? "Starred — tap to unstar" : "Star this kanji"}
+          className={cn(
+            "grid size-9 shrink-0 place-items-center rounded-xl transition active:scale-90 sm:size-10",
+            starred ? "text-kin hover:bg-kin-soft" : "text-muted/60 hover:bg-ink/5 hover:text-ink",
+          )}
+        >
+          <Star className={cn("size-[18px]", starred && "fill-current")} />
+        </button>
+        <button
+          type="button"
           onClick={() => void pronounce(item)}
           aria-label={`Listen to ${item.char}`}
           className="grid size-10 shrink-0 place-items-center rounded-xl text-ink-soft transition hover:bg-ink hover:text-white active:scale-90"
@@ -118,21 +151,45 @@ export const KanjiRow = memo(function KanjiRow({ item, number, showInfo, showLev
           {mounted && detail && (
             <>
               <KanjiDetails item={item} detail={detail} setId={setId} practiceHref={practiceHref} />
-              <div className="flex items-center gap-3 border-t border-line bg-paper/80 py-2 pl-4 pr-1.5 sm:pl-5 sm:pr-3">
-                <span className="min-w-0 flex-1 truncate text-[12px] font-medium text-muted">
-                  End of <span className="tabular-nums">{number}.</span>{" "}
-                  <span lang="ja" className="font-jp text-[14px] font-bold text-ink">
-                    {item.char}
-                  </span>
-                </span>
+              {/* The whole bar closes the kanji; ‹ › at its ends step to the previous / next one. */}
+              <div className="flex items-stretch border-t border-line bg-paper/80 text-[13px] font-semibold text-ink-soft">
+                <button
+                  type="button"
+                  onClick={() => onStep(item.char, -1)}
+                  disabled={!hasPrev}
+                  tabIndex={open ? 0 : -1}
+                  aria-label="Previous kanji"
+                  className="flex shrink-0 items-center gap-1 border-r border-line px-3 transition hover:bg-ink hover:text-white disabled:pointer-events-none disabled:opacity-30 sm:px-4"
+                >
+                  <ChevronLeft className="size-4" />
+                  <span className="max-sm:sr-only">Prev</span>
+                </button>
                 <button
                   type="button"
                   onClick={closeFromBottom}
                   tabIndex={open ? 0 : -1}
                   aria-label={`Close ${item.char}`}
-                  className="inline-flex h-9 shrink-0 items-center gap-1.5 rounded-xl border border-line-strong bg-card px-3 text-[13px] font-semibold text-ink-soft transition hover:border-ink hover:bg-ink hover:text-white active:scale-95"
+                  className="group/close flex min-w-0 flex-1 items-center justify-center gap-2 py-3 transition hover:bg-ink/5 hover:text-ink active:bg-ink/10"
                 >
-                  <ChevronUp className="size-4" /> Close
+                  <ChevronUp className="size-4 transition-transform group-hover/close:-translate-y-0.5" />
+                  <span>Close</span>
+                  <span className="truncate text-[12px] font-medium text-muted">
+                    · <span className="tabular-nums">{number}.</span>{" "}
+                    <span lang="ja" className="font-jp text-[14px] font-bold text-ink">
+                      {item.char}
+                    </span>
+                  </span>
+                </button>
+                <button
+                  type="button"
+                  onClick={() => onStep(item.char, 1)}
+                  disabled={!hasNext}
+                  tabIndex={open ? 0 : -1}
+                  aria-label="Next kanji"
+                  className="flex shrink-0 items-center gap-1 border-l border-line px-3 transition hover:bg-ink hover:text-white disabled:pointer-events-none disabled:opacity-30 sm:px-4"
+                >
+                  <span className="max-sm:sr-only">Next</span>
+                  <ChevronRight className="size-4" />
                 </button>
               </div>
             </>
