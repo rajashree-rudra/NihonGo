@@ -36,7 +36,7 @@ export default function HomePage() {
               <span
                 aria-hidden
                 className={cn(
-                  "pointer-events-none absolute -bottom-6 -right-3 font-brush text-[8.5rem] leading-none transition-transform duration-500",
+                  "pointer-events-none absolute bottom-2 -right-3 font-brush text-[8.5rem] leading-none transition-transform duration-500",
                   open ? "text-white/[0.08] group-hover:-translate-y-1 group-hover:scale-105 dark:text-ink/[0.06]" : "text-ink/[0.04]",
                 )}
               >
