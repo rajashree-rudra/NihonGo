@@ -29,6 +29,7 @@ All routes are generated from the level registry (`src/data/levels.ts`), so new 
 | --- | --- | --- |
 | `src/data/characters/` | kana tables | `defineKanaSet` |
 | `src/data/characters/n5-kanji/`, `n4-kanji/`, `n2-kanji/` | kanji books: N5/N4 in themed groups, N2 in look-alike groups. Each kanji's examples, in order: its basic word, every word at the kanji's own level, then harder words only when no other word shows their reading. Each example is tagged with the reading it shows (`"*"` for a word read as a whole, e.g. 今日 きょう). "More vocabulary" holds easier words, most used first. Every sentence has spaced kana, romaji and English | `defineKanjiBook` + `bk(...)` |
+| `src/data/kanji-memory/` | "Remember it" for each kanji, shared by every book it's in: an easy story from its parts (`""` when there's no easy one) and a two-panel emoji cartoon with very short sentences | `km(kanji, story, [panel, panel])` |
 | `src/data/vocabulary/<level>/part-*.ts` | words: reading, romaji, meaning, part of speech, category, 2 examples | `WORDS: VocabEntry[]` |
 | `src/data/grammar/<level>.ts` | grammar points: pattern, meaning, structure, explanation, notes, 2 examples | `CATEGORIES`, `POINTS` |
 

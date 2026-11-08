@@ -29,7 +29,7 @@ export function ModuleHeader({ level, module, hint, actions }: { level: Level; m
             {hint}
           </p>
         </div>
-        {actions && <div className="flex gap-3">{actions}</div>}
+        {actions && <div className="flex flex-wrap gap-3">{actions}</div>}
       </div>
     </>
   );

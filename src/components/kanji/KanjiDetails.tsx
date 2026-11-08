@@ -10,6 +10,7 @@ import { romajiStore } from "@/lib/settings";
 import { ExampleList, emphasize } from "@/components/study/ExampleList";
 import { LevelBadge } from "@/components/ui/LevelBadge";
 import { StrokeOrder } from "./StrokeOrder";
+import { MemoryTip } from "./KanjiMemory";
 import { Markable } from "@/components/marker/Markable";
 
 const unbold = (s: string) => s.replace(/\*\*/g, "");
@@ -161,6 +162,8 @@ export function KanjiDetails({ item, detail, setId, practiceHref }: Props) {
           <Readings label="On" list={item.on ?? []} display={(r) => r} />
           <Readings label="Kun" list={item.kun ?? []} display={formatKun} />
         </dl>
+
+        {detail.memory && <MemoryTip memory={detail.memory} char={item.char} />}
 
         {!!detail.examples.length && (
           <section>

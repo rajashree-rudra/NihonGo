@@ -1,7 +1,7 @@
 "use client";
 
 import { memo, useEffect, useRef, useState } from "react";
-import { ChevronDown, ChevronLeft, ChevronRight, ChevronUp, Star, Volume2 } from "lucide-react";
+import { ChevronDown, ChevronUp, Star, Volume2 } from "lucide-react";
 import type { CharItem, KanjiDetail } from "@/data/types";
 import { formatKun } from "@/data/builders";
 import { pronounce } from "@/lib/audio";
@@ -23,9 +23,6 @@ interface Props {
   practiceHref: string;
   starred: boolean;
   onStar: (char: string) => void;
-  onStep: (char: string, dir: 1 | -1) => void;
-  hasPrev: boolean;
-  hasNext: boolean;
 }
 
 /** One kanji as a list row; the details slide open underneath. */
@@ -41,9 +38,6 @@ export const KanjiRow = memo(function KanjiRow({
   practiceHref,
   starred,
   onStar,
-  onStep,
-  hasPrev,
-  hasNext,
 }: Props) {
   // Mount the details the first time the row opens, then keep them for a smooth close.
   const [mounted, setMounted] = useState(open);
@@ -151,19 +145,8 @@ export const KanjiRow = memo(function KanjiRow({
           {mounted && detail && (
             <>
               <KanjiDetails item={item} detail={detail} setId={setId} practiceHref={practiceHref} />
-              {/* The whole bar closes the kanji; ‹ › at its ends step to the previous / next one. */}
+              {/* The whole bar closes the kanji. */}
               <div className="flex items-stretch border-t border-line bg-paper/80 text-[13px] font-semibold text-ink-soft">
-                <button
-                  type="button"
-                  onClick={() => onStep(item.char, -1)}
-                  disabled={!hasPrev}
-                  tabIndex={open ? 0 : -1}
-                  aria-label="Previous kanji"
-                  className="flex shrink-0 items-center gap-1 border-r border-line px-3 transition hover:bg-ink hover:text-white disabled:pointer-events-none disabled:opacity-30 sm:px-4"
-                >
-                  <ChevronLeft className="size-4" />
-                  <span className="max-sm:sr-only">Prev</span>
-                </button>
                 <button
                   type="button"
                   onClick={closeFromBottom}
@@ -179,17 +162,6 @@ export const KanjiRow = memo(function KanjiRow({
                       {item.char}
                     </span>
                   </span>
-                </button>
-                <button
-                  type="button"
-                  onClick={() => onStep(item.char, 1)}
-                  disabled={!hasNext}
-                  tabIndex={open ? 0 : -1}
-                  aria-label="Next kanji"
-                  className="flex shrink-0 items-center gap-1 border-l border-line px-3 transition hover:bg-ink hover:text-white disabled:pointer-events-none disabled:opacity-30 sm:px-4"
-                >
-                  <span className="max-sm:sr-only">Next</span>
-                  <ChevronRight className="size-4" />
                 </button>
               </div>
             </>

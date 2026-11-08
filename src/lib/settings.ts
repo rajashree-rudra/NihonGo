@@ -40,3 +40,6 @@ export const themeStore = createPersistentStore<Theme>("nihongo:theme", "light")
 
 /** Starred kanji, as "<set id>:<kanji>" (e.g. "n2-kanji:乱"); the list can show only these. */
 export const starStore = createPersistentStore<string[]>("nihongo:stars", []);
+
+/** The memory trick at the top of practice: open until the learner closes it, then stays closed. */
+export const memoryTrickStore = createPersistentStore("nihongo:memory-trick-open", true);

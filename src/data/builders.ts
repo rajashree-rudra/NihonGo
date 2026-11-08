@@ -3,6 +3,7 @@
 import type { CharItem, CharSet, ChartRow, ChartSection, GrammarCategory, GrammarPoint, GrammarSet, VocabEntry, VocabSet } from "./types.ts";
 import { VOCAB_CATEGORIES } from "./types.ts";
 import { kanaSentenceToRomaji, kanaToRomaji } from "./romaji.ts";
+import { KANJI_MEMORY } from "./kanji-memory/index.ts";
 
 // ---------- Vocabulary ----------
 
@@ -253,6 +254,7 @@ export function defineKanjiBook(id: string, groups: BookGroup[]): CharSet {
               kanjiReadingKind: tag?.kind,
             };
           }),
+        memory: KANJI_MEMORY[k.char],
       };
       const primary = kun[0] ?? on[0] ?? "";
       return { char: k.char, meaning: k.meaning, on, kun, level: k.level, romaji: kanaToRomaji(primary.replace(".", "")) };

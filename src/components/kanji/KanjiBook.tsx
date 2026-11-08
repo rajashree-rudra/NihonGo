@@ -162,38 +162,40 @@ export function KanjiBook({ charSet, basePath }: { charSet: CharSet; basePath: s
     });
   }, []);
 
-  // Previous / next kanji from an open one (in the list as currently filtered): close this one,
-  // open that one and bring its row under the toolbar, rendering its group first if needed.
-  const order = useMemo(() => groups.flatMap((g) => g.items.map((k) => k.char)), [groups]);
-  const step = useCallback(
-    (char: string, dir: 1 | -1) => {
-      const target = order[order.indexOf(char) + dir];
-      if (!target) return;
-      setOpen((prev) => {
-        const next = new Set(prev);
-        next.delete(char);
-        next.add(target);
-        return next;
-      });
-      const gi = groups.findIndex((g) => g.items.some((k) => k.char === target));
-      setLimit((l) => Math.max(l, gi + 1));
-      pendingRow.current = target;
-    },
-    [order, groups],
-  );
+  // Back from practice (the back link or the browser's back button): bring the kanji that was
+  // being practised under the toolbar, rendering its group first if needed, and flash its row.
+  // (Read once into a ref: effects may run twice, and the limit reset above runs again too.)
+  const returnTo = useRef<string | null | undefined>(undefined);
+  useEffect(() => {
+    if (returnTo.current === undefined) {
+      const key = `nihongo:return:${charSet.id}`;
+      try {
+        returnTo.current = sessionStorage.getItem(key);
+        sessionStorage.removeItem(key);
+      } catch {
+        returnTo.current = null;
+      }
+    }
+    const char = returnTo.current;
+    const gi = char ? charSet.sections.findIndex((s) => s.items.some((k) => k.char === char)) : -1;
+    if (gi < 0) return;
+    setLimit((l) => Math.max(l, gi + 1));
+    pendingRow.current = char;
+  }, [charSet]);
   useEffect(() => {
     const char = pendingRow.current;
     const row = char ? document.getElementById(`k-${char}`)?.closest("li") : null;
     if (!row) return;
     pendingRow.current = null;
-    // The row above may still be closing (300 ms), so keep re-aligning for a moment.
+    // Rows above settle their height as they render, so keep re-aligning for a moment.
     let tries = 0;
     const align = () => {
       const bar = document.querySelector("[data-kanji-toolbar]")?.getBoundingClientRect().bottom ?? 0;
       window.scrollBy({ top: row.getBoundingClientRect().top - bar - 8, behavior: "instant" });
-      if (++tries < 6) setTimeout(() => requestAnimationFrame(align), 70);
+      if (++tries < 8) setTimeout(() => requestAnimationFrame(align), 70);
     };
     align();
+    row.animate([{ boxShadow: "inset 0 0 0 2px var(--color-shu)" }, { boxShadow: "inset 0 0 0 2px transparent" }], { duration: 1800, easing: "ease-in" });
   });
 
   const visibleChars = groups.slice(0, limit).flatMap((g) => g.items.map((k) => k.char));
@@ -345,9 +347,6 @@ export function KanjiBook({ charSet, basePath }: { charSet: CharSet; basePath: s
               showInfo={showInfo}
               isStarred={(c) => starred.has(starKey(c))}
               onStar={toggleStar}
-              onStep={step}
-              firstChar={order[0]}
-              lastChar={order[order.length - 1]}
             />
           ))}
           {limit < groups.length && (

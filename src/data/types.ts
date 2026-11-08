@@ -52,9 +52,29 @@ export interface KanjiVocab {
   kanjiReadingKind?: "on" | "kun";
 }
 
+/** One panel of a kanji's little cartoon: an emoji scene and one very short sentence. */
+export interface ComicPanel {
+  /** A few emoji that picture the sentence ("🧒🌊"). */
+  scene: string;
+  ja: string;
+  kana: string;
+  en: string;
+  /** The highlighted word inside `ja` / `kana`. */
+  hl?: string;
+  hlKana?: string;
+}
+
+/** Help to remember a kanji: a story built from its parts, and a two-panel cartoon. */
+export interface KanjiMemory {
+  /** "When the sun (日) and the moon (月) shine together, it's very bright (明るい)." */
+  story?: string;
+  comic: ComicPanel[];
+}
+
 export interface KanjiDetail {
   examples: KanjiExample[];
   vocab: KanjiVocab[];
+  memory?: KanjiMemory;
 }
 
 /** A chart row in gojūon position; null marks an empty cell. */

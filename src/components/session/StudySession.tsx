@@ -20,6 +20,7 @@ import { ResultBurst } from "@/components/writing/ResultBurst";
 import { CompareDialog } from "@/components/writing/CompareDialog";
 import { SoundToggle, ThemeToggle, VoiceToggle } from "@/components/layout/SiteHeader";
 import { PracticeExamples } from "@/components/kanji/PracticeExamples";
+import { PracticeMemory } from "@/components/kanji/KanjiMemory";
 import { CharStrip } from "./CharStrip";
 import { PromptCard } from "./PromptCard";
 import type { Result, SessionMode } from "./types";
@@ -121,7 +122,11 @@ export function StudySession({ charSet, queue, mode, title, backHref, startIndex
       const el = padSlot.current;
       if (!el || window.innerWidth === width) return;
       width = window.innerWidth;
-      const top = el.getBoundingClientRect().top + window.scrollY;
+      // On phones the memory trick may be open above the box: size the box as if it were closed,
+      // so opening or closing it (or a longer story) never changes the size — the page scrolls.
+      const memory = document.querySelector("[data-memory-body]")?.getBoundingClientRect();
+      const above = memory && memory.bottom <= el.getBoundingClientRect().top ? memory.height : 0;
+      const top = el.getBoundingClientRect().top + window.scrollY - above;
       // The smallest viewport height (browser bar shown), so the box never ends up under it.
       const probe = document.createElement("div");
       probe.style.cssText = "position:fixed;top:0;height:100svh;visibility:hidden;pointer-events:none";
@@ -134,6 +139,14 @@ export function StudySession({ charSet, queue, mode, title, backHref, startIndex
     window.addEventListener("resize", fit);
     return () => window.removeEventListener("resize", fit);
   }, []);
+
+  // Kanji books: remember where the learner is, so going back to the list lands on this kanji.
+  useEffect(() => {
+    if (!charSet.details) return;
+    try {
+      sessionStorage.setItem(`nihongo:return:${charSet.id}`, queue[index].char);
+    } catch {}
+  }, [charSet, queue, index]);
 
   // New character: speak it, warm upcoming clips, reset hint tracking.
   useEffect(() => {
@@ -269,9 +282,10 @@ export function StudySession({ charSet, queue, mode, title, backHref, startIndex
         >
           <ArrowLeft className="size-4" /> <span className="max-sm:hidden">{title} chart</span>
         </Link>
+        {/* Phones have no room for the title next to the toggles; the badge says which mode this is. */}
         <div className="flex items-center gap-2">
-          <h1 className="text-base font-extrabold tracking-tight sm:text-lg">{title}</h1>
-          <Badge tone={isTest ? "shu" : "ai"} className="max-[359px]:hidden">
+          <h1 className="text-base font-extrabold tracking-tight max-sm:sr-only sm:text-lg">{title}</h1>
+          <Badge tone={isTest ? "shu" : "ai"} className="max-[389px]:hidden">
             {isTest ? "Test" : "Practice"}
           </Badge>
         </div>
@@ -306,7 +320,14 @@ export function StudySession({ charSet, queue, mode, title, backHref, startIndex
 
       {/* minmax(0,1fr): let columns shrink below their content's min width so nothing overflows on phones */}
       <div className="mt-2 grid grid-cols-[minmax(0,1fr)] gap-3 sm:mt-4 sm:gap-5 lg:mt-6 lg:grid-cols-[290px_minmax(0,1fr)] lg:gap-10">
-        <aside className="min-w-0 space-y-4">
+        <aside className="min-w-0 space-y-2.5 sm:space-y-4">
+          {charSet.details?.[item.char]?.memory && (
+            <PracticeMemory
+              memory={charSet.details[item.char].memory!}
+              char={item.char}
+              hidden={isTest && !written && !results[index]}
+            />
+          )}
           <PromptCard
             item={item}
             kind={charSet.kind}
@@ -444,6 +465,31 @@ export function StudySession({ charSet, queue, mode, title, backHref, startIndex
       {charSet.details?.[item.char] && (
         <div className="mt-6 lg:mt-10">
           <PracticeExamples setId={charSet.id} item={item} detail={charSet.details[item.char]} hidden={isTest && !written && !results[index]} />
+          {/* Previous / next at the end of the page; they go back up to the writing box. */}
+          <nav aria-label="Previous and next kanji" className="mt-4 grid grid-cols-2 gap-3">
+            {[
+              { dir: "prev" as const, onClick: prev, disabled: index === 0 && !onPrevGroup, label: index === 0 && onPrevGroup ? "Previous group" : "Previous" },
+              { dir: "next" as const, onClick: next, disabled: false, label: isLast ? (onNextGroup ? "Next group" : "Finish") : isTest ? "Skip" : "Next" },
+            ].map((b) => (
+              <button
+                key={b.dir}
+                type="button"
+                disabled={b.disabled}
+                onClick={() => {
+                  b.onClick();
+                  window.scrollTo({ top: 0, behavior: "smooth" });
+                }}
+                className={cn(
+                  "flex h-12 items-center gap-2 rounded-2xl border border-line-strong bg-card px-4 text-[15px] font-semibold text-ink-soft shadow-soft transition hover:border-ink/40 hover:text-ink active:scale-[0.98] disabled:pointer-events-none disabled:opacity-40",
+                  b.dir === "next" ? "justify-end" : "justify-start",
+                )}
+              >
+                {b.dir === "prev" && <ChevronLeft className="size-5" />}
+                {b.label}
+                {b.dir === "next" && <ChevronRight className="size-5" />}
+              </button>
+            ))}
+          </nav>
         </div>
       )}
 

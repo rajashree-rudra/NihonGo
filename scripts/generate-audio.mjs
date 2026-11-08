@@ -90,7 +90,7 @@ for (const set of allVocabSets())
 for (const set of allGrammarSets())
   for (const section of set.sections)
     for (const point of section.items) for (const ex of point.examples) addText(ex.ja, `${set.id}-${section.id}`);
-// Kanji books: example sentences and "more vocabulary" sentences, ten groups per pack.
+// Kanji books: example, "more vocabulary" and cartoon sentences, ten groups per pack.
 for (const set of allCharSets().filter((s) => s.details))
   for (const section of set.sections) {
     const pack = `${set.id}-${String(Math.ceil((section.number ?? 1) / 10)).padStart(2, "0")}`;
@@ -99,6 +99,8 @@ for (const set of allCharSets().filter((s) => s.details))
       // The readings said after the kanji is written in practice (sentences are added below).
       if (d) kanjiSpeechParts(speechCandidates(d), k.level ?? levelOfSet(set.id)).forEach((part, i) => i % 2 === 0 && addText(part, pack));
       for (const ex of d?.examples ?? []) addText(ex.ja, pack, sentenceSpeech(ex.ja, ex.hl, ex.hlKana));
+      // The cartoon's speech bubbles ("Remember it").
+      for (const p of d?.memory?.comic ?? []) addText(p.ja, pack, sentenceSpeech(p.ja, p.hl, p.hlKana));
       for (const v of d?.vocab ?? []) {
         if (!v.example) {
           addText(v.reading.split("・")[0], pack);

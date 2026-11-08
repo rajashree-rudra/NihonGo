@@ -28,11 +28,6 @@ interface Props {
   showLevel: boolean;
   isStarred: (char: string) => boolean;
   onStar: (char: string) => void;
-  /** Open the previous / next kanji in the list. */
-  onStep: (char: string, dir: 1 | -1) => void;
-  /** First and last kanji of the whole (filtered) list, where stepping stops. */
-  firstChar?: string;
-  lastChar?: string;
 }
 
 /** A look-alike group: header with practice + open/close-all, then the kanji rows. */
@@ -86,9 +81,6 @@ export const KanjiGroup = memo(function KanjiGroup(p: Props) {
             onToggle={p.onToggle}
             starred={p.isStarred(item.char)}
             onStar={p.onStar}
-            onStep={p.onStep}
-            hasPrev={item.char !== p.firstChar}
-            hasNext={item.char !== p.lastChar}
             setId={p.setId}
             practiceHref={`${p.basePath}/practice?s=${p.id}&c=${p.groupIndexOf.get(item.char) ?? 0}`}
           />
