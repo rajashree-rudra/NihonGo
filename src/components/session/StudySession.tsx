@@ -110,10 +110,11 @@ export function StudySession({ charSet, queue, mode, title, backHref, startIndex
 
   useEffect(() => () => clearTimeout(timer.current), []);
 
-  // Size the writing box once, to the space between its top edge and the bottom of the screen,
-  // so it is the same size for every character. It is measured again only when the screen width
-  // changes (rotation, resized window) — never when the content above it changes from one kanji
-  // to the next, nor when the phone's browser bar slides in and out while scrolling.
+  // Phones: the writing box takes the full screen width. Larger screens: size it once, to the
+  // space between its top edge and the bottom of the screen, so it is the same size for every
+  // character. It is measured again only when the screen width changes (rotation, resized
+  // window) — never when the content above it changes from one kanji to the next, nor when the
+  // phone's browser bar slides in and out while scrolling.
   const padSlot = useRef<HTMLDivElement>(null);
   const [padSize, setPadSize] = useState<number | null>(null);
   useLayoutEffect(() => {
@@ -122,11 +123,8 @@ export function StudySession({ charSet, queue, mode, title, backHref, startIndex
       const el = padSlot.current;
       if (!el || window.innerWidth === width) return;
       width = window.innerWidth;
-      // On phones the memory trick may be open above the box: size the box as if it were closed,
-      // so opening or closing it (or a longer story) never changes the size — the page scrolls.
-      const memory = document.querySelector("[data-memory-body]")?.getBoundingClientRect();
-      const above = memory && memory.bottom <= el.getBoundingClientRect().top ? memory.height : 0;
-      const top = el.getBoundingClientRect().top + window.scrollY - above;
+      if (width < 640) return setPadSize(null);
+      const top = el.getBoundingClientRect().top + window.scrollY;
       // The smallest viewport height (browser bar shown), so the box never ends up under it.
       const probe = document.createElement("div");
       probe.style.cssText = "position:fixed;top:0;height:100svh;visibility:hidden;pointer-events:none";
@@ -320,14 +318,7 @@ export function StudySession({ charSet, queue, mode, title, backHref, startIndex
 
       {/* minmax(0,1fr): let columns shrink below their content's min width so nothing overflows on phones */}
       <div className="mt-2 grid grid-cols-[minmax(0,1fr)] gap-3 sm:mt-4 sm:gap-5 lg:mt-6 lg:grid-cols-[290px_minmax(0,1fr)] lg:gap-10">
-        <aside className="min-w-0 space-y-2.5 sm:space-y-4">
-          {charSet.details?.[item.char]?.memory && (
-            <PracticeMemory
-              memory={charSet.details[item.char].memory!}
-              char={item.char}
-              hidden={isTest && !written && !results[index]}
-            />
-          )}
+        <aside className="min-w-0 space-y-4">
           <PromptCard
             item={item}
             kind={charSet.kind}
@@ -458,6 +449,13 @@ export function StudySession({ charSet, queue, mode, title, backHref, startIndex
               </Button>
             )}
           </div>
+
+          {/* Kanji books: the memory trick, right under the writing box */}
+          {charSet.details?.[item.char]?.memory && (
+            <div className="mt-2 sm:mt-3">
+              <PracticeMemory memory={charSet.details[item.char].memory!} char={item.char} hidden={isTest && !written && !results[index]} />
+            </div>
+          )}
         </section>
       </div>
 

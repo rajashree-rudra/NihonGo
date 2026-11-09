@@ -328,7 +328,7 @@ export const MEMORY: MemoryEntry[] = [
   ]),
   km("湯", "Water (氵) heated by the sun (日) and its rays (勿) — hot water (お湯).", [
     ["♨️🛁", "**お湯**が熱い！", "**おゆ** が あつい！", "The water is hot!"],
-    ["🚰🧊", "**水**を入れます。", "**みず** を いれます。", "I add cold water."],
+    ["♨️🚰", "**お湯**に水を入れます。", "**おゆ** に みず を いれます。", "I add cold water to the hot water."],
   ]),
   km("湾", "Water (氵) curving into the land like a bent bow (弓) — a bay (湾).", [
     ["🚢🏙️", "**東京湾**は広い。", "**とうきょうわん** は ひろい。", "Tokyo Bay is wide."],

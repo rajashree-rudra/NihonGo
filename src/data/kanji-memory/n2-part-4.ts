@@ -20,7 +20,7 @@ export const MEMORY: MemoryEntry[] = [
   ]),
   km("蒸", "Fire (灬) at the bottom, greens (艹) on top, a pot (丞) in between — the greens are steamed (蒸す).", [
     ["☀️💦", "今日は**蒸し暑い**です。", "きょう は **むしあつい** です。", "It's hot and humid today."],
-    ["🌙🍃", "夜は**涼しい**です。", "よる は **すずしい** です。", "The night is cool."],
+    ["🥦💨", "野菜を**蒸します**。", "やさい を **むします**。", "I steam the vegetables."],
   ]),
   km("薄", "Too much water (氵) on the tea leaves (艹) makes the tea weak and pale — thin (薄い).", [
     ["🍵😕", "お茶が**薄い**です。", "おちゃ が **うすい** です。", "The tea is weak."],
@@ -324,7 +324,7 @@ export const MEMORY: MemoryEntry[] = [
   ]),
   km("甘", "An open mouth (廿) holding a candy (一) on the tongue — so sweet (甘い).", [
     ["🍰😋", "ケーキが**甘い**。", "ケーキ が **あまい**。", "The cake is sweet."],
-    ["🍋😖", "レモンは**すっぱい**。", "レモン は **すっぱい**。", "Lemons are sour."],
+    ["🍫🤤", "チョコも**甘い**！", "チョコ も **あまい**！", "Chocolate is sweet too!"],
   ]),
   km("武", "A warrior holds out his spear (弋) to stop (止) the enemy — a warrior (武士).", [
     ["⚔️🛡️", "**武士**は強い。", "**ぶし** は つよい。", "Samurai are strong."],
@@ -388,7 +388,7 @@ export const MEMORY: MemoryEntry[] = [
   ]),
   km("黄", "A rice field (由) turning gold, with a scarecrow's two legs (八) standing in it — all yellow (黄色い).", [
     ["🍌💛", "バナナは**黄色い**。", "バナナ は **きいろい**。", "Bananas are yellow."],
-    ["🍎❤️", "りんごは**赤い**。", "りんご は **あかい**。", "Apples are red."],
+    ["🍋💛", "レモンも**黄色い**。", "レモン も **きいろい**。", "Lemons are yellow too."],
   ]),
   km("骨", "A hard joint (冎) hidden inside the flesh (月) — a bone (骨).", [
     ["🦴🐶", "犬が**骨**を食べる。", "いぬ が **ほね** を たべる。", "The dog eats a bone."],

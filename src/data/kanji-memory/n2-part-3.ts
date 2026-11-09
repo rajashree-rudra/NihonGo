@@ -36,7 +36,7 @@ export const MEMORY: MemoryEntry[] = [
   ]),
   km("投", "A hand (扌) swings a weapon (殳) back, then throws (投げる) it as far as it can.", [
     ["⚾💨", "ボールを**投げます**。", "ボール を **なげます**。", "I throw the ball."],
-    ["🧤⚾", "ボールを**取りました**！", "ボール を **とりました**！", "I caught the ball!"],
+    ["🐕⚾", "犬にボールを**投げる**。", "いぬ に ボール を **なげる**。", "I throw a ball to the dog."],
   ]),
   km("詞", "Words (言) picked by the director (司) become the song's lyrics (歌詞).", [
     ["🎤🎶", "**歌詞**を覚えます。", "**かし** を おぼえます。", "I memorize the lyrics."],
@@ -116,7 +116,7 @@ export const MEMORY: MemoryEntry[] = [
   ]),
   km("銅", "Metal (金) that looks almost the same (同) as gold — but it's only copper (銅).", [
     ["🥉", "**銅メダル**です。", "**どうメダル** です。", "It's a bronze medal."],
-    ["🥇", "次は**金メダル**です！", "つぎ は **きんメダル** です！", "Next time, gold!"],
+    ["🟤💴", "十円玉は**銅**です。", "じゅうえんだま は **どう** です。", "Ten-yen coins are made of copper."],
   ]),
   km("鋭", "Big brother (兄) wears a metal (金) helmet with two pointy spikes (丷) — really sharp (鋭い)!", [
     ["🦅👀", "目が**鋭い**です。", "め が **するどい** です。", "It has sharp eyes."],
@@ -340,7 +340,7 @@ export const MEMORY: MemoryEntry[] = [
   ]),
   km("央", "A big (大) person standing right in the middle of a frame (冂) — the center (中央).", [
     ["🎯", "**中央**に立ちます。", "**ちゅうおう** に たちます。", "I stand in the center."],
-    ["🎯😁", "**真ん中**に当たった！", "**まんなか** に あたった！", "I hit the middle!"],
+    ["🏙️🚉", "町の**中央**に駅があります。", "まち の **ちゅうおう** に えき が あります。", "The station is in the center of town."],
   ]),
   km("奥", "Rice (米) stored deep inside a box (冂), guarded by a big (大) man — far in the back (奥).", [
     ["🚪🏠", "**奥**の部屋です。", "**おく** の へや です。", "It's the room in the back."],

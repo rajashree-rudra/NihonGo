@@ -56,7 +56,7 @@ export const MEMORY: MemoryEntry[] = [
   ]),
   km("春", "Three (三) people (人) enjoying the warm sun (日) — spring (春) is here!", [
     ["🌸☀️", "**春**が来ました。", "**はる** が きました。", "Spring has come."],
-    ["❄️⛄", "**冬**は終わり！", "**ふゆ** は おわり！", "Winter is over!"],
+    ["🌷☀️", "**春**は暖かいです。", "**はる** は あたたかい です。", "Spring is warm."],
   ]),
   km("夏", "A hat (一) on my face (自) and slow, dragging feet (夂) in the heat — it's summer (夏)!", [
     ["🌞🥵", "**夏**は暑いです。", "**なつ** は あつい です。", "Summer is hot."],
@@ -64,7 +64,7 @@ export const MEMORY: MemoryEntry[] = [
   ]),
   km("秋", "Grain (禾) in the fields turns red like fire (火) — it's autumn (秋).", [
     ["🍁🍂", "**秋**の山はきれい。", "**あき** の やま は きれい。", "Mountains in autumn are pretty."],
-    ["🌸🌱", "**春**もいいね。", "**はる** も いい ね。", "Spring is nice too."],
+    ["🍂🌬️", "**秋**は涼しいです。", "**あき** は すずしい です。", "Autumn is cool."],
   ]),
   km("冬", "Walking slowly (夂) over ice (冫) — careful, it's winter (冬).", [
     ["❄️⛄", "**冬休み**です！", "**ふゆやすみ** です！", "It's winter break!"],
@@ -112,7 +112,7 @@ export const MEMORY: MemoryEntry[] = [
   ]),
   km("海", "Water (氵) every (毎) way you look, as far as you can see — the sea (海).", [
     ["🌊🏖️", "**海**で泳ぎます。", "**うみ** で およぎます。", "I swim in the sea."],
-    ["⛰️🥾", "**山**に登ります。", "**やま** に のぼります。", "I climb the mountain."],
+    ["☀️🌊", "夏は**海**に行きます。", "なつ は **うみ** に いきます。", "In summer I go to the sea."],
   ]),
   km("風", "A bug (虫) caught under a sail (几) gets blown away by the wind (風).", [
     ["🌬️🍃", "**風**が強いです。", "**かぜ** が つよい です。", "The wind is strong."],
@@ -124,7 +124,7 @@ export const MEMORY: MemoryEntry[] = [
   ]),
   km("青", "Young plants (龶) under the moonlight (月) look blue-green (青い).", [
     ["🌤️💙", "空が**青い**です。", "そら が **あおい** です。", "The sky is blue."],
-    ["🌅❤️", "夕方は**赤い**です。", "ゆうがた は **あかい** です。", "In the evening it's red."],
+    ["🌊💙", "**青い**海です。", "**あおい** うみ です。", "It's a blue sea."],
   ]),
   km("色", "A snake (巴) curled up under a leaf (⺈), its skin shining in every colour (色).", [
     ["🎨🌈", "**何色**が好き？", "**なにいろ** が すき？", "What color do you like?"],
@@ -132,11 +132,11 @@ export const MEMORY: MemoryEntry[] = [
   ]),
   km("肉", "Two people (人) fighting inside a box (冂) over the last piece of meat (肉).", [
     ["🥩😋", "**肉**が好きです。", "**にく** が すき です。", "I love meat."],
-    ["🐟😖", "**魚**は嫌いです。", "**さかな** は きらい です。", "I don't like fish."],
+    ["🐄🔥", "**牛肉**を焼きます。", "**ぎゅうにく** を やきます。", "I grill some beef."],
   ]),
   km("鳥", "A bird's head with an eye, a body, and four tail feathers (灬) — a bird (鳥), like a swan (白鳥).", [
     ["🐦🌳", "**鳥**が鳴いています。", "**とり** が ないて います。", "A bird is singing."],
-    ["🐈👀", "**猫**が見ています。", "**ねこ** が みて います。", "A cat is watching."],
+    ["🐦☁️", "**鳥**が飛んでいます。", "**とり** が とんで います。", "A bird is flying."],
   ]),
   km("牛", "A cow's face with one horn poking up through the top (牛) — a cow, and its milk (牛乳).", [
     ["🥛😋", "**牛乳**を飲みます。", "**ぎゅうにゅう** を のみます。", "I drink milk."],
@@ -272,7 +272,7 @@ export const MEMORY: MemoryEntry[] = [
   ]),
   km("英", "A flower (艹) in the center (央) of the garden — a fine English (英語) garden.", [
     ["🔤🗣️", "**英語**を話します。", "**えいご** を はなします。", "I speak English."],
-    ["🗾😊", "**日本語**も少し。", "**にほんご** も すこし。", "And a little Japanese."],
+    ["🎤🎶", "**英語**の歌を歌います。", "**えいご** の うた を うたいます。", "I sing an English song."],
   ]),
   km("歌", "Two mouths stacked up (哥) and one wide open (欠) — everyone is singing a song (歌)!", [
     ["🎤🎶", "**歌**を歌います。", "**うた** を うたいます。", "I sing a song."],
@@ -420,7 +420,7 @@ export const MEMORY: MemoryEntry[] = [
   ]),
   km("借", "A person (亻) who borrowed (借りる) it long ago (昔) and still hasn't given it back!", [
     ["📚🙏", "本を**借りました**。", "ほん を **かりました**。", "I borrowed a book."],
-    ["📚🙇", "本を**返します**。", "ほん を **かえします**。", "I return the book."],
+    ["☂️🙏", "傘を**借りても**いい？", "かさ を **かりても** いい？", "Can I borrow an umbrella?"],
   ]),
   km("貸", "I lend (貸す) you money (貝) to take the place (代) of what you lost.", [
     ["✏️🙏", "ペンを**貸して**。", "ペン を **かして**。", "Lend me a pen."],

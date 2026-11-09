@@ -32,7 +32,7 @@ export const MEMORY: MemoryEntry[] = [
   ]),
   km("珍", "A king (王) meets a person (人) with wild hair (彡) — how rare (珍しい)!", [
     ["🦜😲", "**珍しい**鳥です！", "**めずらしい** とり です！", "What a rare bird!"],
-    ["🐦🌳", "これは**普通**の鳥。", "これ は **ふつう** の とり。", "This one is an ordinary bird."],
+    ["📷😲", "**珍しい**写真が撮れた！", "**めずらしい** しゃしん が とれた！", "I got a rare photo!"],
   ]),
   km("瓶", "Baked clay like a roof tile (瓦), lined up side by side (并) on a shelf — bottles and jars (瓶).", [
     ["🍾🥛", "**瓶**を開けます。", "**びん** を あけます。", "I open the bottle."],
@@ -168,43 +168,43 @@ export const MEMORY: MemoryEntry[] = [
   ]),
   km("説", "Words (言) pour from a big open mouth (兌) — someone explaining (説明). With grain (禾) instead, it's tax (税).", [
     ["👨📊", "先生が**説明**します。", "せんせい が **せつめい** します。", "The teacher explains."],
-    ["🤔💡", "よく**わかりました**。", "よく **わかりました**。", "I understood it well."],
+    ["🤔💡", "**説明**がわかりやすい！", "**せつめい** が わかりやすい！", "The explanation is easy to follow!"],
   ]),
   km("香", "Grain (禾) warming in the sun (日) gives off a sweet smell — fragrance (香り).", [
     ["🌸👃", "いい**香り**ですね。", "いい **かおり** です ね。", "What a nice scent."],
-    ["🗑️🤢", "ごみは**臭い**。", "ごみ は **くさい**。", "The trash stinks."],
+    ["🧴🌸", "**香水**をつけます。", "**こうすい** を つけます。", "I put on perfume."],
   ]),
   km("竹", "Two tall stalks with leaves drooping from the top (竹) — a bamboo grove (竹林) swaying in the wind.", [
     ["🎋🐼", "パンダは**竹**を食べる。", "パンダ は **たけ** を たべる。", "Pandas eat bamboo."],
-    ["🐼😴", "それから**寝る**。", "それから **ねる**。", "Then they sleep."],
+    ["🐼❤️", "**竹**が大好きです。", "**たけ** が だいすき です。", "They love bamboo."],
   ]),
   km("符", "Long ago, a ticket was a bamboo (竹) slip you attach (付) to your bag — a ticket (切符).", [
     ["🎫🚉", "**切符**を買います。", "**きっぷ** を かいます。", "I buy a ticket."],
-    ["🚃😊", "電車に**乗ります**。", "でんしゃ に **のります**。", "I get on the train."],
+    ["🎫😱", "**切符**をなくした！", "**きっぷ** を なくした！", "I lost my ticket!"],
   ]),
   km("付", "A person (亻) reaches out a hand (寸) to stick something on — attach (付ける).", [
     ["🏨🛎️", "**受付**はどこですか？", "**うけつけ** は どこ です か？", "Where is the reception desk?"],
-    ["👉🙂", "**あちら**です。", "**あちら** です。", "It's over there."],
+    ["👉🙂", "**受付**はあちらです。", "**うけつけ** は あちら です。", "Reception is over there."],
   ]),
   km("筆", "A bamboo (竹) stick held upright by a hand (聿) — a writing brush (筆).", [
     ["🖌️📜", "**筆**で字を書く。", "**ふで** で じ を かく。", "I write with a brush."],
-    ["🖊️📝", "私は**ペン**で書く。", "わたし は **ペン** で かく。", "I write with a pen."],
+    ["🖌️🎨", "**筆**で絵もかく。", "**ふで** で え も かく。", "I paint with a brush, too."],
   ]),
   km("筒", "A bamboo (竹) stalk is the same (同) all the way down — a hollow tube (筒).", [
     ["🥤🎒", "**水筒**を持った？", "**すいとう** を もった？", "Did you bring your water bottle?"],
-    ["🥤😅", "**忘れた**！", "**わすれた**！", "I forgot it!"],
+    ["🥤😅", "**水筒**を忘れた！", "**すいとう** を わすれた！", "I forgot my water bottle!"],
   ]),
   km("算", "Bamboo (竹) counting sticks, eyes (目) watching, two hands (廾) moving them — calculate (計算).", [
     ["🧮✏️", "**計算**が速い！", "**けいさん** が はやい！", "You calculate fast!"],
-    ["😅💦", "でも、**間違えた**。", "でも、 **まちがえた**。", "But I got it wrong."],
+    ["😅💦", "でも、**計算**を間違えた。", "でも、 **けいさん** を まちがえた。", "But I made a mistake in the math."],
   ]),
   km("管", "An official (官) in charge of the bamboo (竹) water pipes — a pipe (管), and managing them (管理).", [
     ["🏢🔑", "**管理人**さんがいます。", "**かんりにん** さん が います。", "There's a building manager."],
-    ["🔑🙂", "鍵を**借ります**。", "かぎ を **かります**。", "I borrow the key."],
+    ["🔑🙂", "**管理人**さんに鍵を借ります。", "**かんりにん** さん に かぎ を かります。", "I borrow the key from the manager."],
   ]),
   km("築", "Bamboo (竹) and wood (木), shaped with a craftsman's tool (工) — to build a house (建築).", [
     ["🏯📷", "古い**建築**が好き。", "ふるい **けんちく** が すき。", "I like old buildings."],
-    ["🏙️🙂", "**新しい**のもいい。", "**あたらしい** の も いい。", "New ones are nice too."],
+    ["🏙️🙂", "新しい**建築**もいい。", "あたらしい **けんちく** も いい。", "New buildings are nice too."],
   ]),
   km("簡", "Bamboo (竹) strips tied with gaps (間) between them — an old, simple notebook. Easy (簡単)!", [
     ["📝😊", "この問題は**簡単**だ。", "この もんだい は **かんたん** だ。", "This problem is easy."],
@@ -212,19 +212,19 @@ export const MEMORY: MemoryEntry[] = [
   ]),
   km("籍", "Since long ago (昔), farmers with ploughs (耒) were written on bamboo (竹) slips — a register, like nationality (国籍).", [
     ["🛂🌏", "**国籍**はどこですか？", "**こくせき** は どこ です か？", "What's your nationality?"],
-    ["🗾😊", "**日本**です。", "**にほん** です。", "Japan."],
+    ["🗾😊", "**国籍**は日本です。", "**こくせき** は にほん です。", "My nationality is Japanese."],
   ]),
   km("糸", "Looks like a twisted skein with loose ends dangling at the bottom (糸) — thread (いと).", [
     ["🧵✂️", "**糸**を切ります。", "**いと** を きります。", "I cut the thread."],
-    ["🧵👕", "ボタンを**付けます**。", "ボタン を **つけます**。", "I sew on a button."],
+    ["🧵👕", "**糸**でボタンを付けます。", "**いと** で ボタン を つけます。", "I sew on a button with thread."],
   ]),
   km("紅", "A craftsman (工) dyes thread (糸) deep red (紅) — the color of black tea, called 'red tea' (紅茶).", [
     ["☕🍰", "**紅茶**を飲みます。", "**こうちゃ** を のみます。", "I drink black tea."],
-    ["🍵😊", "母は**緑茶**です。", "はは は **りょくちゃ** です。", "My mom has green tea."],
+    ["🍋☕", "**紅茶**にレモンを入れる。", "**こうちゃ** に レモン を いれる。", "I put lemon in my tea."],
   ]),
   km("純", "Thread (糸) spun from a fresh new sprout (屯) — nothing mixed in, pure (純粋).", [
     ["👦🍬", "弟は**単純**です。", "おとうと は **たんじゅん** です。", "My little brother is simple."],
-    ["🍬😆", "あめで**笑います**。", "あめ で **わらいます**。", "Candy makes him laugh."],
+    ["🍬😆", "あめで笑う。**単純**だね！", "あめ で わらう。 **たんじゅん** だ ね！", "Candy makes him laugh. So simple!"],
   ]),
   km("細", "Thread (糸) as thin as the narrow paths between rice fields (田) — thin, fine (細い).", [
     ["🍜🥢", "このめんは**細い**。", "この めん は **ほそい**。", "These noodles are thin."],
@@ -232,71 +232,71 @@ export const MEMORY: MemoryEntry[] = [
   ]),
   km("紹", "Thread (糸) links two people you summon (召) to meet — introduce (紹介). With a hand (扌) instead, you invite (招待).", [
     ["👫🙂", "友達を**紹介**します。", "ともだち を **しょうかい** します。", "Let me introduce my friend."],
-    ["🙇🤝", "**はじめまして**。", "**はじめまして**。", "Nice to meet you."],
+    ["🙇🤝", "友達が**自己紹介**した。", "ともだち が **じこしょうかい** した。", "My friend introduced himself."],
   ]),
   km("招", "A hand (扌) waving to summon (召) you over — you're invited (招待)! With thread (糸) instead, you introduce (紹介).", [
     ["💌🎉", "パーティーに**招待**された。", "パーティー に **しょうたい** された。", "I was invited to a party."],
-    ["👗🤔", "何を**着よう**かな。", "なに を **きよう** かな。", "What should I wear?"],
+    ["💌👫", "友達も**招待**しよう！", "ともだち も **しょうたい** しよう！", "Let's invite friends too!"],
   ]),
   km("絡", "A thread (糸) tied to each (各) friend keeps you all connected — get in touch (連絡).", [
     ["📱💬", "あとで**連絡**します。", "あとで **れんらく** します。", "I'll contact you later."],
-    ["📱⏰", "**待って**います。", "**まって** います。", "I'll be waiting."],
+    ["📱⏰", "**連絡**を待っています。", "**れんらく** を まって います。", "I'll wait to hear from you."],
   ]),
   km("綿", "Thread (糸) and white (白) cloth (巾) — soft, fluffy cotton (綿).", [
     ["🍬🎪", "**綿あめ**を買った。", "**わたあめ** を かった。", "I bought cotton candy."],
-    ["😋☁️", "**ふわふわ**だ！", "**ふわふわ** だ！", "It's so fluffy!"],
+    ["😋☁️", "**綿あめ**はふわふわ！", "**わたあめ** は ふわふわ！", "Cotton candy is so fluffy!"],
   ]),
   km("総", "Threads (糸) from every public (公) heart (心) gathered into one — the whole, the total (総額).", [
     ["🧾💴", "**総額**は千円です。", "**そうがく** は せんえん です。", "The total is 1,000 yen."],
-    ["💴😮", "**安い**ですね！", "**やすい** です ね！", "That's cheap!"],
+    ["💳🙂", "**総額**をカードで払う。", "**そうがく** を カード で はらう。", "I pay the total by card."],
   ]),
   km("緑", "A hand (彐) dips thread (糸) into dripping water (氺) full of leaves — it comes out green (緑).", [
     ["🌳🌿", "公園は**緑**が多い。", "こうえん は **みどり** が おおい。", "The park is full of green."],
-    ["🧺😊", "ここで**休もう**。", "ここ で **やすもう**。", "Let's rest here."],
+    ["🧺😊", "**緑**の中で休もう。", "**みどり** の なか で やすもう。", "Let's rest among the green."],
   ]),
   km("線", "A thread (糸) of water flowing from a spring (泉) draws a long line (線).", [
     ["🚄🗻", "**新幹線**で行こう！", "**しんかんせん** で いこう！", "Let's go by bullet train!"],
-    ["🗻😍", "**富士山**が見えた！", "**ふじさん** が みえた！", "I saw Mt. Fuji!"],
+    ["🚄💨", "**新幹線**は速い！", "**しんかんせん** は はやい！", "The bullet train is fast!"],
   ]),
   km("編", "Thread (糸) stitches flat (扁) pages into a book — edit (編集). Thread also lets you knit (編む).", [
     ["🧶🧣", "マフラーを**編む**。", "マフラー を **あむ**。", "I knit a scarf."],
-    ["🧣🎁", "彼に**あげます**。", "かれ に **あげます**。", "I'll give it to him."],
+    ["🧶😊", "**編み物**が好きです。", "**あみもの** が すき です。", "I love knitting."],
   ]),
   km("練", "Spin thread (糸) round and round, east (東) to west, over and over — practice (練習).", [
     ["🎹🎶", "ピアノを**練習**する。", "ピアノ を **れんしゅう** する。", "I practice the piano."],
-    ["🎹😄", "**上手**になった！", "**じょうず** に なった！", "I got good at it!"],
+    ["📅🎹", "毎日**練習**します。", "まいにち **れんしゅう** します。", "I practice every day."],
   ]),
   km("績", "Thread (糸) you spun to meet your duty (責) — your results (成績). Stack up grain (禾) instead and it piles up (積もる).", [
     ["📄💯", "**成績**が上がった！", "**せいせき** が あがった！", "My grades went up!"],
-    ["👩😊", "母が**喜んだ**。", "はは が **よろこんだ**。", "My mom was happy."],
+    ["👩😊", "母が**成績**を見て喜んだ。", "はは が **せいせき** を みて よろこんだ。", "Mom saw my grades and was happy."],
   ]),
   km("積", "Grain (禾) you owe (責) piles up in the barn — pile up (積もる). With thread (糸) instead, it's your results (成績).", [
     ["❄️🏠", "雪が**積もった**。", "ゆき が **つもった**。", "The snow piled up."],
-    ["⛄😆", "雪だるまを**作ろう**！", "ゆきだるま を **つくろう**！", "Let's make a snowman!"],
+    ["🚗❄️", "車にも**積もった**！", "くるま に も **つもった**！", "It piled up on the car too!"],
   ]),
   km("責", "Thorns (龶) stuck on top of money (貝) you owe — that prickly feeling is responsibility (責任).", [
     ["👔📋", "私の**責任**です。", "わたし の **せきにん** です。", "It's my responsibility."],
-    ["🙇💦", "**すみません**でした。", "**すみません** でした。", "I'm sorry."],
+    ["🙇💦", "**責任**をとります。", "**せきにん** を とります。", "I'll take responsibility."],
   ]),
   km("栄", "Sparkles (⺍) over the leafy crown (冖) of a tree (木) — it's well fed (栄養) and flourishing.", [
     ["🥦💪", "野菜は**栄養**がある。", "やさい は **えいよう** が ある。", "Vegetables are nutritious."],
-    ["🥦😖", "でも、**苦手**です。", "でも、 **にがて** です。", "But I don't like them."],
+    ["🥦😖", "**栄養**のために食べる。", "**えいよう** の ため に たべる。", "I eat them for the nutrition."],
   ]),
   km("営", "Lights (⺍) on the roof (冖) and two mouths (呂), clerk and customer, chatting — a shop open for business (営業).", [
     ["🏪🕘", "九時まで**営業**します。", "くじ まで **えいぎょう** します。", "We're open until nine."],
-    ["🏪🌙", "今日はもう**閉まった**。", "きょう は もう **しまった**。", "It's already closed today."],
+    ["📅🏪", "日曜日も**営業**します。", "にちようび も **えいぎょう** します。", "We're open on Sundays too."],
   ]),
   km("粉", "Rice (米) divided (分) into tinier and tinier bits — powder (粉), like flour (小麦粉).", [
     ["🌾🛒", "**小麦粉**を買います。", "**こむぎこ** を かいます。", "I buy flour."],
-    ["🥞😋", "パンケーキを**焼く**。", "パンケーキ を **やく**。", "I'll make pancakes."],
+    ["🥞😋", "**小麦粉**でパンケーキを焼く。", "**こむぎこ** で パンケーキ を やく。", "I make pancakes with the flour."],
   ]),
   km("粒", "Each grain of rice (米) stands (立) up on its own — a single grain or drop (粒).", [
     ["🍚😮", "**一粒**残っています。", "**ひとつぶ** のこって います。", "One grain is left."],
-    ["🍚😋", "**全部**食べた！", "**ぜんぶ** たべた！", "I ate it all!"],
+    ["🍚😋", "最後の**一粒**も食べた！", "さいご の **ひとつぶ** も たべた！", "I ate the last grain too!"],
   ]),
   km("羽", "Two little feathers side by side, like a pair of wings (羽) — feather (はね).", [
     ["🐦✨", "鳥の**羽**がきれい。", "とり の **はね** が きれい。", "The bird's feathers are pretty."],
-    ["🐦💨", "鳥が**飛んだ**！", "とり が **とんだ**！", "The bird flew away!"],
+    ["🐦💨", "**羽**を広げて飛んだ！", "**はね** を ひろげて とんだ！", "It spread its wings and flew!"],
   ]),
   km("弱", "Two bows (弓) covered in icicles (冫) — frozen stiff and too weak (弱い) to shoot.", [
     ["🧒😩", "私は力が**弱い**。", "わたし は ちから が **よわい**。", "I'm not strong."],
@@ -304,15 +304,15 @@ export const MEMORY: MemoryEntry[] = [
   ]),
   km("翌", "The bird stands (立) up and spreads its wings (羽) to fly off on the following day (翌日).", [
     ["⏰🌅", "**翌朝**、早く起きた。", "**よくあさ**、 はやく おきた。", "The next morning, I got up early."],
-    ["🌅🙂", "空が**きれい**だった。", "そら が **きれい** だった。", "The sky was beautiful."],
+    ["📅⏰", "**翌日**も早く起きた。", "**よくじつ** も はやく おきた。", "I got up early the next day too."],
   ]),
   km("群", "A lord (君) and all of his sheep (羊) together — a flock (群れ).", [
     ["🐑🐑🐑", "羊の**群れ**がいる。", "ひつじ の **むれ** が いる。", "There's a flock of sheep."],
-    ["🐕🐑", "犬が**追いかける**。", "いぬ が **おいかける**。", "The dog chases them."],
+    ["🐕🐑", "犬が**群れ**を追いかける。", "いぬ が **むれ** を おいかける。", "The dog chases the flock."],
   ]),
   km("著", "A person (者) writing books out in the grass (艹) — the author (著者). With the sun (日) on top instead, it's hot (暑い).", [
     ["📚✍️", "この本の**著者**です。", "この ほん の **ちょしゃ** です。", "I'm the author of this book."],
-    ["✍️😊", "**サイン**をどうぞ。", "**サイン** を どうぞ。", "Here's my autograph."],
+    ["✍️😊", "**著者**のサインをもらった。", "**ちょしゃ** の サイン を もらった。", "I got the author's autograph."],
   ]),
   km("暑", "The sun (日) blazing over a person (者) — so hot (暑い)! With grass (艹) on top instead, it's the author (著者).", [
     ["☀️🥵", "今日は**暑い**！", "きょう は **あつい**！", "It's hot today!"],
@@ -320,19 +320,19 @@ export const MEMORY: MemoryEntry[] = [
   ]),
   km("諸", "Words (言) from person (者) after person, each in another language — various countries (諸国).", [
     ["🌍✈️", "**諸国**を旅した。", "**しょこく** を たび した。", "I traveled to many countries."],
-    ["🏠😊", "家が**一番**だ。", "いえ が **いちばん** だ。", "Home is best."],
+    ["🍜🌮", "**諸国**の料理を食べた。", "**しょこく** の りょうり を たべた。", "I ate food from many countries."],
   ]),
   km("署", "A net (罒) drops over a person (者) — he's hauled off to the police station (警察署).", [
     ["✍️📄", "ここに**署名**してください。", "ここ に **しょめい** して ください。", "Please sign here."],
-    ["✍️🙂", "はい、**書きました**。", "はい、 **かきました**。", "OK, I signed it."],
+    ["✍️🙂", "はい、**署名**しました。", "はい、 **しょめい** しました。", "OK, I signed it."],
   ]),
   km("圧", "A heavy cliff (厂) pressing down on the earth (土) — pressure, as in blood pressure (血圧).", [
     ["🩺💓", "**血圧**を測ります。", "**けつあつ** を はかります。", "Let's check your blood pressure."],
-    ["👍😊", "**大丈夫**です。", "**だいじょうぶ** です。", "It's fine."],
+    ["👍😊", "**血圧**は大丈夫です。", "**けつあつ** は だいじょうぶ です。", "Your blood pressure is fine."],
   ]),
   km("均", "Earth (土) wrapped (勹) and leveled with two strokes (冫) — flat and even, the average (平均).", [
     ["📊✏️", "**平均点**は70点。", "**へいきんてん** は ななじゅってん。", "The average score is 70."],
-    ["💯😆", "私は**100点**！", "わたし は **ひゃくてん**！", "I got 100!"],
+    ["💯😆", "私は**平均**より上！", "わたし は **へいきん** より うえ！", "I'm above average!"],
   ]),
   km("型", "Cut (刂) a frame (开) and press clay (土) into it — a mold, a type (型).", [
     ["🦉🌙", "私は**夜型**です。", "わたし は **よるがた** です。", "I'm a night owl."],
@@ -340,15 +340,15 @@ export const MEMORY: MemoryEntry[] = [
   ]),
   km("埋", "Earth (土) piled over the old village (里) — it's buried (埋める).", [
     ["🐕🦴", "犬が骨を**埋めた**。", "いぬ が ほね を **うめた**。", "The dog buried a bone."],
-    ["🐕❓", "場所を**忘れた**。", "ばしょ を **わすれた**。", "He forgot where."],
+    ["🐕❓", "**埋めた**場所を忘れた。", "**うめた** ばしょ を わすれた。", "He forgot where he buried it."],
   ]),
   km("塔", "Earth (土) blocks fitted together (合) up high, with grass (艹) growing on top — a tower (塔).", [
     ["🗼👀", "高い**塔**が見える。", "たかい **とう** が みえる。", "I can see a tall tower."],
-    ["🗼🏃", "上まで**登ろう**！", "うえ まで **のぼろう**！", "Let's climb to the top!"],
+    ["🗼🏃", "**塔**の上まで登ろう！", "**とう** の うえ まで のぼろう！", "Let's climb to the top of the tower!"],
   ]),
   km("塗", "Mix water (氵) with leftover (余) earth (土) into mud and spread it on the wall — paint, spread (塗る).", [
     ["🍞🧈", "パンにバターを**塗る**。", "パン に バター を **ぬる**。", "I spread butter on bread."],
-    ["🍞😋", "**おいしい**！", "**おいしい**！", "Delicious!"],
+    ["🍞🍓", "ジャムも**塗る**。", "ジャム も **ぬる**。", "I spread jam too."],
   ]),
   km("塩", "White earth (土) crystals on a plate (皿), a pinch for your mouth (口) — salt (塩).", [
     ["🧂🍳", "**塩**を少し入れる。", "**しお** を すこし いれる。", "I add a little salt."],
@@ -356,19 +356,19 @@ export const MEMORY: MemoryEntry[] = [
   ]),
   km("境", "On the earth (土), the sound (音) of the walking man (儿) ends here — the border (国境).", [
     ["🗺️🚧", "ここが**国境**です。", "ここ が **こっきょう** です。", "This is the border."],
-    ["🛂🙂", "パスポートを**見せる**。", "パスポート を **みせる**。", "I show my passport."],
+    ["🛂🙂", "**国境**でパスポートを見せる。", "**こっきょう** で パスポート を みせる。", "I show my passport at the border."],
   ]),
   km("胃", "A rice field (田) inside your body (月) — the place all the rice goes: the stomach (胃).", [
     ["🤢🍔", "**胃**が痛いです。", "**い** が いたい です。", "My stomach hurts."],
-    ["🍔🍟🍕", "**食べすぎた**。", "**たべすぎた**。", "I ate too much."],
+    ["🍔🍟🍕", "食べすぎて**胃**が重い。", "たべすぎて **い** が おもい。", "I ate too much; my stomach feels heavy."],
   ]),
   km("膚", "A tiger's (虍) striped coat stretched over its stomach (胃) — skin (皮膚).", [
     ["❄️🖐️", "冬は**皮膚**が乾く。", "ふゆ は **ひふ** が かわく。", "My skin gets dry in winter."],
-    ["🧴😊", "クリームを**塗ります**。", "クリーム を **ぬります**。", "I put on some cream."],
+    ["🧴😊", "**皮膚**にクリームを塗る。", "**ひふ** に クリーム を ぬる。", "I put cream on my skin."],
   ]),
   km("肩", "Your shoulders are the door (戸) frame at the top of your body (月) — shoulder (肩).", [
     ["💆😣", "**肩**がこった。", "**かた** が こった。", "My shoulders are stiff."],
-    ["💆😌", "**もんで**ください。", "**もんで** ください。", "Please rub them."],
+    ["💆😌", "**肩**をもんでください。", "**かた** を もんで ください。", "Please rub my shoulders."],
   ]),
   km("肯", "Stop (止) and nod with your whole body (月) — yes, you agree (肯定).", [
     ["👍🙂", "彼は**肯定**した。", "かれ は **こうてい** した。", "He said yes."],
@@ -376,27 +376,27 @@ export const MEMORY: MemoryEntry[] = [
   ]),
   km("胸", "Your body (月) wraps (勹) the crossed ribs in a box (凶) inside — your chest (胸).", [
     ["💓😳", "**胸**がドキドキする。", "**むね** が ドキドキ する。", "My heart is pounding."],
-    ["💌😊", "**ラブレター**だ！", "**ラブレター** だ！", "It's a love letter!"],
+    ["💌😊", "うれしくて**胸**がいっぱい。", "うれしくて **むね** が いっぱい。", "I'm so happy, my heart is full."],
   ]),
   km("脂", "Tasty (旨) food from a spoon (匕) goes into the body (月) and turns to fat (脂肪). With a hand (扌) instead, it's a finger (指).", [
     ["🥩😋", "この肉は**脂**が多い。", "この にく は **あぶら** が おおい。", "This meat is fatty."],
-    ["🥗🙂", "サラダも**食べよう**。", "サラダ も **たべよう**。", "Let's eat salad too."],
+    ["🥩👍", "**脂**の少ない肉にしよう。", "**あぶら** の すくない にく に しよう。", "Let's get leaner meat."],
   ]),
   km("指", "Your hand (扌) dips into something tasty (旨) for a lick — that's a finger (指). With a body (月) instead, it's fat (脂).", [
     ["☝️🌙", "月を**指して**います。", "つき を **さして** います。", "He's pointing at the moon."],
-    ["🌕😍", "**きれい**ですね。", "**きれい** です ね。", "It's beautiful."],
+    ["🌕😍", "**指**の先に月がある。", "**ゆび** の さき に つき が ある。", "The moon is at the tip of his finger."],
   ]),
   km("脳", "In your body (月), sparks (⺍) fly over a box of crossed wires (凶) — that's your brain (脳) thinking.", [
     ["🧠💡", "**脳**を使おう！", "**のう** を つかおう！", "Use your brain!"],
-    ["🧩😅", "**難しい**なあ。", "**むずかしい** なあ。", "This is tough."],
+    ["🧩😅", "**脳**が疲れたなあ。", "**のう** が つかれた なあ。", "My brain is tired."],
   ]),
   km("腕", "", [
     ["⌚😊", "新しい**腕時計**です。", "あたらしい **うでどけい** です。", "It's a new wristwatch."],
-    ["⌚😲", "**高かった**！", "**たかかった**！", "It was expensive!"],
+    ["⌚😊", "**腕**につけます。", "**うで** に つけます。", "I put it on my wrist."],
   ]),
   km("腰", "The part of your body (月) you really need (要) when lifting — your lower back (腰). Hurt it once and you'll know!", [
     ["📦😫", "**腰**が痛い！", "**こし** が いたい！", "My back hurts!"],
-    ["🛋️😌", "少し**休みます**。", "すこし **やすみます**。", "I'll rest a little."],
+    ["🪑😌", "いすに**腰掛けて**休む。", "いす に **こしかけて** やすむ。", "I sit on a chair and rest."],
   ]),
   km("要", "To balance a box (覀) on her head, a woman (女) needs (必要) a strong waist.", [
     ["☂️🌧️", "傘が**必要**です。", "かさ が **ひつよう** です。", "You need an umbrella."],
@@ -404,14 +404,14 @@ export const MEMORY: MemoryEntry[] = [
   ]),
   km("蔵", "Under a grass (艹) roof by a cliff (厂), a servant (臣) with a spear (戈) guards the storehouse (蔵).", [
     ["🧊🥛", "**冷蔵庫**に入れて。", "**れいぞうこ** に いれて。", "Put it in the fridge."],
-    ["🥛😋", "**冷たくて**おいしい！", "**つめたくて** おいしい！", "Nice and cold!"],
+    ["🥛😋", "**冷蔵庫**で冷えた！", "**れいぞうこ** で ひえた！", "It got cold in the fridge!"],
   ]),
   km("臓", "The storehouse (蔵) inside your body (月) — the internal organs, like the heart (心臓).", [
     ["💓🩺", "**心臓**の音を聞く。", "**しんぞう** の おと を きく。", "I listen to the heartbeat."],
-    ["🩺😊", "**元気**ですね。", "**げんき** です ね。", "You're healthy."],
+    ["🩺😊", "**心臓**は元気ですね。", "**しんぞう** は げんき です ね。", "Your heart is healthy."],
   ]),
   km("衣", "Looks like a kimono, with a collar on top and sleeves spreading below (衣) — clothes (衣服).", [
     ["🥼🩺", "医者は**白衣**を着る。", "いしゃ は **はくい** を きる。", "Doctors wear white coats."],
-    ["🥼🏠", "家で**脱ぎます**。", "いえ で **ぬぎます**。", "They take them off at home."],
+    ["🥼🏠", "家で**白衣**を脱ぎます。", "いえ で **はくい** を ぬぎます。", "They take off the white coat at home."],
   ]),
 ];
