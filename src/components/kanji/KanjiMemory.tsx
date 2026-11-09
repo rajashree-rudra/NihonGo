@@ -58,7 +58,9 @@ export function MemoryTip({
         </p>
       )}
       {!!memory.comic.length && (
-        <div className={cn("grid gap-2.5", memory.comic.length > 1 && "grid-cols-2")}>
+        // Sized by the room the cartoon gets (a container query), not the screen: it sits in narrow
+        // columns (phones, the practice sidebar) and wide ones (the kanji list on a computer).
+        <div className={cn("@container grid gap-2.5", memory.comic.length > 1 && "grid-cols-2")}>
           {memory.comic.map((p, i) => (
             <button
               key={i}
@@ -66,18 +68,18 @@ export function MemoryTip({
               onClick={() => void speak(p.ja)}
               aria-label={`Listen: ${p.ja}`}
               className={cn(
-                "relative flex min-w-0 flex-col items-center gap-2.5 rounded-2xl border-2 border-ink/80 p-2 pt-3 text-center sm:p-2.5 sm:pt-3",
+                "relative flex min-w-0 flex-col items-center gap-2.5 rounded-2xl border-2 border-ink/80 p-2 pt-3 text-center @min-[26rem]:p-2.5 @min-[26rem]:pt-3",
                 "shadow-[3px_3px_0_0_var(--color-ink)] transition active:translate-x-0.5 active:translate-y-0.5 active:shadow-none",
                 PANEL_COLORS[(first + i) % PANEL_COLORS.length],
               )}
             >
-              <span aria-hidden className="whitespace-nowrap text-[2.1rem] leading-none sm:text-5xl sm:tracking-wide">
+              <span aria-hidden className="whitespace-nowrap text-[2.1rem] leading-none @min-[26rem]:text-5xl @min-[26rem]:tracking-wide">
                 {p.scene}
               </span>
-              <span className="relative w-full rounded-xl border-2 border-ink/80 bg-card px-1.5 py-1.5 sm:px-2">
+              <span className="relative w-full rounded-xl border-2 border-ink/80 bg-card px-1.5 py-1.5 @min-[26rem]:px-2">
                 {/* Bubble tail, pointing up at the scene. */}
                 <span className="absolute -top-[7px] left-1/2 size-3 -translate-x-1/2 rotate-45 border-l-2 border-t-2 border-ink/80 bg-card" />
-                <span lang="ja" className="relative block font-jp text-[14px] font-medium leading-snug text-ink sm:text-[15px]">
+                <span lang="ja" className="relative block font-jp text-[14px] font-medium leading-snug text-ink @min-[26rem]:text-[15px]">
                   {highlight(p.ja, p.hl, char)}
                 </span>
                 <span lang="ja" className="relative block font-jp text-[11px] leading-snug text-ink-soft">

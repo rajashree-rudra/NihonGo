@@ -51,10 +51,17 @@ export function PracticeExamples({ item, detail, hidden, setId }: { item: CharIt
         </p>
       ) : (
         <div className="grid gap-5 lg:grid-cols-2 lg:gap-6">
+          {/* With no "more vocabulary" beside them, the sentences use both columns. */}
           {!!detail.examples.length && (
-            <div className="min-w-0">
+            <div className={cn("min-w-0", !detail.vocab.length && "lg:col-span-2")}>
               <h3 className="mb-2 text-[11px] font-bold uppercase tracking-[0.14em] text-muted">Example sentences</h3>
-              <ExampleList examples={detail.examples} emphasis={item.char} englishOnly={!showJa} markId={`${setId}:${item.char}:ex`} />
+              <ExampleList
+                examples={detail.examples}
+                emphasis={item.char}
+                englishOnly={!showJa}
+                markId={`${setId}:${item.char}:ex`}
+                twoColumns={!detail.vocab.length}
+              />
             </div>
           )}
           {!!detail.vocab.length && (

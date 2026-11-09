@@ -25,7 +25,13 @@ export function PromptCard({ item, kind, mode, hideChar, strokeCount, onSpeak }:
 
   return (
     <div className="flex items-center gap-3.5 rounded-3xl border border-line bg-card p-2.5 shadow-soft sm:gap-5 sm:p-4 lg:flex-col lg:items-stretch lg:p-6">
-      <div className="relative grid size-[4.5rem] shrink-0 place-items-center rounded-2xl bg-paper sm:size-24 lg:size-auto lg:aspect-square">
+      {/* On desktop a kanji is shown by the writing box beside it, so this box is left out. */}
+      <div
+        className={cn(
+          "relative grid size-[4.5rem] shrink-0 place-items-center rounded-2xl bg-paper sm:size-24 lg:size-auto lg:aspect-square",
+          isKanji && "lg:hidden",
+        )}
+      >
         <span
           key={item.char + String(hideChar)}
           className={cn(

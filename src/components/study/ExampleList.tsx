@@ -75,16 +75,19 @@ export function ExampleList({
   emphasis,
   englishOnly,
   markId,
+  twoColumns,
 }: {
   examples: ExampleItem[];
   target?: string;
   emphasis?: string;
   englishOnly?: boolean;
   markId?: string;
+  /** On a computer, lay the sentences out in two columns (when they have the full width to themselves). */
+  twoColumns?: boolean;
 }) {
   const [showRomaji] = romajiStore.useValue();
   return (
-    <ol className="space-y-2.5">
+    <ol className={cn("space-y-2.5", twoColumns && "lg:grid lg:grid-cols-2 lg:gap-2.5 lg:space-y-0")}>
       {examples.map((ex, i) => {
         const line = (part: string) => (markId ? `${markId}:${i}:${part}` : undefined);
         return (

@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { useCallback, useEffect, useLayoutEffect, useMemo, useRef, useState, type ReactNode } from "react";
+import { useCallback, useEffect, useLayoutEffect, useMemo, useRef, useState, type CSSProperties, type ReactNode } from "react";
 import { ArrowLeft, ChevronLeft, ChevronRight, Eraser, Eye, EyeOff, Feather, Loader2, Play, ShieldCheck, Undo2, Wand2 } from "lucide-react";
 import type { CharItem, CharSet } from "@/data/types";
 import { EASY_PASS_SCORE, alignDrawing, similarity, toShape, type Pt } from "@/lib/geometry";
@@ -316,9 +316,15 @@ export function StudySession({ charSet, queue, mode, title, backHref, startIndex
         />
       </div>
 
-      {/* minmax(0,1fr): let columns shrink below their content's min width so nothing overflows on phones */}
-      <div className="mt-2 grid grid-cols-[minmax(0,1fr)] gap-3 sm:mt-4 sm:gap-5 lg:mt-6 lg:grid-cols-[290px_minmax(0,1fr)] lg:gap-10">
-        <aside className="min-w-0 space-y-4">
+      {/* minmax(0,1fr): let columns shrink below their content's min width so nothing overflows on phones.
+          Phones: prompt, writing box, memory trick, one under the other. Desktop: the writing box on the
+          right (its › lines up with the strip's ›), its column exactly as wide as the box and its rails
+          (at least as wide as the toolbar), and the prompt and the memory trick take the rest. */}
+      <div
+        className="mt-2 grid grid-cols-[minmax(0,1fr)] gap-3 sm:mt-4 sm:gap-5 lg:mt-6 lg:grid-cols-[minmax(0,1fr)_var(--pad-column,35.5rem)] lg:grid-rows-[auto_1fr] lg:gap-x-10 lg:gap-y-4"
+        style={padSize ? ({ "--pad-column": `${Math.max(padSize + 100, 440)}px` } as CSSProperties) : undefined}
+      >
+        <aside className="min-w-0">
           <PromptCard
             item={item}
             kind={charSet.kind}
@@ -327,11 +333,10 @@ export function StudySession({ charSet, queue, mode, title, backHref, startIndex
             strokeCount={data ? total : undefined}
             onSpeak={() => void pronounce(item)}
           />
-          <Tips strict={strict} isTest={isTest} />
         </aside>
 
         {/* Width is also capped by the space left below the box's top edge, so the whole box stays on screen. */}
-        <section className="mx-auto w-full min-w-0 max-w-[30rem] sm:max-w-[35.5rem]">
+        <section className="mx-auto w-full min-w-0 max-w-[30rem] sm:max-w-[35.5rem] lg:row-span-2 lg:mx-0 lg:max-w-none">
           {/* Toolbar */}
           <div className="mb-2 flex items-center gap-1 min-[360px]:gap-1.5 sm:mb-3 sm:gap-2">
             <Segmented
@@ -389,7 +394,7 @@ export function StudySession({ charSet, queue, mode, title, backHref, startIndex
           </div>
 
           {/* Pad, flanked by slim previous / next rails. On phones the rails sit in the page gutter so the pad keeps its width. */}
-          <div className="-mx-3 flex justify-center gap-1 sm:mx-0 sm:gap-2.5">
+          <div className="-mx-3 flex justify-center gap-1 sm:mx-0 sm:gap-2.5 lg:justify-end">
           <SideNav
             dir="prev"
             label={index === 0 && onPrevGroup ? "Previous group (←)" : "Previous (←)"}
@@ -450,13 +455,14 @@ export function StudySession({ charSet, queue, mode, title, backHref, startIndex
             )}
           </div>
 
-          {/* Kanji books: the memory trick, right under the writing box */}
-          {charSet.details?.[item.char]?.memory && (
-            <div className="mt-2 sm:mt-3">
-              <PracticeMemory memory={charSet.details[item.char].memory!} char={item.char} hidden={isTest && !written && !results[index]} />
-            </div>
-          )}
         </section>
+
+        {/* Kanji books: the memory trick — under the writing box on phones, under the prompt on desktop */}
+        {charSet.details?.[item.char]?.memory && (
+          <div className="min-w-0 lg:col-start-1 lg:row-start-2 lg:self-start">
+            <PracticeMemory memory={charSet.details[item.char].memory!} char={item.char} hidden={isTest && !written && !results[index]} />
+          </div>
+        )}
       </div>
 
       {/* Kanji books: this kanji's example sentences and extra vocabulary */}
@@ -541,15 +547,3 @@ function statusText(f: StrokeFeedback | null, strict: boolean, total: number, gu
   }
 }
 
-function Tips({ strict, isTest }: { strict: boolean; isTest: boolean }) {
-  return (
-    <div className="hidden rounded-2xl border border-line bg-card/60 p-4 text-[13px] leading-relaxed text-ink-soft lg:block">
-      <p className="mb-1.5 font-bold text-ink">{strict ? "Strict mode" : "Easy mode"}</p>
-      {strict
-        ? "Write each stroke in the correct order and direction. Correct strokes snap into place; a wrong one fades away so you can retry."
-        : "Stroke order doesn't matter. When you finish, your writing is compared side by side with the correct form."}
-      {isTest && <p className="mt-2 text-muted">Showing the guide or stroke animation counts as a hint.</p>}
-      <p className="mt-2 text-muted">Keys: ← → to move, Ctrl+Z to undo.</p>
-    </div>
-  );
-}
