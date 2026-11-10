@@ -1,4 +1,4 @@
-// N2 kanji book — groups 1–29 (kanji 1–115). Grouped by visual similarity.
+// N2 kanji book — groups 1–29 (kanji 1–116). Grouped by visual similarity.
 // bk(kanji, level, meaning, on'yomi, kun'yomi, [[ja, kana, en, word level]], [[word, reading, meaning, level, example]])
 import { bk, type BookGroup } from "../../builders.ts";
 
@@ -70,7 +70,7 @@ export const GROUPS: BookGroup[] = [
   },
   {
     n: 3,
-    note: "almost identical",
+    note: "almost identical: 氷 永 水, and 泳 (氵 + 永)",
     items: [
       bk("氷", "N2", "ice", "ヒョウ", "こおり", [
         ["コップに**氷**を入れてください。", "コップ に **こおり** を いれて ください。", "Please put ice in the glass.", "N3", undefined, "こおり"],
@@ -81,6 +81,11 @@ export const GROUPS: BookGroup[] = [
         ["祖父は**永い**眠りにつきました。", "そふ は **ながい** ねむり に つきました。", "My grandfather passed away (fell into eternal sleep).", "N2", undefined, "なが.い"],
       ], [
         ["永久", "えいきゅう", "eternity, permanence", "N3", "**永久**に残る建物です。", "It's a building that will last forever.", "**えいきゅう** に のこる たてもの です。"],
+      ]),
+      bk("泳", "N3", "swim", "エイ", "およ.ぐ", [
+        ["プールで**泳ぎ**ます。", "プール で **およぎ**ます。", "I swim in the pool.", "N5", undefined, "およ.ぐ"],
+      ], [
+        ["水泳", "すいえい", "swimming", "N4", "私の趣味は**水泳**です。", "My hobby is swimming.", "わたし の しゅみ は **すいえい** です。"],
       ]),
       bk("水", "N5", "water", "スイ", "みず", [
         ["**水**を飲みます。", "**みず** を のみます。", "I will drink water.", "N5", undefined, "みず"],
@@ -548,7 +553,7 @@ export const GROUPS: BookGroup[] = [
   },
   {
     n: 22,
-    note: "谷 sits inside 浴",
+    note: "谷 inside 浴 and 容; 容 inside 溶",
     items: [
       bk("浅", "N2", "shallow", "セン", "あさ.い", [
         ["この川は**浅い**です。", "この かわ は **あさい** です。", "This river is shallow.", "N3", undefined, "あさ.い"],
@@ -564,6 +569,16 @@ export const GROUPS: BookGroup[] = [
       bk("谷", "N2", "valley", "コク", "たに", [
         ["山と山の間に**谷**があります。", "やま と やま の あいだ に **たに** が あります。", "There is a valley between the mountains.", "N3", undefined, "たに"],
         ["この**渓谷**はとても深いです。", "この **けいこく** は とても ふかい です。", "This gorge is very deep.", "N1", undefined, "コク"],
+      ]),
+      bk("容", "N3", "contain, form", "ヨウ", "", [
+        ["手紙の**内容**を確かめます。", "てがみ の **ないよう** を たしかめます。", "I check the contents of the letter.", "N3", undefined, "ヨウ"],
+        ["この問題は**容易**です。", "この もんだい は **ようい** です。", "This problem is easy.", "N3", undefined, "ヨウ"],
+      ]),
+      bk("溶", "N2", "melt, dissolve", "ヨウ", "と.ける と.かす", [
+        ["氷が**溶け**ました。", "こおり が **とけ**ました。", "The ice has melted.", "N2", undefined, "と.ける"],
+        ["砂糖を水に**溶かし**ます。", "さとう を みず に **とかし**ます。", "I dissolve sugar in water.", "N2", undefined, "と.かす"],
+        ["山から**溶岩**が流れました。", "やま から **ようがん** が ながれました。", "Lava flowed from the mountain.", "N2", undefined, "ヨウ"],
+        ["新しいクラスに**溶け込み**ました。", "あたらしい クラス に **とけこみ**ました。", "I fit right into my new class.", "N2", undefined, "と.ける"],
       ]),
     ],
   },
@@ -719,16 +734,6 @@ export const GROUPS: BookGroup[] = [
         ["**規準**に従って作ります。", "**きじゅん** に したがって つくります。", "We make it according to the standards.", "N2", undefined, "ジュン"],
       ], [
         ["水準", "すいじゅん", "level, standard", "N3", "生活の**水準**が上がりました。", "The standard of living has risen.", "せいかつ の **すいじゅん** が あがりました。"],
-      ]),
-      bk("溶", "N2", "melt, dissolve", "ヨウ", "と.ける と.かす", [
-        ["氷が**溶け**ました。", "こおり が **とけ**ました。", "The ice has melted.", "N2", undefined, "と.ける"],
-        ["砂糖を水に**溶かし**ます。", "さとう を みず に **とかし**ます。", "I dissolve sugar in water.", "N2", undefined, "と.かす"],
-        ["山から**溶岩**が流れました。", "やま から **ようがん** が ながれました。", "Lava flowed from the mountain.", "N2", undefined, "ヨウ"],
-        ["新しいクラスに**溶け込み**ました。", "あたらしい クラス に **とけこみ**ました。", "I fit right into my new class.", "N2", undefined, "と.ける"],
-      ]),
-      bk("容", "N3", "contain, form", "ヨウ", "", [
-        ["手紙の**内容**を確かめます。", "てがみ の **ないよう** を たしかめます。", "I check the contents of the letter.", "N3", undefined, "ヨウ"],
-        ["この問題は**容易**です。", "この もんだい は **ようい** です。", "This problem is easy.", "N3", undefined, "ヨウ"],
       ]),
       bk("滴", "N2", "drop, drip", "テキ", "しずく", [
         ["窓に**水滴**が付いています。", "まど に **すいてき** が ついて います。", "There are water drops on the window.", "N2", undefined, "テキ"],

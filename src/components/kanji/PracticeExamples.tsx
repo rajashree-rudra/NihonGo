@@ -2,7 +2,7 @@
 
 import { BookOpen, Eye, EyeOff } from "lucide-react";
 import type { CharItem, KanjiDetail } from "@/data/types";
-import { practiceJapaneseStore } from "@/lib/settings";
+import { practiceJapaneseStore, romajiStore } from "@/lib/settings";
 import { cn } from "@/components/ui/cn";
 import { ExampleList } from "@/components/study/ExampleList";
 import { VocabList } from "./KanjiDetails";
@@ -13,6 +13,7 @@ import { VocabList } from "./KanjiDetails";
  */
 export function PracticeExamples({ item, detail, hidden, setId }: { item: CharItem; detail: KanjiDetail; hidden: boolean; setId: string }) {
   const [showJa, setShowJa] = practiceJapaneseStore.useValue();
+  const [romaji, setRomaji] = romajiStore.useValue();
   if (!detail.examples.length && !detail.vocab.length) return null;
 
   return (
@@ -29,19 +30,33 @@ export function PracticeExamples({ item, detail, hidden, setId }: { item: CharIt
           </p>
         </div>
         {!hidden && (
-          <button
-            type="button"
-            onClick={() => setShowJa(!showJa)}
-            aria-pressed={!showJa}
-            aria-label={showJa ? "Hide Japanese (English only)" : "Show Japanese"}
-            title={showJa ? "Hide Japanese (English only)" : "Show Japanese"}
-            className={cn(
-              "ml-auto grid size-10 shrink-0 place-items-center rounded-xl border transition active:scale-90",
-              showJa ? "border-line-strong bg-card text-ink-soft hover:border-ink/40 hover:text-ink" : "border-kin/50 bg-kin-soft text-ink",
-            )}
-          >
-            {showJa ? <Eye className="size-[18px]" /> : <EyeOff className="size-[18px]" />}
-          </button>
+          <div className="ml-auto flex shrink-0 gap-2">
+            <button
+              type="button"
+              onClick={() => setRomaji(!romaji)}
+              aria-pressed={romaji}
+              title="Show romaji"
+              className={cn(
+                "inline-flex h-10 items-center rounded-xl border px-3 text-[13px] font-semibold transition active:scale-90",
+                romaji ? "border-ink bg-ink text-white" : "border-line-strong bg-card text-ink-soft hover:border-ink/40 hover:text-ink",
+              )}
+            >
+              Aa<span className="ml-1 max-sm:hidden">Romaji</span>
+            </button>
+            <button
+              type="button"
+              onClick={() => setShowJa(!showJa)}
+              aria-pressed={!showJa}
+              aria-label={showJa ? "Hide Japanese (English only)" : "Show Japanese"}
+              title={showJa ? "Hide Japanese (English only)" : "Show Japanese"}
+              className={cn(
+                "grid size-10 shrink-0 place-items-center rounded-xl border transition active:scale-90",
+                showJa ? "border-line-strong bg-card text-ink-soft hover:border-ink/40 hover:text-ink" : "border-kin/50 bg-kin-soft text-ink",
+              )}
+            >
+              {showJa ? <Eye className="size-[18px]" /> : <EyeOff className="size-[18px]" />}
+            </button>
+          </div>
         )}
       </header>
 

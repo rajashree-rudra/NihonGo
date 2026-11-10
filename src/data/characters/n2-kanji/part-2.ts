@@ -1,4 +1,4 @@
-// N2 kanji book — groups 30–57 (kanji 116–239). See part-1.ts for the format.
+// N2 kanji book — groups 30–57 (kanji 117–240). See part-1.ts for the format.
 import { bk, type BookGroup } from "../../builders.ts";
 
 export const GROUPS: BookGroup[] = [

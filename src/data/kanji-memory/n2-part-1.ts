@@ -42,6 +42,10 @@ export const MEMORY: MemoryEntry[] = [
     ["💑💍", "**永遠**に一緒だよ。", "**えいえん** に いっしょ だ よ。", "Together forever."],
     ["💕✨", "愛は**永遠**です。", "あい は **えいえん** です。", "Love is forever."],
   ]),
+  km("泳", "Water (氵) that goes on forever (永) — so you can swim (泳ぐ) and swim and swim.", [
+    ["🏊🌊", "海で**泳ぎ**ます。", "うみ で **およぎ**ます。", "I swim in the sea."],
+    ["🏫🏊", "**水泳**の授業です。", "**すいえい** の じゅぎょう です。", "It's swimming class."],
+  ]),
   km("干", "A pole (丨) with two bars (二) — a rack to hang laundry out to dry (干す). Unlike thousand (千), its top is flat.", [
     ["👕☀️", "服を**干します**。", "ふく を **ほします**。", "I hang the clothes out to dry."],
     ["🛏️☀️", "布団も**干します**。", "ふとん も **ほします**。", "I air the futon too."],

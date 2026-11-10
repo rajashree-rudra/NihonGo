@@ -4,7 +4,9 @@ import { memo, useEffect, useRef, useState } from "react";
 import { ChevronDown, ChevronUp, Star, Volume2 } from "lucide-react";
 import type { CharItem, KanjiDetail } from "@/data/types";
 import { formatKun } from "@/data/builders";
+import { kanaToRomaji } from "@/data/romaji";
 import { pronounce } from "@/lib/audio";
+import { romajiStore } from "@/lib/settings";
 import { LevelBadge } from "@/components/ui/LevelBadge";
 import { cn } from "@/components/ui/cn";
 import { KanjiDetails } from "./KanjiDetails";
@@ -45,7 +47,9 @@ export const KanjiRow = memo(function KanjiRow({
     if (open) setMounted(true);
   }, [open]);
 
+  const [showRomaji] = romajiStore.useValue();
   const readings = [...(item.on ?? []), ...(item.kun ?? []).map(formatKun)].join("・");
+  const readingsRomaji = [...new Set([...(item.on ?? []), ...(item.kun ?? [])].map((r) => kanaToRomaji(r.replace(".", ""))))].join(" · ");
   const plural = (n: number, w: string) => `${n} ${w}${n === 1 ? "" : "s"}`;
   const summary = detail
     ? [detail.examples.length && plural(detail.examples.length, "example"), detail.vocab.length && plural(detail.vocab.length, "word")]
@@ -103,6 +107,7 @@ export const KanjiRow = memo(function KanjiRow({
             {showInfo ? (
               <span lang="ja" className="mt-0.5 block truncate font-jp text-[13px] text-ink-soft">
                 {readings}
+                {showRomaji && <span className="ml-2 font-sans text-[12px] italic text-muted">{readingsRomaji}</span>}
               </span>
             ) : (
               <span className="mt-1 block text-[12px] italic text-muted">Meaning and reading hidden</span>

@@ -4,7 +4,9 @@ import Link from "next/link";
 import { useCallback, useEffect, useMemo, useState } from "react";
 import { ArrowLeft, ArrowRight, Check, ListChecks, RotateCcw, Volume2, X } from "lucide-react";
 import { quizOptions, type QuizGroup, type QuizWord } from "@/data/quiz";
+import { kanaToRomaji } from "@/data/romaji";
 import { speak, warmTextAudio } from "@/lib/audio";
+import { romajiStore } from "@/lib/settings";
 import { Button, ButtonLink } from "@/components/ui/Button";
 import { GroupPicker, type GroupOption } from "@/components/ui/GroupPicker";
 import { LevelBadge } from "@/components/ui/LevelBadge";
@@ -157,6 +159,7 @@ export function QuizFlow({ words, groups, title, backHref }: { words: QuizWord[]
 function QuizRun({ questions, mode, title, backHref, onDone }: { questions: Question[]; mode: Mode; title: string; backHref: string; onDone: (answers: string[]) => void }) {
   const [index, setIndex] = useState(0);
   const [answers, setAnswers] = useState<string[]>([]);
+  const [showRomaji, setShowRomaji] = romajiStore.useValue();
   const q = questions[index];
   const correct = mode === "k2h" ? q.word.reading : q.word.word;
   const chosen = answers[index];
@@ -203,10 +206,25 @@ function QuizRun({ questions, mode, title, backHref, onDone }: { questions: Ques
         <span className="text-sm font-semibold text-muted">
           <span className="text-matcha">✓ {right}</span> <span className="ml-1 text-shu">✗ {answers.filter(Boolean).length - right}</span>
         </span>
-        <span className="rounded-xl bg-ink px-3 py-1.5 text-sm font-bold tabular-nums text-white" aria-label="Progress">
-          {index + 1}
-          <span className="text-white/50"> / {questions.length}</span>
-        </span>
+        <div className="flex items-center gap-2">
+          {/* Romaji appears once a question is answered — before that it would give the reading away. */}
+          <button
+            type="button"
+            onClick={() => setShowRomaji(!showRomaji)}
+            aria-pressed={showRomaji}
+            title="Show romaji after answering"
+            className={cn(
+              "inline-flex h-8 items-center rounded-lg border px-2.5 text-[13px] font-semibold transition active:scale-95",
+              showRomaji ? "border-ink bg-ink text-white" : "border-line-strong bg-card text-ink-soft hover:border-ink/40 hover:text-ink",
+            )}
+          >
+            Aa<span className="ml-1 max-sm:hidden">Romaji</span>
+          </button>
+          <span className="rounded-xl bg-ink px-3 py-1.5 text-sm font-bold tabular-nums text-white" aria-label="Progress">
+            {index + 1}
+            <span className="text-white/50"> / {questions.length}</span>
+          </span>
+        </div>
       </div>
       <ProgressBar value={index + (answered ? 1 : 0)} max={questions.length} className="mt-3" tone="bg-ai" />
 
@@ -258,6 +276,7 @@ function QuizRun({ questions, mode, title, backHref, onDone }: { questions: Ques
               <p className={cn("text-sm font-bold", isRight ? "text-matcha" : "text-shu")}>{isRight ? "Correct!" : "Not quite."}</p>
               <p lang="ja" className="mt-1 font-jp text-lg text-ink">
                 <span className="font-bold">{q.word.word}</span> <span className="text-ink-soft">{q.word.reading}</span>
+                {showRomaji && <span className="ml-2 font-sans text-sm italic text-muted">{kanaToRomaji(q.word.reading)}</span>}
                 {q.word.level && <LevelBadge level={q.word.level} className="ml-2 align-middle" />}
               </p>
               {q.word.meaning && <p className="text-sm text-ink-soft">{q.word.meaning}</p>}
@@ -308,6 +327,7 @@ function QuizSummary({
   onRetryMissed: (missed: QuizWord[]) => void;
   onRestart: () => void;
 }) {
+  const [showRomaji] = romajiStore.useValue();
   const missed = questions.filter((q, i) => answers[i] !== (mode === "k2h" ? q.word.reading : q.word.word)).map((q) => q.word);
   const score = questions.length - missed.length;
   const pct = Math.round((score / Math.max(1, questions.length)) * 100);
@@ -345,6 +365,7 @@ function QuizSummary({
                 <span lang="ja" className="font-jp text-ink-soft">
                   {w.reading}
                 </span>
+                {showRomaji && <span className="text-sm italic text-muted">{kanaToRomaji(w.reading)}</span>}
                 {w.meaning && <span className="min-w-0 flex-1 truncate text-sm text-muted">{w.meaning}</span>}
               </li>
             ))}

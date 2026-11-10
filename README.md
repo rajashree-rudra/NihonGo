@@ -53,6 +53,9 @@ node --experimental-strip-types --no-warnings scripts/validate-content.mjs src/d
    npm run data:audio       # female voice → public/audio/*.mp3 (characters) + public/audio/packs/ (words, sentences)
    npm run data:audio:male  # male voice   → public/audio/male/…
    ```
+   The audio script also checks every character clip: a lone short sound (む, ン, a reading like い) can come
+   back almost silent, especially in the male voice, so it is made again (「む」, then む！, then むー) and soft
+   clips are turned up to the same level.
 
 ## Deploying (free)
 

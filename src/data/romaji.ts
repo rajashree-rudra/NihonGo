@@ -17,9 +17,11 @@ const BASE: Record<string, string> = {
   ば: "ba", び: "bi", ぶ: "bu", べ: "be", ぼ: "bo",
   ぱ: "pa", ぴ: "pi", ぷ: "pu", ぺ: "pe", ぽ: "po",
   ぁ: "a", ぃ: "i", ぅ: "u", ぇ: "e", ぉ: "o",
+  ゔ: "vu",
 };
 
 const SMALL_Y: Record<string, string> = { ゃ: "a", ゅ: "u", ょ: "o" };
+const SMALL_VOWEL: Record<string, string> = { ぁ: "a", ぃ: "i", ぅ: "u", ぇ: "e", ぉ: "o" };
 
 export function toHiragana(s: string): string {
   return s.replace(/[ァ-ヶ]/g, (c) => String.fromCharCode(c.charCodeAt(0) - 0x60));
@@ -74,6 +76,14 @@ export function kanaToRomaji(input: string): string {
       // き+ゃ → kya, し+ゃ → sha, ち+ゃ → cha, じ+ゃ → ja
       const stem = r === "shi" || r === "chi" || r === "ji" ? r.slice(0, -1) : r.slice(0, -1) + "y";
       out += stem + SMALL_Y[next];
+      i++;
+      continue;
+    }
+    // Sounds from borrowed words: ふ+ぁ → fa, て+ぃ → ti, と+ぅ → tu, し+ぇ → she, う+ぃ → wi, ゔ+ぁ → va
+    const r = BASE[c];
+    if (next && SMALL_VOWEL[next] && r && (r.length > 1 || c === "う" || c === "い")) {
+      const stem = c === "う" ? "w" : c === "い" ? "y" : r.slice(0, -1);
+      out += stem + SMALL_VOWEL[next];
       i++;
       continue;
     }

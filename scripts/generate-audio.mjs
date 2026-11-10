@@ -167,8 +167,67 @@ async function worker(id) {
   }
 }
 await Promise.all(Array.from({ length: WORKERS }, (_, i) => worker(i)));
-await rm(TMP, { recursive: true, force: true });
 console.log(`Generated ${made}, failed ${failed}.`);
+
+// ---------- Loud, clear character clips ----------
+// A lone short sound (a kana like む or ン, or a one-sound reading like 医 い) sometimes comes back
+// almost silent — the male voice especially. Each character clip is measured: a near-silent one is
+// made again with the same sound in quotes 「む」, then with ！, and as a last resort held long (んー);
+// then every character clip is brought to the same peak level, so all clips sound equally loud.
+
+const QUIET_DB = -20; // loudest point below this: the sound is (almost) missing
+const SOFT_DB = -6; // below this a clip is turned up…
+const PEAK_DB = -3; // …so its loudest point is here (normal clips peak around -5 dB)
+async function peakDb(file) {
+  const { stderr } = await run(ffmpegPath, ["-hide_banner", "-i", file, "-af", "volumedetect", "-f", "null", "-"]);
+  return Number(stderr.match(/max_volume: (-?[\d.]+) dB/)?.[1] ?? -99);
+}
+async function synthesize(text, dir) {
+  const tts = new MsEdgeTTS();
+  await tts.setMetadata(VOICE, OUTPUT_FORMAT.AUDIO_24KHZ_48KBITRATE_MONO_MP3);
+  const { audioFilePath } = await tts.toFile(dir, text, { rate: 0.9 });
+  tts.close();
+  return audioFilePath;
+}
+let remade = 0;
+let leveled = 0;
+let check = 0;
+await Promise.all(
+  Array.from({ length: WORKERS }, async (_, id) => {
+    const tmp = path.join(TMP, `level-${id}`);
+    await mkdir(tmp, { recursive: true });
+    while (check < charJobs.length) {
+      const job = charJobs[check++];
+      if (!(await exists(job.file))) continue;
+      let peak = await peakDb(job.file);
+      if (peak < QUIET_DB) {
+        for (const text of [`「${job.text}」`, `${job.text}！`, `${job.text}ー`]) {
+          try {
+            const file = await synthesize(text, tmp);
+            const p = await peakDb(file);
+            if (p > peak) {
+              await rename(file, job.file);
+              peak = p;
+            }
+            if (peak >= QUIET_DB) break;
+          } catch (e) {
+            console.error(`✗ ${text}: ${e?.message ?? e}`);
+          }
+        }
+        remade++;
+        console.log(`↻ ${job.text}: loudest point now ${peak} dB`);
+      }
+      if (peak < SOFT_DB) {
+        const out = path.join(tmp, "level.mp3");
+        await run(ffmpegPath, ["-loglevel", "error", "-y", "-i", job.file, "-af", `volume=${(PEAK_DB - peak).toFixed(1)}dB`, "-ac", "1", "-ar", "24000", "-b:a", "48k", "-codec:a", "libmp3lame", out]);
+        await rename(out, job.file);
+        leveled++;
+      }
+    }
+  }),
+);
+await rm(TMP, { recursive: true, force: true });
+console.log(`Character clips: ${remade} near-silent ones made again, ${leveled} soft ones turned up to ${PEAK_DB} dB.`);
 
 // Record what each character clip says, and publish a version per clip (content hash) so the app
 // can ask for ?v=<hash> — browsers and CDNs then never replay an outdated clip.
