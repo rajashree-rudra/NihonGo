@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 160" role="img" aria-label="stairs">
+  <!-- 階段 (stairs): a wooden staircase going up to the right, with a handrail -->
+  <rect width="160" height="160" rx="28" fill="#fbe6e1"/>
+  <circle cx="80" cy="84" r="54" fill="#fff" opacity=".55"/>
+  <ellipse cx="80" cy="141" rx="60" ry="5" fill="#f1cfc7"/>
+  <g stroke="#2b2622" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round">
+    <!-- handrail posts and rail -->
+    <path d="M32 122 V92 M52 104 V74 M72 86 V56 M92 68 V38 M112 50 V20" fill="none" stroke="#5a4636" stroke-width="3"/>
+    <path d="M26 97.4 L120 12.8" stroke="#2b2622" stroke-width="9"/>
+    <path d="M26 97.4 L120 12.8" stroke="#d9534a" stroke-width="4.5"/>
+    <!-- steps -->
+    <path d="M22 140 V122 H42 V104 H62 V86 H82 V68 H102 V50 H138 V140 Z" fill="#c9a26b"/>
+    <path d="M22 122 H42 M42 104 H62 M62 86 H82 M82 68 H102 M102 50 H138" fill="none" stroke="#fff" stroke-width="3" opacity=".9" transform="translate(0 3)"/>
+    <path d="M42 122 V140 M62 104 V140 M82 86 V140 M102 68 V140" fill="none" stroke-width="1.8" opacity=".3"/>
+  </g>
+</svg>

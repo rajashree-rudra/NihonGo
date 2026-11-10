@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 160" role="img" aria-label="ticket">
+  <!-- 切符 (ticket): a train ticket with a tear-off stub, a punched hole and a little train on it -->
+  <rect width="160" height="160" rx="28" fill="#fbe6e1"/>
+  <circle cx="80" cy="80" r="54" fill="#fff" opacity=".55"/>
+  <g stroke="#2b2622" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round" transform="rotate(-10 80 80)">
+    <!-- ticket -->
+    <path d="M18 48 H52 A7 7 0 0 0 66 48 H142 V112 H66 A7 7 0 0 0 52 112 H18 Z" fill="#f2c14e"/>
+    <path d="M59 60 V100" fill="none" stroke-width="2.2" stroke-dasharray="4 5"/>
+    <!-- stub: punched hole and lines -->
+    <circle cx="35" cy="64" r="5" fill="#fbe6e1"/>
+    <path d="M28 82 H44 M28 92 H40" fill="none" stroke-width="2.5" opacity=".5"/>
+    <!-- little train -->
+    <rect x="84" y="56" width="36" height="38" rx="9" fill="#3b5ba5"/>
+    <rect x="90" y="62" width="24" height="13" rx="3" fill="#fff"/>
+    <circle cx="93" cy="84" r="3" fill="#fff"/>
+    <circle cx="111" cy="84" r="3" fill="#fff"/>
+    <path d="M90 94 L84 102 M114 94 L120 102 M80 102 H124" fill="none"/>
+  </g>
+</svg>

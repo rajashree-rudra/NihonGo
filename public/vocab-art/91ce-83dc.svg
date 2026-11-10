@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 160" role="img" aria-label="vegetable(s)">
+  <!-- 野菜 (vegetables): a basket with a carrot, a cabbage, a tomato and an eggplant -->
+  <rect width="160" height="160" rx="28" fill="#f8edd6"/>
+  <circle cx="80" cy="80" r="56" fill="#fff" opacity=".55"/>
+  <ellipse cx="80" cy="140" rx="54" ry="6" fill="#ecdcb6"/>
+  <g stroke="#2b2622" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round">
+    <!-- carrot with its leaves -->
+    <path d="M44 40 Q38 28 44 22 Q50 30 50 38 M50 38 Q52 24 60 22 Q60 34 54 42 M54 42 Q62 34 70 36 Q64 44 56 46" fill="#4f8a5b"/>
+    <path d="M44 42 Q52 36 58 46 L66 100 Q60 104 50 100 Z" fill="#e8893a" transform="rotate(-14 55 70)"/>
+    <path d="M47 60 h6 M50 74 h6 M53 88 h5" fill="none" stroke-width="2" opacity=".5" transform="rotate(-14 55 70)"/>
+    <!-- eggplant -->
+    <path d="M116 56 Q132 48 138 62 Q142 80 132 94 Q122 104 110 96 Q104 88 110 76 Q114 68 116 56 Z" fill="#6b4a8c"/>
+    <path d="M110 58 Q116 50 126 52 L122 60 Q116 62 110 58 Z" fill="#4f8a5b"/>
+    <path d="M118 52 L120 44" fill="none" stroke="#4f8a5b" stroke-width="4"/>
+    <!-- cabbage -->
+    <circle cx="80" cy="82" r="24" fill="#9cc27a"/>
+    <path d="M62 70 Q80 76 82 98 M98 70 Q80 76 78 98 M80 58 V76" fill="none" stroke-width="2" opacity=".55"/>
+    <!-- tomato -->
+    <circle cx="112" cy="94" r="14" fill="#d9534a"/>
+    <path d="M104 84 L108 88 L112 82 L116 88 L120 84 L116 91 H108 Z" fill="#4f8a5b" stroke-width="1.8"/>
+    <!-- basket -->
+    <path d="M22 100 H138 L126 134 Q124 138 118 138 H42 Q36 138 34 134 Z" fill="#c9a26b"/>
+    <rect x="18" y="96" width="124" height="10" rx="5" fill="#c9a26b"/>
+    <path d="M28 117 H132 M58 106 L60 138 M80 106 V138 M102 106 L100 138 M38 106 L44 136 M122 106 L116 136" fill="none" opacity=".35"/>
+  </g>
+</svg>

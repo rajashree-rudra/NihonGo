@@ -1,0 +1,53 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 160" role="img" aria-label="(my) father">
+  <!-- 父 (my father): dad with a moustache, jacket and tie, in colour, holding the hand of his grey child -->
+  <rect width="160" height="160" rx="28" fill="#f8edd6"/>
+  <circle cx="60" cy="86" r="50" fill="#fff" opacity=".55"/>
+  <ellipse cx="82" cy="141" rx="60" ry="6" fill="#ecdcb6"/>
+  <g stroke="#2b2622" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round">
+    <!-- child (grey) -->
+    <g transform="translate(114 140) scale(.64)">
+      <ellipse cx="-8" cy="-3" rx="8" ry="4.5" fill="#6f6a60"/>
+      <ellipse cx="8" cy="-3" rx="8" ry="4.5" fill="#6f6a60"/>
+      <rect x="-13" y="-38" width="10" height="35" rx="4" fill="#9a958b"/>
+      <rect x="3" y="-38" width="10" height="35" rx="4" fill="#9a958b"/>
+      <rect x="17" y="-74" width="10" height="34" rx="5" fill="#d8d3ca"/>
+      <circle cx="22" cy="-38" r="5.5" fill="#efe6dc"/>
+      <path d="M-19 -36 V-67 Q-19 -77 -9 -77 H9 Q19 -77 19 -67 V-36 Z" fill="#d8d3ca"/>
+      <circle cx="0" cy="-96" r="18" fill="#efe6dc"/>
+      <path d="M-18 -97 Q-19 -117 0 -117 Q19 -117 18 -97 Q12 -107 0 -106 Q-11 -106 -18 -97 Z" fill="#6f6a60"/>
+      <circle cx="-6" cy="-95" r="2" fill="#2b2622" stroke="none"/>
+      <circle cx="6" cy="-95" r="2" fill="#2b2622" stroke="none"/>
+      <path d="M-5 -88 Q0 -84 5 -88" fill="none"/>
+    </g>
+    <!-- child's arm reaching up to dad's hand -->
+    <path d="M100 95 L91 101" stroke="#2b2622" stroke-width="8.5"/>
+    <path d="M100 95 L91 101" stroke="#d8d3ca" stroke-width="4"/>
+    <!-- father (colour) -->
+    <g transform="translate(60 140)">
+      <ellipse cx="-8" cy="-3" rx="8" ry="4.5" fill="#2b2622"/>
+      <ellipse cx="8" cy="-3" rx="8" ry="4.5" fill="#2b2622"/>
+      <rect x="-13" y="-40" width="10" height="37" rx="4" fill="#3d3a4a"/>
+      <rect x="3" y="-40" width="10" height="37" rx="4" fill="#3d3a4a"/>
+      <rect x="-28" y="-78" width="10" height="36" rx="5" fill="#4f8a5b"/>
+      <circle cx="-23" cy="-40" r="5.5" fill="#f6d3b3"/>
+      <path d="M-20 -38 V-70 Q-20 -81 -9 -81 H9 Q20 -81 20 -70 V-38 Z" fill="#4f8a5b"/>
+      <path d="M-8 -81 L0 -64 L8 -81 Z" fill="#fff"/>
+      <path d="M0 -78 L-3 -71 L0 -63 L3 -71 Z" fill="#d9534a" stroke-width="1.6"/>
+      <path d="M-8 -81 L-3 -58 M8 -81 L3 -58" fill="none"/>
+      <rect x="-5" y="-89" width="10" height="9" fill="#f6d3b3" stroke="none"/>
+      <circle cx="0" cy="-102" r="18" fill="#f6d3b3"/>
+      <path d="M-18 -103 Q-19 -124 0 -124 Q20 -124 18 -102 Q16 -112 6 -113 Q-6 -114 -12 -108 Q-15 -106 -18 -103 Z" fill="#5a4636"/>
+      <circle cx="-6" cy="-101" r="2.2" fill="#2b2622" stroke="none"/>
+      <circle cx="6" cy="-101" r="2.2" fill="#2b2622" stroke="none"/>
+      <circle cx="-11" cy="-95" r="3" fill="#f4a3a0" stroke="none" opacity=".7"/>
+      <circle cx="11" cy="-95" r="3" fill="#f4a3a0" stroke="none" opacity=".7"/>
+      <!-- moustache -->
+      <path d="M-8 -92 Q-4 -97 0 -94 Q4 -97 8 -92 Q4 -91 0 -92.5 Q-4 -91 -8 -92 Z" fill="#5a4636" stroke-width="2"/>
+      <path d="M-4 -88.5 Q0 -86 4 -88.5" fill="none"/>
+    </g>
+    <!-- dad's arm down to hold the child's hand -->
+    <path d="M76 64 L88 98" stroke="#2b2622" stroke-width="12"/>
+    <path d="M76 64 L88 98" stroke="#4f8a5b" stroke-width="7"/>
+    <circle cx="89" cy="101" r="5.5" fill="#f6d3b3"/>
+  </g>
+</svg>

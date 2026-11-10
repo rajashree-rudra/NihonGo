@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 160" role="img" aria-label="please (go ahead), here you are">
+  <!-- どうぞ (please, go ahead): a smiling person inviting you in with an open palm toward an open, lit doorway -->
+  <rect width="160" height="160" rx="28" fill="#fbe6e1"/>
+  <circle cx="64" cy="86" r="52" fill="#fff" opacity=".55"/>
+  <ellipse cx="84" cy="142" rx="64" ry="6" fill="#f1cfc7"/>
+  <g stroke="#2b2622" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round">
+    <!-- open door -->
+    <rect x="96" y="30" width="50" height="111" fill="#c9a26b"/>
+    <rect x="103" y="37" width="36" height="104" fill="#f2c14e"/>
+    <path d="M103 120 H139" fill="none" opacity=".35"/>
+    <path d="M139 37 L127 45 V134 L139 141 Z" fill="#c9a26b"/>
+    <circle cx="130.5" cy="90" r="2" fill="#2b2622" stroke="none"/>
+    <g transform="translate(58 140)">
+      <ellipse cx="-8" cy="-3" rx="8" ry="4.5" fill="#2b2622"/>
+      <ellipse cx="8" cy="-3" rx="8" ry="4.5" fill="#2b2622"/>
+      <rect x="-13" y="-40" width="10" height="37" rx="4" fill="#3d3a4a"/>
+      <rect x="3" y="-40" width="10" height="37" rx="4" fill="#3d3a4a"/>
+      <rect x="-28" y="-78" width="10" height="36" rx="5" fill="#3b5ba5"/>
+      <circle cx="-23" cy="-40" r="5.5" fill="#f6d3b3"/>
+      <!-- arm held out toward the door, palm up -->
+      <path d="M15 -74 L30 -62 L48 -64" fill="none" stroke-width="12"/>
+      <path d="M15 -74 L30 -62 L48 -64" fill="none" stroke="#3b5ba5" stroke-width="7"/>
+      <path d="M-20 -38 V-70 Q-20 -81 -9 -81 H9 Q20 -81 20 -70 V-38 Z" fill="#3b5ba5"/>
+      <path d="M-7 -81 L0 -73 L7 -81" fill="none" stroke="#fff"/>
+      <path d="M48 -66 Q50 -59 58 -60 Q64 -61 63 -66 Z" fill="#f6d3b3"/>
+      <rect x="-5" y="-89" width="10" height="9" fill="#f6d3b3" stroke="none"/>
+      <circle cx="0" cy="-102" r="18" fill="#f6d3b3"/>
+      <path d="M-18 -103 Q-19 -124 0 -124 Q20 -124 18 -102 Q14 -111 4 -112 Q-2 -108 -8 -111 Q-14 -109 -18 -103 Z" fill="#2b2622"/>
+      <path d="M-9 -101 Q-6 -104 -3 -101 M3 -101 Q6 -104 9 -101" fill="none"/>
+      <circle cx="-10" cy="-95" r="3" fill="#f4a3a0" stroke="none" opacity=".7"/>
+      <circle cx="10" cy="-95" r="3" fill="#f4a3a0" stroke="none" opacity=".7"/>
+      <path d="M-6 -93 Q0 -87 6 -93" fill="none"/>
+    </g>
+  </g>
+</svg>

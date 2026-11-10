@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 160" role="img" aria-label="milk">
+  <!-- 牛乳 (milk): a milk carton with a cow-spot pattern and a glass of milk -->
+  <rect width="160" height="160" rx="28" fill="#e3eaf6"/>
+  <circle cx="80" cy="84" r="54" fill="#fff" opacity=".55"/>
+  <ellipse cx="80" cy="134" rx="58" ry="6" fill="#c7d3ea"/>
+  <g stroke="#2b2622" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round">
+    <!-- carton: side, front, roof and ridge -->
+    <path d="M74 56 L92 48 V122 L74 130 Z" fill="#d8d3ca"/>
+    <path d="M74 56 L92 48 L83 30 Z" fill="#efe6dc"/>
+    <path d="M30 56 H74 L83 30 H39 Z" fill="#fff"/>
+    <path d="M39 30 V24 H83 V30" fill="#fff"/>
+    <rect x="30" y="56" width="44" height="74" fill="#fff"/>
+    <path d="M30 98 H74 V130 H30 Z" fill="#3b5ba5"/>
+    <path d="M74 98 L92 90 V122 L74 130 Z" fill="#34508f"/>
+    <!-- cow spots -->
+    <path d="M36 64 Q44 60 46 68 Q44 76 37 73 Z" fill="#2b2622" stroke="none"/>
+    <path d="M58 72 Q67 68 69 76 Q66 84 58 81 Q54 77 58 72 Z" fill="#2b2622" stroke="none"/>
+    <path d="M43 86 Q48 83 50 88 Q48 92 44 91 Z" fill="#2b2622" stroke="none"/>
+    <!-- milk drop on the blue panel -->
+    <path d="M52 104 Q45 113 45 118 A7 7 0 0 0 59 118 Q59 113 52 104 Z" fill="#fff"/>
+    <!-- glass of milk -->
+    <path d="M98 74 H134 L130 126 Q129 131 124 131 H108 Q103 131 102 126 Z" fill="#dfe9f6"/>
+    <path d="M99.2 88 H132.8 L130 126 Q129 131 124 131 H108 Q103 131 102 126 Z" fill="#fff"/>
+    <ellipse cx="116" cy="74" rx="18" ry="4" fill="none"/>
+    <path d="M106 94 L108 122" fill="none" stroke="#d8d3ca" stroke-width="3"/>
+  </g>
+</svg>

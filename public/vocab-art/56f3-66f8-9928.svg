@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 160" role="img" aria-label="library">
+  <!-- 図書館 (library): a building with a big open book sign and windows full of bookshelves -->
+  <rect width="160" height="160" rx="28" fill="#e1f1e6"/>
+  <circle cx="80" cy="84" r="58" fill="#fff" opacity=".55"/>
+  <ellipse cx="80" cy="141" rx="66" ry="6" fill="#c5e2cf"/>
+  <g stroke="#2b2622" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round">
+    <!-- building -->
+    <rect x="18" y="52" width="124" height="86" fill="#efe6dc"/>
+    <rect x="12" y="46" width="136" height="9" rx="3" fill="#c9a26b"/>
+    <!-- open book sign -->
+    <path d="M42 18 V48 Q62 44 80 52 Q98 44 118 48 V18 Q98 14 80 22 Q62 14 42 18 Z" fill="#3b5ba5"/>
+    <path d="M80 22 Q64 10 47 14 V42 Q64 38 80 47 Z" fill="#fff"/>
+    <path d="M80 22 Q96 10 113 14 V42 Q96 38 80 47 Z" fill="#fff"/>
+    <path d="M54 22 Q64 20 73 25 M54 30 Q64 28 73 33 M87 25 Q96 20 106 22 M87 33 Q96 28 106 30" fill="none" stroke-width="2" opacity=".5"/>
+    <!-- windows with bookshelves -->
+    <rect x="26" y="64" width="40" height="44" rx="2" fill="#c9a26b"/>
+    <rect x="94" y="64" width="40" height="44" rx="2" fill="#c9a26b"/>
+    <path d="M26 86 H66 M94 86 H134" fill="none"/>
+    <g stroke-width="1.8">
+      <rect x="30" y="70" width="6" height="16" fill="#d9534a"/><rect x="36" y="72" width="6" height="14" fill="#3b5ba5"/><rect x="42" y="69" width="6" height="17" fill="#f2c14e"/><rect x="48" y="72" width="6" height="14" fill="#4f8a5b"/><rect x="54" y="70" width="6" height="16" fill="#fff"/>
+      <rect x="30" y="91" width="6" height="17" fill="#4f8a5b"/><rect x="36" y="93" width="6" height="15" fill="#f2c14e"/><rect x="42" y="91" width="6" height="17" fill="#d9534a"/><rect x="48" y="94" width="6" height="14" fill="#3b5ba5"/>
+      <rect x="98" y="70" width="6" height="16" fill="#3b5ba5"/><rect x="104" y="72" width="6" height="14" fill="#fff"/><rect x="110" y="69" width="6" height="17" fill="#d9534a"/><rect x="116" y="72" width="6" height="14" fill="#f2c14e"/><rect x="122" y="70" width="6" height="16" fill="#4f8a5b"/>
+      <rect x="104" y="91" width="6" height="17" fill="#d9534a"/><rect x="110" y="93" width="6" height="15" fill="#4f8a5b"/><rect x="116" y="91" width="6" height="17" fill="#3b5ba5"/><rect x="122" y="94" width="6" height="14" fill="#f2c14e"/>
+    </g>
+    <!-- door and steps -->
+    <path d="M70 134 V96 Q70 88 80 88 Q90 88 90 96 V134 Z" fill="#4f8a5b"/>
+    <rect x="62" y="132" width="36" height="6" rx="2" fill="#d8d3ca"/>
+  </g>
+</svg>

@@ -1,0 +1,37 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 160" role="img" aria-label="foreigner">
+  <!-- 外国人 (foreigner): a blond visitor waving hello, with a world globe beside him -->
+  <rect width="160" height="160" rx="28" fill="#e3eaf6"/>
+  <circle cx="84" cy="86" r="52" fill="#fff" opacity=".55"/>
+  <ellipse cx="84" cy="141" rx="44" ry="6" fill="#c7d3ea"/>
+  <!-- world globe -->
+  <g transform="translate(31 32)" stroke="#2b2622" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round">
+    <circle r="15" fill="#3b5ba5"/>
+    <path d="M-11 -6 Q-6 -12 0 -8 Q2 -2 -3 0 Q-6 6 -11 3 Q-14 -2 -11 -6 Z" fill="#4f8a5b" stroke-width="2"/>
+    <path d="M3 3 Q10 1 12 5 Q9 12 3 11 Q1 7 3 3 Z" fill="#4f8a5b" stroke-width="2"/>
+    <path d="M3 -13 Q9 -12 11 -7 Q7 -5 4 -8 Z" fill="#4f8a5b" stroke-width="2"/>
+  </g>
+  <g stroke="#2b2622" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round" transform="translate(80 140)">
+    <ellipse cx="-8" cy="-3" rx="8" ry="4.5" fill="#2b2622"/>
+    <ellipse cx="8" cy="-3" rx="8" ry="4.5" fill="#2b2622"/>
+    <rect x="-13" y="-40" width="10" height="37" rx="4" fill="#3b5ba5"/>
+    <rect x="3" y="-40" width="10" height="37" rx="4" fill="#3b5ba5"/>
+    <rect x="-28" y="-78" width="10" height="36" rx="5" fill="#d9534a"/>
+    <circle cx="-23" cy="-40" r="5.5" fill="#f6d3b3"/>
+    <path d="M-20 -38 V-70 Q-20 -81 -9 -81 H9 Q20 -81 20 -70 V-38 Z" fill="#d9534a"/>
+    <path d="M-7 -81 L0 -72 L7 -81 Z" fill="#fff"/>
+    <!-- waving arm -->
+    <path d="M16 -76 L33 -106" stroke-width="12"/>
+    <path d="M16 -76 L33 -106" stroke="#d9534a" stroke-width="7"/>
+    <circle cx="35" cy="-109" r="5.5" fill="#f6d3b3"/>
+    <path d="M44 -118 Q48 -112 46 -105 M42 -124 Q50 -118 51 -110" fill="none" stroke-width="2"/>
+    <rect x="-5" y="-89" width="10" height="9" fill="#f6d3b3" stroke="none"/>
+    <circle cx="0" cy="-102" r="18" fill="#f6d3b3"/>
+    <!-- blond hair -->
+    <path d="M-19 -100 Q-21 -126 2 -125 Q22 -123 19 -100 Q17 -112 8 -112 Q-2 -117 -12 -108 Q-16 -106 -19 -100 Z" fill="#f2c14e"/>
+    <circle cx="-6" cy="-101" r="2.2" fill="#2b2622" stroke="none"/>
+    <circle cx="6" cy="-101" r="2.2" fill="#2b2622" stroke="none"/>
+    <circle cx="-10" cy="-95" r="3" fill="#f4a3a0" stroke="none" opacity=".7"/>
+    <circle cx="10" cy="-95" r="3" fill="#f4a3a0" stroke="none" opacity=".7"/>
+    <path d="M-6 -93 Q0 -87 6 -93" fill="none"/>
+  </g>
+</svg>

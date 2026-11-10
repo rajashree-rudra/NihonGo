@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 160" role="img" aria-label="tooth, teeth">
+  <!-- 歯 (tooth, teeth): a big shiny white tooth being brushed by a toothbrush, with foam bubbles -->
+  <rect width="160" height="160" rx="28" fill="#e3eaf6"/>
+  <circle cx="72" cy="80" r="54" fill="#fff" opacity=".55"/>
+  <g stroke="#2b2622" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round">
+    <!-- tooth -->
+    <path d="M44 56 Q44 34 62 34 Q70 34 72 38 Q74 34 82 34 Q100 34 100 56 Q100 72 94 86 Q91 112 85 122 Q80 128 76 118 L72 102 L68 118 Q64 128 59 122 Q53 112 50 86 Q44 72 44 56 Z" fill="#fff"/>
+    <path d="M53 52 Q54 44 61 43" fill="none" stroke="#c7d3ea" stroke-width="4"/>
+    <path d="M62 34 Q70 40 82 34" fill="none" opacity=".35"/>
+    <!-- toothbrush, bristles against the tooth -->
+    <g transform="translate(112 46) rotate(18)">
+      <rect x="-4" y="0" width="9" height="74" rx="4.5" fill="#3b5ba5"/>
+      <rect x="-12" y="2" width="8" height="22" rx="1.5" fill="#fff"/>
+      <path d="M-12 7.5 H-4 M-12 13 H-4 M-12 18.5 H-4" fill="none" stroke-width="1.8"/>
+    </g>
+    <!-- foam bubbles -->
+    <circle cx="103" cy="40" r="5" fill="#fff"/>
+    <circle cx="112" cy="31" r="3.5" fill="#fff"/>
+    <circle cx="100" cy="76" r="4" fill="#fff"/>
+    <!-- sparkles -->
+    <path d="M30 34 V46 M24 40 H36 M128 106 V116 M123 111 H133" fill="none" stroke="#f2c14e" stroke-width="3"/>
+  </g>
+</svg>

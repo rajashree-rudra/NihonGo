@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 160" role="img" aria-label="restroom, toilet">
+  <!-- お手洗い (restroom): the restroom sign, a man in blue and a woman in red -->
+  <rect width="160" height="160" rx="28" fill="#f8edd6"/>
+  <ellipse cx="80" cy="141" rx="50" ry="5" fill="#ecdcb6"/>
+  <g stroke="#2b2622" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round">
+    <!-- sign board -->
+    <rect x="20" y="24" width="120" height="112" rx="16" fill="#fff"/>
+    <path d="M80 40 V120" fill="none" stroke="#9a958b" stroke-width="3"/>
+    <!-- man -->
+    <circle cx="51" cy="48" r="9" fill="#3b5ba5"/>
+    <rect x="41" y="92" width="9" height="32" rx="4" fill="#3b5ba5"/>
+    <rect x="52" y="92" width="9" height="32" rx="4" fill="#3b5ba5"/>
+    <rect x="37" y="62" width="28" height="36" rx="7" fill="#3b5ba5"/>
+    <!-- woman -->
+    <circle cx="109" cy="48" r="9" fill="#d9534a"/>
+    <rect x="102" y="96" width="7" height="28" rx="3.5" fill="#d9534a"/>
+    <rect x="110" y="96" width="7" height="28" rx="3.5" fill="#d9534a"/>
+    <path d="M101 62 H117 Q121 62 122 66 L130 100 H88 L96 66 Q97 62 101 62 Z" fill="#d9534a"/>
+  </g>
+</svg>

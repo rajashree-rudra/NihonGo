@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 160" role="img" aria-label="room">
+  <!-- 部屋 (room): looking into a small bedroom with walls, a floor and rug, a bed, a window and a plant -->
+  <rect width="160" height="160" rx="28" fill="#fbe6e1"/>
+  <g stroke="#2b2622" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round">
+    <!-- ceiling, walls, floor -->
+    <path d="M16 16 H144 L124 30 H36 Z" fill="#fff"/>
+    <path d="M16 16 L36 30 V102 L16 144 Z" fill="#efe6dc"/>
+    <path d="M144 16 L124 30 V102 L144 144 Z" fill="#efe6dc"/>
+    <rect x="36" y="30" width="88" height="72" fill="#f8edd6"/>
+    <path d="M16 144 L36 102 H124 L144 144 Z" fill="#c9a26b"/>
+    <ellipse cx="78" cy="130" rx="34" ry="7" fill="#f2c14e"/>
+    <!-- window -->
+    <rect x="92" y="38" width="24" height="32" rx="2" fill="#e3eaf6"/>
+    <path d="M104 38 V70 M92 54 H116" fill="none" stroke-width="2"/>
+    <!-- bed -->
+    <rect x="38" y="64" width="11" height="54" rx="3" fill="#c9a26b"/>
+    <rect x="47" y="92" width="54" height="15" rx="3" fill="#fff"/>
+    <ellipse cx="59" cy="88" rx="9" ry="5" fill="#fff"/>
+    <path d="M69 86 H98 Q103 86 103 91 V109 H69 Z" fill="#3b5ba5"/>
+    <rect x="100" y="82" width="8" height="36" rx="2" fill="#c9a26b"/>
+    <!-- plant -->
+    <path d="M120 104 Q110 92 114 82 Q122 92 122 102 M124 102 Q126 88 136 84 Q136 96 126 104" fill="#4f8a5b"/>
+    <path d="M112 104 H134 L131 124 H115 Z" fill="#d9534a"/>
+  </g>
+</svg>

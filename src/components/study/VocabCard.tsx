@@ -4,6 +4,7 @@ import { memo } from "react";
 import { Volume2 } from "lucide-react";
 import type { PartOfSpeech, VocabEntry } from "@/data/types";
 import { wordSpeech } from "@/data/speech";
+import { vocabArt } from "@/data/vocab-art";
 import { speak } from "@/lib/audio";
 import { romajiStore } from "@/lib/settings";
 import { ExamplesToggle } from "./Collapsible";
@@ -48,9 +49,12 @@ function highlightTarget(e: VocabEntry) {
 export const VocabCard = memo(function VocabCard({ entry }: { entry: VocabEntry }) {
   const [showRomaji] = romajiStore.useValue();
   const showReading = entry.reading !== entry.word;
+  const art = vocabArt(entry.word);
   return (
     <article className="rounded-3xl border border-line bg-card p-4 shadow-soft [content-visibility:auto] [contain-intrinsic-size:auto_9rem] sm:p-5">
       <div className="flex items-start gap-3">
+        {/* A picture of the word, to remember it by seeing it (not every word has one yet). */}
+        {art && <img src={art} alt="" width={160} height={160} loading="lazy" className="size-20 shrink-0 rounded-2xl sm:size-24" />}
         <div className="min-w-0 flex-1">
           <div className="flex flex-wrap items-baseline gap-x-2.5 gap-y-0.5">
             <h3 lang="ja" className="font-jp text-2xl font-bold leading-tight text-ink">

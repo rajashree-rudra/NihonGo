@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 160" role="img" aria-label="exit">
+  <!-- 出口 (exit): the same open doorway as 入口, a big red arrow coming out -->
+  <rect width="160" height="160" rx="28" fill="#fbe6e1"/>
+  <circle cx="80" cy="84" r="56" fill="#fff" opacity=".55"/>
+  <ellipse cx="80" cy="141" rx="64" ry="6" fill="#f1cfc7"/>
+  <g stroke="#2b2622" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round">
+    <!-- wall with a roof edge -->
+    <rect x="18" y="34" width="124" height="104" rx="3" fill="#efe6dc"/>
+    <rect x="12" y="26" width="136" height="12" rx="4" fill="#9a958b"/>
+    <!-- door frame, dark inside, door swung open -->
+    <rect x="24" y="48" width="58" height="90" rx="2" fill="#c9a26b"/>
+    <rect x="31" y="55" width="44" height="83" fill="#3d3a4a"/>
+    <path d="M31 55 L45 62 V133 L31 138 Z" fill="#c9a26b"/>
+    <circle cx="41" cy="99" r="2" fill="#2b2622" stroke="none"/>
+    <!-- lamp above the door -->
+    <rect x="47" y="38" width="12" height="7" rx="3" fill="#f2c14e"/>
+    <!-- arrow coming out -->
+    <path d="M58 86 H104 V70 L136 97 L104 124 V108 H58 Z" fill="#d9534a"/>
+  </g>
+</svg>

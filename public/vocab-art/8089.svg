@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 160" role="img" aria-label="meat">
+  <!-- 肉 (meat): a big roasted piece of meat on the bone, on a plate -->
+  <rect width="160" height="160" rx="28" fill="#fbe6e1"/>
+  <circle cx="80" cy="84" r="54" fill="#fff" opacity=".55"/>
+  <ellipse cx="80" cy="137" rx="58" ry="6" fill="#f1cfc7"/>
+  <g stroke="#2b2622" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round">
+    <!-- plate -->
+    <ellipse cx="80" cy="112" rx="64" ry="22" fill="#fff"/>
+    <ellipse cx="80" cy="112" rx="50" ry="15" fill="none" opacity=".25"/>
+    <!-- bone ends -->
+    <circle cx="33" cy="113" r="7" fill="#fff6e6"/>
+    <circle cx="29" cy="102" r="7" fill="#fff6e6"/>
+    <circle cx="131" cy="76" r="7" fill="#fff6e6"/>
+    <circle cx="127" cy="65" r="7" fill="#fff6e6"/>
+    <path d="M34 108 L126 72" fill="none" stroke-width="14"/>
+    <path d="M34 108 L126 72" fill="none" stroke="#fff6e6" stroke-width="9"/>
+    <!-- roasted meat -->
+    <path d="M46 96 Q42 70 70 64 Q98 56 112 72 Q124 88 112 106 Q98 122 70 118 Q48 114 46 96 Z" fill="#b5523a"/>
+    <path d="M58 86 Q62 74 76 71" fill="none" stroke="#f4a3a0" stroke-width="4"/>
+    <path d="M70 100 Q80 104 92 98 M84 84 Q92 86 100 82" fill="none" opacity=".4"/>
+  </g>
+</svg>

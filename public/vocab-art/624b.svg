@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 160" role="img" aria-label="hand">
+  <!-- 手 (hand): a big open hand with five fingers, palm towards you, coming out of a blue sleeve -->
+  <rect width="160" height="160" rx="28" fill="#f8edd6"/>
+  <circle cx="80" cy="82" r="56" fill="#fff" opacity=".55"/>
+  <g stroke="#2b2622" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round">
+    <!-- sleeve and wrist -->
+    <rect x="64" y="112" width="32" height="22" fill="#f6d3b3"/>
+    <path d="M56 162 V134 Q56 128 62 128 H98 Q104 128 104 134 V162 Z" fill="#3b5ba5"/>
+    <path d="M56 138 H104" fill="none" stroke="#fff" opacity=".8"/>
+    <!-- fingers -->
+    <rect x="55" y="40" width="13" height="56" rx="6.5" fill="#f6d3b3"/>
+    <rect x="68" y="30" width="13" height="64" rx="6.5" fill="#f6d3b3"/>
+    <rect x="81" y="36" width="13" height="58" rx="6.5" fill="#f6d3b3"/>
+    <rect x="94" y="50" width="12" height="46" rx="6" fill="#f6d3b3"/>
+    <!-- thumb -->
+    <path d="M62 106 L40 80" fill="none" stroke-width="16.5"/>
+    <path d="M62 106 L40 80" fill="none" stroke="#f6d3b3" stroke-width="11.5"/>
+    <!-- palm -->
+    <path d="M55 80 H106 V108 Q106 124 90 124 H70 Q55 124 55 108 Z" fill="#f6d3b3"/>
+    <path d="M68 100 Q82 104 96 98" fill="none" stroke-width="2" opacity=".4"/>
+    <!-- fingernail tips -->
+    <path d="M58.5 46 Q61.5 43 64.5 46 M71.5 36 Q74.5 33 77.5 36 M84.5 42 Q87.5 39 90.5 42 M97 56 Q100 53 103 56" fill="none" stroke-width="1.8" opacity=".45"/>
+  </g>
+</svg>

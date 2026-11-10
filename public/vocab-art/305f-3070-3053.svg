@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 160" role="img" aria-label="tobacco, cigarettes">
+  <!-- たばこ (cigarettes): an open pack of cigarettes and one lit cigarette with smoke curling up -->
+  <rect width="160" height="160" rx="28" fill="#e1f1e6"/>
+  <circle cx="80" cy="84" r="54" fill="#fff" opacity=".55"/>
+  <ellipse cx="80" cy="136" rx="56" ry="5" fill="#c5e2cf"/>
+  <g stroke="#2b2622" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round">
+    <!-- cigarettes sticking out of the pack -->
+    <rect x="36" y="40" width="10" height="24" rx="2" fill="#c9a26b"/>
+    <rect x="49" y="32" width="10" height="32" rx="2" fill="#c9a26b"/>
+    <rect x="62" y="44" width="10" height="20" rx="2" fill="#c9a26b"/>
+    <!-- pack -->
+    <rect x="30" y="56" width="48" height="78" rx="4" fill="#d9534a"/>
+    <rect x="30" y="80" width="48" height="22" fill="#fff"/>
+    <circle cx="54" cy="91" r="6" fill="#f2c14e" stroke-width="2"/>
+    <!-- lit cigarette -->
+    <g transform="translate(86 128) rotate(-22)">
+      <rect x="0" y="-5" width="13" height="10" rx="2" fill="#c9a26b"/>
+      <rect x="13" y="-5" width="30" height="10" fill="#fff"/>
+      <rect x="43" y="-5" width="6" height="10" fill="#9a958b"/>
+      <path d="M49 -5 H51 Q54 0 51 5 H49 Z" fill="#d9534a" stroke-width="2"/>
+    </g>
+    <!-- smoke -->
+    <path d="M134 102 Q142 92 134 84 Q126 76 134 66 Q141 58 134 48 Q128 40 134 32" fill="none" stroke="#9a958b" stroke-width="3.5"/>
+    <path d="M122 86 Q116 78 122 70 Q128 62 122 54" fill="none" stroke="#9a958b" stroke-width="3" opacity=".7"/>
+  </g>
+</svg>

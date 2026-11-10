@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 160" role="img" aria-label="town, city">
+  <!-- 町 (town): a little town of tall buildings, shops and houses close together -->
+  <rect width="160" height="160" rx="28" fill="#f8edd6"/>
+  <circle cx="80" cy="82" r="56" fill="#fff" opacity=".55"/>
+  <ellipse cx="80" cy="136" rx="66" ry="6" fill="#ecdcb6"/>
+  <g stroke="#2b2622" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round">
+    <!-- tall building -->
+    <rect x="56" y="28" width="32" height="106" rx="2" fill="#3b5ba5"/>
+    <g fill="#e3eaf6" stroke-width="2">
+      <rect x="62" y="38" width="8" height="9" rx="1"/><rect x="74" y="38" width="8" height="9" rx="1"/>
+      <rect x="62" y="54" width="8" height="9" rx="1"/><rect x="74" y="54" width="8" height="9" rx="1"/>
+      <rect x="62" y="70" width="8" height="9" rx="1"/><rect x="74" y="70" width="8" height="9" rx="1"/>
+      <rect x="62" y="86" width="8" height="9" rx="1"/><rect x="74" y="86" width="8" height="9" rx="1"/>
+      <rect x="62" y="102" width="8" height="9" rx="1"/><rect x="74" y="102" width="8" height="9" rx="1"/>
+    </g>
+    <rect x="66" y="118" width="12" height="16" fill="#e3eaf6"/>
+    <!-- middle building -->
+    <rect x="88" y="58" width="32" height="76" rx="2" fill="#efe6dc"/>
+    <g fill="#f2c14e" stroke-width="2">
+      <rect x="94" y="68" width="8" height="9" rx="1"/><rect x="106" y="68" width="8" height="9" rx="1"/>
+      <rect x="94" y="84" width="8" height="9" rx="1"/><rect x="106" y="84" width="8" height="9" rx="1"/>
+    </g>
+    <!-- shop awning -->
+    <path d="M86 104 H122 L118 112 H90 Z" fill="#d9534a"/>
+    <rect x="94" y="114" width="20" height="20" fill="#e3eaf6"/>
+    <!-- house on the left -->
+    <rect x="22" y="96" width="34" height="38" fill="#fff"/>
+    <path d="M16 98 L39 74 L60 98 Z" fill="#d9534a"/>
+    <rect x="33" y="114" width="11" height="20" rx="1.5" fill="#c9a26b"/>
+    <!-- house on the right -->
+    <rect x="120" y="104" width="22" height="30" fill="#fff"/>
+    <path d="M116 106 L131 86 L146 106 Z" fill="#4f8a5b"/>
+    <rect x="126" y="114" width="10" height="9" rx="1.5" fill="#e3eaf6"/>
+  </g>
+</svg>

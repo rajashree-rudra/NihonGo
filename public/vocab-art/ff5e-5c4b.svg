@@ -1,0 +1,37 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 160" role="img" aria-label="~ shop, ~ store (e.g. bookshop)">
+  <!-- ～屋 (~ shop, e.g. 本屋 bookshop): a small Japanese shop with a tiled roof, a wooden sign showing what it sells (a book), a noren curtain and books out front -->
+  <rect width="160" height="160" rx="28" fill="#f8edd6"/>
+  <circle cx="80" cy="84" r="54" fill="#fff" opacity=".55"/>
+  <ellipse cx="80" cy="137" rx="62" ry="6" fill="#ecdcb6"/>
+  <g stroke="#2b2622" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round">
+    <!-- walls and dark shop opening -->
+    <rect x="24" y="52" width="112" height="84" fill="#efe6dc"/>
+    <rect x="38" y="58" width="84" height="78" fill="#5a4636"/>
+    <!-- tiled roof -->
+    <path d="M12 58 L30 40 H130 L148 58 Z" fill="#6f6a60"/>
+    <path d="M40 41 L32 57 M60 41 L56 57 M80 41 V57 M100 41 L104 57 M120 41 L128 57" fill="none" stroke-width="1.8" opacity=".6"/>
+    <!-- wooden sign showing a book -->
+    <rect x="50" y="14" width="60" height="28" rx="3" fill="#c9a26b"/>
+    <path d="M65 22 Q72 19 80 22 Q88 19 95 22 V35 Q88 32 80 35 Q72 32 65 35 Z" fill="#fff"/>
+    <path d="M80 22 V35" fill="none" stroke-width="2"/>
+    <!-- noren curtain -->
+    <g fill="#3b5ba5">
+      <rect x="40" y="58" width="26" height="24"/>
+      <rect x="67" y="58" width="26" height="24"/>
+      <rect x="94" y="58" width="26" height="24"/>
+    </g>
+    <path d="M38 58 H122" fill="none" stroke-width="3.5"/>
+    <!-- table of books out front -->
+    <rect x="30" y="112" width="100" height="8" rx="2" fill="#c9a26b"/>
+    <rect x="36" y="120" width="6" height="16" fill="#c9a26b"/>
+    <rect x="118" y="120" width="6" height="16" fill="#c9a26b"/>
+    <rect x="38" y="106" width="26" height="6" rx="1" fill="#3b5ba5"/>
+    <rect x="40" y="100" width="24" height="6" rx="1" fill="#d9534a"/>
+    <rect x="37" y="94" width="25" height="6" rx="1" fill="#f2c14e"/>
+    <rect x="70" y="90" width="8" height="22" rx="1" fill="#4f8a5b"/>
+    <rect x="78" y="94" width="8" height="18" rx="1" fill="#d9534a"/>
+    <rect x="86" y="88" width="8" height="24" rx="1" fill="#f2c14e"/>
+    <rect x="98" y="106" width="26" height="6" rx="1" fill="#4f8a5b"/>
+    <rect x="100" y="100" width="22" height="6" rx="1" fill="#fff"/>
+  </g>
+</svg>

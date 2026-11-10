@@ -1,0 +1,34 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 160" role="img" aria-label="garden, yard">
+  <!-- 庭 (garden): a lawn with a tree, a white picket fence and lots of tulips -->
+  <rect width="160" height="160" rx="28" fill="#e1f1e6"/>
+  <circle cx="92" cy="60" r="48" fill="#fff" opacity=".55"/>
+  <!-- lawn -->
+  <path d="M0 116 Q80 106 160 116 V132 Q160 160 132 160 H28 Q0 160 0 132 Z" fill="#4f8a5b"/>
+  <g stroke="#2b2622" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round">
+    <path d="M0 116 Q80 106 160 116" fill="none"/>
+    <!-- fence -->
+    <rect x="14" y="80" width="132" height="7" rx="2" fill="#c9a26b"/>
+    <rect x="14" y="96" width="132" height="7" rx="2" fill="#c9a26b"/>
+    <g fill="#fff">
+      <path d="M52 112 V74 L57 68 L62 74 V112 Z"/>
+      <path d="M68 111 V74 L73 68 L78 74 V111 Z"/>
+      <path d="M84 110 V74 L89 68 L94 74 V110 Z"/>
+      <path d="M100 110 V74 L105 68 L110 74 V110 Z"/>
+      <path d="M116 111 V74 L121 68 L126 74 V111 Z"/>
+      <path d="M132 112 V74 L137 68 L142 74 V113 Z"/>
+    </g>
+    <!-- tree -->
+    <path d="M30 120 V64 H42 V120 Z" fill="#c9a26b"/>
+    <circle cx="36" cy="46" r="24" fill="#4f8a5b"/>
+    <circle cx="28" cy="40" r="3" fill="#d9534a"/>
+    <circle cx="44" cy="52" r="3" fill="#d9534a"/>
+    <circle cx="40" cy="34" r="3" fill="#d9534a"/>
+    <!-- tulips -->
+    <path d="M62 148 V122 M84 148 V114 M106 148 V124 M128 148 V114" fill="none"/>
+    <path d="M62 136 Q52 132 52 122 Q62 124 62 136 M84 132 Q94 128 94 118 Q84 120 84 132 M106 138 Q96 134 96 124 Q106 126 106 138 M128 132 Q138 128 138 118 Q128 120 128 132" fill="#4f8a5b" stroke-width="2"/>
+    <path transform="translate(62 114) scale(1.45)" d="M-7 -6 L-3.5 -2 L0 -8 L3.5 -2 L7 -6 V0 Q7 6 0 6 Q-7 6 -7 0 Z" fill="#d9534a" stroke-width="1.7"/>
+    <path transform="translate(84 106) scale(1.45)" d="M-7 -6 L-3.5 -2 L0 -8 L3.5 -2 L7 -6 V0 Q7 6 0 6 Q-7 6 -7 0 Z" fill="#f2c14e" stroke-width="1.7"/>
+    <path transform="translate(106 116) scale(1.45)" d="M-7 -6 L-3.5 -2 L0 -8 L3.5 -2 L7 -6 V0 Q7 6 0 6 Q-7 6 -7 0 Z" fill="#d9534a" stroke-width="1.7"/>
+    <path transform="translate(128 106) scale(1.45)" d="M-7 -6 L-3.5 -2 L0 -8 L3.5 -2 L7 -6 V0 Q7 6 0 6 Q-7 6 -7 0 Z" fill="#f2c14e" stroke-width="1.7"/>
+  </g>
+</svg>

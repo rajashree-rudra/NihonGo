@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 160" role="img" aria-label="mouth">
+  <!-- 口 (mouth): a big face with the mouth opened wide ("aah"), and a red arrow pointing at it -->
+  <rect width="160" height="160" rx="28" fill="#fbe6e1"/>
+  <circle cx="80" cy="80" r="58" fill="#fff" opacity=".55"/>
+  <g stroke="#2b2622" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round">
+    <!-- neck and shoulders -->
+    <rect x="71" y="100" width="18" height="26" fill="#f6d3b3"/>
+    <path d="M30 162 Q30 132 56 126 Q68 123 80 123 Q92 123 104 126 Q130 132 130 162 Z" fill="#4f8a5b"/>
+    <path d="M70 124 L80 134 L90 124" fill="none" stroke="#fff"/>
+    <!-- face (the same person, close up) -->
+    <g transform="translate(80 76) scale(2.1)" stroke-width="1.2">
+      <circle cx="-18" cy="2" r="4.5" fill="#f6d3b3"/>
+      <circle cx="18" cy="2" r="4.5" fill="#f6d3b3"/>
+      <circle r="18" fill="#f6d3b3"/>
+      <path d="M-18 -1 Q-19 -22 0 -22 Q20 -22 18 0 Q14 -9 4 -10 Q-2 -6 -8 -9 Q-14 -7 -18 -1 Z" fill="#2b2622"/>
+      <circle cx="-7" cy="-1" r="2.2" fill="#2b2622" stroke="none"/>
+      <circle cx="7" cy="-1" r="2.2" fill="#2b2622" stroke="none"/>
+      <circle cx="-11.5" cy="5" r="2.6" fill="#f4a3a0" stroke="none" opacity=".7"/>
+      <circle cx="11.5" cy="5" r="2.6" fill="#f4a3a0" stroke="none" opacity=".7"/>
+      <path d="M-1.2 4 Q0 5.1 1.2 4" fill="none"/>
+      <!-- wide open mouth -->
+      <path d="M-6.5 8 Q0 6.5 6.5 8 Q7 16 0 16.5 Q-7 16 -6.5 8 Z" fill="#3d3a4a"/>
+      <path d="M-4 15.4 Q-3.5 12 0 12 Q3.5 12 4 15.4 Q0 16.8 -4 15.4 Z" fill="#d9534a" stroke-width=".9"/>
+    </g>
+    <!-- arrow pointing at the mouth -->
+    <path d="M0 0 L-11 -10 V-4.5 H-24 V4.5 H-11 V10 Z" fill="#d9534a" transform="translate(64 100) rotate(-35)"/>
+  </g>
+</svg>

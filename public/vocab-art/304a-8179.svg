@@ -1,0 +1,37 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 160" role="img" aria-label="stomach, belly">
+  <!-- お腹 (stomach, belly): a person holding their tummy with both hands as it rumbles, and a red arrow pointing at it -->
+  <rect width="160" height="160" rx="28" fill="#fbe6e1"/>
+  <circle cx="72" cy="86" r="54" fill="#fff" opacity=".55"/>
+  <ellipse cx="72" cy="143" rx="38" ry="6" fill="#f1cfc7"/>
+  <g stroke="#2b2622" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round">
+    <g transform="translate(70 142)">
+      <ellipse cx="-8" cy="-3" rx="8" ry="4.5" fill="#2b2622"/>
+      <ellipse cx="8" cy="-3" rx="8" ry="4.5" fill="#2b2622"/>
+      <rect x="-13" y="-40" width="10" height="37" rx="4" fill="#3d3a4a"/>
+      <rect x="3" y="-40" width="10" height="37" rx="4" fill="#3d3a4a"/>
+      <!-- round tummy -->
+      <path d="M-20 -38 Q-26 -54 -20 -70 Q-20 -81 -9 -81 H9 Q20 -81 20 -70 Q26 -54 20 -38 Z" fill="#f2c14e"/>
+      <path d="M-7 -81 L0 -73 L7 -81" fill="none" stroke="#fff"/>
+      <!-- arms bent, both hands on the tummy -->
+      <path d="M-17 -74 L-30 -58 L-12 -50" fill="none" stroke-width="12"/>
+      <path d="M-17 -74 L-30 -58 L-12 -50" fill="none" stroke="#f2c14e" stroke-width="7"/>
+      <path d="M17 -74 L30 -58 L12 -50" fill="none" stroke-width="12"/>
+      <path d="M17 -74 L30 -58 L12 -50" fill="none" stroke="#f2c14e" stroke-width="7"/>
+      <circle cx="-9" cy="-50" r="5.5" fill="#f6d3b3"/>
+      <circle cx="9" cy="-50" r="5.5" fill="#f6d3b3"/>
+      <!-- rumble lines -->
+      <path d="M-32 -44 Q-36 -48 -32 -52 Q-28 -56 -32 -60 M32 -44 Q36 -48 32 -52 Q28 -56 32 -60" fill="none" stroke-width="2"/>
+      <rect x="-5" y="-89" width="10" height="9" fill="#f6d3b3" stroke="none"/>
+      <circle cx="0" cy="-102" r="18" fill="#f6d3b3"/>
+      <path d="M-18 -103 Q-19 -124 0 -124 Q20 -124 18 -102 Q14 -111 4 -112 Q-2 -108 -8 -111 Q-14 -109 -18 -103 Z" fill="#5a4636"/>
+      <path d="M-9 -108 L-3 -110 M9 -108 L3 -110" fill="none" stroke-width="2"/>
+      <circle cx="-6" cy="-101" r="2.2" fill="#2b2622" stroke="none"/>
+      <circle cx="6" cy="-101" r="2.2" fill="#2b2622" stroke="none"/>
+      <circle cx="-10" cy="-95" r="3" fill="#f4a3a0" stroke="none" opacity=".7"/>
+      <circle cx="10" cy="-95" r="3" fill="#f4a3a0" stroke="none" opacity=".7"/>
+      <path d="M-5 -90 Q-2.5 -93 0 -90 Q2.5 -87 5 -90" fill="none"/>
+    </g>
+    <!-- arrow pointing at the tummy -->
+    <path d="M0 0 L-11 -10 V-4.5 H-24 V4.5 H-11 V10 Z" fill="#d9534a" transform="translate(110 92) rotate(180)"/>
+  </g>
+</svg>

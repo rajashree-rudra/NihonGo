@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 160" role="img" aria-label="embassy">
+  <!-- 大使館 (embassy): a formal building flying a country's flag (the same flag as 国), with an iron fence and gate -->
+  <rect width="160" height="160" rx="28" fill="#e1f1e6"/>
+  <circle cx="80" cy="84" r="56" fill="#fff" opacity=".55"/>
+  <ellipse cx="80" cy="141" rx="66" ry="6" fill="#c5e2cf"/>
+  <g stroke="#2b2622" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round">
+    <!-- flag on the roof -->
+    <path d="M80 60 V14" fill="none" stroke-width="4.5"/>
+    <path d="M80 60 V14" fill="none" stroke="#c9a26b" stroke-width="2"/>
+    <path d="M81 17 Q100 9 121 19 V47 Q100 39 81 47 Z" fill="#d9534a"/>
+    <path d="M100 21 L103 28 L110 28.5 L104.5 33 L106.5 40 L100 36 L93.5 40 L95.5 33 L90 28.5 L97 28 Z" fill="#fff" stroke-width="1.8"/>
+    <circle cx="80" cy="12" r="4" fill="#f2c14e"/>
+    <!-- building -->
+    <rect x="22" y="64" width="116" height="74" fill="#fff"/>
+    <rect x="18" y="56" width="124" height="10" rx="3" fill="#d8d3ca"/>
+    <rect x="30" y="74" width="11" height="22" rx="5" fill="#c7d3ea" stroke-width="2"/>
+    <rect x="47" y="74" width="11" height="22" rx="5" fill="#c7d3ea" stroke-width="2"/>
+    <rect x="102" y="74" width="11" height="22" rx="5" fill="#c7d3ea" stroke-width="2"/>
+    <rect x="119" y="74" width="11" height="22" rx="5" fill="#c7d3ea" stroke-width="2"/>
+    <!-- entrance with a little porch -->
+    <path d="M62 82 L80 70 L98 82 Z" fill="#d8d3ca"/>
+    <rect x="66" y="82" width="5" height="56" fill="#efe6dc"/>
+    <rect x="89" y="82" width="5" height="56" fill="#efe6dc"/>
+    <rect x="72" y="98" width="16" height="40" rx="2" fill="#3b5ba5"/>
+    <!-- iron fence with the gate open -->
+    <path d="M18 120 H64 M96 120 H142" fill="none"/>
+    <path d="M22 114 V138 M30 114 V138 M38 114 V138 M46 114 V138 M54 114 V138 M62 114 V138 M98 114 V138 M106 114 V138 M114 114 V138 M122 114 V138 M130 114 V138 M138 114 V138" fill="none" stroke="#3d3a4a" stroke-width="3"/>
+    <path d="M22 112 V114 M30 112 V114 M38 112 V114 M46 112 V114 M54 112 V114 M62 112 V114 M98 112 V114 M106 112 V114 M114 112 V114 M122 112 V114 M130 112 V114 M138 112 V114" fill="none" stroke="#f2c14e" stroke-width="4"/>
+  </g>
+</svg>

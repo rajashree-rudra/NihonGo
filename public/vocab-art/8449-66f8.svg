@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 160" role="img" aria-label="postcard">
+  <!-- 葉書 (postcard): a stiff card with a stamp, a little picture of a mountain, and address lines -->
+  <rect width="160" height="160" rx="28" fill="#e1f1e6"/>
+  <circle cx="80" cy="80" r="56" fill="#fff" opacity=".55"/>
+  <ellipse cx="80" cy="134" rx="54" ry="6" fill="#c5e2cf"/>
+  <g stroke="#2b2622" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round" transform="rotate(-7 80 82)">
+    <rect x="18" y="40" width="124" height="84" rx="5" fill="#fff"/>
+    <!-- picture: sky, mountain, sun -->
+    <rect x="27" y="50" width="48" height="64" rx="3" fill="#e3eaf6"/>
+    <circle cx="62" cy="64" r="6" fill="#f2c14e"/>
+    <path d="M27 114 V100 L44 76 L52 86 L58 80 L75 102 V114 Z" fill="#4f8a5b"/>
+    <path d="M38 91 L44 82 L50 91 L46 89 L44 92 L41 89 Z" fill="#fff" stroke-width="1.8"/>
+    <!-- divider -->
+    <path d="M84 56 V112" fill="none" opacity=".35"/>
+    <!-- stamp -->
+    <rect x="110" y="48" width="22" height="26" rx="2" fill="#fff" stroke-dasharray="3 2.5"/>
+    <rect x="114" y="52" width="14" height="18" rx="1.5" fill="#d9534a" stroke-width="1.8"/>
+    <circle cx="121" cy="61" r="4" fill="#fff" stroke="none"/>
+    <!-- address lines -->
+    <path d="M92 86 H132 M92 97 H132 M92 108 H120" fill="none" stroke="#3b5ba5" stroke-width="2.2"/>
+  </g>
+</svg>

@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 160" role="img" aria-label="come on, well now">
+  <!-- さあ (come on, let's go): a person striding out with a fist raised, and a big arrow pointing the way -->
+  <rect width="160" height="160" rx="28" fill="#f8edd6"/>
+  <circle cx="72" cy="86" r="54" fill="#fff" opacity=".55"/>
+  <ellipse cx="80" cy="143" rx="56" ry="6" fill="#ecdcb6"/>
+  <g stroke="#2b2622" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round">
+    <!-- arrow showing the way -->
+    <path d="M110 84 H128 V72 L150 94 L128 116 V104 H110 Z" fill="#d9534a"/>
+    <g transform="translate(64 142)">
+      <!-- legs in a stride -->
+      <rect x="-13" y="-40" width="10" height="37" rx="4" fill="#3d3a4a" transform="rotate(14 -8 -40)"/>
+      <rect x="3" y="-40" width="10" height="37" rx="4" fill="#3d3a4a" transform="rotate(-14 8 -40)"/>
+      <ellipse cx="-19" cy="-4" rx="8" ry="4.5" fill="#2b2622"/>
+      <ellipse cx="19" cy="-4" rx="8" ry="4.5" fill="#2b2622"/>
+      <!-- back arm swinging -->
+      <path d="M-15 -74 L-30 -60 L-38 -46" fill="none" stroke-width="12"/>
+      <path d="M-15 -74 L-30 -60 L-38 -46" fill="none" stroke="#d9534a" stroke-width="7"/>
+      <circle cx="-39" cy="-44" r="5.5" fill="#f6d3b3"/>
+      <!-- raised fist -->
+      <path d="M15 -74 L32 -88 L38 -114" fill="none" stroke-width="12"/>
+      <path d="M15 -74 L32 -88 L38 -114" fill="none" stroke="#d9534a" stroke-width="7"/>
+      <path d="M-20 -38 V-70 Q-20 -81 -9 -81 H9 Q20 -81 20 -70 V-38 Z" fill="#d9534a"/>
+      <path d="M-7 -81 L0 -73 L7 -81" fill="none" stroke="#fff"/>
+      <rect x="32" y="-125" width="13" height="12" rx="5" fill="#f6d3b3"/>
+      <path d="M35 -121 H42" fill="none" stroke-width="1.8"/>
+      <rect x="-5" y="-89" width="10" height="9" fill="#f6d3b3" stroke="none"/>
+      <circle cx="0" cy="-102" r="18" fill="#f6d3b3"/>
+      <path d="M-18 -103 Q-19 -124 0 -124 Q20 -124 18 -102 Q14 -111 4 -112 Q-2 -108 -8 -111 Q-14 -109 -18 -103 Z" fill="#2b2622"/>
+      <path d="M-10 -108 L-3 -106 M10 -108 L3 -106" fill="none" stroke-width="2"/>
+      <circle cx="-6" cy="-101" r="2.2" fill="#2b2622" stroke="none"/>
+      <circle cx="6" cy="-101" r="2.2" fill="#2b2622" stroke="none"/>
+      <circle cx="-11" cy="-95" r="3" fill="#f4a3a0" stroke="none" opacity=".7"/>
+      <circle cx="11" cy="-95" r="3" fill="#f4a3a0" stroke="none" opacity=".7"/>
+      <path d="M-7 -94 Q0 -84 7 -94 Z" fill="#fff"/>
+    </g>
+    <!-- motion lines -->
+    <path d="M14 70 H24 M10 84 H22 M14 98 H24" fill="none" stroke-width="2.5" opacity=".5"/>
+  </g>
+</svg>

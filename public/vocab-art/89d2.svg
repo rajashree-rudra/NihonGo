@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 160" role="img" aria-label="corner (of a street or object)">
+  <!-- 角 (corner): a map of a street turning at the corner of a building block; the green route turns right there -->
+  <rect width="160" height="160" rx="28" fill="#f8edd6"/>
+  <!-- road (no outline on the tile edges) -->
+  <path d="M42 160 V70 Q42 42 70 42 H160 V78 H78 V160 Z" fill="#d8d3ca"/>
+  <g stroke="#2b2622" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round">
+    <!-- kerbs -->
+    <path d="M42 158 V70 Q42 42 70 42 H158" fill="none"/>
+    <path d="M78 158 V78 H158" fill="none"/>
+    <!-- trees on the far side -->
+    <circle cx="22" cy="60" r="11" fill="#4f8a5b"/>
+    <circle cx="22" cy="100" r="11" fill="#4f8a5b"/>
+    <circle cx="22" cy="140" r="9" fill="#4f8a5b"/>
+    <path d="M16 56 Q18 52 23 51 M16 96 Q18 92 23 91 M17 137 Q19 133 23 133" fill="none" stroke="#fff" stroke-width="2" opacity=".7"/>
+    <!-- building on the corner block: roof and front wall -->
+    <rect x="90" y="88" width="52" height="34" rx="3" fill="#d9534a"/>
+    <rect x="90" y="122" width="52" height="20" fill="#efe6dc"/>
+    <rect x="98" y="127" width="9" height="9" rx="1.5" fill="#c7d3ea" stroke-width="2"/>
+    <rect x="124" y="127" width="9" height="9" rx="1.5" fill="#c7d3ea" stroke-width="2"/>
+    <!-- the corner -->
+    <circle cx="78" cy="78" r="7" fill="#f2c14e"/>
+    <!-- route turning right at the corner -->
+    <path d="M60 150 V76 Q60 60 76 60 H122" fill="none" stroke-width="11"/>
+    <path d="M60 150 V76 Q60 60 76 60 H122" fill="none" stroke="#4f8a5b" stroke-width="6"/>
+    <path d="M120 48 L142 60 L120 72 Z" fill="#4f8a5b"/>
+  </g>
+</svg>

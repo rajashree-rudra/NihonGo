@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 160" role="img" aria-label="electricity; (electric) light">
+  <!-- 電気 (electricity, light): a glowing light bulb with a lightning-bolt filament and rays of light -->
+  <rect width="160" height="160" rx="28" fill="#e3eaf6"/>
+  <circle cx="80" cy="66" r="52" fill="#fff" opacity=".7"/>
+  <g stroke="#2b2622" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round">
+    <!-- rays -->
+    <path d="M80 10 V20 M38 26 L45 33 M122 26 L115 33 M22 64 H32 M128 64 H138 M34 100 L42 94 M126 100 L118 94" fill="none" stroke="#f2c14e" stroke-width="5"/>
+    <!-- glass -->
+    <path d="M66 104 Q66 94 58 84 Q48 72 48 62 Q48 32 80 30 Q112 32 112 62 Q112 72 102 84 Q94 94 94 104 Z" fill="#f2c14e"/>
+    <path d="M58 60 Q58 46 70 42" fill="none" stroke="#fff" stroke-width="4" opacity=".85"/>
+    <!-- lightning-bolt filament -->
+    <path d="M84 50 L72 70 H82 L76 88 L92 64 H82 L88 50 Z" fill="#fff" stroke-width="2"/>
+    <!-- screw base -->
+    <rect x="64" y="104" width="32" height="8" rx="3" fill="#9aa3b0"/>
+    <rect x="65" y="112" width="30" height="8" rx="3" fill="#9aa3b0"/>
+    <rect x="66" y="120" width="28" height="8" rx="3" fill="#9aa3b0"/>
+    <path d="M70 128 Q80 140 90 128 Z" fill="#3d3a4a"/>
+  </g>
+</svg>

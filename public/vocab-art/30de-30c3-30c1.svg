@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 160" role="img" aria-label="match (for lighting)">
+  <!-- マッチ (match): a lit match with a flame beside a red matchbox with a brown striking side -->
+  <rect width="160" height="160" rx="28" fill="#f8edd6"/>
+  <circle cx="62" cy="44" r="34" fill="#fff" opacity=".7"/>
+  <ellipse cx="88" cy="132" rx="56" ry="6" fill="#ecdcb6"/>
+  <g stroke="#2b2622" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round">
+    <!-- matchbox -->
+    <path d="M42 98 L58 84 H136 L120 98 Z" fill="#d9534a"/>
+    <path d="M42 98 L58 84 H136 L120 98 Z" fill="#fff" opacity=".2" stroke="none"/>
+    <path d="M120 98 L136 84 V116 L120 130 Z" fill="#5a4636"/>
+    <rect x="42" y="98" width="78" height="32" fill="#d9534a"/>
+    <rect x="58" y="104" width="46" height="20" rx="4" fill="#fff"/>
+    <path d="M81 108 Q88 114 84 120 H78 Q74 114 81 108 Z" fill="#f2c14e" stroke-width="1.8"/>
+    <!-- lit match -->
+    <path d="M28 126 L60 62" fill="none" stroke="#2b2622" stroke-width="8"/>
+    <path d="M28 126 L60 62" fill="none" stroke="#c9a26b" stroke-width="3.5"/>
+    <ellipse cx="61" cy="58" rx="6" ry="7.5" fill="#d9534a" transform="rotate(27 61 58)"/>
+    <path d="M64 14 C74 28 80 38 74 48 C70 54 60 56 56 48 C52 40 60 30 64 14 Z" fill="#f2c14e"/>
+    <path d="M65 32 C69 38 70 44 66 48 C63 50 59 48 59 44 C59 40 63 38 65 32 Z" fill="#d9534a" stroke-width="2"/>
+  </g>
+</svg>

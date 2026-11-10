@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 160" role="img" aria-label="cafeteria, dining hall">
+  <!-- 食堂 (dining hall): an eatery with a rice bowl and chopsticks sign, a blue noren curtain and a red lantern -->
+  <rect width="160" height="160" rx="28" fill="#fbe6e1"/>
+  <circle cx="80" cy="84" r="56" fill="#fff" opacity=".55"/>
+  <ellipse cx="80" cy="141" rx="62" ry="6" fill="#f1cfc7"/>
+  <g stroke="#2b2622" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round">
+    <!-- wall and roof edge -->
+    <rect x="22" y="32" width="116" height="106" fill="#efe6dc"/>
+    <path d="M12 38 L24 22 H136 L148 38 Z" fill="#6f6a60"/>
+    <!-- sign: rice bowl with chopsticks -->
+    <rect x="40" y="44" width="80" height="38" rx="7" fill="#fff"/>
+    <path d="M86 58 L110 48 M88 62 L112 53" fill="none" stroke="#c9a26b" stroke-width="3.5"/>
+    <path d="M60 64 Q80 48 100 64 Z" fill="#fff"/>
+    <path d="M56 64 H104 Q104 78 80 78 Q56 78 56 64 Z" fill="#d9534a"/>
+    <!-- dark doorway with noren curtain -->
+    <rect x="46" y="90" width="68" height="48" fill="#3d3a4a"/>
+    <path d="M42 90 H118" fill="none" stroke-width="4"/>
+    <rect x="47" y="91" width="21" height="27" rx="1" fill="#3b5ba5"/>
+    <rect x="69.5" y="91" width="21" height="27" rx="1" fill="#3b5ba5"/>
+    <rect x="92" y="91" width="21" height="27" rx="1" fill="#3b5ba5"/>
+    <circle cx="80" cy="104" r="5" fill="#fff" stroke="none"/>
+    <!-- red lantern -->
+    <path d="M30 92 V96" fill="none"/>
+    <ellipse cx="30" cy="106" rx="7" ry="10" fill="#d9534a"/>
+    <path d="M24 102 H36 M23.5 110 H36.5" fill="none" stroke-width="1.5"/>
+  </g>
+</svg>

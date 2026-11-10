@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 160" role="img" aria-label="chair">
+  <!-- 椅子 (chair): a wooden chair with a slatted back and a red seat cushion -->
+  <rect width="160" height="160" rx="28" fill="#f8edd6"/>
+  <circle cx="80" cy="84" r="54" fill="#fff" opacity=".55"/>
+  <ellipse cx="80" cy="140" rx="54" ry="6" fill="#ecdcb6"/>
+  <g stroke="#2b2622" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round">
+    <!-- back posts (run down behind the seat as the back legs) -->
+    <rect x="49" y="28" width="10" height="106" rx="3" fill="#c9a26b"/>
+    <rect x="101" y="28" width="10" height="106" rx="3" fill="#c9a26b"/>
+    <!-- backrest -->
+    <rect x="43" y="22" width="74" height="15" rx="6" fill="#c9a26b"/>
+    <rect x="66" y="37" width="7" height="56" fill="#c9a26b"/>
+    <rect x="87" y="37" width="7" height="56" fill="#c9a26b"/>
+    <!-- seat -->
+    <path d="M44 92 H116 L128 108 H32 Z" fill="#c9a26b"/>
+    <path d="M50 93 H110 Q118 99 118 104 H42 Q42 99 50 93 Z" fill="#d9534a"/>
+    <rect x="32" y="108" width="96" height="10" rx="2" fill="#c9a26b"/>
+    <!-- front legs -->
+    <rect x="35" y="118" width="10" height="21" rx="3" fill="#c9a26b"/>
+    <rect x="115" y="118" width="10" height="21" rx="3" fill="#c9a26b"/>
+  </g>
+</svg>

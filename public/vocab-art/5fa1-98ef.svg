@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 160" role="img" aria-label="cooked rice; meal">
+  <!-- 御飯 (cooked rice; meal): a big steaming bowl of white rice with chopsticks in front -->
+  <rect width="160" height="160" rx="28" fill="#f8edd6"/>
+  <circle cx="80" cy="80" r="54" fill="#fff" opacity=".55"/>
+  <ellipse cx="80" cy="128" rx="46" ry="6" fill="#ecdcb6"/>
+  <g stroke="#2b2622" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round">
+    <!-- steam -->
+    <g fill="none" stroke="#9a958b" stroke-width="3">
+      <path d="M64 38 Q59 32 64 26 Q69 20 64 14"/>
+      <path d="M80 34 Q75 28 80 22 Q85 16 80 10"/>
+      <path d="M96 38 Q91 32 96 26 Q101 20 96 14"/>
+    </g>
+    <!-- heaped rice -->
+    <path d="M36 84 Q36 44 80 44 Q124 44 124 84 Z" fill="#fff"/>
+    <g fill="none" stroke-width="2" opacity=".35">
+      <path d="M62 56 l4 -2 M80 52 l4 1 M96 58 l3 3 M54 70 l3 -3 M72 66 l4 0 M90 70 l3 -2 M106 72 l3 2 M66 78 l3 1 M98 80 l3 -1"/>
+    </g>
+    <!-- bowl -->
+    <path d="M64 120 V128 H96 V120" fill="#3b5ba5"/>
+    <path d="M32 82 H128 Q128 114 100 121 H60 Q32 114 32 82 Z" fill="#3b5ba5"/>
+    <path d="M36 90 H124" fill="none" stroke="#fff" stroke-width="2.5"/>
+    <path d="M52 101 H52.1 M66 104 H66.1 M80 105 H80.1 M94 104 H94.1 M108 101 H108.1" fill="none" stroke="#fff" stroke-width="5"/>
+    <!-- chopsticks on a little rest -->
+    <path d="M30 137 L128 132 L128 138 L30 140 Z" fill="#d9534a" stroke-width="2"/>
+    <path d="M30 143 L128 140 L128 146 L30 145 Z" fill="#d9534a" stroke-width="2"/>
+    <rect x="114" y="140" width="16" height="7" rx="3.5" fill="#9aa3b0"/>
+  </g>
+</svg>

@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 160" role="img" aria-label="calendar">
+  <!-- カレンダー (calendar): a wall calendar with rings, a red top and a grid of days, one day marked with a heart -->
+  <rect width="160" height="160" rx="28" fill="#e3eaf6"/>
+  <circle cx="80" cy="84" r="54" fill="#fff" opacity=".55"/>
+  <g stroke="#2b2622" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round">
+    <!-- page -->
+    <rect x="26" y="34" width="108" height="104" rx="8" fill="#fff"/>
+    <path d="M26 58 V42 Q26 34 34 34 H126 Q134 34 134 42 V58 Z" fill="#d9534a"/>
+    <!-- rings -->
+    <rect x="48" y="24" width="8" height="18" rx="4" fill="#9aa3b0"/>
+    <rect x="104" y="24" width="8" height="18" rx="4" fill="#9aa3b0"/>
+    <!-- grid of days -->
+    <g fill="#efe6dc" stroke-width="1.8">
+      <rect x="36" y="68" width="14" height="12" rx="2"/><rect x="54" y="68" width="14" height="12" rx="2"/><rect x="72" y="68" width="14" height="12" rx="2"/><rect x="90" y="68" width="14" height="12" rx="2"/><rect x="108" y="68" width="14" height="12" rx="2"/>
+      <rect x="36" y="85" width="14" height="12" rx="2"/><rect x="54" y="85" width="14" height="12" rx="2"/><rect x="72" y="85" width="14" height="12" rx="2"/><rect x="108" y="85" width="14" height="12" rx="2"/>
+      <rect x="36" y="102" width="14" height="12" rx="2"/><rect x="54" y="102" width="14" height="12" rx="2"/><rect x="72" y="102" width="14" height="12" rx="2"/><rect x="90" y="102" width="14" height="12" rx="2"/><rect x="108" y="102" width="14" height="12" rx="2"/>
+      <rect x="36" y="119" width="14" height="12" rx="2"/><rect x="54" y="119" width="14" height="12" rx="2"/><rect x="72" y="119" width="14" height="12" rx="2"/>
+    </g>
+    <!-- the special day: circled, with a heart -->
+    <rect x="90" y="85" width="14" height="12" rx="2" fill="#f8edd6" stroke-width="1.8"/>
+    <path d="M97 95 C91 91 92 87 94.5 87 C96 87 97 88 97 89 C97 88 98 87 99.5 87 C102 87 103 91 97 95 Z" fill="#d9534a" stroke-width="1.4"/>
+    <ellipse cx="97" cy="91" rx="13" ry="11" fill="none" stroke="#d9534a" stroke-width="3"/>
+  </g>
+</svg>

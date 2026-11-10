@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 160" role="img" aria-label="hallway, corridor">
+  <!-- 廊下 (hallway): looking down a long corridor with doors on both sides and a window at the far end -->
+  <rect width="160" height="160" rx="28" fill="#e3eaf6"/>
+  <g stroke="#2b2622" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round">
+    <!-- ceiling, walls, floor -->
+    <path d="M18 18 H142 L96 62 H64 Z" fill="#fff"/>
+    <path d="M18 18 L64 62 V98 L18 142 Z" fill="#efe6dc"/>
+    <path d="M142 18 L96 62 V98 L142 142 Z" fill="#efe6dc"/>
+    <path d="M18 142 L64 98 H96 L142 142 Z" fill="#c9a26b"/>
+    <path d="M60 142 L74 98 M100 142 L86 98" fill="none" opacity=".3"/>
+    <!-- far wall with a window -->
+    <rect x="64" y="62" width="32" height="36" fill="#d8d3ca"/>
+    <rect x="72" y="68" width="16" height="16" rx="1.5" fill="#e3eaf6" stroke-width="2"/>
+    <!-- doors on the left -->
+    <path d="M27 53 L44 62 V119 L27 135 Z" fill="#3b5ba5"/>
+    <circle cx="40" cy="92" r="2" fill="#f2c14e" stroke-width="1.5"/>
+    <path d="M50 63 L58 66 V104 L50 112 Z" fill="#3b5ba5"/>
+    <!-- doors on the right -->
+    <path d="M133 53 L116 62 V119 L133 135 Z" fill="#3b5ba5"/>
+    <circle cx="120" cy="92" r="2" fill="#f2c14e" stroke-width="1.5"/>
+    <path d="M110 63 L102 66 V104 L110 112 Z" fill="#3b5ba5"/>
+    <!-- ceiling lights -->
+    <rect x="68" y="25" width="24" height="5" rx="2.5" fill="#f2c14e" stroke-width="2"/>
+    <rect x="72" y="40" width="16" height="4" rx="2" fill="#f2c14e" stroke-width="2"/>
+    <rect x="75" y="51" width="10" height="3" rx="1.5" fill="#f2c14e" stroke-width="1.5"/>
+  </g>
+</svg>

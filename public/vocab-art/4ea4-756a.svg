@@ -1,0 +1,44 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 160" role="img" aria-label="police box">
+  <!-- 交番 (police box): a small police station with a red lamp and a gold star badge, a police officer in front -->
+  <rect width="160" height="160" rx="28" fill="#e3eaf6"/>
+  <circle cx="74" cy="84" r="56" fill="#fff" opacity=".55"/>
+  <ellipse cx="80" cy="141" rx="64" ry="6" fill="#c7d3ea"/>
+  <g stroke="#2b2622" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round">
+    <!-- the little building -->
+    <rect x="20" y="62" width="86" height="76" fill="#fff"/>
+    <path d="M12 66 L63 26 L114 66 Z" fill="#3b5ba5"/>
+    <!-- red lamp -->
+    <circle cx="63" cy="50" r="8" fill="#d9534a"/>
+    <path d="M59 47 Q61 44 64 44" fill="none" stroke="#fff" stroke-width="2"/>
+    <!-- gold star badge -->
+    <path d="M63 70 L66.5 78 L75 78.5 L68.5 84 L70.5 92 L63 87.5 L55.5 92 L57.5 84 L51 78.5 L59.5 78 Z" fill="#f2c14e" stroke-width="2"/>
+    <!-- glass door and window -->
+    <rect x="48" y="98" width="30" height="40" rx="2" fill="#c7d3ea"/>
+    <path d="M63 98 V138" fill="none"/>
+    <rect x="27" y="98" width="15" height="18" rx="2" fill="#c7d3ea" stroke-width="2"/>
+    <!-- police officer -->
+    <g transform="translate(128 140) scale(.62)">
+      <ellipse cx="-8" cy="-3" rx="8" ry="4.5" fill="#2b2622"/>
+      <ellipse cx="8" cy="-3" rx="8" ry="4.5" fill="#2b2622"/>
+      <rect x="-13" y="-40" width="10" height="37" rx="4" fill="#3d3a4a"/>
+      <rect x="3" y="-40" width="10" height="37" rx="4" fill="#3d3a4a"/>
+      <rect x="-28" y="-78" width="10" height="36" rx="5" fill="#3b5ba5"/>
+      <circle cx="-23" cy="-40" r="5.5" fill="#f6d3b3"/>
+      <rect x="18" y="-78" width="10" height="36" rx="5" fill="#3b5ba5"/>
+      <circle cx="23" cy="-40" r="5.5" fill="#f6d3b3"/>
+      <path d="M-20 -38 V-70 Q-20 -81 -9 -81 H9 Q20 -81 20 -70 V-38 Z" fill="#3b5ba5"/>
+      <path d="M-20 -46 H20" fill="none" stroke-width="4"/>
+      <circle cx="10" cy="-66" r="4" fill="#f2c14e"/>
+      <rect x="-5" y="-89" width="10" height="9" fill="#f6d3b3" stroke="none"/>
+      <circle cx="0" cy="-102" r="18" fill="#f6d3b3"/>
+      <path d="M-19 -110 Q-22 -130 0 -131 Q22 -130 19 -110 Z" fill="#3b5ba5"/>
+      <path d="M-20 -110 H20 Q25 -110 25 -105 Q8 -104 -20 -107 Z" fill="#2b2622"/>
+      <circle cx="0" cy="-120" r="4.5" fill="#f2c14e"/>
+      <circle cx="-6" cy="-99" r="2.2" fill="#2b2622" stroke="none"/>
+      <circle cx="6" cy="-99" r="2.2" fill="#2b2622" stroke="none"/>
+      <circle cx="-10" cy="-93" r="3" fill="#f4a3a0" stroke="none" opacity=".7"/>
+      <circle cx="10" cy="-93" r="3" fill="#f4a3a0" stroke="none" opacity=".7"/>
+      <path d="M-6 -91 Q0 -85 6 -91" fill="none"/>
+    </g>
+  </g>
+</svg>

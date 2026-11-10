@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 160" role="img" aria-label="entrance hall, front door (of a house)">
+  <!-- 玄関 (entrance hall): seen from inside, the front door, shoes lined up on the stone floor and the raised wooden step -->
+  <rect width="160" height="160" rx="28" fill="#fbe6e1"/>
+  <g stroke="#2b2622" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round">
+    <!-- wall -->
+    <rect x="22" y="22" width="116" height="86" rx="4" fill="#fff"/>
+    <!-- lamp -->
+    <circle cx="37" cy="44" r="6" fill="#f2c14e"/>
+    <!-- door with frame -->
+    <rect x="52" y="26" width="56" height="82" fill="#9a958b"/>
+    <rect x="58" y="32" width="44" height="76" rx="2" fill="#c9a26b"/>
+    <rect x="67" y="41" width="26" height="18" rx="2" fill="#e3eaf6"/>
+    <path d="M80 41 V59" fill="none" stroke-width="2"/>
+    <rect x="91" y="70" width="6" height="12" rx="2" fill="#f2c14e"/>
+    <!-- stone floor -->
+    <path d="M22 106 H138 L142 126 H18 Z" fill="#d8d3ca"/>
+    <!-- a pair of red shoes and a pair of dark shoes, toes to the door side -->
+    <g fill="#d9534a">
+      <path d="M33 117 V106 Q33 102 37 102 H42 Q46 108 53 109 Q59 110 59 114 V117 Z"/>
+      <rect x="32" y="116" width="28" height="4" rx="2" fill="#fff"/>
+      <path d="M27 121 V110 Q27 106 31 106 H36 Q40 112 47 113 Q53 114 53 118 V121 Z"/>
+      <rect x="26" y="120" width="28" height="4" rx="2" fill="#fff"/>
+    </g>
+    <g fill="#3d3a4a">
+      <path d="M107 117 V106 Q107 102 111 102 H116 Q120 108 127 109 Q133 110 133 114 V117 Z"/>
+      <rect x="106" y="116" width="28" height="4" rx="2" fill="#fff"/>
+      <path d="M101 121 V110 Q101 106 105 106 H110 Q114 112 121 113 Q127 114 127 118 V121 Z"/>
+      <rect x="100" y="120" width="28" height="4" rx="2" fill="#fff"/>
+    </g>
+    <!-- raised wooden step -->
+    <rect x="14" y="126" width="132" height="14" rx="3" fill="#c9a26b"/>
+  </g>
+</svg>

@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 160" role="img" aria-label="nearby, the neighborhood">
+  <!-- 近く (nearby, neighbourhood): my house with a red pin, and close around it inside a dashed ring a park tree and a shop -->
+  <rect width="160" height="160" rx="28" fill="#e1f1e6"/>
+  <g stroke="#2b2622" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round">
+    <!-- the neighbourhood ring -->
+    <ellipse cx="80" cy="114" rx="68" ry="30" fill="#c5e2cf" stroke-dasharray="6 7"/>
+    <!-- park tree -->
+    <path d="M34 120 V100" fill="none" stroke="#2b2622" stroke-width="7"/>
+    <path d="M34 120 V100" fill="none" stroke="#c9a26b" stroke-width="3"/>
+    <circle cx="34" cy="92" r="15" fill="#4f8a5b"/>
+    <!-- shop -->
+    <rect x="112" y="98" width="30" height="24" fill="#efe6dc"/>
+    <path d="M109 92 H145 V100 Q127 106 109 100 Z" fill="#f2c14e"/>
+    <rect x="121" y="108" width="11" height="14" rx="1.5" fill="#c9a26b" stroke-width="2"/>
+    <!-- my house in the middle -->
+    <rect x="62" y="98" width="36" height="32" fill="#fff"/>
+    <path d="M55 100 L80 76 L105 100 Z" fill="#d9534a"/>
+    <rect x="74" y="112" width="12" height="18" rx="1.5" fill="#c9a26b" stroke-width="2"/>
+    <!-- red pin over the house -->
+    <path d="M80 66 Q66 50 66 40 Q66 26 80 26 Q94 26 94 40 Q94 50 80 66 Z" fill="#d9534a"/>
+    <circle cx="80" cy="40" r="5" fill="#fff"/>
+    <!-- short footpaths -->
+    <path d="M52 128 Q46 126 44 120 M108 128 Q114 128 118 124" fill="none" stroke-dasharray="1 5" stroke-width="3"/>
+  </g>
+</svg>

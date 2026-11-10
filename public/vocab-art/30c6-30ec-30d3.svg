@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 160" role="img" aria-label="television, TV">
+  <!-- テレビ (television): a TV set with antennas and knobs, showing a sunny hill on its screen -->
+  <rect width="160" height="160" rx="28" fill="#e3eaf6"/>
+  <circle cx="80" cy="84" r="56" fill="#fff" opacity=".55"/>
+  <ellipse cx="80" cy="138" rx="54" ry="6" fill="#c7d3ea"/>
+  <g stroke="#2b2622" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round">
+    <!-- antennas -->
+    <path d="M80 46 L56 18 M80 46 L106 16" fill="none" stroke="#6f6a60" stroke-width="2.5"/>
+    <circle cx="56" cy="18" r="3.5" fill="#d9534a"/>
+    <circle cx="106" cy="16" r="3.5" fill="#d9534a"/>
+    <path d="M70 46 Q80 34 90 46 Z" fill="#3d3a4a"/>
+    <!-- legs -->
+    <path d="M38 124 L32 136 M122 124 L128 136" fill="none" stroke-width="4.5"/>
+    <!-- cabinet -->
+    <rect x="22" y="44" width="116" height="82" rx="12" fill="#c9a26b"/>
+    <!-- screen -->
+    <rect x="31" y="53" width="80" height="64" rx="10" fill="#e3eaf6"/>
+    <circle cx="94" cy="70" r="7" fill="#f2c14e"/>
+    <path d="M33 104 Q52 86 72 96 Q88 88 109 98 V107 Q109 115 101 115 H41 Q33 115 33 107 Z" fill="#4f8a5b" stroke="none"/>
+    <rect x="31" y="53" width="80" height="64" rx="10" fill="none"/>
+    <path d="M38 62 Q40 58 46 57" fill="none" stroke="#fff" stroke-width="2.5"/>
+    <!-- knobs and speaker -->
+    <circle cx="125" cy="64" r="6" fill="#3d3a4a"/>
+    <circle cx="125" cy="84" r="6" fill="#3d3a4a"/>
+    <path d="M120 98 H130 M120 104 H130 M120 110 H130" fill="none" stroke-width="2"/>
+  </g>
+</svg>

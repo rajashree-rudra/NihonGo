@@ -1,0 +1,42 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 160" role="img" aria-label="bookshelf">
+  <!-- 本棚 (bookshelf): a wooden bookshelf with three shelves full of colourful books -->
+  <rect width="160" height="160" rx="28" fill="#e1f1e6"/>
+  <ellipse cx="80" cy="142" rx="58" ry="5" fill="#c5e2cf"/>
+  <g stroke="#2b2622" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round">
+    <!-- frame -->
+    <rect x="28" y="14" width="104" height="128" rx="4" fill="#c9a26b"/>
+    <rect x="36" y="22" width="88" height="112" fill="#5a4636"/>
+    <!-- top shelf -->
+    <rect x="40" y="28" width="9" height="28" rx="1.5" fill="#d9534a"/>
+    <rect x="49" y="32" width="10" height="24" rx="1.5" fill="#3b5ba5"/>
+    <rect x="59" y="29" width="8" height="27" rx="1.5" fill="#f2c14e"/>
+    <rect x="67" y="34" width="10" height="22" rx="1.5" fill="#4f8a5b"/>
+    <path d="M79 56 L92 32 L100 36 L87 56 Z" fill="#efe6dc"/>
+    <path d="M106 46 H120 L118 56 H108 Z" fill="#efe6dc"/>
+    <path d="M113 46 Q108 38 110 32 Q114 38 113 46 Q116 36 122 34 Q120 42 113 46" fill="#4f8a5b" stroke-width="2"/>
+    <!-- middle shelf -->
+    <rect x="40" y="66" width="10" height="30" rx="1.5" fill="#4f8a5b"/>
+    <rect x="50" y="70" width="8" height="26" rx="1.5" fill="#d9534a"/>
+    <rect x="58" y="64" width="11" height="32" rx="1.5" fill="#3b5ba5"/>
+    <rect x="69" y="70" width="8" height="26" rx="1.5" fill="#efe6dc"/>
+    <rect x="77" y="68" width="10" height="28" rx="1.5" fill="#f2c14e"/>
+    <rect x="94" y="88" width="26" height="8" rx="1.5" fill="#3b5ba5"/>
+    <rect x="96" y="80" width="22" height="8" rx="1.5" fill="#d9534a"/>
+    <rect x="98" y="72" width="18" height="8" rx="1.5" fill="#f2c14e"/>
+    <!-- bottom shelf -->
+    <rect x="40" y="106" width="10" height="28" rx="1.5" fill="#f2c14e"/>
+    <rect x="50" y="104" width="10" height="30" rx="1.5" fill="#3b5ba5"/>
+    <rect x="60" y="108" width="9" height="26" rx="1.5" fill="#d9534a"/>
+    <rect x="69" y="105" width="11" height="29" rx="1.5" fill="#4f8a5b"/>
+    <rect x="80" y="110" width="8" height="24" rx="1.5" fill="#efe6dc"/>
+    <rect x="88" y="106" width="9" height="28" rx="1.5" fill="#d9534a"/>
+    <rect x="97" y="108" width="10" height="26" rx="1.5" fill="#3b5ba5"/>
+    <rect x="107" y="104" width="8" height="30" rx="1.5" fill="#f2c14e"/>
+    <rect x="115" y="107" width="9" height="27" rx="1.5" fill="#4f8a5b"/>
+    <!-- shelves -->
+    <rect x="36" y="56" width="88" height="6" fill="#c9a26b"/>
+    <rect x="36" y="96" width="88" height="6" fill="#c9a26b"/>
+    <!-- spine bands -->
+    <path d="M42 34 H47 M51 38 H57 M61 35 H65 M42 72 H48 M60 70 H67 M79 74 H85 M52 110 H58 M71 111 H78 M99 114 H105" fill="none" stroke="#fff" stroke-width="2" opacity=".7"/>
+  </g>
+</svg>

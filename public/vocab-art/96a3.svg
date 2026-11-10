@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 160" role="img" aria-label="next to, next door">
+  <!-- 隣 (next door): two houses side by side; a red arrow points from the grey house to the coloured one next to it -->
+  <rect width="160" height="160" rx="28" fill="#e1f1e6"/>
+  <circle cx="80" cy="88" r="54" fill="#fff" opacity=".55"/>
+  <ellipse cx="80" cy="134" rx="66" ry="6" fill="#c5e2cf"/>
+  <g stroke="#2b2622" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round">
+    <!-- this house (grey) -->
+    <rect x="22" y="82" width="54" height="52" fill="#efe6dc"/>
+    <path d="M14 84 L49 54 L82 84 Z" fill="#d8d3ca"/>
+    <rect x="28" y="94" width="14" height="14" rx="2" fill="#fff"/>
+    <rect x="52" y="106" width="14" height="28" rx="2" fill="#d8d3ca"/>
+    <!-- the house next door (colour) -->
+    <rect x="84" y="82" width="54" height="52" fill="#fff"/>
+    <path d="M78 84 L111 54 L146 84 Z" fill="#d9534a"/>
+    <rect x="118" y="94" width="14" height="14" rx="2" fill="#e3eaf6"/>
+    <path d="M125 94 V108 M118 101 H132" fill="none" stroke-width="1.8"/>
+    <rect x="92" y="106" width="14" height="28" rx="2" fill="#c9a26b"/>
+    <circle cx="102" cy="121" r="1.6" fill="#2b2622" stroke="none"/>
+    <!-- arrow: from this house to the one next door -->
+    <path d="M50 42 Q80 18 104 38" fill="none" stroke-width="9"/>
+    <path d="M50 42 Q80 18 104 38" fill="none" stroke="#d9534a" stroke-width="4.5"/>
+    <path d="M98 30 L112 46 L94 44 Z" fill="#d9534a"/>
+  </g>
+</svg>

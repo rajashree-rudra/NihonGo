@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 160" role="img" aria-label="hospital">
+  <!-- 病院 (hospital): a white building with a big red cross sign and glass doors -->
+  <rect width="160" height="160" rx="28" fill="#e1f1e6"/>
+  <circle cx="80" cy="84" r="54" fill="#fff" opacity=".55"/>
+  <ellipse cx="80" cy="137" rx="62" ry="6" fill="#c5e2cf"/>
+  <g stroke="#2b2622" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round">
+    <!-- building -->
+    <rect x="22" y="56" width="116" height="80" rx="3" fill="#fff"/>
+    <rect x="18" y="50" width="124" height="9" rx="3" fill="#d8d3ca"/>
+    <!-- windows -->
+    <g fill="#e3eaf6">
+      <rect x="30" y="68" width="16" height="14" rx="2"/>
+      <rect x="114" y="68" width="16" height="14" rx="2"/>
+      <rect x="30" y="92" width="16" height="14" rx="2"/>
+      <rect x="114" y="92" width="16" height="14" rx="2"/>
+      <rect x="52" y="68" width="16" height="14" rx="2"/>
+      <rect x="92" y="68" width="16" height="14" rx="2"/>
+    </g>
+    <!-- entrance with a little roof -->
+    <rect x="58" y="104" width="44" height="32" fill="#e3eaf6"/>
+    <path d="M80 104 V136" fill="none"/>
+    <rect x="52" y="96" width="56" height="9" rx="3" fill="#3b5ba5"/>
+    <!-- red cross sign on the roof -->
+    <rect x="58" y="16" width="44" height="44" rx="10" fill="#fff"/>
+    <path d="M74 24 H86 V32 H94 V44 H86 V52 H74 V44 H66 V32 H74 Z" fill="#d9534a"/>
+    <path d="M80 60 V56" fill="none"/>
+  </g>
+</svg>

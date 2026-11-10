@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 160" role="img" aria-label="store, shop">
+  <!-- 店 (store, shop): a shop front with a shopping-bag sign, a striped awning, a shop window with bread, and a door -->
+  <rect width="160" height="160" rx="28" fill="#fbe6e1"/>
+  <circle cx="80" cy="84" r="54" fill="#fff" opacity=".55"/>
+  <ellipse cx="80" cy="137" rx="62" ry="6" fill="#f1cfc7"/>
+  <g stroke="#2b2622" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round">
+    <!-- building -->
+    <rect x="26" y="44" width="108" height="92" fill="#fff"/>
+    <!-- sign with a shopping bag -->
+    <rect x="40" y="20" width="80" height="28" rx="6" fill="#3b5ba5"/>
+    <path d="M75 30 V27 Q75 23 80 23 Q85 23 85 27 V30" fill="none" stroke="#fff" stroke-width="2.5"/>
+    <rect x="71" y="29" width="18" height="15" rx="2" fill="#fff"/>
+    <!-- striped awning -->
+    <path d="M22 52 H36.5 V64 A7.25 7.25 0 0 1 22 64 Z" fill="#d9534a"/>
+    <path d="M36.5 52 H51 V64 A7.25 7.25 0 0 1 36.5 64 Z" fill="#fff"/>
+    <path d="M51 52 H65.5 V64 A7.25 7.25 0 0 1 51 64 Z" fill="#d9534a"/>
+    <path d="M65.5 52 H80 V64 A7.25 7.25 0 0 1 65.5 64 Z" fill="#fff"/>
+    <path d="M80 52 H94.5 V64 A7.25 7.25 0 0 1 80 64 Z" fill="#d9534a"/>
+    <path d="M94.5 52 H109 V64 A7.25 7.25 0 0 1 94.5 64 Z" fill="#fff"/>
+    <path d="M109 52 H123.5 V64 A7.25 7.25 0 0 1 109 64 Z" fill="#d9534a"/>
+    <path d="M123.5 52 H138 V64 A7.25 7.25 0 0 1 123.5 64 Z" fill="#fff"/>
+    <!-- shop window with bread -->
+    <rect x="34" y="80" width="56" height="44" rx="2" fill="#e3eaf6"/>
+    <path d="M34 112 H90" fill="none"/>
+    <path d="M40 112 Q40 98 52 98 Q64 98 64 112 Z" fill="#c9a26b"/>
+    <path d="M47 104 L50 101 M53 104 L56 101" fill="none" stroke-width="1.8"/>
+    <rect x="68" y="100" width="16" height="12" rx="6" fill="#f2c14e"/>
+    <!-- door -->
+    <rect x="100" y="80" width="26" height="56" rx="2" fill="#e3eaf6"/>
+    <circle cx="105" cy="110" r="2" fill="#2b2622" stroke="none"/>
+  </g>
+</svg>

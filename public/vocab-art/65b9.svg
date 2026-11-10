@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 160" role="img" aria-label="person (polite)">
+  <!-- 方 (person, polite): the same person as 人, standing neatly, with the gold sparkles used for polite words -->
+  <rect width="160" height="160" rx="28" fill="#e1f1e6"/>
+  <circle cx="72" cy="86" r="52" fill="#fff" opacity=".55"/>
+  <ellipse cx="78" cy="141" rx="46" ry="6" fill="#c5e2cf"/>
+  <g stroke="#2b2622" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round">
+    <!-- polite cue: gold sparkles -->
+    <path d="M112 14 Q114 26 126 28 Q114 30 112 42 Q110 30 98 28 Q110 26 112 14 Z" fill="#f2c14e"/>
+    <path d="M136 36 Q137 43 144 44 Q137 45 136 52 Q135 45 128 44 Q135 43 136 36 Z" fill="#f2c14e"/>
+    <g transform="translate(72 140)">
+      <ellipse cx="-8" cy="-3" rx="8" ry="4.5" fill="#2b2622"/>
+      <ellipse cx="8" cy="-3" rx="8" ry="4.5" fill="#2b2622"/>
+      <rect x="-13" y="-40" width="10" height="37" rx="4" fill="#3d3a4a"/>
+      <rect x="3" y="-40" width="10" height="37" rx="4" fill="#3d3a4a"/>
+      <rect x="-28" y="-78" width="10" height="36" rx="5" fill="#f2c14e"/>
+      <circle cx="-23" cy="-40" r="5.5" fill="#f6d3b3"/>
+      <rect x="18" y="-78" width="10" height="36" rx="5" fill="#f2c14e"/>
+      <circle cx="23" cy="-40" r="5.5" fill="#f6d3b3"/>
+      <path d="M-20 -38 V-70 Q-20 -81 -9 -81 H9 Q20 -81 20 -70 V-38 Z" fill="#f2c14e"/>
+      <path d="M-7 -81 Q0 -74 7 -81" fill="none"/>
+      <rect x="-5" y="-89" width="10" height="9" fill="#f6d3b3" stroke="none"/>
+      <circle cx="0" cy="-102" r="18" fill="#f6d3b3"/>
+      <path d="M-18 -103 Q-19 -124 0 -124 Q20 -124 18 -102 Q16 -112 6 -113 Q-6 -114 -12 -108 Q-15 -106 -18 -103 Z" fill="#5a4636"/>
+      <circle cx="-6" cy="-101" r="2.2" fill="#2b2622" stroke="none"/>
+      <circle cx="6" cy="-101" r="2.2" fill="#2b2622" stroke="none"/>
+      <circle cx="-10" cy="-95" r="3" fill="#f4a3a0" stroke="none" opacity=".7"/>
+      <circle cx="10" cy="-95" r="3" fill="#f4a3a0" stroke="none" opacity=".7"/>
+      <path d="M-6 -93 Q0 -87 6 -93" fill="none"/>
+    </g>
+  </g>
+</svg>

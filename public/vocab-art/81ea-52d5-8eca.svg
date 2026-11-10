@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 160" role="img" aria-label="car, automobile">
+  <!-- 自動車 (automobile): the same car, in blue and shiny, with a gear sign for the company that makes cars -->
+  <rect width="160" height="160" rx="28" fill="#e3eaf6"/>
+  <circle cx="84" cy="84" r="52" fill="#fff" opacity=".55"/>
+  <ellipse cx="80" cy="122" rx="64" ry="6" fill="#c7d3ea"/>
+  <!-- gear sign -->
+  <g transform="translate(30 30)">
+    <rect x="-13" y="-13" width="26" height="26" rx="7" fill="#fff" stroke="#2b2622" stroke-width="2.5"/>
+    <circle r="7.5" fill="none" stroke="#6f6a60" stroke-width="5" stroke-dasharray="3 2.89"/>
+    <circle r="6" fill="#9aa3b0" stroke="#2b2622" stroke-width="1.8"/>
+    <circle r="2" fill="#fff" stroke="#2b2622" stroke-width="1.5"/>
+  </g>
+  <g stroke="#2b2622" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round" transform="translate(0 -6)">
+    <!-- body -->
+    <path d="M18 110 V94 Q18 84 28 83 L48 81 L61 62 Q64 58 69 58 H100 Q105 58 108 62 L122 81 L134 83 Q142 85 142 96 V110 Q142 114 138 114 H22 Q18 114 18 110 Z" fill="#3b5ba5"/>
+    <!-- windows -->
+    <path d="M55 80 L66 64 H83 V80 Z" fill="#e3eaf6"/>
+    <path d="M88 64 H101 Q104 64 106 67 L115 80 H88 Z" fill="#e3eaf6"/>
+    <path d="M70 76 L76 68 M94 77 L101 68" fill="none" stroke="#fff" stroke-width="2.5"/>
+    <!-- shine, door, handle and lights -->
+    <path d="M30 90 H60" fill="none" stroke="#fff" stroke-width="2.5" opacity=".6"/>
+    <path d="M85 82 V110" fill="none" opacity=".4"/>
+    <path d="M90 90 H97" fill="none"/>
+    <path d="M136 90 Q141 90 141 95 H136 Z" fill="#f2c14e" stroke-width="2"/>
+    <rect x="18" y="90" width="5" height="7" rx="1" fill="#d9534a" stroke-width="2"/>
+    <!-- wheels -->
+    <circle cx="49" cy="114" r="13" fill="#3d3a4a"/>
+    <circle cx="49" cy="114" r="5" fill="#9aa3b0"/>
+    <circle cx="112" cy="114" r="13" fill="#3d3a4a"/>
+    <circle cx="112" cy="114" r="5" fill="#9aa3b0"/>
+  </g>
+</svg>

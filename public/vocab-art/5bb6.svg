@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 160" role="img" aria-label="house, home">
+  <!-- 家 (house, home): a simple house with a red roof, chimney, door and two windows -->
+  <rect width="160" height="160" rx="28" fill="#e1f1e6"/>
+  <circle cx="80" cy="86" r="54" fill="#fff" opacity=".55"/>
+  <ellipse cx="80" cy="140" rx="60" ry="6" fill="#c5e2cf"/>
+  <g stroke="#2b2622" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round">
+    <!-- chimney -->
+    <rect x="102" y="42" width="13" height="30" rx="2" fill="#c9a26b"/>
+    <rect x="99" y="37" width="19" height="7" rx="2" fill="#9a958b"/>
+    <!-- walls -->
+    <rect x="38" y="76" width="84" height="63" rx="2" fill="#fff"/>
+    <!-- roof -->
+    <path d="M24 84 L80 33 L136 84 Z" fill="#d9534a"/>
+    <circle cx="80" cy="66" r="7" fill="#e3eaf6"/>
+    <path d="M80 59 V73 M73 66 H87" fill="none" stroke-width="1.8"/>
+    <!-- windows -->
+    <rect x="46" y="96" width="17" height="17" rx="2" fill="#e3eaf6"/>
+    <path d="M54.5 96 V113 M46 104.5 H63" fill="none" stroke-width="2"/>
+    <rect x="97" y="96" width="17" height="17" rx="2" fill="#e3eaf6"/>
+    <path d="M105.5 96 V113 M97 104.5 H114" fill="none" stroke-width="2"/>
+    <!-- door -->
+    <rect x="69" y="106" width="22" height="33" rx="3" fill="#c9a26b"/>
+    <circle cx="85.5" cy="123" r="2" fill="#2b2622" stroke="none"/>
+    <!-- bushes -->
+    <path d="M30 139 Q26 129 34 127 Q36 120 43 124 Q50 124 48 133 Q50 139 46 139 Z" fill="#4f8a5b"/>
+    <path d="M130 139 Q134 129 126 127 Q124 120 117 124 Q110 124 112 133 Q110 139 114 139 Z" fill="#4f8a5b"/>
+  </g>
+</svg>

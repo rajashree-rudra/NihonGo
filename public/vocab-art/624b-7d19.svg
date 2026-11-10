@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 160" role="img" aria-label="letter">
+  <!-- 手紙 (letter): a handwritten letter with a heart, sticking out of an open envelope, and a pen -->
+  <rect width="160" height="160" rx="28" fill="#f8edd6"/>
+  <circle cx="80" cy="80" r="56" fill="#fff" opacity=".55"/>
+  <ellipse cx="80" cy="141" rx="54" ry="6" fill="#ecdcb6"/>
+  <g stroke="#2b2622" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round">
+    <!-- open envelope: inside and the opened flap -->
+    <path d="M28 84 L80 56 L132 84 Z" fill="#d8d3ca"/>
+    <rect x="28" y="84" width="104" height="54" rx="3" fill="#d8d3ca"/>
+    <!-- the letter -->
+    <g transform="rotate(-5 80 70)">
+      <rect x="44" y="20" width="72" height="100" rx="3" fill="#fff"/>
+      <path d="M54 34 Q60 30 66 34 T78 34 T90 34 T104 34" fill="none" stroke="#3b5ba5" stroke-width="2.2"/>
+      <path d="M54 46 Q60 42 66 46 T78 46 T90 46 T106 46" fill="none" stroke="#3b5ba5" stroke-width="2.2"/>
+      <path d="M54 58 Q60 54 66 58 T78 58 T92 58" fill="none" stroke="#3b5ba5" stroke-width="2.2"/>
+      <path d="M80 82 C80 76 72 73 70 79 C68 84 76 89 80 93 C84 89 92 84 90 79 C88 73 80 76 80 82 Z" fill="#d9534a" stroke-width="2"/>
+    </g>
+    <!-- front pocket of the envelope -->
+    <path d="M28 88 L80 114 L132 88 V135 Q132 138 129 138 H31 Q28 138 28 135 Z" fill="#fff"/>
+    <path d="M28 138 L66 106 M132 138 L94 106" fill="none" opacity=".35"/>
+    <!-- pen -->
+    <g transform="translate(132 46) rotate(30)">
+      <rect x="-5" y="-26" width="10" height="44" rx="3" fill="#d9534a"/>
+      <path d="M-5 18 L0 30 L5 18 Z" fill="#efe6dc"/>
+      <path d="M-1.5 26.5 L0 30 L1.5 26.5 Z" fill="#2b2622" stroke-width="1.5"/>
+      <rect x="-5" y="-26" width="10" height="9" rx="3" fill="#3d3a4a"/>
+    </g>
+  </g>
+</svg>

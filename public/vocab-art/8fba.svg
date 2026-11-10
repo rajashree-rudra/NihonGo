@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 160" role="img" aria-label="area, around here">
+  <!-- 辺 (area, around here): a map with a red "you are here" pin and a dashed circle around the area near it -->
+  <rect width="160" height="160" rx="28" fill="#f8edd6"/>
+  <ellipse cx="80" cy="138" rx="58" ry="5" fill="#ecdcb6"/>
+  <g stroke="#2b2622" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round">
+    <!-- folded map -->
+    <path d="M20 36 L60 28 L60 124 L20 132 Z" fill="#fff"/>
+    <path d="M60 28 L100 36 L100 132 L60 124 Z" fill="#efe6dc"/>
+    <path d="M100 36 L140 28 L140 124 L100 132 Z" fill="#fff"/>
+    <!-- roads, a park and a river on the map -->
+    <path d="M22 98 L138 70 M78 32 L84 128" fill="none" stroke="#d8d3ca" stroke-width="7" opacity=".9"/>
+    <path d="M114 36 Q106 60 124 80 Q136 94 128 124" fill="none" stroke="#3b5ba5" stroke-width="2.5" opacity=".7"/>
+    <circle cx="38" cy="60" r="8" fill="#4f8a5b" opacity=".7" stroke="none"/>
+    <circle cx="44" cy="112" r="5" fill="#4f8a5b" opacity=".7" stroke="none"/>
+    <!-- the area around here -->
+    <circle cx="80" cy="82" r="32" fill="#f2c14e" opacity=".3" stroke="none"/>
+    <circle cx="80" cy="82" r="32" fill="none" stroke="#d9534a" stroke-width="3" stroke-dasharray="7 6"/>
+    <!-- you are here -->
+    <ellipse cx="80" cy="90" rx="6" ry="2.5" fill="#2b2622" opacity=".25" stroke="none"/>
+    <path d="M80 90 C72 80 68 74 68 67 A12 12 0 1 1 92 67 C92 74 88 80 80 90 Z" fill="#d9534a"/>
+    <circle cx="80" cy="66" r="4.5" fill="#fff"/>
+  </g>
+</svg>

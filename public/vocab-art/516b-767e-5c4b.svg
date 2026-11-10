@@ -1,0 +1,40 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 160" role="img" aria-label="greengrocer, vegetable shop">
+  <!-- 八百屋 (greengrocer): the same small Japanese shop, with a tomato on the sign and crates of vegetables out front -->
+  <rect width="160" height="160" rx="28" fill="#e1f1e6"/>
+  <circle cx="80" cy="84" r="54" fill="#fff" opacity=".55"/>
+  <ellipse cx="80" cy="137" rx="62" ry="6" fill="#c5e2cf"/>
+  <g stroke="#2b2622" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round">
+    <!-- walls and dark shop opening -->
+    <rect x="24" y="52" width="112" height="84" fill="#efe6dc"/>
+    <rect x="38" y="58" width="84" height="78" fill="#5a4636"/>
+    <!-- tiled roof -->
+    <path d="M12 58 L30 40 H130 L148 58 Z" fill="#6f6a60"/>
+    <path d="M40 41 L32 57 M60 41 L56 57 M80 41 V57 M100 41 L104 57 M120 41 L128 57" fill="none" stroke-width="1.8" opacity=".6"/>
+    <!-- wooden sign showing a tomato -->
+    <rect x="50" y="14" width="60" height="28" rx="3" fill="#c9a26b"/>
+    <circle cx="80" cy="29" r="9" fill="#d9534a"/>
+    <path d="M74 21 L80 24 L86 21 L83 26 H77 Z" fill="#4f8a5b" stroke-width="1.8"/>
+    <!-- noren curtain -->
+    <g fill="#4f8a5b">
+      <rect x="40" y="58" width="26" height="24"/>
+      <rect x="67" y="58" width="26" height="24"/>
+      <rect x="94" y="58" width="26" height="24"/>
+    </g>
+    <path d="M38 58 H122" fill="none" stroke-width="3.5"/>
+    <!-- vegetables in crates -->
+    <circle cx="38" cy="102" r="7" fill="#d9534a"/>
+    <circle cx="51" cy="99" r="7" fill="#d9534a"/>
+    <circle cx="64" cy="102" r="7" fill="#d9534a"/>
+    <circle cx="96" cy="98" r="12" fill="#4f8a5b"/>
+    <path d="M90 92 Q96 100 102 92 M96 98 V108" fill="none" stroke-width="1.8" opacity=".6"/>
+    <path d="M110 106 Q108 92 120 88 Q128 86 128 94 Q128 104 118 108 Z" fill="#3d3a4a"/>
+    <path d="M120 88 L126 82 L128 90 Z" fill="#4f8a5b" stroke-width="1.8"/>
+    <rect x="28" y="104" width="46" height="28" rx="2" fill="#c9a26b"/>
+    <rect x="86" y="104" width="46" height="28" rx="2" fill="#c9a26b"/>
+    <path d="M28 118 H74 M86 118 H132" fill="none" stroke-width="1.8" opacity=".5"/>
+    <rect x="30" y="132" width="6" height="4" fill="#c9a26b"/>
+    <rect x="66" y="132" width="6" height="4" fill="#c9a26b"/>
+    <rect x="88" y="132" width="6" height="4" fill="#c9a26b"/>
+    <rect x="124" y="132" width="6" height="4" fill="#c9a26b"/>
+  </g>
+</svg>

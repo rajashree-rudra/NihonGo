@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 160" role="img" aria-label="laundry, washing (to do the laundry)">
+  <!-- 洗濯 (laundry): a washing machine with a red shirt tumbling in soapy water, bubbles floating out -->
+  <rect width="160" height="160" rx="28" fill="#e1f1e6"/>
+  <circle cx="80" cy="86" r="54" fill="#fff" opacity=".55"/>
+  <ellipse cx="80" cy="141" rx="52" ry="5" fill="#c5e2cf"/>
+  <g stroke="#2b2622" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round">
+    <!-- feet -->
+    <rect x="40" y="132" width="12" height="8" rx="2" fill="#3d3a4a"/>
+    <rect x="108" y="132" width="12" height="8" rx="2" fill="#3d3a4a"/>
+    <!-- machine -->
+    <rect x="32" y="30" width="96" height="104" rx="10" fill="#fff"/>
+    <path d="M32 50 H128" fill="none"/>
+    <rect x="42" y="37" width="24" height="7" rx="2" fill="#e3eaf6" stroke-width="2"/>
+    <circle cx="104" cy="40" r="5" fill="#3b5ba5" stroke-width="2"/>
+    <circle cx="117" cy="40" r="3" fill="#d9534a" stroke-width="1.8"/>
+    <!-- door -->
+    <circle cx="80" cy="92" r="34" fill="#9aa3b0"/>
+    <circle cx="80" cy="92" r="25" fill="#e3eaf6"/>
+    <path d="M70 80 L76 77 Q80 80 84 77 L90 80 L93 87 L88 88 V100 H72 V88 L67 87 Z" fill="#d9534a" stroke-width="2" transform="rotate(-18 80 88)"/>
+    <path d="M55 94 Q61 89 67 94 Q73 99 80 94 Q87 89 93 94 Q99 99 105 94 A25 25 0 0 1 55 94 Z" fill="#3b5ba5" fill-opacity=".45" stroke-width="2"/>
+    <path d="M64 76 Q70 70 78 69" fill="none" stroke="#fff" stroke-width="3"/>
+    <!-- bubbles -->
+    <g fill="#fff">
+      <circle cx="122" cy="20" r="7"/>
+      <circle cx="138" cy="34" r="5"/>
+      <circle cx="108" cy="14" r="4"/>
+      <circle cx="26" cy="26" r="5"/>
+    </g>
+  </g>
+</svg>

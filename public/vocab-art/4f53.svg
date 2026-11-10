@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 160" role="img" aria-label="body; health">
+  <!-- 体 (body; health): a fit, happy person stretching arms and legs wide in a star jump, with a red heart for good health -->
+  <rect width="160" height="160" rx="28" fill="#e1f1e6"/>
+  <circle cx="76" cy="84" r="56" fill="#fff" opacity=".55"/>
+  <ellipse cx="76" cy="145" rx="46" ry="6" fill="#c5e2cf"/>
+  <g stroke="#2b2622" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round">
+    <!-- heart -->
+    <path d="M134 50 C120 41 120 29 127 27 C131 26 134 29 134 32 C134 29 137 26 141 27 C148 29 148 41 134 50 Z" fill="#d9534a"/>
+    <g transform="translate(76 144)">
+      <!-- legs apart -->
+      <rect x="-13" y="-42" width="10" height="38" rx="4" fill="#3d3a4a" transform="rotate(20 -8 -40)"/>
+      <rect x="3" y="-42" width="10" height="38" rx="4" fill="#3d3a4a" transform="rotate(-20 8 -40)"/>
+      <ellipse cx="-24" cy="-4" rx="8" ry="4.5" fill="#2b2622"/>
+      <ellipse cx="24" cy="-4" rx="8" ry="4.5" fill="#2b2622"/>
+      <!-- arms up in a V -->
+      <path d="M-15 -74 L-30 -96 L-40 -118" fill="none" stroke-width="12"/>
+      <path d="M-15 -74 L-30 -96 L-40 -118" fill="none" stroke="#4f8a5b" stroke-width="7"/>
+      <path d="M15 -74 L30 -96 L40 -118" fill="none" stroke-width="12"/>
+      <path d="M15 -74 L30 -96 L40 -118" fill="none" stroke="#4f8a5b" stroke-width="7"/>
+      <circle cx="-41" cy="-121" r="5.5" fill="#f6d3b3"/>
+      <circle cx="41" cy="-121" r="5.5" fill="#f6d3b3"/>
+      <path d="M-20 -38 V-70 Q-20 -81 -9 -81 H9 Q20 -81 20 -70 V-38 Z" fill="#4f8a5b"/>
+      <path d="M-7 -81 L0 -73 L7 -81" fill="none" stroke="#fff"/>
+      <rect x="-5" y="-89" width="10" height="9" fill="#f6d3b3" stroke="none"/>
+      <circle cx="0" cy="-102" r="18" fill="#f6d3b3"/>
+      <path d="M-18 -103 Q-19 -124 0 -124 Q20 -124 18 -102 Q14 -111 4 -112 Q-2 -108 -8 -111 Q-14 -109 -18 -103 Z" fill="#2b2622"/>
+      <circle cx="-6" cy="-101" r="2.2" fill="#2b2622" stroke="none"/>
+      <circle cx="6" cy="-101" r="2.2" fill="#2b2622" stroke="none"/>
+      <circle cx="-10" cy="-95" r="3" fill="#f4a3a0" stroke="none" opacity=".7"/>
+      <circle cx="10" cy="-95" r="3" fill="#f4a3a0" stroke="none" opacity=".7"/>
+      <path d="M-7 -94 Q0 -84 7 -94 Z" fill="#d9534a"/>
+    </g>
+    <!-- movement lines -->
+    <path d="M16 30 Q12 38 16 46 M136 76 Q140 84 136 92" fill="none" opacity=".45"/>
+  </g>
+</svg>

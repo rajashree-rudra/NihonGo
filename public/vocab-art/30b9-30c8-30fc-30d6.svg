@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 160" role="img" aria-label="heater, stove (for heating)">
+  <!-- ストーブ (heater): a room heater with a glowing front grille, warm air rising -->
+  <rect width="160" height="160" rx="28" fill="#e3eaf6"/>
+  <circle cx="80" cy="86" r="54" fill="#fff" opacity=".55"/>
+  <ellipse cx="80" cy="140" rx="54" ry="6" fill="#c7d3ea"/>
+  <g stroke="#2b2622" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round">
+    <!-- warm air -->
+    <path d="M56 50 Q50 42 56 34 Q62 26 56 18 M80 48 Q74 40 80 32 Q86 24 80 16 M104 50 Q98 42 104 34 Q110 26 104 18" fill="none" stroke="#d9534a" stroke-width="3.5"/>
+    <!-- feet -->
+    <rect x="40" y="128" width="14" height="10" rx="3" fill="#3d3a4a"/>
+    <rect x="106" y="128" width="14" height="10" rx="3" fill="#3d3a4a"/>
+    <!-- body -->
+    <rect x="28" y="60" width="104" height="72" rx="10" fill="#efe6dc"/>
+    <rect x="28" y="60" width="104" height="12" rx="6" fill="#d8d3ca"/>
+    <!-- glowing grille -->
+    <rect x="40" y="80" width="64" height="42" rx="5" fill="#f2c14e"/>
+    <path d="M46 90 H98 M46 101 H98 M46 112 H98" fill="none" stroke="#d9534a" stroke-width="4"/>
+    <path d="M40 80 H104 V122 H40 Z M56 80 V122 M72 80 V122 M88 80 V122" fill="none" stroke-width="2"/>
+    <!-- dial -->
+    <circle cx="118" cy="92" r="6" fill="#3b5ba5"/>
+    <circle cx="118" cy="110" r="3" fill="#d9534a"/>
+  </g>
+</svg>

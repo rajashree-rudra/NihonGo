@@ -1,0 +1,34 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 160" role="img" aria-label="grandfather; old man">
+  <!-- おじいさん (grandfather / old man): white hair and moustache, a cardigan, leaning on a wooden cane -->
+  <rect width="160" height="160" rx="28" fill="#e3eaf6"/>
+  <circle cx="78" cy="86" r="52" fill="#fff" opacity=".55"/>
+  <ellipse cx="82" cy="141" rx="46" ry="6" fill="#c7d3ea"/>
+  <g stroke="#2b2622" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round" transform="translate(76 140)">
+    <ellipse cx="-8" cy="-3" rx="8" ry="4.5" fill="#2b2622"/>
+    <ellipse cx="8" cy="-3" rx="8" ry="4.5" fill="#2b2622"/>
+    <rect x="-13" y="-40" width="10" height="37" rx="4" fill="#3d3a4a"/>
+    <rect x="3" y="-40" width="10" height="37" rx="4" fill="#3d3a4a"/>
+    <rect x="-28" y="-78" width="10" height="36" rx="5" fill="#c9a26b"/>
+    <circle cx="-23" cy="-40" r="5.5" fill="#f6d3b3"/>
+    <rect x="18" y="-78" width="10" height="34" rx="5" fill="#c9a26b"/>
+    <path d="M-20 -38 V-70 Q-20 -81 -9 -81 H9 Q20 -81 20 -70 V-38 Z" fill="#c9a26b"/>
+    <path d="M-8 -81 L0 -66 L8 -81 Z" fill="#fff"/>
+    <circle cx="0" cy="-57" r="1.8" fill="#2b2622" stroke="none"/>
+    <circle cx="0" cy="-47" r="1.8" fill="#2b2622" stroke="none"/>
+    <!-- cane -->
+    <path d="M33 -3 V-40 Q33 -48 25 -46" fill="none" stroke-width="8"/>
+    <path d="M33 -3 V-40 Q33 -48 25 -46" fill="none" stroke="#5a4636" stroke-width="3.5"/>
+    <circle cx="25" cy="-44" r="5.5" fill="#f6d3b3"/>
+    <rect x="-5" y="-89" width="10" height="9" fill="#f6d3b3" stroke="none"/>
+    <circle cx="0" cy="-102" r="18" fill="#f6d3b3"/>
+    <!-- white hair -->
+    <path d="M-18 -100 Q-20 -124 0 -124 Q20 -124 18 -100 Q16 -108 12 -110 Q6 -106 0 -110 Q-6 -106 -12 -110 Q-16 -108 -18 -100 Z" fill="#fff"/>
+    <!-- smiling eyes, white brows and moustache -->
+    <path d="M-9 -100 Q-6 -103 -3 -100 M3 -100 Q6 -103 9 -100" fill="none"/>
+    <path d="M-10 -106 H-3 M3 -106 H10" fill="none" stroke-width="2"/>
+    <circle cx="-11" cy="-95" r="3" fill="#f4a3a0" stroke="none" opacity=".7"/>
+    <circle cx="11" cy="-95" r="3" fill="#f4a3a0" stroke="none" opacity=".7"/>
+    <path d="M-9 -91 Q-4 -97 0 -94 Q4 -97 9 -91 Q4 -89 0 -91 Q-4 -89 -9 -91 Z" fill="#fff" stroke-width="2"/>
+    <path d="M-3 -87 Q0 -85 3 -87" fill="none" stroke-width="2"/>
+  </g>
+</svg>

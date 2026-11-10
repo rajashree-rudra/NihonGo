@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 160" role="img" aria-label="near, beside">
+  <!-- そば (near, beside): a little bank (in colour) standing right beside the big grey station -->
+  <rect width="160" height="160" rx="28" fill="#f8edd6"/>
+  <circle cx="110" cy="96" r="48" fill="#fff" opacity=".7"/>
+  <ellipse cx="82" cy="141" rx="66" ry="6" fill="#ecdcb6"/>
+  <g stroke="#2b2622" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round">
+    <!-- station (grey): clock tower and hall with arched doors -->
+    <rect x="34" y="26" width="28" height="40" fill="#efe6dc"/>
+    <path d="M30 28 L48 12 L66 28 Z" fill="#d8d3ca"/>
+    <circle cx="48" cy="44" r="9" fill="#fff"/>
+    <path d="M48 44 V38 M48 44 H52" fill="none" stroke-width="2"/>
+    <rect x="12" y="64" width="72" height="74" fill="#efe6dc"/>
+    <rect x="8" y="58" width="80" height="9" rx="3" fill="#d8d3ca"/>
+    <path d="M20 138 V104 Q20 94 30 94 Q40 94 40 104 V138 Z" fill="#9a958b"/>
+    <path d="M56 138 V104 Q56 94 66 94 Q76 94 76 104 V138 Z" fill="#9a958b"/>
+    <rect x="18" y="74" width="60" height="10" rx="2" fill="#d8d3ca"/>
+    <!-- bank (colour), right beside it -->
+    <g transform="translate(73 62) scale(.55)" stroke-width="4.5">
+      <rect x="20" y="129" width="120" height="9" rx="2" fill="#d8d3ca"/>
+      <rect x="27" y="121" width="106" height="9" rx="2" fill="#efe6dc"/>
+      <rect x="33" y="70" width="94" height="51" fill="#efe6dc"/>
+      <path d="M69 121 V98 Q69 90 80 90 Q91 90 91 98 V121 Z" fill="#3b5ba5"/>
+      <rect x="36" y="74" width="11" height="47" fill="#fff"/>
+      <rect x="53" y="74" width="11" height="47" fill="#fff"/>
+      <rect x="96" y="74" width="11" height="47" fill="#fff"/>
+      <rect x="113" y="74" width="11" height="47" fill="#fff"/>
+      <rect x="26" y="64" width="108" height="10" rx="2" fill="#d8d3ca"/>
+      <path d="M20 64 L80 20 L140 64 Z" fill="#fff"/>
+      <circle cx="80" cy="47" r="13" fill="#f2c14e"/>
+      <circle cx="80" cy="47" r="7.5" fill="none" stroke-width="3.6"/>
+    </g>
+  </g>
+</svg>

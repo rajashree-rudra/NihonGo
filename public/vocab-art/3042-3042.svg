@@ -1,0 +1,40 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 160" role="img" aria-label="ah, oh">
+  <!-- ああ (ah, oh): a person going "oh!" with a round mouth and a finger up as a light bulb switches on -->
+  <rect width="160" height="160" rx="28" fill="#e3eaf6"/>
+  <circle cx="72" cy="88" r="52" fill="#fff" opacity=".55"/>
+  <ellipse cx="72" cy="145" rx="38" ry="6" fill="#c7d3ea"/>
+  <g stroke="#2b2622" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round">
+    <!-- light bulb with rays -->
+    <g transform="translate(118 36)">
+      <path d="M-20 -6 H-26 M20 -6 H26 M-15 -21 L-19 -25 M15 -21 L19 -25 M0 -26 V-31" fill="none" stroke="#f2c14e" stroke-width="3"/>
+      <path d="M-6 12 Q-6 6 -10 2 Q-14 -2 -14 -7 Q-14 -20 0 -20 Q14 -20 14 -7 Q14 -2 10 2 Q6 6 6 12 Z" fill="#f2c14e"/>
+      <rect x="-6" y="12" width="12" height="8" rx="2" fill="#9aa3b0"/>
+      <path d="M-6 16 H6" fill="none" stroke-width="1.8"/>
+      <path d="M-5 -10 Q-4 -15 1 -16" fill="none" stroke="#fff" stroke-width="2.5"/>
+    </g>
+    <g transform="translate(72 144)">
+      <ellipse cx="-8" cy="-3" rx="8" ry="4.5" fill="#2b2622"/>
+      <ellipse cx="8" cy="-3" rx="8" ry="4.5" fill="#2b2622"/>
+      <rect x="-13" y="-40" width="10" height="37" rx="4" fill="#3d3a4a"/>
+      <rect x="3" y="-40" width="10" height="37" rx="4" fill="#3d3a4a"/>
+      <rect x="-28" y="-78" width="10" height="36" rx="5" fill="#3b5ba5"/>
+      <circle cx="-23" cy="-40" r="5.5" fill="#f6d3b3"/>
+      <path d="M-20 -38 V-70 Q-20 -81 -9 -81 H9 Q20 -81 20 -70 V-38 Z" fill="#3b5ba5"/>
+      <path d="M-7 -81 L0 -73 L7 -81" fill="none" stroke="#fff"/>
+      <!-- right arm raised, finger up -->
+      <path d="M15 -74 L32 -60 L34 -96" fill="none" stroke-width="12"/>
+      <path d="M15 -74 L32 -60 L34 -96" fill="none" stroke="#3b5ba5" stroke-width="7"/>
+      <rect x="31.5" y="-114" width="5" height="12" rx="2.5" fill="#f6d3b3"/>
+      <circle cx="34" cy="-99" r="5.5" fill="#f6d3b3"/>
+      <rect x="-5" y="-89" width="10" height="9" fill="#f6d3b3" stroke="none"/>
+      <circle cx="0" cy="-102" r="18" fill="#f6d3b3"/>
+      <path d="M-18 -103 Q-19 -124 0 -124 Q20 -124 18 -102 Q14 -111 4 -112 Q-2 -108 -8 -111 Q-14 -109 -18 -103 Z" fill="#2b2622"/>
+      <path d="M-9 -108 Q-6 -111 -3 -108 M3 -108 Q6 -111 9 -108" fill="none" stroke-width="2"/>
+      <circle cx="-6" cy="-102" r="2.4" fill="#2b2622" stroke="none"/>
+      <circle cx="6" cy="-102" r="2.4" fill="#2b2622" stroke="none"/>
+      <circle cx="-11" cy="-95" r="3" fill="#f4a3a0" stroke="none" opacity=".7"/>
+      <circle cx="11" cy="-95" r="3" fill="#f4a3a0" stroke="none" opacity=".7"/>
+      <ellipse cx="0" cy="-91" rx="3.5" ry="4.5" fill="#d9534a"/>
+    </g>
+  </g>
+</svg>

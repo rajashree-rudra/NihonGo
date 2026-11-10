@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 160" role="img" aria-label="foot; leg">
+  <!-- 足 (foot; leg): a big bare leg and foot seen from the side, under blue shorts, standing on the ground -->
+  <rect width="160" height="160" rx="28" fill="#e1f1e6"/>
+  <circle cx="80" cy="82" r="56" fill="#fff" opacity=".55"/>
+  <ellipse cx="88" cy="140" rx="48" ry="6" fill="#c5e2cf"/>
+  <g stroke="#2b2622" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round">
+    <!-- leg and foot -->
+    <path d="M56 40 Q50 70 56 92 Q59 106 57 118 Q53 136 66 138 H124 Q134 138 132 128 Q130 120 116 118 L94 112 Q86 106 86 92 L88 40 Z" fill="#f6d3b3"/>
+    <!-- toes -->
+    <path d="M120 119 Q124 124 122 130 M113 117.5 Q117 123 115 130" fill="none" stroke-width="1.8" opacity=".5"/>
+    <path d="M126 125 Q128 123 130 125" fill="none" stroke-width="1.8" opacity=".5"/>
+    <!-- ankle bump and knee line -->
+    <path d="M78 116 Q80 110 84 112" fill="none" stroke-width="1.8" opacity=".45"/>
+    <path d="M78 70 Q84 72 87 68" fill="none" stroke-width="1.8" opacity=".45"/>
+    <!-- shorts -->
+    <path d="M44 22 Q44 16 50 16 H94 Q100 16 100 22 L98 52 H46 Z" fill="#3b5ba5"/>
+    <path d="M48 46 H96" fill="none" stroke="#fff" opacity=".8"/>
+  </g>
+</svg>

@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 160" role="img" aria-label="swimming pool">
+  <!-- プール (swimming pool): a pool seen from above with lane ropes, a ladder and a swimmer -->
+  <rect width="160" height="160" rx="28" fill="#f8edd6"/>
+  <g stroke="#2b2622" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round">
+    <!-- poolside and water -->
+    <rect x="16" y="30" width="128" height="104" rx="12" fill="#efe6dc"/>
+    <rect x="26" y="40" width="108" height="84" rx="6" fill="#3b5ba5"/>
+    <path d="M36 54 Q42 50 48 54 Q54 58 60 54 M100 110 Q106 106 112 110 Q118 114 124 110" fill="none" stroke="#fff" stroke-width="2" opacity=".6"/>
+    <!-- lane ropes -->
+    <g stroke-width="1.8">
+      <path d="M26 68 H134 M26 96 H134" fill="none" stroke="#fff" stroke-width="2"/>
+      <g fill="#d9534a">
+        <circle cx="34" cy="68" r="3.5"/><circle cx="50" cy="68" r="3.5"/><circle cx="66" cy="68" r="3.5"/><circle cx="82" cy="68" r="3.5"/><circle cx="98" cy="68" r="3.5"/><circle cx="114" cy="68" r="3.5"/><circle cx="128" cy="68" r="3.5"/>
+        <circle cx="34" cy="96" r="3.5"/><circle cx="50" cy="96" r="3.5"/><circle cx="66" cy="96" r="3.5"/><circle cx="82" cy="96" r="3.5"/><circle cx="98" cy="96" r="3.5"/><circle cx="114" cy="96" r="3.5"/><circle cx="128" cy="96" r="3.5"/>
+      </g>
+    </g>
+    <!-- ladder rails over the edge -->
+    <path d="M104 34 V46 Q104 50 108 50 M118 34 V46 Q118 50 122 50" fill="none" stroke-width="7"/>
+    <path d="M104 34 V46 Q104 50 108 50 M118 34 V46 Q118 50 122 50" fill="none" stroke="#9aa3b0" stroke-width="3"/>
+    <!-- swimmer in the middle lane -->
+    <ellipse cx="80" cy="82" rx="22" ry="5" fill="#fff" opacity=".5" stroke="none"/>
+    <path d="M58 82 Q66 74 74 80" fill="none" stroke-width="9"/>
+    <path d="M58 82 Q66 74 74 80" fill="none" stroke="#f6d3b3" stroke-width="5"/>
+    <circle cx="82" cy="82" r="10" fill="#f6d3b3"/>
+    <path d="M72 81 Q72 71 82 71 Q92 71 92 81 Z" fill="#d9534a"/>
+    <path d="M88 84 Q96 88 104 84" fill="none" stroke-width="9"/>
+    <path d="M88 84 Q96 88 104 84" fill="none" stroke="#f6d3b3" stroke-width="5"/>
+  </g>
+</svg>

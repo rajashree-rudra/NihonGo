@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 160" role="img" aria-label="village">
+  <!-- 村 (village): small thatched farmhouses below green mountains, with rice fields in front -->
+  <rect width="160" height="160" rx="28" fill="#e3eaf6"/>
+  <circle cx="80" cy="74" r="54" fill="#fff" opacity=".55"/>
+  <g stroke="#2b2622" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round">
+    <!-- mountains -->
+    <path d="M14 108 Q32 50 56 74 Q78 30 106 66 Q124 50 146 108 Z" fill="#4f8a5b"/>
+    <!-- rice field -->
+    <path d="M12 106 H148 V126 Q148 138 136 138 H24 Q12 138 12 126 Z" fill="#c5e2cf"/>
+    <path d="M24 116 V112 M36 116 V112 M48 116 V112 M60 116 V112 M72 116 V112 M84 116 V112 M96 116 V112 M108 116 V112 M120 116 V112 M132 116 V112 M30 128 V124 M42 128 V124 M54 128 V124 M66 128 V124 M78 128 V124 M90 128 V124 M102 128 V124 M114 128 V124 M126 128 V124" fill="none" stroke="#4f8a5b" stroke-width="2.5"/>
+    <!-- big thatched farmhouse -->
+    <rect x="36" y="86" width="40" height="22" fill="#fff"/>
+    <path d="M50 108 V92 M62 108 V92" fill="none" stroke-width="2"/>
+    <rect x="52" y="96" width="8" height="12" fill="#5a4636" stroke-width="2"/>
+    <path d="M28 90 L56 50 L84 90 Z" fill="#c9a26b"/>
+    <path d="M44 80 L56 62 L68 80 M38 88 H74" fill="none" stroke-width="1.8" opacity=".5"/>
+    <!-- small farmhouse -->
+    <rect x="94" y="94" width="28" height="14" fill="#fff"/>
+    <rect x="104" y="98" width="7" height="10" fill="#5a4636" stroke-width="2"/>
+    <path d="M88 96 L108 68 L128 96 Z" fill="#c9a26b"/>
+    <path d="M100 88 L108 77 L116 88" fill="none" stroke-width="1.8" opacity=".5"/>
+    <!-- tree -->
+    <rect x="134" y="92" width="5" height="16" fill="#c9a26b"/>
+    <circle cx="136.5" cy="86" r="9" fill="#4f8a5b"/>
+  </g>
+</svg>

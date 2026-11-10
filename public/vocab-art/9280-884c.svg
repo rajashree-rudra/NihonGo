@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 160" role="img" aria-label="bank">
+  <!-- 銀行 (bank): a building with columns and a big gold coin in the roof -->
+  <rect width="160" height="160" rx="28" fill="#e3eaf6"/>
+  <circle cx="80" cy="82" r="56" fill="#fff" opacity=".55"/>
+  <ellipse cx="80" cy="141" rx="62" ry="6" fill="#c7d3ea"/>
+  <g stroke="#2b2622" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round">
+    <!-- steps -->
+    <rect x="20" y="129" width="120" height="9" rx="2" fill="#d8d3ca"/>
+    <rect x="27" y="121" width="106" height="9" rx="2" fill="#efe6dc"/>
+    <!-- wall and door -->
+    <rect x="33" y="70" width="94" height="51" fill="#efe6dc"/>
+    <path d="M69 121 V98 Q69 90 80 90 Q91 90 91 98 V121 Z" fill="#3b5ba5"/>
+    <!-- columns -->
+    <rect x="36" y="74" width="11" height="47" fill="#fff"/>
+    <rect x="53" y="74" width="11" height="47" fill="#fff"/>
+    <rect x="96" y="74" width="11" height="47" fill="#fff"/>
+    <rect x="113" y="74" width="11" height="47" fill="#fff"/>
+    <!-- beam and roof -->
+    <rect x="26" y="64" width="108" height="10" rx="2" fill="#d8d3ca"/>
+    <path d="M20 64 L80 20 L140 64 Z" fill="#fff"/>
+    <!-- gold coin -->
+    <circle cx="80" cy="47" r="13" fill="#f2c14e"/>
+    <circle cx="80" cy="47" r="7.5" fill="none" stroke-width="2"/>
+  </g>
+</svg>

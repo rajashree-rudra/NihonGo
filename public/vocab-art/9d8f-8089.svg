@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 160" role="img" aria-label="chicken (meat)">
+  <!-- 鶏肉 (chicken meat): a roasted chicken drumstick on a plate, with a chicken-face badge showing which animal -->
+  <rect width="160" height="160" rx="28" fill="#f8edd6"/>
+  <circle cx="86" cy="92" r="50" fill="#fff" opacity=".55"/>
+  <ellipse cx="88" cy="138" rx="56" ry="6" fill="#ecdcb6"/>
+  <g stroke="#2b2622" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round">
+    <!-- plate -->
+    <ellipse cx="90" cy="114" rx="60" ry="22" fill="#fff"/>
+    <ellipse cx="90" cy="114" rx="46" ry="15" fill="none" opacity=".25"/>
+    <!-- drumstick: bone end -->
+    <circle cx="134" cy="88" r="6" fill="#fff6e6"/>
+    <circle cx="128" cy="79" r="6" fill="#fff6e6"/>
+    <path d="M100 100 L128 86" fill="none" stroke-width="12"/>
+    <path d="M100 100 L128 86" fill="none" stroke="#fff6e6" stroke-width="7"/>
+    <!-- drumstick: meat -->
+    <path d="M48 108 Q42 84 66 80 Q92 76 108 94 Q112 102 106 108 Q90 126 66 126 Q50 124 48 108 Z" fill="#d9944a"/>
+    <path d="M58 96 Q62 88 72 86" fill="none" stroke="#f8c66a" stroke-width="4"/>
+    <path d="M74 112 Q86 112 94 104" fill="none" opacity=".35"/>
+    <!-- badge: chicken face -->
+    <g transform="translate(38 40)">
+      <circle r="25" fill="#9cc27a"/>
+      <path d="M-7 -11 Q-9 -19 -3 -18 Q-1 -24 4 -20 Q10 -22 9 -14 Z" fill="#d9534a"/>
+      <ellipse cx="0" cy="1" rx="12" ry="14" fill="#fff"/>
+      <circle cx="-5" cy="-3" r="1.8" fill="#2b2622" stroke="none"/>
+      <circle cx="5" cy="-3" r="1.8" fill="#2b2622" stroke="none"/>
+      <path d="M-4 9 Q0 15 4 9 Q2 16 0 17 Q-2 16 -4 9 Z" fill="#d9534a" stroke-width="1.8"/>
+      <path d="M-5 2 H5 L0 9 Z" fill="#f2c14e" stroke-width="2"/>
+    </g>
+  </g>
+</svg>

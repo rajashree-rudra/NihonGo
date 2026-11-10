@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 160" role="img" aria-label="elevator, lift">
+  <!-- エレベーター (elevator): metal sliding doors opening, an up arrow lit above, call buttons beside -->
+  <rect width="160" height="160" rx="28" fill="#e3eaf6"/>
+  <circle cx="74" cy="84" r="56" fill="#fff" opacity=".55"/>
+  <ellipse cx="80" cy="141" rx="60" ry="6" fill="#c7d3ea"/>
+  <g stroke="#2b2622" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round">
+    <!-- floor sign above: up arrow lit -->
+    <rect x="52" y="18" width="40" height="18" rx="5" fill="#3d3a4a"/>
+    <path d="M72 22 L80 31 H64 Z" fill="#f2c14e" stroke-width="1.8"/>
+    <!-- frame -->
+    <rect x="26" y="40" width="92" height="98" rx="3" fill="#9aa3b0"/>
+    <!-- inside, with light -->
+    <rect x="34" y="48" width="76" height="90" fill="#f8edd6"/>
+    <!-- sliding doors, a little open -->
+    <rect x="34" y="48" width="30" height="90" fill="#d8d3ca"/>
+    <rect x="80" y="48" width="30" height="90" fill="#d8d3ca"/>
+    <path d="M42 56 V128 M102 56 V128" fill="none" stroke="#fff" opacity=".8"/>
+    <!-- call buttons -->
+    <rect x="124" y="74" width="18" height="36" rx="5" fill="#efe6dc"/>
+    <circle cx="133" cy="84" r="5.5" fill="#f2c14e"/>
+    <circle cx="133" cy="100" r="5.5" fill="#fff"/>
+    <path d="M133 81.5 L135.5 86 H130.5 Z M133 102.5 L135.5 98 H130.5 Z" fill="#2b2622" stroke="none"/>
+  </g>
+</svg>

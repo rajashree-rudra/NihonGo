@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 160" role="img" aria-label="thanks; very (much)">
+  <!-- どうも (thanks): a person bowing politely, with a red heart of thanks -->
+  <rect width="160" height="160" rx="28" fill="#f8edd6"/>
+  <circle cx="74" cy="90" r="52" fill="#fff" opacity=".55"/>
+  <ellipse cx="74" cy="143" rx="40" ry="6" fill="#ecdcb6"/>
+  <g stroke="#2b2622" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round">
+    <!-- hearts -->
+    <path d="M128 60 C112 50 112 37 120 35 C124 34 128 37 128 41 C128 37 132 34 136 35 C144 37 144 50 128 60 Z" fill="#d9534a"/>
+    <path d="M140 30 C133 26 133 19 136.5 18 C138.5 17.5 140 19 140 21 C140 19 141.5 17.5 143.5 18 C147 19 147 26 140 30 Z" fill="#d9534a" stroke-width="2"/>
+    <g transform="translate(54 142)">
+      <!-- legs and shoes (side view) -->
+      <rect x="-10" y="-42" width="11" height="39" rx="4" fill="#3d3a4a"/>
+      <rect x="-5" y="-42" width="11" height="39" rx="4" fill="#3d3a4a"/>
+      <ellipse cx="-1" cy="-4" rx="11" ry="4.5" fill="#2b2622"/>
+      <ellipse cx="4" cy="-3" rx="11" ry="4.5" fill="#2b2622"/>
+      <!-- upper body bent forward in a bow -->
+      <g transform="rotate(35 0 -42)">
+        <path d="M-12 -38 V-72 Q-12 -82 -2 -82 H2 Q12 -82 12 -72 V-38 Z" fill="#d9534a"/>
+        <rect x="-4" y="-90" width="8" height="9" fill="#f6d3b3" stroke="none"/>
+        <circle cx="2" cy="-102" r="18" fill="#f6d3b3"/>
+        <path d="M20 -105 Q19 -123 2 -123 Q-19 -123 -16 -98 Q-14 -90 -9 -87 Q-7 -98 -4 -104 Q4 -112 20 -105 Z" fill="#2b2622"/>
+        <circle cx="-4" cy="-99" r="3" fill="#f6d3b3" stroke-width="2"/>
+        <path d="M8 -99 Q11 -96 14 -99" fill="none"/>
+        <circle cx="10" cy="-92" r="3" fill="#f4a3a0" stroke="none" opacity=".7"/>
+        <path d="M14 -90 Q17 -88 19 -91" fill="none"/>
+      </g>
+      <!-- arm hanging, hand on the thigh -->
+      <path d="M20 -67 L11 -47" fill="none" stroke-width="12"/>
+      <path d="M20 -67 L11 -47" fill="none" stroke="#d9534a" stroke-width="7"/>
+      <circle cx="10" cy="-43" r="5.5" fill="#f6d3b3"/>
+    </g>
+  </g>
+</svg>

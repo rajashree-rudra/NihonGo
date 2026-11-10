@@ -1,0 +1,77 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 160" role="img" aria-label="home, household">
+  <!-- 家庭 (household): a family of three holding hands under one roof -->
+  <rect width="160" height="160" rx="28" fill="#fbe6e1"/>
+  <ellipse cx="80" cy="140" rx="58" ry="6" fill="#f1cfc7"/>
+  <g stroke="#2b2622" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round">
+    <!-- house behind the family -->
+    <rect x="104" y="30" width="12" height="26" rx="2" fill="#c9a26b"/>
+    <rect x="30" y="64" width="100" height="75" rx="2" fill="#fff"/>
+    <path d="M20 72 L80 24 L140 72 Z" fill="#d9534a"/>
+    <path d="M80 62 C69 55 70 46 76 46 C78 46 80 48 80 49.5 C80 48 82 46 84 46 C90 46 91 55 80 62 Z" fill="#fff"/>
+    <!-- father -->
+    <g transform="translate(51 138) scale(.52)" stroke-width="4">
+      <ellipse cx="-8" cy="-3" rx="8" ry="4.5" fill="#2b2622"/>
+      <ellipse cx="8" cy="-3" rx="8" ry="4.5" fill="#2b2622"/>
+      <rect x="-13" y="-40" width="10" height="37" rx="4" fill="#3d3a4a"/>
+      <rect x="3" y="-40" width="10" height="37" rx="4" fill="#3d3a4a"/>
+      <rect x="-28" y="-78" width="10" height="36" rx="5" fill="#3b5ba5"/>
+      <circle cx="-23" cy="-40" r="5.5" fill="#f6d3b3"/>
+      <g transform="rotate(-24 23 -76)">
+        <rect x="18" y="-78" width="10" height="36" rx="5" fill="#3b5ba5"/>
+        <circle cx="23" cy="-40" r="5.5" fill="#f6d3b3"/>
+      </g>
+      <path d="M-20 -38 V-70 Q-20 -81 -9 -81 H9 Q20 -81 20 -70 V-38 Z" fill="#3b5ba5"/>
+      <rect x="-5" y="-89" width="10" height="9" fill="#f6d3b3" stroke="none"/>
+      <circle cx="0" cy="-102" r="18" fill="#f6d3b3"/>
+      <path d="M-18 -103 Q-19 -124 0 -124 Q20 -124 18 -102 Q14 -111 4 -112 Q-2 -108 -8 -111 Q-14 -109 -18 -103 Z" fill="#2b2622"/>
+      <circle cx="-6" cy="-101" r="2.6" fill="#2b2622" stroke="none"/>
+      <circle cx="6" cy="-101" r="2.6" fill="#2b2622" stroke="none"/>
+      <circle cx="-10" cy="-95" r="3" fill="#f4a3a0" stroke="none" opacity=".7"/>
+      <circle cx="10" cy="-95" r="3" fill="#f4a3a0" stroke="none" opacity=".7"/>
+      <path d="M-6 -93 Q0 -87 6 -93" fill="none"/>
+    </g>
+    <!-- mother -->
+    <g transform="translate(109 138) scale(.52)" stroke-width="4">
+      <ellipse cx="-8" cy="-3" rx="8" ry="4.5" fill="#2b2622"/>
+      <ellipse cx="8" cy="-3" rx="8" ry="4.5" fill="#2b2622"/>
+      <rect x="-12" y="-40" width="9" height="37" rx="4" fill="#f6d3b3"/>
+      <rect x="3" y="-40" width="9" height="37" rx="4" fill="#f6d3b3"/>
+      <g transform="rotate(24 -22.5 -76)">
+        <rect x="-27" y="-78" width="9" height="34" rx="4.5" fill="#d9534a"/>
+        <circle cx="-22.5" cy="-42" r="5.5" fill="#f6d3b3"/>
+      </g>
+      <rect x="18" y="-78" width="9" height="34" rx="4.5" fill="#d9534a"/>
+      <circle cx="22.5" cy="-42" r="5.5" fill="#f6d3b3"/>
+      <path d="M-20 -104 Q-24 -82 -18 -72 H18 Q24 -82 20 -104 Z" fill="#2b2622"/>
+      <path d="M-15 -81 H15 L26 -36 H-26 Z" fill="#d9534a"/>
+      <rect x="-5" y="-89" width="10" height="9" fill="#f6d3b3" stroke="none"/>
+      <circle cx="0" cy="-102" r="18" fill="#f6d3b3"/>
+      <path d="M-19 -100 Q-21 -125 0 -125 Q21 -125 19 -100 Q15 -112 6 -113 Q0 -108 -6 -113 Q-15 -112 -19 -100 Z" fill="#2b2622"/>
+      <circle cx="-6" cy="-101" r="2.6" fill="#2b2622" stroke="none"/>
+      <circle cx="6" cy="-101" r="2.6" fill="#2b2622" stroke="none"/>
+      <circle cx="-10" cy="-95" r="3" fill="#f4a3a0" stroke="none" opacity=".7"/>
+      <circle cx="10" cy="-95" r="3" fill="#f4a3a0" stroke="none" opacity=".7"/>
+      <path d="M-6 -93 Q0 -87 6 -93" fill="none"/>
+    </g>
+    <!-- child in the middle -->
+    <g transform="translate(80 138) scale(.36)" stroke-width="5">
+      <ellipse cx="-8" cy="-3" rx="8" ry="4.5" fill="#2b2622"/>
+      <ellipse cx="8" cy="-3" rx="8" ry="4.5" fill="#2b2622"/>
+      <rect x="-13" y="-38" width="10" height="35" rx="4" fill="#3d3a4a"/>
+      <rect x="3" y="-38" width="10" height="35" rx="4" fill="#3d3a4a"/>
+      <g transform="rotate(48 -22 -72)">
+        <rect x="-27" y="-74" width="10" height="34" rx="5" fill="#4f8a5b"/>
+      </g>
+      <g transform="rotate(-48 22 -72)">
+        <rect x="17" y="-74" width="10" height="34" rx="5" fill="#4f8a5b"/>
+      </g>
+      <path d="M-19 -36 V-67 Q-19 -77 -9 -77 H9 Q19 -77 19 -67 V-36 Z" fill="#4f8a5b"/>
+      <rect x="-5" y="-85" width="10" height="9" fill="#f6d3b3" stroke="none"/>
+      <circle cx="0" cy="-96" r="18" fill="#f6d3b3"/>
+      <path d="M-18 -97 Q-19 -117 0 -117 Q19 -117 18 -97 Q12 -107 0 -106 Q-11 -106 -18 -97 Z" fill="#5a4636"/>
+      <circle cx="-6" cy="-95" r="3" fill="#2b2622" stroke="none"/>
+      <circle cx="6" cy="-95" r="3" fill="#2b2622" stroke="none"/>
+      <path d="M-5 -88 Q0 -83 5 -88" fill="none"/>
+    </g>
+  </g>
+</svg>

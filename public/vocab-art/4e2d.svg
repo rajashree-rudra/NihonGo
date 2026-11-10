@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 160" role="img" aria-label="inside, in">
+  <!-- 中 (inside): an open box with a red ball sitting inside it -->
+  <rect width="160" height="160" rx="28" fill="#f8edd6"/>
+  <circle cx="80" cy="84" r="52" fill="#fff" opacity=".55"/>
+  <ellipse cx="82" cy="132" rx="54" ry="6" fill="#ecdcb6"/>
+  <g stroke="#2b2622" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round">
+    <!-- open flaps (back and left) -->
+    <path d="M58 70 L120 70 L114 46 L64 46 Z" fill="#c9a26b"/>
+    <path d="M38 86 L58 70 L44 56 L22 70 Z" fill="#c9a26b"/>
+    <!-- inside of the box -->
+    <path d="M38 86 L58 70 H122 L104 86 Z" fill="#5a4636"/>
+    <!-- the ball, inside -->
+    <circle cx="80" cy="76" r="17" fill="#d9534a"/>
+    <path d="M70 70 Q74 64 80 63" fill="none" stroke="#fff" stroke-width="3" opacity=".8"/>
+    <!-- front and side of the box -->
+    <path d="M104 86 L122 70 V114 L104 130 Z" fill="#c9a26b"/>
+    <path d="M104 86 L122 70 V114 L104 130 Z" fill="#2b2622" opacity=".15" stroke="none"/>
+    <rect x="38" y="86" width="66" height="44" fill="#c9a26b"/>
+    <path d="M38 86 L58 102 L104 86 L82 102" fill="none" opacity="0"/>
+    <path d="M60 86 V98 M82 86 V98" fill="none" opacity=".35"/>
+  </g>
+</svg>

@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 160" role="img" aria-label="foreign country; abroad">
+  <!-- 外国 (foreign country, abroad): an airplane flying across the globe from home to a faraway land -->
+  <rect width="160" height="160" rx="28" fill="#f8edd6"/>
+  <circle cx="74" cy="90" r="56" fill="#fff" opacity=".55"/>
+  <g stroke="#2b2622" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round">
+    <!-- globe -->
+    <circle cx="72" cy="94" r="46" fill="#3b5ba5"/>
+    <path d="M36 80 Q42 64 58 62 Q70 66 66 78 Q58 84 62 96 Q60 108 48 110 Q36 100 36 80 Z" fill="#4f8a5b"/>
+    <path d="M84 56 Q100 54 110 70 Q116 86 108 96 Q98 90 92 98 Q84 104 80 94 Q86 84 78 74 Q76 62 84 56 Z" fill="#4f8a5b"/>
+    <path d="M74 118 Q86 114 96 122 Q90 134 78 136 Q70 128 74 118 Z" fill="#4f8a5b"/>
+    <!-- flight path from home (red pin) to the far land (gold pin) -->
+    <path d="M50 84 Q58 26 104 38" fill="none" stroke-dasharray="1 7" stroke-width="3"/>
+    <circle cx="50" cy="84" r="5" fill="#d9534a"/>
+    <circle cx="98" cy="80" r="5" fill="#f2c14e"/>
+    <!-- airplane -->
+    <g transform="translate(118 42) rotate(20)">
+      <path d="M2 -4 L-8 -24 H-1 L15 -4 Z M2 4 L-8 24 H-1 L15 4 Z" fill="#fff"/>
+      <path d="M-14 -4 L-21 -13 H-15 L-7 -4 Z M-14 4 L-21 13 H-15 L-7 4 Z" fill="#fff"/>
+      <path d="M-22 0 Q-22 -5 -14 -5 H14 Q25 -5 27 0 Q25 5 14 5 H-14 Q-22 5 -22 0 Z" fill="#fff"/>
+    </g>
+  </g>
+</svg>

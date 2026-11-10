@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 160" role="img" aria-label="tea (green tea)">
+  <!-- お茶 (green tea): a Japanese teapot and a steaming handle-less cup of green tea on a wooden saucer -->
+  <rect width="160" height="160" rx="28" fill="#e1f1e6"/>
+  <circle cx="80" cy="84" r="54" fill="#fff" opacity=".55"/>
+  <ellipse cx="80" cy="137" rx="58" ry="6" fill="#c5e2cf"/>
+  <g stroke="#2b2622" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round">
+    <!-- teapot (kyusu) with its side handle -->
+    <path d="M28 96 L10 88 Q6 92 8 97 L26 106 Z" fill="#4f8a5b"/>
+    <path d="M74 106 Q86 102 90 88 L97 90 Q94 108 78 118 Z" fill="#4f8a5b"/>
+    <path d="M52 74 V68" fill="none"/>
+    <circle cx="52" cy="66" r="4.5" fill="#4f8a5b"/>
+    <ellipse cx="52" cy="104" rx="28" ry="24" fill="#4f8a5b"/>
+    <path d="M36 81 Q52 74 68 81" fill="none"/>
+    <path d="M30 108 Q52 116 74 108" fill="none" opacity=".35"/>
+    <!-- steam -->
+    <g fill="none" stroke="#9a958b" stroke-width="3">
+      <path d="M100 74 Q96 68 100 62 Q104 56 100 50"/>
+      <path d="M116 74 Q112 68 116 62 Q120 56 116 50"/>
+    </g>
+    <!-- saucer and yunomi cup -->
+    <ellipse cx="108" cy="133" rx="28" ry="5" fill="#c9a26b"/>
+    <path d="M86 84 H130 L126 126 Q125 131 120 131 H96 Q91 131 90 126 Z" fill="#efe6dc"/>
+    <ellipse cx="108" cy="84" rx="22" ry="5.5" fill="#efe6dc"/>
+    <ellipse cx="108" cy="84.5" rx="18" ry="3.6" fill="#9cc27a" stroke-width="1.8"/>
+    <path d="M99 114 Q106 98 118 104 Q111 119 99 114 Z" fill="#4f8a5b"/>
+    <path d="M101 113 L113 105" fill="none" stroke-width="1.8"/>
+  </g>
+</svg>

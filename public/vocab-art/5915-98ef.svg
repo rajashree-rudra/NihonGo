@@ -1,0 +1,40 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 160" role="img" aria-label="dinner, evening meal">
+  <!-- 夕飯 (evening meal): the same meal tray in front of a window with an orange evening sky, the sun setting and crows flying home -->
+  <rect width="160" height="160" rx="28" fill="#fbe6e1"/>
+  <ellipse cx="80" cy="143" rx="66" ry="6" fill="#f1cfc7"/>
+  <g stroke="#2b2622" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round">
+    <!-- evening sky: orange, the sun going down on the right, two crows -->
+    <rect x="24" y="14" width="112" height="62" fill="#f4a77f" stroke="none"/>
+    <circle cx="106" cy="60" r="13" fill="#d9534a"/>
+    <path d="M42 34 Q46 30 50 34 Q54 30 58 34" fill="none" stroke-width="2.5"/>
+    <path d="M60 46 Q63 43 66 46 Q69 43 72 46" fill="none" stroke-width="2.2"/>
+    <path d="M24 66 Q46 58 70 64 Q98 56 136 63 V80 H24 Z" fill="#7a4f5c"/>
+    <!-- window frame -->
+    <path fill-rule="evenodd" fill="#c9a26b" d="M32 10 H128 A12 12 0 0 1 140 22 V68 A12 12 0 0 1 128 80 H32 A12 12 0 0 1 20 68 V22 A12 12 0 0 1 32 10 Z M33 17 H127 A6 6 0 0 1 133 23 V67 A6 6 0 0 1 127 73 H33 A6 6 0 0 1 27 67 V23 A6 6 0 0 1 33 17 Z"/>
+    <!-- tray -->
+    <path d="M24 98 H136 L148 132 V136 Q148 140 144 140 H16 Q12 140 12 136 V132 Z" fill="#c9a26b"/>
+    <path d="M12 132 H148" fill="none"/>
+    <path d="M30 103 H130 L139 127 H21 Z" fill="none" opacity=".3"/>
+    <!-- rice bowl -->
+    <path d="M31 92 Q31 75 48 75 Q65 75 65 92 Z" fill="#fff"/>
+    <path d="M42 108 V112 H54 V108" fill="#3b5ba5"/>
+    <path d="M29 90 H67 Q67 106 54 109 H42 Q29 106 29 90 Z" fill="#3b5ba5"/>
+    <path d="M38 97 H38.1 M48 98 H48.1 M58 97 H58.1" fill="none" stroke="#fff" stroke-width="4"/>
+    <!-- miso soup bowl -->
+    <path d="M106 108 V112 H118 V108" fill="#d9534a"/>
+    <path d="M93 90 H131 Q131 106 118 109 H106 Q93 106 93 90 Z" fill="#d9534a"/>
+    <ellipse cx="112" cy="90" rx="19" ry="5" fill="#b8793a"/>
+    <rect x="103" y="88" width="5" height="4" fill="#fff" stroke-width="1.5"/>
+    <circle cx="116" cy="89" r="1.8" fill="#4f8a5b" stroke="none"/>
+    <circle cx="121" cy="91" r="1.8" fill="#4f8a5b" stroke="none"/>
+    <!-- grilled fish on a plate -->
+    <ellipse cx="80" cy="117" rx="27" ry="8" fill="#fff"/>
+    <path d="M68 114 L59 108 L60 120 Z" fill="#9aa3b0"/>
+    <ellipse cx="81" cy="114" rx="15" ry="6" fill="#9aa3b0"/>
+    <path d="M77 109 L74 118 M83 109 L80 118" fill="none" opacity=".5"/>
+    <circle cx="91" cy="112.5" r="1.5" fill="#2b2622" stroke="none"/>
+    <!-- chopsticks -->
+    <path d="M30 125 L124 122 L124 127 L30 127 Z" fill="#d9534a" stroke-width="2"/>
+    <path d="M30 129 L124 127 L124 132 L30 131 Z" fill="#d9534a" stroke-width="2"/>
+  </g>
+</svg>

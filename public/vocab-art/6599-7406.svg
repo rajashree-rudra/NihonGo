@@ -1,0 +1,49 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 160" role="img" aria-label="cooking, cuisine; dish; to cook">
+  <!-- 料理 (cooking): a smiling woman in an apron stirring a steaming pot on the stove -->
+  <rect width="160" height="160" rx="28" fill="#f8edd6"/>
+  <circle cx="66" cy="72" r="50" fill="#fff" opacity=".55"/>
+  <!-- counter -->
+  <path d="M0 110 H160 V132 A28 28 0 0 1 132 160 H28 A28 28 0 0 1 0 132 Z" fill="#c9a26b"/>
+  <g stroke="#2b2622" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round">
+    <path d="M0 110 H160" fill="none"/>
+    <!-- cook -->
+    <g transform="translate(58 146)">
+      <path d="M-20 -104 Q-24 -82 -18 -72 H18 Q24 -82 20 -104 Z" fill="#5a4636"/>
+      <rect x="-28" y="-78" width="10" height="38" rx="5" fill="#d9534a"/>
+      <path d="M-20 -36 V-70 Q-20 -81 -9 -81 H9 Q20 -81 20 -70 V-36 Z" fill="#d9534a"/>
+      <path d="M-13 -70 H13 V-36 H-13 Z" fill="#fff"/>
+      <path d="M-11 -70 L-7 -81 M11 -70 L7 -81" fill="none"/>
+      <rect x="-6" y="-58" width="12" height="9" rx="2" fill="#fff"/>
+      <rect x="-5" y="-89" width="10" height="9" fill="#f6d3b3" stroke="none"/>
+      <circle cx="0" cy="-102" r="18" fill="#f6d3b3"/>
+      <path d="M-19 -100 Q-21 -125 0 -125 Q21 -125 19 -100 Q15 -112 6 -113 Q0 -108 -6 -113 Q-15 -112 -19 -100 Z" fill="#5a4636"/>
+      <circle cx="-6" cy="-101" r="2.2" fill="#2b2622" stroke="none"/>
+      <circle cx="6" cy="-101" r="2.2" fill="#2b2622" stroke="none"/>
+      <circle cx="-10" cy="-95" r="3" fill="#f4a3a0" stroke="none" opacity=".7"/>
+      <circle cx="10" cy="-95" r="3" fill="#f4a3a0" stroke="none" opacity=".7"/>
+      <path d="M-6 -93 Q0 -87 6 -93" fill="none"/>
+      <!-- arm reaching to the pot -->
+      <path d="M14 -74 L38 -62" stroke-width="12"/>
+      <path d="M14 -74 L38 -62" stroke="#d9534a" stroke-width="7"/>
+    </g>
+    <g transform="translate(-4 0)">
+    <!-- steam -->
+    <g fill="none" stroke="#9a958b" stroke-width="3">
+      <path d="M120 74 Q116 68 120 62 Q124 56 120 50"/>
+      <path d="M134 76 Q130 70 134 64 Q138 58 134 52"/>
+    </g>
+    <!-- flames -->
+    <path d="M104 110 Q100 104 104 98 Q106 104 108 102 Q110 106 108 110 Z M140 110 Q136 104 140 98 Q142 104 144 102 Q146 106 144 110 Z" fill="#f2a93b" stroke-width="2"/>
+    <!-- pot -->
+    <rect x="92" y="86" width="8" height="6" rx="3" fill="#9aa3b0"/>
+    <rect x="148" y="86" width="8" height="6" rx="3" fill="#9aa3b0"/>
+    <path d="M98 84 H150 V100 Q150 106 144 106 H104 Q98 106 98 100 Z" fill="#9aa3b0"/>
+    <ellipse cx="124" cy="84" rx="26" ry="5.5" fill="#9aa3b0"/>
+    <ellipse cx="124" cy="84.5" rx="21" ry="3.8" fill="#f2a93b" stroke-width="2"/>
+    <!-- ladle handle into the pot, hand on it -->
+    <path d="M98 80 L118 86" fill="none" stroke-width="7"/>
+    <path d="M98 80 L118 86" fill="none" stroke="#d8d3ca" stroke-width="3"/>
+    </g>
+    <circle cx="97" cy="83" r="5.5" fill="#f6d3b3"/>
+  </g>
+</svg>

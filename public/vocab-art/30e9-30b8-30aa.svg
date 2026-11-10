@@ -1,0 +1,34 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 160" role="img" aria-label="radio">
+  <!-- ラジオ (radio): a red radio with a handle, speaker, tuning dial and knobs; waves come in at the antenna -->
+  <rect width="160" height="160" rx="28" fill="#e3eaf6"/>
+  <circle cx="78" cy="88" r="54" fill="#fff" opacity=".55"/>
+  <ellipse cx="80" cy="134" rx="58" ry="6" fill="#c7d3ea"/>
+  <g stroke="#2b2622" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round">
+    <!-- radio waves -->
+    <path d="M128 12 Q138 18 140 30 M120 10 Q138 12 146 30" fill="none" stroke="#3b5ba5" stroke-width="3"/>
+    <!-- antenna -->
+    <path d="M114 58 L130 22" fill="none" stroke="#9aa3b0" stroke-width="5"/>
+    <path d="M114 58 L130 22" fill="none" stroke-width="1.2" opacity=".6"/>
+    <circle cx="131" cy="20" r="4" fill="#9aa3b0"/>
+    <!-- handle -->
+    <path d="M44 62 V50 Q44 42 52 42 H96 Q104 42 104 50 V62" fill="none" stroke-width="7"/>
+    <!-- body -->
+    <rect x="20" y="58" width="120" height="74" rx="14" fill="#d9534a"/>
+    <!-- speaker -->
+    <circle cx="56" cy="95" r="25" fill="#3d3a4a"/>
+    <g fill="#9a958b" stroke="none">
+      <circle cx="56" cy="95" r="3"/><circle cx="46" cy="95" r="3"/><circle cx="66" cy="95" r="3"/>
+      <circle cx="56" cy="85" r="3"/><circle cx="56" cy="105" r="3"/>
+      <circle cx="47" cy="86" r="2.6"/><circle cx="65" cy="86" r="2.6"/><circle cx="47" cy="104" r="2.6"/><circle cx="65" cy="104" r="2.6"/>
+      <circle cx="56" cy="76" r="2.4"/><circle cx="56" cy="114" r="2.4"/><circle cx="37" cy="95" r="2.4"/><circle cx="75" cy="95" r="2.4"/>
+    </g>
+    <!-- tuning dial -->
+    <rect x="90" y="70" width="40" height="20" rx="4" fill="#f8edd6"/>
+    <path d="M96 75 V79 M103 75 V79 M110 75 V79 M117 75 V79 M124 75 V79" fill="none" stroke-width="1.6"/>
+    <path d="M111 72 V88" fill="none" stroke="#d9534a" stroke-width="2.5"/>
+    <!-- knobs -->
+    <circle cx="100" cy="110" r="8" fill="#f2c14e"/>
+    <circle cx="121" cy="110" r="8" fill="#f2c14e"/>
+    <path d="M100 103 V107 M121 103 V107" fill="none" stroke-width="2"/>
+  </g>
+</svg>

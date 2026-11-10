@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 160" role="img" aria-label="name">
+  <!-- 名前 (name): a person holding up a big blank name card with a red band and a handwritten squiggle -->
+  <rect width="160" height="160" rx="28" fill="#e3eaf6"/>
+  <circle cx="80" cy="84" r="54" fill="#fff" opacity=".55"/>
+  <ellipse cx="80" cy="141" rx="46" ry="6" fill="#c7d3ea"/>
+  <g stroke="#2b2622" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round">
+    <g transform="translate(80 140)">
+      <ellipse cx="-8" cy="-3" rx="8" ry="4.5" fill="#2b2622"/>
+      <ellipse cx="8" cy="-3" rx="8" ry="4.5" fill="#2b2622"/>
+      <rect x="-13" y="-40" width="10" height="37" rx="4" fill="#3d3a4a"/>
+      <rect x="3" y="-40" width="10" height="37" rx="4" fill="#3d3a4a"/>
+      <path d="M-16 -76 L-27 -48 M16 -76 L27 -48" stroke-width="12"/>
+      <path d="M-16 -76 L-27 -48 M16 -76 L27 -48" stroke="#4f8a5b" stroke-width="7"/>
+      <path d="M-20 -38 V-70 Q-20 -81 -9 -81 H9 Q20 -81 20 -70 V-38 Z" fill="#4f8a5b"/>
+      <rect x="-5" y="-89" width="10" height="9" fill="#f6d3b3" stroke="none"/>
+      <circle cx="0" cy="-102" r="18" fill="#f6d3b3"/>
+      <path d="M-18 -103 Q-19 -124 0 -124 Q20 -124 18 -102 Q14 -111 4 -112 Q-2 -108 -8 -111 Q-14 -109 -18 -103 Z" fill="#2b2622"/>
+      <circle cx="-6" cy="-101" r="2.2" fill="#2b2622" stroke="none"/>
+      <circle cx="6" cy="-101" r="2.2" fill="#2b2622" stroke="none"/>
+      <circle cx="-10" cy="-95" r="3" fill="#f4a3a0" stroke="none" opacity=".7"/>
+      <circle cx="10" cy="-95" r="3" fill="#f4a3a0" stroke="none" opacity=".7"/>
+      <path d="M-6 -93 Q0 -87 6 -93" fill="none"/>
+    </g>
+    <!-- big name card -->
+    <rect x="44" y="66" width="72" height="46" rx="5" fill="#fff"/>
+    <path d="M44 80 V71 Q44 66 49 66 H111 Q116 66 116 71 V80 Z" fill="#d9534a"/>
+    <path d="M54 99 Q57 88 61 97 Q64 104 67 93 Q70 86 73 97 Q75 103 79 94 Q82 89 85 96 Q88 101 92 95 Q95 92 99 96" fill="none" stroke="#3b5ba5" stroke-width="2.5"/>
+    <path d="M54 105 H106" fill="none" stroke="#9a958b" stroke-width="2"/>
+    <circle cx="48" cy="94" r="5.5" fill="#f6d3b3"/>
+    <circle cx="112" cy="94" r="5.5" fill="#f6d3b3"/>
+  </g>
+</svg>

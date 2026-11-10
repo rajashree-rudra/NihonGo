@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 160" role="img" aria-label="building">
+  <!-- 建物 (building): one tall building with rows of windows, small trees at its foot -->
+  <rect width="160" height="160" rx="28" fill="#f8edd6"/>
+  <circle cx="80" cy="84" r="58" fill="#fff" opacity=".55"/>
+  <ellipse cx="80" cy="141" rx="54" ry="6" fill="#ecdcb6"/>
+  <g stroke="#2b2622" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round">
+    <!-- antenna and roof -->
+    <path d="M80 22 V8" fill="none"/>
+    <circle cx="80" cy="7" r="3" fill="#d9534a"/>
+    <rect x="66" y="16" width="28" height="8" rx="2" fill="#6f6a60"/>
+    <!-- tower -->
+    <rect x="50" y="22" width="60" height="116" rx="3" fill="#3b5ba5"/>
+    <g fill="#c7d3ea" stroke-width="2">
+      <rect x="57" y="30" width="12" height="11" rx="1.5"/><rect x="74" y="30" width="12" height="11" rx="1.5"/><rect x="91" y="30" width="12" height="11" rx="1.5"/>
+      <rect x="57" y="47" width="12" height="11" rx="1.5"/><rect x="74" y="47" width="12" height="11" rx="1.5"/><rect x="91" y="47" width="12" height="11" rx="1.5"/>
+      <rect x="57" y="64" width="12" height="11" rx="1.5"/><rect x="74" y="64" width="12" height="11" rx="1.5"/><rect x="91" y="64" width="12" height="11" rx="1.5"/>
+      <rect x="57" y="81" width="12" height="11" rx="1.5"/><rect x="74" y="81" width="12" height="11" rx="1.5"/><rect x="91" y="81" width="12" height="11" rx="1.5"/>
+      <rect x="57" y="98" width="12" height="11" rx="1.5"/><rect x="74" y="98" width="12" height="11" rx="1.5"/><rect x="91" y="98" width="12" height="11" rx="1.5"/>
+    </g>
+    <!-- glass door -->
+    <rect x="68" y="116" width="24" height="22" rx="2" fill="#f2c14e"/>
+    <path d="M80 116 V138" fill="none" stroke-width="2"/>
+    <!-- little trees -->
+    <path d="M32 138 V124 M128 138 V124" fill="none" stroke-width="3.5"/>
+    <circle cx="32" cy="118" r="10" fill="#4f8a5b"/>
+    <circle cx="128" cy="118" r="10" fill="#4f8a5b"/>
+  </g>
+</svg>

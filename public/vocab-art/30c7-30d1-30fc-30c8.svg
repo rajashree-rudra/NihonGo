@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 160" role="img" aria-label="department store">
+  <!-- デパート (department store): a big store with a shopping bag sign on the roof, many floors and shop windows with a dress and shoes -->
+  <rect width="160" height="160" rx="28" fill="#fbe6e1"/>
+  <circle cx="80" cy="84" r="58" fill="#fff" opacity=".55"/>
+  <ellipse cx="80" cy="141" rx="66" ry="6" fill="#f1cfc7"/>
+  <g stroke="#2b2622" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round">
+    <!-- shopping bag sign -->
+    <path d="M71 20 Q71 8 80 8 Q89 8 89 20" fill="none" stroke-width="3"/>
+    <path d="M63 18 H97 L100 46 H60 Z" fill="#d9534a"/>
+    <circle cx="80" cy="31" r="5" fill="#f2c14e" stroke-width="2"/>
+    <!-- building -->
+    <rect x="20" y="46" width="120" height="92" fill="#efe6dc"/>
+    <rect x="16" y="44" width="128" height="7" rx="3" fill="#d8d3ca"/>
+    <g fill="#c7d3ea" stroke-width="2">
+      <rect x="28" y="57" width="16" height="12" rx="1.5"/><rect x="50" y="57" width="16" height="12" rx="1.5"/><rect x="72" y="57" width="16" height="12" rx="1.5"/><rect x="94" y="57" width="16" height="12" rx="1.5"/><rect x="116" y="57" width="16" height="12" rx="1.5"/>
+      <rect x="28" y="76" width="16" height="12" rx="1.5"/><rect x="50" y="76" width="16" height="12" rx="1.5"/><rect x="72" y="76" width="16" height="12" rx="1.5"/><rect x="94" y="76" width="16" height="12" rx="1.5"/><rect x="116" y="76" width="16" height="12" rx="1.5"/>
+    </g>
+    <!-- striped awning -->
+    <rect x="18" y="95" width="124" height="8" rx="3" fill="#f2c14e"/>
+    <!-- shop windows: a dress and shoes -->
+    <rect x="25" y="106" width="36" height="32" rx="2" fill="#fff"/>
+    <path d="M38 112 H48 L52 132 H34 Z" fill="#d9534a" stroke-width="2"/>
+    <rect x="99" y="106" width="36" height="32" rx="2" fill="#fff"/>
+    <path d="M106 128 V120 H112 V124 Q122 124 124 130 H106 Z" fill="#3b5ba5" stroke-width="2"/>
+    <!-- glass doors -->
+    <rect x="67" y="106" width="26" height="32" rx="2" fill="#c7d3ea"/>
+    <path d="M80 106 V138" fill="none" stroke-width="2"/>
+  </g>
+</svg>

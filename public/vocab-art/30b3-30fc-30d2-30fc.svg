@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 160" role="img" aria-label="coffee">
+  <!-- コーヒー (coffee): a steaming mug of dark coffee with two coffee beans beside it -->
+  <rect width="160" height="160" rx="28" fill="#f8edd6"/>
+  <circle cx="78" cy="84" r="54" fill="#fff" opacity=".55"/>
+  <ellipse cx="82" cy="133" rx="58" ry="6" fill="#ecdcb6"/>
+  <g stroke="#2b2622" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round">
+    <!-- steam -->
+    <g fill="none" stroke="#9a958b" stroke-width="3">
+      <path d="M60 46 Q56 40 60 34 Q64 28 60 22"/>
+      <path d="M76 42 Q72 36 76 30 Q80 24 76 18"/>
+      <path d="M92 46 Q88 40 92 34 Q96 28 92 22"/>
+    </g>
+    <!-- handle -->
+    <path d="M104 72 Q126 72 126 90 Q126 108 104 108" fill="none" stroke-width="13"/>
+    <path d="M104 72 Q126 72 126 90 Q126 108 104 108" fill="none" stroke="#3b5ba5" stroke-width="7.5"/>
+    <!-- mug -->
+    <path d="M44 58 H108 V120 Q108 130 98 130 H54 Q44 130 44 120 Z" fill="#3b5ba5"/>
+    <ellipse cx="76" cy="58" rx="32" ry="7" fill="#3b5ba5"/>
+    <ellipse cx="76" cy="59" rx="27" ry="4.8" fill="#5a3a26" stroke-width="2"/>
+    <path d="M54 72 V114" fill="none" stroke="#fff" stroke-width="4" opacity=".5"/>
+    <!-- coffee beans -->
+    <g transform="translate(126 128) rotate(-30)">
+      <ellipse cx="0" cy="0" rx="9" ry="6.5" fill="#5a4636"/>
+      <path d="M-7 1 Q0 -3 7 -1" fill="none" stroke="#c9a26b" stroke-width="2"/>
+    </g>
+    <g transform="translate(140 118) rotate(20)">
+      <ellipse cx="0" cy="0" rx="8" ry="6" fill="#5a4636"/>
+      <path d="M-6 1 Q0 -3 6 -1" fill="none" stroke="#c9a26b" stroke-width="2"/>
+    </g>
+  </g>
+</svg>

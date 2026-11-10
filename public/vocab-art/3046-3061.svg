@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 160" role="img" aria-label="home, house; my place">
+  <!-- うち (home, my place): the same house as 家, but warm: lit windows, open glowing door, chimney smoke and a heart -->
+  <rect width="160" height="160" rx="28" fill="#f8edd6"/>
+  <circle cx="80" cy="86" r="54" fill="#fff" opacity=".55"/>
+  <ellipse cx="80" cy="140" rx="60" ry="6" fill="#ecdcb6"/>
+  <g stroke="#2b2622" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round">
+    <!-- chimney smoke -->
+    <path d="M108 33 Q102 27 108 21 Q114 15 108 9" fill="none" stroke="#9a958b" stroke-width="3"/>
+    <path d="M117 31 Q111 25 117 19 Q123 13 117 7" fill="none" stroke="#9a958b" stroke-width="3"/>
+    <!-- chimney -->
+    <rect x="102" y="42" width="13" height="30" rx="2" fill="#c9a26b"/>
+    <rect x="99" y="37" width="19" height="7" rx="2" fill="#9a958b"/>
+    <!-- walls -->
+    <rect x="38" y="76" width="84" height="63" rx="2" fill="#fff"/>
+    <!-- roof -->
+    <path d="M24 84 L80 33 L136 84 Z" fill="#d9534a"/>
+    <!-- heart in the gable -->
+    <path d="M80 75 C66 66 68 55 75 55 C78 55 80 57 80 59 C80 57 82 55 85 55 C92 55 94 66 80 75 Z" fill="#fff"/>
+    <!-- warm lit windows -->
+    <rect x="46" y="96" width="17" height="17" rx="2" fill="#f2c14e"/>
+    <path d="M54.5 96 V113 M46 104.5 H63" fill="none" stroke-width="2"/>
+    <rect x="97" y="96" width="17" height="17" rx="2" fill="#f2c14e"/>
+    <path d="M105.5 96 V113 M97 104.5 H114" fill="none" stroke-width="2"/>
+    <!-- open door with warm light inside -->
+    <rect x="69" y="106" width="22" height="33" rx="3" fill="#f2c14e"/>
+    <path d="M69 107 L59 111 V141 L69 139 Z" fill="#c9a26b"/>
+    <!-- welcome mat -->
+    <path d="M66 139 H94 L98 145 H62 Z" fill="#4f8a5b"/>
+  </g>
+</svg>

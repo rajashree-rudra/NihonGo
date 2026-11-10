@@ -1,0 +1,43 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 160" role="img" aria-label="apartment">
+  <!-- アパート (apartment): a three-storey block with rows of windows, balconies and an entrance -->
+  <rect width="160" height="160" rx="28" fill="#e3eaf6"/>
+  <circle cx="80" cy="86" r="54" fill="#fff" opacity=".55"/>
+  <ellipse cx="80" cy="140" rx="60" ry="6" fill="#c7d3ea"/>
+  <g stroke="#2b2622" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round">
+    <!-- building -->
+    <rect x="30" y="38" width="100" height="101" rx="2" fill="#efe6dc"/>
+    <rect x="26" y="31" width="108" height="9" rx="2" fill="#9a958b"/>
+    <path d="M30 74 H130 M30 101 H130" fill="none" stroke-width="1.8" opacity=".35"/>
+    <!-- top floor windows + balconies -->
+    <g fill="#e3eaf6">
+      <rect x="39" y="47" width="20" height="17" rx="2"/>
+      <rect x="70" y="47" width="20" height="17" rx="2"/>
+      <rect x="101" y="47" width="20" height="17" rx="2"/>
+      <rect x="39" y="76" width="20" height="17" rx="2"/>
+      <rect x="70" y="76" width="20" height="17" rx="2"/>
+      <rect x="101" y="76" width="20" height="17" rx="2"/>
+      <rect x="39" y="107" width="20" height="17" rx="2"/>
+      <rect x="101" y="107" width="20" height="17" rx="2"/>
+    </g>
+    <!-- curtains: people live here -->
+    <g fill="#d9534a" stroke-width="1.8">
+      <path d="M39.5 47.5 H46 Q44 55 40 58 Z M58.5 47.5 H52 Q54 55 58 58 Z"/>
+      <path d="M101.5 76.5 H108 Q106 84 102 87 Z M120.5 76.5 H114 Q116 84 120 87 Z"/>
+      <path d="M39.5 107.5 H46 Q44 115 40 118 Z M58.5 107.5 H52 Q54 115 58 118 Z"/>
+    </g>
+    <g fill="#3b5ba5">
+      <rect x="36" y="62" width="26" height="7" rx="1.5"/>
+      <rect x="67" y="62" width="26" height="7" rx="1.5"/>
+      <rect x="98" y="62" width="26" height="7" rx="1.5"/>
+      <rect x="36" y="91" width="26" height="7" rx="1.5"/>
+      <rect x="67" y="91" width="26" height="7" rx="1.5"/>
+      <rect x="98" y="91" width="26" height="7" rx="1.5"/>
+    </g>
+    <!-- entrance door with a little canopy -->
+    <rect x="70" y="111" width="20" height="28" rx="2" fill="#c9a26b"/>
+    <path d="M80 111 V139" fill="none" stroke-width="2"/>
+    <rect x="65" y="104" width="30" height="6" rx="2" fill="#d9534a"/>
+    <!-- a plant on one balcony -->
+    <path d="M106 62 Q104 55 108 53 Q111 55 110 62 M112 62 Q113 56 117 55 Q118 59 114 62" fill="#4f8a5b" stroke-width="1.8"/>
+  </g>
+</svg>

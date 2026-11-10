@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 160" role="img" aria-label="envelope">
+  <!-- 封筒 (envelope): a closed envelope seen from the back, flap sealed with a round red sticker -->
+  <rect width="160" height="160" rx="28" fill="#e3eaf6"/>
+  <circle cx="80" cy="80" r="56" fill="#fff" opacity=".55"/>
+  <ellipse cx="80" cy="136" rx="54" ry="6" fill="#c7d3ea"/>
+  <g stroke="#2b2622" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round" transform="rotate(-6 80 82)">
+    <rect x="22" y="44" width="116" height="78" rx="5" fill="#fff"/>
+    <!-- bottom folds -->
+    <path d="M24 120 L68 86 M136 120 L92 86" fill="none" opacity=".35"/>
+    <!-- closed flap -->
+    <path d="M24 46 L80 92 L136 46" fill="#efe6dc"/>
+    <!-- seal -->
+    <circle cx="80" cy="88" r="9" fill="#d9534a"/>
+    <path d="M76 88 H84" fill="none" stroke="#fff" stroke-width="2"/>
+  </g>
+</svg>

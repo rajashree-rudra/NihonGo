@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 160" role="img" aria-label="watch, clock">
+  <!-- 時計 (clock, watch): a round wall clock showing ten past ten, and a wristwatch in front -->
+  <rect width="160" height="160" rx="28" fill="#fbe6e1"/>
+  <circle cx="70" cy="70" r="56" fill="#fff" opacity=".55"/>
+  <g stroke="#2b2622" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round">
+    <!-- wall clock -->
+    <circle cx="70" cy="70" r="47" fill="#3b5ba5"/>
+    <circle cx="70" cy="70" r="39" fill="#fff"/>
+    <path d="M70 34 V40 M106 70 H100 M70 106 V100 M34 70 H40" fill="none" stroke-width="3.5"/>
+    <g fill="#2b2622" stroke="none">
+      <circle cx="86.75" cy="41" r="2"/><circle cx="99" cy="53.25" r="2"/><circle cx="99" cy="86.75" r="2"/><circle cx="86.75" cy="99" r="2"/>
+      <circle cx="53.25" cy="99" r="2"/><circle cx="41" cy="86.75" r="2"/><circle cx="41" cy="53.25" r="2"/><circle cx="53.25" cy="41" r="2"/>
+    </g>
+    <path d="M70 70 L55 61.5" fill="none" stroke-width="5"/>
+    <path d="M70 70 L92.5 57" fill="none" stroke-width="3.5"/>
+    <path d="M70 70 L57 92" fill="none" stroke="#d9534a" stroke-width="2"/>
+    <circle cx="70" cy="70" r="4" fill="#d9534a"/>
+    <!-- wristwatch -->
+    <rect x="113" y="92" width="20" height="56" rx="6" fill="#5a4636"/>
+    <path d="M116 102 H130 M116 140 H130" fill="none" stroke="#c9a26b" stroke-width="2"/>
+    <circle cx="123" cy="120" r="16" fill="#f2c14e"/>
+    <circle cx="123" cy="120" r="11" fill="#fff"/>
+    <path d="M123 120 V112 M123 120 L129 122" fill="none" stroke-width="2.2"/>
+    <rect x="137.5" y="117" width="4" height="6" rx="1.5" fill="#f2c14e" stroke-width="1.6"/>
+  </g>
+</svg>

@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 160" role="img" aria-label="alcohol; sake (rice wine)">
+  <!-- お酒 (sake, alcohol): a sake flask (tokkuri) and two little sake cups on a wooden tray -->
+  <rect width="160" height="160" rx="28" fill="#e3eaf6"/>
+  <circle cx="80" cy="82" r="56" fill="#fff" opacity=".55"/>
+  <ellipse cx="80" cy="140" rx="62" ry="5" fill="#c7d3ea"/>
+  <g stroke="#2b2622" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round">
+    <!-- tray -->
+    <path d="M18 122 H142 L138 136 H22 Z" fill="#c9a26b"/>
+    <!-- flask -->
+    <path d="M54 26 H70 Q66 34 66 42 Q66 50 74 58 Q92 72 92 96 Q92 124 62 124 Q32 124 32 96 Q32 72 50 58 Q58 50 58 42 Q58 34 54 26 Z" fill="#efe6dc"/>
+    <ellipse cx="62" cy="26" rx="8.5" ry="2.8" fill="#efe6dc"/>
+    <path d="M38.5 76 H85.5 Q89 82 90.5 88 H33.5 Q35 82 38.5 76 Z" fill="#3b5ba5"/>
+    <path d="M42 100 L44 114" fill="none" stroke="#fff" stroke-width="4" opacity=".8"/>
+    <!-- back cup -->
+    <path d="M94 94 H122 Q122 112 111 115 H105 Q94 112 94 94 Z" fill="#fff"/>
+    <ellipse cx="108" cy="94" rx="14" ry="3.6" fill="#fff"/>
+    <!-- front cup with the blue bullseye inside -->
+    <path d="M119 126 V130 H131 V126" fill="#fff"/>
+    <path d="M106 104 H144 Q144 123 131 127 H119 Q106 123 106 104 Z" fill="#fff"/>
+    <ellipse cx="125" cy="104" rx="19" ry="4.8" fill="#fff"/>
+    <ellipse cx="125" cy="104.4" rx="10" ry="2.4" fill="none" stroke="#3b5ba5" stroke-width="2.4"/>
+  </g>
+</svg>

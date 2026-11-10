@@ -1,0 +1,63 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 160" role="img" aria-label="marriage, to get married">
+  <!-- 結婚 (marriage): a groom in a dark suit and a bride in a white dress and veil with flowers, a heart above them -->
+  <rect width="160" height="160" rx="28" fill="#fbe6e1"/>
+  <circle cx="80" cy="88" r="56" fill="#fff" opacity=".55"/>
+  <ellipse cx="80" cy="141" rx="62" ry="6" fill="#f1cfc7"/>
+  <g stroke="#2b2622" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round">
+    <!-- heart -->
+    <path d="M80 34 Q66 24 68 15 Q71 8 80 14 Q89 8 92 15 Q94 24 80 34 Z" fill="#d9534a"/>
+    <!-- groom -->
+    <g transform="translate(50 140)">
+      <ellipse cx="-8" cy="-3" rx="8" ry="4.5" fill="#2b2622"/>
+      <ellipse cx="8" cy="-3" rx="8" ry="4.5" fill="#2b2622"/>
+      <rect x="-13" y="-40" width="10" height="37" rx="4" fill="#3d3a4a"/>
+      <rect x="3" y="-40" width="10" height="37" rx="4" fill="#3d3a4a"/>
+      <rect x="-28" y="-78" width="10" height="36" rx="5" fill="#3d3a4a"/>
+      <circle cx="-23" cy="-40" r="5.5" fill="#f6d3b3"/>
+      <path d="M-20 -38 V-70 Q-20 -81 -9 -81 H9 Q20 -81 20 -70 V-38 Z" fill="#3d3a4a"/>
+      <path d="M-9 -81 L0 -58 L9 -81 Z" fill="#fff"/>
+      <path d="M0 -76 L-6 -80 V-72 Z M0 -76 L6 -80 V-72 Z" fill="#d9534a" stroke-width="1.8"/>
+      <circle cx="-12" cy="-68" r="3.5" fill="#fff" stroke-width="1.8"/>
+      <path d="M16 -76 L26 -44" stroke-width="12"/>
+      <path d="M16 -76 L26 -44" stroke="#3d3a4a" stroke-width="7"/>
+      <rect x="-5" y="-89" width="10" height="9" fill="#f6d3b3" stroke="none"/>
+      <circle cx="0" cy="-102" r="18" fill="#f6d3b3"/>
+      <path d="M-18 -103 Q-19 -124 0 -124 Q20 -124 18 -102 Q14 -111 4 -112 Q-2 -108 -8 -111 Q-14 -109 -18 -103 Z" fill="#2b2622"/>
+      <circle cx="-6" cy="-101" r="2.2" fill="#2b2622" stroke="none"/>
+      <circle cx="6" cy="-101" r="2.2" fill="#2b2622" stroke="none"/>
+      <circle cx="-10" cy="-95" r="3" fill="#f4a3a0" stroke="none" opacity=".7"/>
+      <circle cx="10" cy="-95" r="3" fill="#f4a3a0" stroke="none" opacity=".7"/>
+      <path d="M-6 -93 Q0 -87 6 -93" fill="none"/>
+    </g>
+    <!-- bride -->
+    <g transform="translate(108 140)">
+      <!-- veil behind -->
+      <path d="M-12 -118 Q-32 -100 -27 -58 H27 Q32 -100 12 -118 Z" fill="#fff"/>
+      <rect x="18" y="-78" width="9" height="34" rx="4.5" fill="#fff"/>
+      <circle cx="22.5" cy="-42" r="5.5" fill="#f6d3b3"/>
+      <path d="M-14 -81 H14 L30 -3 Q0 2 -30 -3 Z" fill="#fff"/>
+      <path d="M-13 -66 H13" fill="none" opacity=".35"/>
+      <path d="M-16 -76 L-26 -48" stroke-width="11.5"/>
+      <path d="M-16 -76 L-26 -48" stroke="#fff" stroke-width="6.5"/>
+      <rect x="-5" y="-89" width="10" height="9" fill="#f6d3b3" stroke="none"/>
+      <circle cx="0" cy="-102" r="18" fill="#f6d3b3"/>
+      <path d="M-19 -98 Q-21 -125 0 -125 Q21 -125 19 -98 Q15 -111 6 -113 Q0 -109 -6 -113 Q-15 -111 -19 -98 Z" fill="#2b2622"/>
+      <!-- flower crown -->
+      <circle cx="-12" cy="-118" r="4" fill="#f2c14e"/>
+      <circle cx="0" cy="-123" r="4" fill="#fff"/>
+      <circle cx="12" cy="-118" r="4" fill="#f2c14e"/>
+      <circle cx="-6" cy="-101" r="2.2" fill="#2b2622" stroke="none"/>
+      <circle cx="6" cy="-101" r="2.2" fill="#2b2622" stroke="none"/>
+      <circle cx="-10" cy="-95" r="3" fill="#f4a3a0" stroke="none" opacity=".7"/>
+      <circle cx="10" cy="-95" r="3" fill="#f4a3a0" stroke="none" opacity=".7"/>
+      <path d="M-6 -93 Q0 -87 6 -93" fill="none"/>
+    </g>
+    <!-- bouquet in their joined hands -->
+    <path d="M80 104 L82 116 M80 104 L76 115" stroke="#4f8a5b"/>
+    <path d="M72 102 Q80 112 88 102" fill="#4f8a5b"/>
+    <circle cx="74" cy="98" r="5" fill="#d9534a"/>
+    <circle cx="86" cy="98" r="5" fill="#d9534a"/>
+    <circle cx="80" cy="94" r="5" fill="#f2c14e"/>
+    <circle cx="80" cy="103" r="4.5" fill="#f6d3b3"/>
+  </g>
+</svg>

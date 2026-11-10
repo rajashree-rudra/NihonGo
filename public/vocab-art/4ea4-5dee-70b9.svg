@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 160" role="img" aria-label="intersection, crossing">
+  <!-- 交差点 (intersection): two roads crossing, seen from above, with zebra crossings and two cars -->
+  <rect width="160" height="160" rx="28" fill="#e1f1e6"/>
+  <g stroke="#2b2622" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round">
+    <!-- corner trees -->
+    <circle cx="34" cy="34" r="10" fill="#4f8a5b"/>
+    <circle cx="126" cy="126" r="10" fill="#4f8a5b"/>
+    <!-- roads -->
+    <path d="M58 10 H102 V58 H150 V102 H102 V150 H58 V102 H10 V58 H58 Z" fill="#9a958b"/>
+    <!-- centre lines -->
+    <path d="M80 12 V36 M80 124 V148 M12 80 H36 M124 80 H148" fill="none" stroke="#fff" stroke-width="2.5" stroke-dasharray="7 6"/>
+    <!-- zebra crossings -->
+    <g fill="#fff" stroke="none">
+      <rect x="62" y="42" width="5" height="12"/><rect x="71" y="42" width="5" height="12"/><rect x="80" y="42" width="5" height="12"/><rect x="89" y="42" width="5" height="12"/>
+      <rect x="66" y="106" width="5" height="12"/><rect x="75" y="106" width="5" height="12"/><rect x="84" y="106" width="5" height="12"/><rect x="93" y="106" width="5" height="12"/>
+      <rect x="42" y="66" width="12" height="5"/><rect x="42" y="75" width="12" height="5"/><rect x="42" y="84" width="12" height="5"/><rect x="42" y="93" width="12" height="5"/>
+      <rect x="106" y="62" width="12" height="5"/><rect x="106" y="71" width="12" height="5"/><rect x="106" y="80" width="12" height="5"/><rect x="106" y="89" width="12" height="5"/>
+    </g>
+    <!-- red car driving left -->
+    <rect x="122" y="84" width="24" height="14" rx="4" fill="#d9534a"/>
+    <rect x="127" y="86" width="5" height="10" rx="1.5" fill="#e3eaf6" stroke-width="1.8"/>
+    <!-- blue car driving down -->
+    <rect x="84" y="14" width="14" height="24" rx="4" fill="#3b5ba5"/>
+    <rect x="86" y="28" width="10" height="5" rx="1.5" fill="#e3eaf6" stroke-width="1.8"/>
+  </g>
+</svg>

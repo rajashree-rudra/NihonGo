@@ -1,0 +1,22 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 160" role="img" aria-label="door (Western style)">
+  <!-- ドア (Western-style door): a red panelled door with a round knob, in a wooden frame with a step -->
+  <rect width="160" height="160" rx="28" fill="#e1f1e6"/>
+  <circle cx="80" cy="80" r="56" fill="#fff" opacity=".55"/>
+  <ellipse cx="80" cy="140" rx="60" ry="5" fill="#c5e2cf"/>
+  <g stroke="#2b2622" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round">
+    <!-- frame -->
+    <rect x="36" y="14" width="88" height="122" rx="4" fill="#c9a26b"/>
+    <!-- door -->
+    <rect x="44" y="22" width="72" height="114" rx="2" fill="#d9534a"/>
+    <rect x="53" y="31" width="22" height="38" rx="3" fill="#d9534a"/>
+    <rect x="85" y="31" width="22" height="38" rx="3" fill="#d9534a"/>
+    <rect x="53" y="80" width="22" height="46" rx="3" fill="#d9534a"/>
+    <rect x="85" y="80" width="22" height="46" rx="3" fill="#d9534a"/>
+    <path d="M55 33 V67 M87 33 V67 M55 82 V124 M87 82 V124" fill="none" stroke="#fff" stroke-width="2" opacity=".5"/>
+    <!-- knob -->
+    <rect x="102" y="73" width="8" height="12" rx="2" fill="#9aa3b0" stroke-width="1.8"/>
+    <circle cx="106" cy="79" r="6.5" fill="#f2c14e"/>
+    <!-- step -->
+    <rect x="30" y="134" width="100" height="8" rx="3" fill="#d8d3ca"/>
+  </g>
+</svg>

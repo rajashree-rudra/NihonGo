@@ -1,0 +1,53 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 160" role="img" aria-label="older sister (polite)">
+  <!-- お姉さん (older sister, polite): the same scene as 姉, plus the gold sparkles that mark the polite お～さん words -->
+  <rect width="160" height="160" rx="28" fill="#fbe6e1"/>
+  <circle cx="62" cy="86" r="50" fill="#fff" opacity=".55"/>
+  <ellipse cx="82" cy="141" rx="60" ry="6" fill="#f1cfc7"/>
+  <g stroke="#2b2622" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round">
+    <!-- polite cue: gold sparkles -->
+    <path d="M102 14 Q104 26 116 28 Q104 30 102 42 Q100 30 88 28 Q100 26 102 14 Z" fill="#f2c14e"/>
+    <path d="M126 36 Q127 43 134 44 Q127 45 126 52 Q125 45 118 44 Q125 43 126 36 Z" fill="#f2c14e"/>
+    <!-- little sibling (grey) -->
+    <g transform="translate(116 140) scale(.64)">
+      <ellipse cx="-8" cy="-3" rx="8" ry="4.5" fill="#6f6a60"/>
+      <ellipse cx="8" cy="-3" rx="8" ry="4.5" fill="#6f6a60"/>
+      <rect x="-13" y="-38" width="10" height="35" rx="4" fill="#9a958b"/>
+      <rect x="3" y="-38" width="10" height="35" rx="4" fill="#9a958b"/>
+      <rect x="-27" y="-74" width="10" height="34" rx="5" fill="#d8d3ca"/>
+      <circle cx="-22" cy="-38" r="5.5" fill="#efe6dc"/>
+      <rect x="17" y="-74" width="10" height="34" rx="5" fill="#d8d3ca"/>
+      <circle cx="22" cy="-38" r="5.5" fill="#efe6dc"/>
+      <path d="M-19 -36 V-67 Q-19 -77 -9 -77 H9 Q19 -77 19 -67 V-36 Z" fill="#d8d3ca"/>
+      <circle cx="0" cy="-96" r="18" fill="#efe6dc"/>
+      <path d="M-18 -97 Q-19 -117 0 -117 Q19 -117 18 -97 Q12 -107 0 -106 Q-11 -106 -18 -97 Z" fill="#6f6a60"/>
+      <circle cx="-6" cy="-95" r="2" fill="#2b2622" stroke="none"/>
+      <circle cx="6" cy="-95" r="2" fill="#2b2622" stroke="none"/>
+      <path d="M-5 -88 Q0 -84 5 -88" fill="none"/>
+    </g>
+    <!-- older sister (colour) -->
+    <g transform="translate(62 140)">
+      <ellipse cx="-8" cy="-3" rx="8" ry="4.5" fill="#2b2622"/>
+      <ellipse cx="8" cy="-3" rx="8" ry="4.5" fill="#2b2622"/>
+      <rect x="-12" y="-40" width="9" height="37" rx="4" fill="#f6d3b3"/>
+      <rect x="3" y="-40" width="9" height="37" rx="4" fill="#f6d3b3"/>
+      <rect x="-27" y="-78" width="9" height="34" rx="4.5" fill="#d9534a"/>
+      <circle cx="-22.5" cy="-42" r="5.5" fill="#f6d3b3"/>
+      <path d="M-20 -104 Q-24 -82 -18 -72 H18 Q24 -82 20 -104 Z" fill="#2b2622"/>
+      <path d="M-15 -81 H15 L26 -36 H-26 Z" fill="#d9534a"/>
+      <path d="M-24 -44 H24" fill="none" stroke="#fff" stroke-width="2.5" opacity=".8"/>
+      <rect x="-5" y="-89" width="10" height="9" fill="#f6d3b3" stroke="none"/>
+      <circle cx="0" cy="-102" r="18" fill="#f6d3b3"/>
+      <path d="M-19 -100 Q-21 -125 0 -125 Q21 -125 19 -100 Q15 -112 6 -113 Q0 -108 -6 -113 Q-15 -112 -19 -100 Z" fill="#2b2622"/>
+      <circle cx="13" cy="-118" r="4" fill="#f2c14e"/>
+      <circle cx="-6" cy="-101" r="2.2" fill="#2b2622" stroke="none"/>
+      <circle cx="6" cy="-101" r="2.2" fill="#2b2622" stroke="none"/>
+      <circle cx="-10" cy="-95" r="3" fill="#f4a3a0" stroke="none" opacity=".7"/>
+      <circle cx="10" cy="-95" r="3" fill="#f4a3a0" stroke="none" opacity=".7"/>
+      <path d="M-6 -93 Q0 -87 6 -93" fill="none"/>
+    </g>
+    <!-- her arm resting on the little one's head -->
+    <path d="M78 64 L108 62" stroke="#2b2622" stroke-width="12"/>
+    <path d="M78 64 L108 62" stroke="#d9534a" stroke-width="7"/>
+    <circle cx="111" cy="62" r="5.5" fill="#f6d3b3"/>
+  </g>
+</svg>

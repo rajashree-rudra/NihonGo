@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 160" role="img" aria-label="toilet, restroom">
+  <!-- トイレ (toilet): a white Western toilet with the lid up and water in the bowl, a roll of toilet paper beside it -->
+  <rect width="160" height="160" rx="28" fill="#e3eaf6"/>
+  <circle cx="80" cy="80" r="56" fill="#fff" opacity=".55"/>
+  <ellipse cx="80" cy="140" rx="46" ry="6" fill="#c7d3ea"/>
+  <g stroke="#2b2622" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round">
+    <!-- tank -->
+    <rect x="42" y="22" width="72" height="44" rx="6" fill="#fff"/>
+    <rect x="38" y="16" width="80" height="10" rx="4" fill="#fff"/>
+    <rect x="46" y="32" width="12" height="5" rx="2" fill="#9aa3b0" stroke-width="2"/>
+    <!-- raised lid -->
+    <path d="M52 100 V66 Q52 42 78 42 Q104 42 104 66 V100 Z" fill="#fff"/>
+    <path d="M60 70 Q60 52 78 50" fill="none" stroke="#d8d3ca" stroke-width="3"/>
+    <!-- bowl -->
+    <path d="M44 102 Q46 122 64 126 L66 140 H90 L92 126 Q110 122 112 102 Z" fill="#fff"/>
+    <!-- seat and water -->
+    <ellipse cx="78" cy="100" rx="35" ry="13" fill="#fff"/>
+    <ellipse cx="78" cy="101" rx="23" ry="7.5" fill="#c7d3ea"/>
+    <!-- toilet paper -->
+    <path d="M124 64 H146" fill="none" stroke="#9aa3b0" stroke-width="4"/>
+    <rect x="125" y="64" width="14" height="30" fill="#fff"/>
+    <circle cx="132" cy="64" r="10" fill="#fff"/>
+    <circle cx="132" cy="64" r="3.5" fill="#d8d3ca"/>
+    <path d="M125 94 L128 92 L131 95 L135 92 L139 94" fill="none" stroke-width="2"/>
+  </g>
+</svg>

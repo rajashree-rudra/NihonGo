@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 160" role="img" aria-label="food">
+  <!-- 食べ物 (food): a rice ball, a hamburger and an apple, side by side -->
+  <rect width="160" height="160" rx="28" fill="#fbe6e1"/>
+  <circle cx="80" cy="84" r="56" fill="#fff" opacity=".55"/>
+  <ellipse cx="80" cy="134" rx="64" ry="6" fill="#f1cfc7"/>
+  <g stroke="#2b2622" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round">
+    <!-- rice ball (onigiri) -->
+    <path d="M34 74 Q40 64 46 74 L64 112 Q68 122 58 122 H22 Q12 122 16 112 Z" fill="#fff"/>
+    <path d="M27 100 H53 L58 122 H22 Z" fill="#2f3b33"/>
+    <!-- apple -->
+    <path d="M128 78 Q127 70 131 66" fill="none"/>
+    <path d="M130 72 Q138 62 146 68 Q138 76 130 72 Z" fill="#4f8a5b"/>
+    <path d="M128 80 Q140 72 146 84 Q150 100 140 114 Q134 122 128 118 Q122 122 116 114 Q106 100 110 84 Q116 72 128 80 Z" fill="#d9534a"/>
+    <path d="M116 90 Q117 84 121 82" fill="none" stroke="#fff" stroke-width="3" opacity=".7"/>
+    <!-- hamburger -->
+    <path d="M56 116 H108 Q108 130 96 130 H68 Q56 130 56 116 Z" fill="#e5b061"/>
+    <rect x="54" y="104" width="56" height="13" rx="6.5" fill="#5a4636"/>
+    <path d="M56 102 H108 L104 110 L98 104 L88 112 L80 104 L72 112 L64 104 L58 110 Z" fill="#f2c14e"/>
+    <path d="M54 100 Q58 94 62 100 Q66 94 70 100 Q74 94 78 100 Q82 94 86 100 Q90 94 94 100 Q98 94 102 100 Q106 94 110 100 V104 H54 Z" fill="#4f8a5b"/>
+    <path d="M54 98 Q54 64 82 64 Q110 64 110 98 Z" fill="#e5b061"/>
+    <g fill="#fff" stroke-width="1.4">
+      <ellipse cx="70" cy="78" rx="2.6" ry="1.6" transform="rotate(-25 70 78)"/>
+      <ellipse cx="84" cy="72" rx="2.6" ry="1.6"/>
+      <ellipse cx="96" cy="80" rx="2.6" ry="1.6" transform="rotate(25 96 80)"/>
+      <ellipse cx="82" cy="86" rx="2.6" ry="1.6"/>
+    </g>
+  </g>
+</svg>

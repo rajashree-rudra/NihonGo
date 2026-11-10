@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 160" role="img" aria-label="door (Japanese style, often sliding)">
+  <!-- 戸 (Japanese-style door): paper-and-lattice sliding doors in a wooden frame, one sliding shut (arrow) -->
+  <rect width="160" height="160" rx="28" fill="#e1f1e6"/>
+  <circle cx="80" cy="80" r="56" fill="#fff" opacity=".55"/>
+  <ellipse cx="80" cy="140" rx="60" ry="5" fill="#c5e2cf"/>
+  <g stroke="#2b2622" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round">
+    <!-- frame and the dark room behind -->
+    <rect x="22" y="16" width="116" height="124" rx="3" fill="#c9a26b"/>
+    <rect x="30" y="26" width="100" height="106" fill="#6f6a60"/>
+    <!-- back panel (right) -->
+    <g>
+      <rect x="82" y="26" width="48" height="106" fill="#c9a26b"/>
+      <rect x="88" y="32" width="36" height="94" fill="#fff" stroke-width="2"/>
+      <path d="M100 32 V126 M112 32 V126 M88 51 H124 M88 70 H124 M88 89 H124 M88 108 H124" fill="none" stroke="#c9a26b" stroke-width="2.5"/>
+    </g>
+    <!-- front panel (left), slid partly open -->
+    <g>
+      <rect x="48" y="26" width="48" height="106" fill="#c9a26b"/>
+      <rect x="54" y="32" width="36" height="94" fill="#fff" stroke-width="2"/>
+      <path d="M66 32 V126 M78 32 V126 M54 51 H90 M54 70 H90 M54 89 H90 M54 108 H90" fill="none" stroke="#c9a26b" stroke-width="2.5"/>
+      <rect x="51" y="74" width="4" height="12" rx="2" fill="#3d3a4a" stroke-width="1.5"/>
+    </g>
+    <!-- top and bottom tracks -->
+    <path d="M30 26 H130 M30 132 H130" fill="none" stroke-width="3"/>
+    <!-- slide arrow -->
+    <path d="M58 146 H100 M58 146 L65 141 M58 146 L65 151" fill="none" stroke="#d9534a" stroke-width="3.5"/>
+  </g>
+</svg>

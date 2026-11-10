@@ -1,0 +1,32 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 160" role="img" aria-label="telephone; phone call">
+  <!-- 電話 (telephone): a red desk phone with a dial, ringing -->
+  <rect width="160" height="160" rx="28" fill="#f8edd6"/>
+  <circle cx="80" cy="86" r="54" fill="#fff" opacity=".55"/>
+  <ellipse cx="80" cy="134" rx="52" ry="6" fill="#ecdcb6"/>
+  <g stroke="#2b2622" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round">
+    <!-- ringing lines -->
+    <path d="M22 54 Q14 66 22 78 M30 58 Q25 66 30 74 M138 54 Q146 66 138 78 M130 58 Q135 66 130 74" fill="none" stroke="#d9534a" stroke-width="3"/>
+    <!-- body -->
+    <path d="M30 128 Q28 132 34 132 H126 Q132 132 130 128 L114 76 Q112 70 106 70 H54 Q48 70 46 76 Z" fill="#d9534a"/>
+    <!-- handset -->
+    <rect x="58" y="62" width="10" height="12" rx="2" fill="#3d3a4a"/>
+    <rect x="92" y="62" width="10" height="12" rx="2" fill="#3d3a4a"/>
+    <path d="M44 56 Q44 40 60 40 H100 Q116 40 116 56" fill="none" stroke="#2b2622" stroke-width="16"/>
+    <path d="M44 56 Q44 40 60 40 H100 Q116 40 116 56" fill="none" stroke="#d9534a" stroke-width="11"/>
+    <rect x="28" y="52" width="32" height="14" rx="7" fill="#d9534a"/>
+    <rect x="100" y="52" width="32" height="14" rx="7" fill="#d9534a"/>
+    <!-- dial -->
+    <circle cx="80" cy="102" r="20" fill="#fff"/>
+    <circle cx="80" cy="102" r="7" fill="#efe6dc"/>
+    <g fill="#d8d3ca" stroke-width="1.8">
+      <circle cx="80" cy="88" r="3.2"/>
+      <circle cx="90" cy="92" r="3.2"/>
+      <circle cx="94" cy="102" r="3.2"/>
+      <circle cx="90" cy="112" r="3.2"/>
+      <circle cx="80" cy="116" r="3.2"/>
+      <circle cx="70" cy="112" r="3.2"/>
+      <circle cx="66" cy="102" r="3.2"/>
+      <circle cx="70" cy="92" r="3.2"/>
+    </g>
+  </g>
+</svg>

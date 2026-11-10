@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 160" role="img" aria-label="grandmother; elderly woman">
+  <!-- おばあさん (grandmother / old woman): white hair in a bun, round glasses, a cardigan and long skirt, leaning on a wooden cane -->
+  <rect width="160" height="160" rx="28" fill="#e1f1e6"/>
+  <circle cx="78" cy="86" r="52" fill="#fff" opacity=".55"/>
+  <ellipse cx="82" cy="141" rx="46" ry="6" fill="#c5e2cf"/>
+  <g stroke="#2b2622" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round" transform="translate(76 140)">
+    <ellipse cx="-8" cy="-3" rx="8" ry="4.5" fill="#2b2622"/>
+    <ellipse cx="8" cy="-3" rx="8" ry="4.5" fill="#2b2622"/>
+    <rect x="-11" y="-20" width="8" height="17" rx="4" fill="#f6d3b3"/>
+    <rect x="3" y="-20" width="8" height="17" rx="4" fill="#f6d3b3"/>
+    <path d="M-17 -56 H17 L22 -14 H-22 Z" fill="#c9a26b"/>
+    <rect x="-27" y="-78" width="9" height="36" rx="4.5" fill="#4f8a5b"/>
+    <circle cx="-22.5" cy="-40" r="5.5" fill="#f6d3b3"/>
+    <rect x="18" y="-78" width="9" height="34" rx="4.5" fill="#4f8a5b"/>
+    <path d="M-19 -52 V-70 Q-19 -81 -9 -81 H9 Q19 -81 19 -70 V-52 Z" fill="#4f8a5b"/>
+    <path d="M-7 -81 L0 -72 L7 -81 Z" fill="#fff"/>
+    <!-- cane -->
+    <path d="M33 -3 V-40 Q33 -48 25 -46" fill="none" stroke-width="8"/>
+    <path d="M33 -3 V-40 Q33 -48 25 -46" fill="none" stroke="#5a4636" stroke-width="3.5"/>
+    <circle cx="24" cy="-44" r="5.5" fill="#f6d3b3"/>
+    <rect x="-5" y="-89" width="10" height="9" fill="#f6d3b3" stroke="none"/>
+    <!-- white hair with a bun -->
+    <circle cx="0" cy="-126" r="8" fill="#fff"/>
+    <circle cx="0" cy="-102" r="18" fill="#f6d3b3"/>
+    <path d="M-19 -97 Q-21 -125 0 -125 Q21 -125 19 -97 Q17 -110 8 -112 Q3 -112 0 -108 Q-3 -112 -8 -112 Q-17 -110 -19 -97 Z" fill="#fff"/>
+    <!-- round glasses over smiling eyes -->
+    <circle cx="-7" cy="-100" r="5.5" fill="none" stroke-width="2"/>
+    <circle cx="7" cy="-100" r="5.5" fill="none" stroke-width="2"/>
+    <path d="M-1.5 -100 H1.5" fill="none" stroke-width="2"/>
+    <path d="M-9.5 -99 Q-7 -102 -4.5 -99 M4.5 -99 Q7 -102 9.5 -99" fill="none" stroke-width="2"/>
+    <circle cx="-11" cy="-93" r="3" fill="#f4a3a0" stroke="none" opacity=".7"/>
+    <circle cx="11" cy="-93" r="3" fill="#f4a3a0" stroke="none" opacity=".7"/>
+    <path d="M-5 -91 Q0 -86 5 -91" fill="none"/>
+  </g>
+</svg>

@@ -1,0 +1,34 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 160" role="img" aria-label="table">
+  <!-- テーブル (table): a wooden table on four legs with a teapot and a cup of tea on it -->
+  <rect width="160" height="160" rx="28" fill="#e1f1e6"/>
+  <circle cx="80" cy="84" r="56" fill="#fff" opacity=".55"/>
+  <ellipse cx="80" cy="138" rx="62" ry="6" fill="#c5e2cf"/>
+  <g stroke="#2b2622" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round">
+    <!-- back legs -->
+    <rect x="40" y="88" width="8" height="40" rx="3" fill="#c9a26b"/>
+    <rect x="112" y="88" width="8" height="40" rx="3" fill="#c9a26b"/>
+    <rect x="40" y="88" width="8" height="40" rx="3" fill="#2b2622" opacity=".2" stroke="none"/>
+    <rect x="112" y="88" width="8" height="40" rx="3" fill="#2b2622" opacity=".2" stroke="none"/>
+    <!-- table top -->
+    <path d="M34 76 H126 L140 88 H20 Z" fill="#c9a26b"/>
+    <path d="M34 76 H126 L140 88 H20 Z" fill="#fff" opacity=".25" stroke="none"/>
+    <rect x="18" y="88" width="124" height="9" rx="3" fill="#c9a26b"/>
+    <!-- front legs -->
+    <rect x="25" y="97" width="10" height="40" rx="3" fill="#c9a26b"/>
+    <rect x="125" y="97" width="10" height="40" rx="3" fill="#c9a26b"/>
+    <!-- teapot -->
+    <path d="M47 64 Q38 60 34 50" fill="none" stroke="#2b2622" stroke-width="8"/>
+    <path d="M47 64 Q38 60 34 50" fill="none" stroke="#3b5ba5" stroke-width="3.5"/>
+    <path d="M79 58 Q90 58 88 68 Q86 76 76 76" fill="none" stroke="#2b2622" stroke-width="8"/>
+    <path d="M79 58 Q90 58 88 68 Q86 76 76 76" fill="none" stroke="#3b5ba5" stroke-width="3.5"/>
+    <path d="M44 82 Q40 66 50 56 Q62 50 74 56 Q84 66 80 82 Z" fill="#3b5ba5"/>
+    <path d="M51 56 Q62 46 73 56 Z" fill="#3b5ba5"/>
+    <circle cx="62" cy="48" r="3.5" fill="#f2c14e"/>
+    <path d="M46 68 H78" fill="none" stroke="#fff" stroke-width="2.5" opacity=".8"/>
+    <!-- cup and saucer with steam -->
+    <path d="M112 71 Q120 71 119 76 Q118 80 111 79" fill="none"/>
+    <path d="M96 68 H113 L111 80 Q104 83 98 80 Z" fill="#fff"/>
+    <ellipse cx="104.5" cy="82" rx="13" ry="3" fill="#fff"/>
+    <path d="M100 62 Q97 57 100 52 M108 62 Q105 57 108 52" fill="none" stroke="#9a958b" stroke-width="2"/>
+  </g>
+</svg>

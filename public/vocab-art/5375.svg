@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 160" role="img" aria-label="egg">
+  <!-- 卵 (egg): a whole egg standing up, and a cracked half shell showing the yellow yolk -->
+  <rect width="160" height="160" rx="28" fill="#f8edd6"/>
+  <circle cx="80" cy="84" r="54" fill="#fff" opacity=".55"/>
+  <ellipse cx="82" cy="134" rx="58" ry="6" fill="#ecdcb6"/>
+  <g stroke="#2b2622" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round">
+    <!-- whole egg -->
+    <path d="M58 44 Q90 44 93 92 Q94 130 58 130 Q22 130 23 92 Q26 44 58 44 Z" fill="#fff6e6"/>
+    <path d="M37 72 Q41 58 50 52" fill="none" stroke="#fff" stroke-width="5"/>
+    <!-- cracked half shell with the yolk -->
+    <ellipse cx="117" cy="100" rx="23" ry="7" fill="#fff"/>
+    <circle cx="117" cy="94" r="12" fill="#f2c14e"/>
+    <path d="M111 89 Q113 86 118 86" fill="none" stroke="#fff" stroke-width="2.5"/>
+    <path d="M92 102 L97 95 L103 102 L109 94 L115 102 L121 94 L127 102 L133 95 L142 102 Q142 132 117 132 Q92 132 92 102 Z" fill="#fff6e6"/>
+  </g>
+</svg>

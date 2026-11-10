@@ -1,0 +1,38 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 160" role="img" aria-label="kitchen">
+  <!-- 台所 (kitchen): a range hood over a steaming pot, a tap, the counter, an oven and cupboards -->
+  <rect width="160" height="160" rx="28" fill="#f8edd6"/>
+  <ellipse cx="80" cy="141" rx="60" ry="5" fill="#ecdcb6"/>
+  <g stroke="#2b2622" stroke-width="2.5" stroke-linejoin="round" stroke-linecap="round">
+    <!-- range hood -->
+    <path d="M40 18 H64 V28 L74 38 H30 L40 28 Z" fill="#d8d3ca"/>
+    <!-- wall cupboard -->
+    <rect x="86" y="18" width="50" height="28" rx="3" fill="#fff"/>
+    <path d="M111 18 V46" fill="none"/>
+    <circle cx="106" cy="38" r="2" fill="#2b2622" stroke="none"/>
+    <circle cx="116" cy="38" r="2" fill="#2b2622" stroke="none"/>
+    <!-- steam -->
+    <path d="M44 56 Q40 50 44 44 M54 56 Q50 50 54 44 M64 56 Q60 50 64 44" fill="none" stroke="#9a958b" stroke-width="3"/>
+    <!-- pot -->
+    <rect x="31" y="58" width="44" height="6" rx="3" fill="#d9534a"/>
+    <rect x="49" y="53" width="8" height="5" rx="2" fill="#3d3a4a"/>
+    <path d="M34 64 H72 V78 Q72 82 68 82 H38 Q34 82 34 78 Z" fill="#d9534a"/>
+    <path d="M34 68 H28 M72 68 H78" fill="none" stroke-width="4"/>
+    <!-- tap -->
+    <path d="M118 82 V62 Q118 56 112 56 H104 V62" fill="none" stroke="#2b2622" stroke-width="8"/>
+    <path d="M118 82 V62 Q118 56 112 56 H104 V62" fill="none" stroke="#9aa3b0" stroke-width="3.5"/>
+    <circle cx="126" cy="74" r="4" fill="#3b5ba5" stroke-width="2"/>
+    <path d="M104 68 Q106 72 104 74 Q102 72 104 68 Z" fill="#3b5ba5" stroke-width="1.6"/>
+    <!-- counter top -->
+    <rect x="18" y="82" width="124" height="9" rx="3" fill="#9a958b"/>
+    <!-- oven under the stove -->
+    <rect x="24" y="91" width="58" height="48" fill="#efe6dc"/>
+    <circle cx="36" cy="99" r="3" fill="#3d3a4a" stroke-width="1.8"/>
+    <circle cx="48" cy="99" r="3" fill="#3d3a4a" stroke-width="1.8"/>
+    <rect x="32" y="107" width="42" height="26" rx="3" fill="#3d3a4a"/>
+    <path d="M40 112 H66" fill="none" stroke="#9aa3b0" stroke-width="3"/>
+    <!-- cupboards -->
+    <rect x="82" y="91" width="54" height="48" fill="#c9a26b"/>
+    <path d="M109 91 V139" fill="none"/>
+    <path d="M104 106 V116 M114 106 V116" fill="none" stroke-width="3.5"/>
+  </g>
+</svg>
