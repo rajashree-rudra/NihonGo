@@ -21,7 +21,43 @@ npm run build && npm start
 | `/n5/vocabulary?s=verbs` | Word list by category, search, collapsible example sentences |
 | `/n4/grammar` | Grammar points with structure, notes and examples |
 
+| `/login`, `/register` | Sign in · request access (name, email, address, occupation, JLPT passed and target) |
+| `/pending` | Where a new account waits until the admin approves it |
+| `/admin`, `/admin/login` | Admin panel (its own sign-in): approve or reject requests, remove access, reset a password |
+
 All routes are generated from the level registry (`src/data/levels.ts`), so new content needs no new pages.
+
+## Accounts and database
+
+Every page needs an approved account. `src/proxy.ts` sends signed-out visitors to `/login` and accounts that
+aren't approved yet to `/pending`. Registering creates a **pending** request; the admin approves it in `/admin`.
+Emails listed in `ADMIN_EMAILS` become admins when they register.
+
+The admin panel has its **own, independent sign-in** (`/admin/login`, cookie `sb-nihongo-admin`, sent only to
+`/admin`): an admin stays signed in to the panel whatever account the site is signed in as — e.g. a test
+request — and signing out of one doesn't sign out of the other. An admin who signs in to the site is signed in
+to the panel too.
+
+- **Sign-in:** Supabase Auth (email + password, sessions in cookies via `@supabase/ssr`). There's no email
+  confirmation yet — the admin's approval is the check — so a forgotten password is reset from the admin panel.
+- **Data:** Supabase Postgres through Prisma (`prisma/schema.prisma`, client in `src/lib/db.ts`). The access
+  decision is also copied into the account's sign-in token (`app_metadata`), so pages check it without a database query.
+  A change of access reaches a signed-in user when their token renews (within an hour).
+- **Security:** every table has Row Level Security on with no policies, so Supabase's public Data API can't touch
+  it; only the server reaches the data. Server Functions check access themselves, not only the proxy.
+- **Kanji, vocabulary and grammar stay in `src/data/`** — the database holds only per-user data.
+
+Settings: copy `.env.example` to `.env.local` and fill it in. The same variables must be set in Vercel
+(Project → Settings → Environment Variables, Production), not marked Sensitive — the deploy needs to read them.
+
+```bash
+npm run db:migrate -- --name what-changed   # after editing prisma/schema.prisma: write + apply a migration
+npm run db:deploy                           # apply committed migrations (the deploy does this automatically)
+npm run db:status                           # which migrations the database has
+```
+
+New migrations are applied by the GitHub deploy before the new site goes live. Give every new table
+`ALTER TABLE "…" ENABLE ROW LEVEL SECURITY;` in its migration.
 
 ## Content
 

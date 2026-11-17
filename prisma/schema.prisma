@@ -1,0 +1,66 @@
+// NihonGo database (Supabase Postgres). Change the models here, then create a migration:
+//   npm run db:migrate -- --name <what-changed>
+// Deploys apply new migrations automatically (prisma migrate deploy). See README → "Accounts and database".
+
+generator client {
+  provider = "prisma-client"
+  output   = "../src/generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+/// Whether an account may use the site. Registering creates a `pending` request; the admin approves or rejects it.
+enum AccessStatus {
+  pending
+  approved
+  rejected
+
+  @@map("access_status")
+}
+
+enum Role {
+  user
+  admin
+
+  @@map("user_role")
+}
+
+enum JlptLevel {
+  N5
+  N4
+  N3
+  N2
+  N1
+
+  @@map("jlpt_level")
+}
+
+/// One row per account: what the person gave when registering, and the admin's decision.
+/// `id` is the Supabase Auth user id (auth.users.id); sign-in itself (email, password) is handled by Supabase Auth.
+model Profile {
+  id           String       @id @db.Uuid
+  email        String       @unique
+  fullName     String       @map("full_name")
+  country      String
+  postalCode   String       @map("postal_code")
+  /// Prefecture / state / province / division
+  region       String
+  city         String
+  addressLine1 String       @map("address_line1")
+  addressLine2 String?      @map("address_line2")
+  occupation   String
+  /// Highest JLPT level passed; null = none yet
+  passedLevel  JlptLevel?   @map("passed_level")
+  targetLevel  JlptLevel    @map("target_level")
+  status       AccessStatus @default(pending)
+  role         Role         @default(user)
+  /// When the admin last approved, rejected or removed access
+  reviewedAt   DateTime?    @map("reviewed_at") @db.Timestamptz(3)
+  createdAt    DateTime     @default(now()) @map("created_at") @db.Timestamptz(3)
+  updatedAt    DateTime     @updatedAt @map("updated_at") @db.Timestamptz(3)
+
+  @@index([status, createdAt])
+  @@map("profiles")
+}

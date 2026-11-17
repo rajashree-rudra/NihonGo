@@ -10,3 +10,7 @@ public/audio/.tmp/
 .vercel
 .env*
 .audio-cache/
+
+# Prisma client, made by `prisma generate` (runs after npm install)
+/src/generated/
+!.env.example
