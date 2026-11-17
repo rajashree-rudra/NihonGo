@@ -48,8 +48,8 @@ to the panel too.
 - **Kanji, vocabulary and grammar stay in `src/data/`** — the database holds only per-user data.
 
 Settings: copy `.env.example` to `.env.local` and fill it in. For the live site, each one also goes where
-`.env.example` says: in Vercel (Project → Settings → Environment Variables, Production) the public ones and
-`ADMIN_EMAILS` as **Config** (the build reads them), `SUPABASE_SECRET_KEY` and `DATABASE_URL` as **Secret**;
+`.env.example` says: in Vercel (Project → Settings → Environment Variables, Production) the two public ones as
+**Config** (the build reads them), `SUPABASE_SECRET_KEY`, `DATABASE_URL` and `ADMIN_EMAILS` as **Secret**;
 `DIRECT_URL` as a **GitHub Actions secret** (used only to apply migrations). The deploy checks them first.
 
 ```bash
