@@ -106,10 +106,18 @@ jobs:
       - name: Pull Vercel project settings
         run: vercel pull --yes --environment=production --token=${{ secrets.VERCEL_TOKEN }}
 
+      # Stop early, with a clear list, if a setting is missing (names only, never values). See .env.example.
+      - name: Check site settings
+        run: node scripts/check-deploy-env.mjs .vercel/.env.production.local
+        env:
+          DIRECT_URL: ${{ secrets.DIRECT_URL }}
+
       # New database migrations (prisma/migrations) are applied before the new code goes live.
-      # DIRECT_URL comes from the Vercel project's environment variables, pulled just above.
+      # DIRECT_URL (database address for migrations) is a GitHub secret; the site itself doesn't use it.
       - name: Apply database migrations
-        run: node --env-file=.vercel/.env.production.local node_modules/prisma/build/index.js migrate deploy
+        run: node node_modules/prisma/build/index.js migrate deploy
+        env:
+          DIRECT_URL: ${{ secrets.DIRECT_URL }}
 
       - name: Build
         run: vercel build --prod --token=${{ secrets.VERCEL_TOKEN }}

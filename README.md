@@ -47,8 +47,10 @@ to the panel too.
   it; only the server reaches the data. Server Functions check access themselves, not only the proxy.
 - **Kanji, vocabulary and grammar stay in `src/data/`** — the database holds only per-user data.
 
-Settings: copy `.env.example` to `.env.local` and fill it in. The same variables must be set in Vercel
-(Project → Settings → Environment Variables, Production), not marked Sensitive — the deploy needs to read them.
+Settings: copy `.env.example` to `.env.local` and fill it in. For the live site, each one also goes where
+`.env.example` says: in Vercel (Project → Settings → Environment Variables, Production) the public ones and
+`ADMIN_EMAILS` as **Config** (the build reads them), `SUPABASE_SECRET_KEY` and `DATABASE_URL` as **Secret**;
+`DIRECT_URL` as a **GitHub Actions secret** (used only to apply migrations). The deploy checks them first.
 
 ```bash
 npm run db:migrate -- --name what-changed   # after editing prisma/schema.prisma: write + apply a migration
