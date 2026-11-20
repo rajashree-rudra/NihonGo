@@ -195,3 +195,35 @@ html {
       6 6,
     crosshair;
 }
+
+/* Word by word (src/components/study/WordByWord.tsx): one colour for each kind of word, in the
+   sentence and in its word list. Distinct hues (not shades of one) so they're told apart at a
+   glance; in the dark theme lighter, softer versions of the same hues. */
+:root {
+  --kind-n: #2f6db5; /* noun: blue */
+  --kind-v: #1f8a57; /* verb: green */
+  --kind-a: #c4620f; /* adjective: orange */
+  --kind-d: #8344c4; /* adverb: purple */
+  --kind-p: #d63c25; /* particle: red */
+  --kind-c: #6e6760; /* grammar (です, でしょう…): grey */
+  --kind-e: #c2367c; /* expression, linking word: pink */
+}
+:root[data-theme="dark"] {
+  --kind-n: #7cb2ee;
+  --kind-v: #6fcf97;
+  --kind-a: #f0a65e;
+  --kind-d: #c29cf2;
+  --kind-p: #f08a72;
+  --kind-c: #a8b0b9;
+  --kind-e: #ef8dbe;
+}
+[data-kind="n"] { --kind: var(--kind-n); }
+[data-kind="v"] { --kind: var(--kind-v); }
+[data-kind="a"] { --kind: var(--kind-a); }
+[data-kind="d"] { --kind: var(--kind-d); }
+[data-kind="p"] { --kind: var(--kind-p); }
+[data-kind="c"] { --kind: var(--kind-c); }
+[data-kind="e"] { --kind: var(--kind-e); }
+.kind-text {
+  color: var(--kind);
+}

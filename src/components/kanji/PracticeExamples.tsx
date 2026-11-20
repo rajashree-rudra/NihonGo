@@ -5,6 +5,7 @@ import type { CharItem, KanjiDetail } from "@/data/types";
 import { practiceJapaneseStore, romajiStore } from "@/lib/settings";
 import { cn } from "@/components/ui/cn";
 import { ExampleList } from "@/components/study/ExampleList";
+import { WordByWordToggle } from "@/components/study/WordByWord";
 import { VocabList } from "./KanjiDetails";
 
 /**
@@ -43,6 +44,16 @@ export function PracticeExamples({ item, detail, hidden, setId }: { item: CharIt
             >
               Aa<span className="ml-1 max-sm:hidden">Romaji</span>
             </button>
+            {showJa && detail.examples.some((e) => e.words) && (
+              <WordByWordToggle
+                pill={(active) =>
+                  cn(
+                    "inline-flex h-10 items-center gap-1.5 rounded-xl border px-3 text-[13px] font-semibold transition active:scale-90",
+                    active ? "border-ink bg-ink text-white" : "border-line-strong bg-card text-ink-soft hover:border-ink/40 hover:text-ink",
+                  )
+                }
+              />
+            )}
             <button
               type="button"
               onClick={() => setShowJa(!showJa)}

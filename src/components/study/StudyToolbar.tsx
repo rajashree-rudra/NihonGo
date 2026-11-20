@@ -3,6 +3,7 @@
 import { ChevronsDownUp, ChevronsUpDown, Search, X } from "lucide-react";
 import { examplesOpenStore, romajiStore } from "@/lib/settings";
 import { cn } from "@/components/ui/cn";
+import { WordByWordToggle } from "./WordByWord";
 
 interface Props {
   query: string;
@@ -12,7 +13,7 @@ interface Props {
   summary: string;
 }
 
-/** Search + the two display switches shared by the vocabulary and grammar pages. */
+/** Search + the display switches shared by the vocabulary and grammar pages. */
 export function StudyToolbar({ query, onQuery, placeholder, summary }: Props) {
   const [examplesOpen, setExamplesOpen] = examplesOpenStore.useValue();
   const [romaji, setRomaji] = romajiStore.useValue();
@@ -60,6 +61,7 @@ export function StudyToolbar({ query, onQuery, placeholder, summary }: Props) {
         <button type="button" onClick={() => setRomaji(!romaji)} aria-pressed={romaji} title="Show romaji" className={pill(romaji)}>
           Aa<span className="max-sm:hidden">Romaji</span>
         </button>
+        <WordByWordToggle pill={pill} />
       </div>
       <p className="mt-2 text-xs font-medium text-muted" aria-live="polite">
         {summary}

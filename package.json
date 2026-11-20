@@ -16,7 +16,8 @@
     "data:parts": "node --experimental-strip-types --no-warnings scripts/fetch-parts.mjs",
     "data:audio": "node --experimental-strip-types --no-warnings scripts/generate-audio.mjs",
     "data:audio:male": "node --experimental-strip-types --no-warnings scripts/generate-audio.mjs --voice=male",
-    "data:vocab-art": "node scripts/list-vocab-art.mjs"
+    "data:vocab-art": "node scripts/list-vocab-art.mjs",
+    "data:glosses": "node --experimental-strip-types --no-warnings scripts/check-glosses.mjs"
   },
   "dependencies": {
     "@prisma/adapter-pg": "^7.10.1",

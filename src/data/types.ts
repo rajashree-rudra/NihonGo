@@ -17,6 +17,18 @@ export interface CharItem {
 
 // ---------- Kanji books (grouped kanji with rich details) ----------
 
+/**
+ * The kind of a word in the word-by-word list (each has its colour): n noun, v verb, a adjective,
+ * d adverb, p particle, c grammar word (です, でしょう…), e expression or linking word (はい, でも).
+ */
+export type WordKind = "n" | "v" | "a" | "d" | "p" | "c" | "e";
+
+/**
+ * One word of an example sentence, for the word-by-word list: [as written, short English gloss,
+ * reading in hiragana (words with kanji), kind]. Punctuation is just [mark]. See src/data/glosses.
+ */
+export type Word = [surface: string, gloss?: string, reading?: string, kind?: WordKind];
+
 export interface KanjiExample {
   ja: string;
   kana: string;
@@ -33,6 +45,8 @@ export interface KanjiExample {
    */
   reading?: string;
   readingKind?: "on" | "kun" | "special";
+  /** The sentence word by word. */
+  words?: Word[];
 }
 
 export interface KanjiVocab {
@@ -50,6 +64,8 @@ export interface KanjiVocab {
   /** Which of the kanji's readings this word uses (worked out from its reading), if clear. */
   kanjiReading?: string;
   kanjiReadingKind?: "on" | "kun";
+  /** The example word by word. */
+  exampleWords?: Word[];
 }
 
 /** One panel of a kanji's little cartoon: an emoji scene and one very short sentence. */
@@ -62,6 +78,8 @@ export interface ComicPanel {
   /** The highlighted word inside `ja` / `kana`. */
   hl?: string;
   hlKana?: string;
+  /** The sentence word by word. */
+  words?: Word[];
 }
 
 /** Help to remember a kanji: a story built from its parts, and a two-panel cartoon. */
@@ -118,6 +136,8 @@ export interface Example {
   kana: string;
   romaji: string;
   en: string;
+  /** The sentence word by word. */
+  words?: Word[];
 }
 
 export type PartOfSpeech =

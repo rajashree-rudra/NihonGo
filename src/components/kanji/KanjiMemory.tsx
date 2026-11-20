@@ -6,7 +6,7 @@ import { kanaSentenceToRomaji } from "@/data/romaji";
 import { speak } from "@/lib/audio";
 import { memoryTrickStore, romajiStore } from "@/lib/settings";
 import { cn } from "@/components/ui/cn";
-import { emphasize, highlight } from "@/components/study/ExampleList";
+import { Sentence, WordList, emphasize, highlight } from "@/components/study/WordByWord";
 
 const PANEL_COLORS = ["bg-ai-soft", "bg-matcha-soft", "bg-kin-soft", "bg-shu-soft"];
 const JAPANESE = /[぀-ヿ㐀-鿿⺀-⿟]/;
@@ -31,7 +31,7 @@ function Story({ text, char }: { text: string; char: string }) {
 
 /**
  * Memory trick: an easy story from the kanji's parts and a two-panel emoji cartoon whose speech
- * bubbles say a very short sentence (tap a panel to hear it).
+ * bubbles say a very short sentence (tap a panel to hear it, or a word to see what it means).
  */
 export function MemoryTip({
   memory,
@@ -62,13 +62,12 @@ export function MemoryTip({
         // columns (phones, the practice sidebar) and wide ones (the kanji list on a computer).
         <div className={cn("@container grid gap-2.5", memory.comic.length > 1 && "grid-cols-2")}>
           {memory.comic.map((p, i) => (
-            <button
+            // Tap anywhere on a panel to hear it — except on a word, which shows what the word means.
+            <div
               key={i}
-              type="button"
               onClick={() => void speak(p.ja)}
-              aria-label={`Listen: ${p.ja}`}
               className={cn(
-                "relative flex min-w-0 flex-col items-center gap-2.5 rounded-2xl border-2 border-ink/80 p-2 pt-3 text-center @min-[26rem]:p-2.5 @min-[26rem]:pt-3",
+                "relative flex min-w-0 cursor-pointer flex-col items-center gap-2.5 rounded-2xl border-2 border-ink/80 p-2 pt-3 text-center @min-[26rem]:p-2.5 @min-[26rem]:pt-3",
                 "shadow-[3px_3px_0_0_var(--color-ink)] transition active:translate-x-0.5 active:translate-y-0.5 active:shadow-none",
                 PANEL_COLORS[(first + i) % PANEL_COLORS.length],
               )}
@@ -80,7 +79,7 @@ export function MemoryTip({
                 {/* Bubble tail, pointing up at the scene. */}
                 <span className="absolute -top-[7px] left-1/2 size-3 -translate-x-1/2 rotate-45 border-l-2 border-t-2 border-ink/80 bg-card" />
                 <span lang="ja" className="relative block font-jp text-[14px] font-medium leading-snug text-ink @min-[26rem]:text-[15px]">
-                  {highlight(p.ja, p.hl, char)}
+                  <Sentence text={p.ja} words={p.words} target={p.hl} emphasis={char} />
                 </span>
                 <span lang="ja" className="relative block font-jp text-[11px] leading-snug text-ink-soft">
                   {highlight(p.kana, p.hlKana)}
@@ -89,9 +88,29 @@ export function MemoryTip({
               </span>
               <span className="text-[12px] leading-snug text-ink-soft">
                 {p.en}
-                <Volume2 className="mb-0.5 ml-1 inline size-3.5 text-ink/40" />
+                <button
+                  type="button"
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    void speak(p.ja);
+                  }}
+                  aria-label={`Listen: ${p.ja}`}
+                  className="-my-1 ml-0.5 inline-grid size-6 place-items-center rounded-md align-middle text-ink/45 transition hover:bg-ink/10 hover:text-ink"
+                >
+                  <Volume2 className="size-3.5" />
+                </button>
               </span>
-            </button>
+            </div>
+          ))}
+        </div>
+      )}
+      {memory.comic.some((p) => p.words) && (
+        <div className="space-y-2">
+          {memory.comic.map((p, i) => (
+            <div key={i} className="flex gap-2">
+              {memory.comic.length > 1 && <span className="mt-1.5 grid size-5 shrink-0 place-items-center rounded-full bg-ink/6 text-[10px] font-bold text-muted">{i + 1}</span>}
+              <WordList words={p.words} className="min-w-0 flex-1" />
+            </div>
           ))}
         </div>
       )}

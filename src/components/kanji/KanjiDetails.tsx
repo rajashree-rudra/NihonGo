@@ -7,13 +7,15 @@ import { formatKun } from "@/data/builders";
 import { kanaToRomaji } from "@/data/romaji";
 import { speak } from "@/lib/audio";
 import { romajiStore } from "@/lib/settings";
-import { ExampleList, emphasize } from "@/components/study/ExampleList";
+import { ExampleList } from "@/components/study/ExampleList";
+import { Sentence, WordByWordChip, WordList, emphasize } from "@/components/study/WordByWord";
 import { LevelBadge } from "@/components/ui/LevelBadge";
 import { StrokeOrder } from "./StrokeOrder";
 import { MemoryTip } from "./KanjiMemory";
 import { Markable } from "@/components/marker/Markable";
 
 const unbold = (s: string) => s.replace(/\*\*/g, "");
+const firstBold = (s: string) => s.match(/\*\*(.+?)\*\*/)?.[1];
 
 /** Render "…**word**…" with the word highlighted and the kanji in semibold. */
 function Marked({ text, char }: { text: string; char: string }) {
@@ -86,7 +88,7 @@ function VocabRow({ v, char, englishOnly, markId }: { v: KanjiVocab; char: strin
         </Markable>
         {v.example && (
           <Markable lang="ja" markId={line("ja")} className="mt-1 font-jp text-[14px] text-ink">
-            <Marked text={v.example} char={char} />
+            {v.exampleWords ? <Sentence text={unbold(v.example)} words={v.exampleWords} target={firstBold(v.example)} emphasis={char} /> : <Marked text={v.example} char={char} />}
           </Markable>
         )}
         {v.exampleKana && (
@@ -104,6 +106,7 @@ function VocabRow({ v, char, englishOnly, markId }: { v: KanjiVocab; char: strin
             {v.exampleEn}
           </Markable>
         )}
+        <WordList words={v.exampleWords} className="mt-2" />
       </div>
       )}
       <button
@@ -167,7 +170,10 @@ export function KanjiDetails({ item, detail, setId, practiceHref }: Props) {
 
         {!!detail.examples.length && (
           <section>
-            <h4 className="mb-2 text-[11px] font-bold uppercase tracking-[0.14em] text-muted">Examples</h4>
+            <div className="mb-2 flex items-center justify-between gap-2">
+              <h4 className="text-[11px] font-bold uppercase tracking-[0.14em] text-muted">Examples</h4>
+              {detail.examples.some((e) => e.words) && <WordByWordChip />}
+            </div>
             <ExampleList examples={detail.examples} emphasis={item.char} markId={`${setId}:${item.char}:ex`} />
           </section>
         )}

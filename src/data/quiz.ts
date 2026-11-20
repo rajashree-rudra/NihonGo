@@ -1,6 +1,6 @@
 // Words for the multiple-choice quiz (kanji → reading, reading → kanji), collected from a kanji
 // book (its example words and "more vocabulary") or from a vocabulary set.
-import type { CharSet, VocabSet } from "./types.ts";
+import type { CharSet, VocabSet, Word } from "./types.ts";
 import { wordSpeech } from "./speech.ts";
 
 export interface QuizWord {
@@ -14,6 +14,8 @@ export interface QuizWord {
   /** A sentence using it, shown and played after answering. */
   sentence?: string;
   sentenceEn?: string;
+  /** The sentence word by word. */
+  sentenceWords?: Word[];
   /** Text whose recorded clip to play (the sentence, or the word itself). */
   say?: string;
 }
@@ -57,6 +59,7 @@ export function quizFromKanjiBook(set: CharSet): { words: QuizWord[]; groups: Qu
           group: section.id,
           sentence: v.example && unbold(v.example),
           sentenceEn: v.exampleEn,
+          sentenceWords: v.exampleWords,
           say: v.example ? unbold(v.example) : undefined,
         });
       for (const ex of d.examples)
@@ -68,6 +71,7 @@ export function quizFromKanjiBook(set: CharSet): { words: QuizWord[]; groups: Qu
             group: section.id,
             sentence: ex.ja,
             sentenceEn: ex.en,
+            sentenceWords: ex.words,
             say: ex.ja,
           });
     }
@@ -87,6 +91,7 @@ export function quizFromVocab(set: VocabSet): { words: QuizWord[]; groups: QuizG
         group: s.id,
         sentence: e.examples[0]?.ja,
         sentenceEn: e.examples[0]?.en,
+        sentenceWords: e.examples[0]?.words,
         say: wordSpeech(e),
       })),
   );

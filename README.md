@@ -99,6 +99,7 @@ remove the old (see `prisma/migrations/*_registration_and_tracking` and `*_remov
 | `public/vocab-art/<code points>.svg` | a hand-drawn picture per vocabulary word (医者 → `533b-8005.svg`), shown on its card; flat colours, 160×160 tile; `npm run data:vocab-art` lists them in `src/data/vocab-art.json` | SVG files |
 | `src/data/vocabulary/<level>/part-*.ts` | words: reading, romaji, meaning, part of speech, category, 2 examples | `WORDS: VocabEntry[]` |
 | `src/data/grammar/<level>.ts` | grammar points: pattern, meaning, structure, explanation, notes, 2 examples | `CATEGORIES`, `POINTS` |
+| `src/data/glosses/part-*.ts` | every N5/N4 example sentence word by word (vocabulary, grammar, kanji books, cartoons), shown under each sentence with the words coloured by kind: `私=I は 学生=student です=am。` — see `words.ts` for the format. Readings come from the sentence's kana (`align.ts`), kinds (noun, verb…) from the word lists and conjugation rules (`pos.ts`) | one sentence per line |
 
 A character set built with `defineKanjiBook` (it has `details`) is shown as the grouped,
 collapsible kanji list with per-group practice; other sets use the classic chart.
@@ -108,6 +109,11 @@ Types live in `src/data/types.ts`. Check any content file with:
 ```bash
 node --experimental-strip-types --no-warnings scripts/validate-content.mjs src/data/vocabulary/n5/part-1.ts
 ```
+
+After adding or changing an N5/N4 example sentence, give it a line in `src/data/glosses/` and run
+`npm run data:glosses` (`-- --list` prints sentences without one; `-- --kinds` lists words whose kind was
+guessed; `-- --readings` lists words read in an unusual way). A changed sentence without a matching line
+simply shows no word list.
 
 ## Adding a level (e.g. N3)
 
@@ -141,7 +147,7 @@ Locally (no `NEXT_PUBLIC_AUDIO_BASE`) audio is served from `/audio`.
 
 ## Settings kept on the device
 
-Starred kanji, sound on/off, **voice (female/male)**, strict/easy, guides, auto-clear, romaji, and **highlighter marks**
+Starred kanji, sound on/off, **voice (female/male)**, strict/easy, guides, auto-clear, romaji, **word by word** (on/off), and **highlighter marks**
 (select text in any example sentence or vocabulary line, pick a colour; tap a mark to recolour or erase it)
 are stored in `localStorage` (`src/lib/settings.ts`, `src/lib/marks.ts`).
 

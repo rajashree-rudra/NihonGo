@@ -12,6 +12,7 @@ import { GroupPicker, type GroupOption } from "@/components/ui/GroupPicker";
 import { LevelBadge } from "@/components/ui/LevelBadge";
 import { ProgressBar } from "@/components/ui/ProgressBar";
 import { Segmented } from "@/components/ui/Segmented";
+import { Sentence, WordList } from "@/components/study/WordByWord";
 import { cn } from "@/components/ui/cn";
 
 type Mode = "k2h" | "h2k";
@@ -300,9 +301,10 @@ function QuizRun({
               {q.word.sentence && (
                 <>
                   <p lang="ja" className="mt-2 font-jp text-[15px] text-ink">
-                    {q.word.sentence}
+                    <Sentence text={q.word.sentence} words={q.word.sentenceWords} />
                   </p>
                   {q.word.sentenceEn && <p className="text-[13px] text-muted">{q.word.sentenceEn}</p>}
+                  <WordList words={q.word.sentenceWords} className="mt-2" />
                 </>
               )}
             </div>

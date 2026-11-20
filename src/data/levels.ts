@@ -10,6 +10,7 @@ import { N2_KANJI } from "./characters/n2-kanji/index.ts";
 import { N5_VOCAB } from "./vocabulary/n5/index.ts";
 import { N4_VOCAB } from "./vocabulary/n4/index.ts";
 import { N5_GRAMMAR, N4_GRAMMAR } from "./grammar/index.ts";
+import { glossCharSet, glossGrammarSet, glossVocabSet } from "./glosses/index.ts";
 
 const KANJI_INTRO =
   "Kanji are characters that carry a meaning, like 山 = mountain. Most have more than one reading: kun'yomi, the native Japanese reading, and on'yomi, which came from Chinese.";
@@ -21,7 +22,7 @@ const vocabModule = (set: VocabSet, level: string, intro: string): LearnModule =
   description: `${set.items.length} ${level} words, each with 2 example sentences.`,
   intro,
   status: "available",
-  vocabSet: set,
+  vocabSet: glossVocabSet(set),
 });
 
 const grammarModule = (set: GrammarSet, level: string, intro: string): LearnModule => ({
@@ -31,7 +32,7 @@ const grammarModule = (set: GrammarSet, level: string, intro: string): LearnModu
   description: `${set.items.length} ${level} grammar points explained simply.`,
   intro,
   status: "available",
-  grammarSet: set,
+  grammarSet: glossGrammarSet(set),
 });
 
 export const LEVELS: Level[] = [
@@ -69,7 +70,7 @@ export const LEVELS: Level[] = [
         description: `${N5_KANJI.items.length} essential kanji in ${N5_KANJI.sections.length} themed groups.`,
         intro: `${KANJI_INTRO} The N5 kanji come in small themed groups — numbers, time, nature, people and more. Open any kanji for its readings, stroke order, example sentences and more vocabulary.`,
         status: "available",
-        charSet: N5_KANJI,
+        charSet: glossCharSet(N5_KANJI),
       },
       vocabModule(
         N5_VOCAB,
@@ -98,7 +99,7 @@ export const LEVELS: Level[] = [
         description: `${N4_KANJI.items.length} new kanji in ${N4_KANJI.sections.length} themed groups.`,
         intro: `${KANJI_INTRO} These are the kanji added at N4 — learn the N5 kanji first. They come in small themed groups; every reading has an example sentence, and each kanji has its stroke order and more vocabulary.`,
         status: "available",
-        charSet: N4_KANJI,
+        charSet: glossCharSet(N4_KANJI),
       },
       vocabModule(
         N4_VOCAB,

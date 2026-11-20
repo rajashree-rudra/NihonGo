@@ -7,6 +7,7 @@ import { romajiStore } from "@/lib/settings";
 import { LevelBadge } from "@/components/ui/LevelBadge";
 import { cn } from "@/components/ui/cn";
 import { Markable } from "@/components/marker/Markable";
+import { Sentence, WordList, highlight } from "./WordByWord";
 
 /** An example sentence, optionally with its own highlighted word and that word's JLPT level. */
 export type ExampleItem = Example & {
@@ -32,34 +33,6 @@ function ReadingChip({ reading, kind }: { reading: string; kind: "on" | "kun" | 
         {okurigana ? `${stem}(${okurigana})` : stem}
       </span>
     </span>
-  );
-}
-
-/** Show every occurrence of `char` in semibold. */
-export function emphasize(text: string, char?: string) {
-  if (!char || !text.includes(char)) return text;
-  return text.split(char).flatMap((part, i) =>
-    i === 0
-      ? [part]
-      : [
-          <b key={i} className="font-semibold">
-            {char}
-          </b>,
-          part,
-        ],
-  );
-}
-
-/** Wrap the first occurrence of `target` in a highlight; `char` is shown in semibold throughout. */
-export function highlight(text: string, target?: string, char?: string) {
-  const i = target ? text.indexOf(target) : -1;
-  if (!target || i < 0) return emphasize(text, char);
-  return (
-    <>
-      {emphasize(text.slice(0, i), char)}
-      <mark className="rounded bg-kin-soft px-0.5 text-ink">{emphasize(target, char)}</mark>
-      {emphasize(text.slice(i + target.length), char)}
-    </>
   );
 }
 
@@ -104,7 +77,9 @@ export function ExampleList({
           <div className="min-w-0 flex-1">
             {ex.reading && ex.readingKind && <ReadingChip reading={ex.reading} kind={ex.readingKind} />}
             <p lang="ja" className="font-jp text-[16px] leading-relaxed text-ink sm:text-[17px]">
-              <Markable as="span" markId={line("ja")}>{highlight(ex.ja, ex.hl ?? target, emphasis)}</Markable>
+              <Markable as="span" markId={line("ja")}>
+                <Sentence text={ex.ja} words={ex.words} target={ex.hl ?? target} emphasis={emphasis} />
+              </Markable>
               {ex.level && <LevelBadge level={ex.level} className="ml-2 align-middle" />}
             </p>
             <Markable lang="ja" markId={line("kana")} className="mt-0.5 font-jp text-[13px] leading-relaxed text-ink-soft">
@@ -118,6 +93,7 @@ export function ExampleList({
             <Markable markId={line("en")} className="mt-1.5 text-[14px] leading-relaxed text-ink-soft">
               {ex.en}
             </Markable>
+            <WordList words={ex.words} className="mt-2.5" />
           </div>
           )}
           <button
