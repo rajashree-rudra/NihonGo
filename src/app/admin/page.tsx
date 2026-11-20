@@ -1,46 +1,89 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { Ban, Check, Inbox, LogOut, Trash2, X } from "lucide-react";
+import { ArrowDown, ArrowUp, LogOut, MoreHorizontal, Search, Trash2, Users } from "lucide-react";
 import { cn } from "@/components/ui/cn";
+import { ProgressBar } from "@/components/ui/ProgressBar";
 import { SubmitButton } from "@/components/auth/SubmitButton";
-import { db } from "@/lib/db";
 import { requireAdmin } from "@/lib/auth";
-import type { AccessStatus, Profile } from "@/generated/prisma/client";
-import { approve, deleteAccount, reject } from "./actions";
-import { ResetPassword } from "./ResetPassword";
+import { countryName } from "@/lib/countries";
+import { ageOn, formatDate, formatDateTime, formatDayJst, formatDuration, timeAgo } from "@/lib/time";
+import { deleteAccount } from "./actions";
 import { adminSignOut } from "./login/actions";
+import { ResetPassword } from "./ResetPassword";
+import { loadUsers, type LevelProgress, type UserRow } from "./users";
 
-export const metadata: Metadata = { title: "Admin" };
+export const metadata: Metadata = { title: "Admin · Users" };
 
-const TABS: { id: AccessStatus; label: string; empty: string }[] = [
-  { id: "pending", label: "Requests", empty: "No requests waiting. New ones appear here." },
-  { id: "approved", label: "Approved", empty: "No approved accounts yet." },
-  { id: "rejected", label: "Rejected", empty: "No rejected accounts." },
-];
+type SortKey = "name" | "registered" | "signin" | "active" | "today" | "week" | "total" | `level:${string}`;
 
-const when = new Intl.DateTimeFormat("en-GB", { day: "numeric", month: "short", year: "numeric", hour: "2-digit", minute: "2-digit", timeZone: "Asia/Tokyo" });
+const pct = (p: LevelProgress) => (p.total ? p.learned / p.total : 0);
 
-export default async function AdminPage({ searchParams }: { searchParams: Promise<{ tab?: string }> }) {
+function sortValue(u: UserRow, key: SortKey): string | number {
+  switch (key) {
+    case "name":
+      return u.fullName.toLowerCase();
+    case "registered":
+      return u.createdAt.getTime();
+    case "signin":
+      return u.lastSignInAt?.getTime() ?? 0;
+    case "active":
+      return u.lastActiveAt?.getTime() ?? 0;
+    case "today":
+    case "week":
+    case "total":
+      return u[key];
+    default: {
+      const level = u.progress.find((p) => `level:${p.level}` === key);
+      return level ? pct(level) : 0;
+    }
+  }
+}
+
+export default async function AdminPage({ searchParams }: { searchParams: Promise<{ q?: string; sort?: string; dir?: string }> }) {
   const me = await requireAdmin();
-  const { tab } = await searchParams;
-  const current = TABS.find((t) => t.id === tab) ?? TABS[0];
+  const params = await searchParams;
+  const users = await loadUsers();
+  const levels = users[0]?.progress.map((p) => p.level) ?? [];
 
-  const [groups, accounts] = await Promise.all([
-    db().profile.groupBy({ by: ["status"], _count: { _all: true } }),
-    db().profile.findMany({
-      where: { status: current.id },
-      // Oldest request first (first come, first served); otherwise most recent decision first.
-      orderBy: current.id === "pending" ? { createdAt: "asc" } : { reviewedAt: { sort: "desc", nulls: "last" } },
-    }),
-  ]);
-  const count = (s: AccessStatus) => groups.find((g) => g.status === s)?._count._all ?? 0;
+  const q = (params.q ?? "").trim().toLowerCase();
+  const sort = (params.sort ?? "active") as SortKey;
+  const dir = params.dir === "asc" ? 1 : -1;
+  const shown = users
+    .filter((u) => !q || u.fullName.toLowerCase().includes(q) || u.email.includes(q))
+    .sort((a, b) => {
+      const x = sortValue(a, sort);
+      const y = sortValue(b, sort);
+      return (x < y ? -1 : x > y ? 1 : 0) * dir || a.fullName.localeCompare(b.fullName);
+    });
+
+  const sum = (f: (u: UserRow) => number) => users.reduce((n, u) => n + f(u), 0);
+  const stats = [
+    { label: "Users", value: String(users.length) },
+    { label: "Studied today", value: String(users.filter((u) => u.today > 0).length) },
+    { label: "Studied in 7 days", value: String(users.filter((u) => u.week > 0).length) },
+    { label: "Study time today", value: formatDuration(sum((u) => u.today)) },
+    { label: "Study time, all", value: formatDuration(sum((u) => u.total)) },
+  ];
+
+  const header = (key: SortKey, label: string, align: "left" | "right" = "right") => {
+    const on = sort === key;
+    const next = new URLSearchParams({ ...(q && { q }), sort: key, dir: on && dir === -1 ? "asc" : "desc" });
+    return (
+      <th key={key} scope="col" aria-sort={on ? (dir === 1 ? "ascending" : "descending") : undefined} className={cn("whitespace-nowrap px-3 py-2.5 font-semibold", align === "right" ? "text-right" : "text-left")}>
+        <Link href={`/admin?${next}`} className={cn("inline-flex items-center gap-1 hover:text-ink", on ? "text-ink" : "text-muted")}>
+          {label}
+          {on && (dir === 1 ? <ArrowUp className="size-3.5" /> : <ArrowDown className="size-3.5" />)}
+        </Link>
+      </th>
+    );
+  };
 
   return (
-    <div className="mx-auto max-w-4xl px-4 pt-8 sm:px-5 sm:pt-12">
+    <div className="mx-auto max-w-[96rem] px-4 pt-8 sm:px-5 sm:pt-12">
       <div className="flex flex-wrap items-end justify-between gap-x-6 gap-y-3">
         <div>
           <p className="text-[11px] font-bold uppercase tracking-[0.18em] text-muted">Admin</p>
-          <h1 className="mt-1 text-3xl font-extrabold tracking-tight">Access requests</h1>
+          <h1 className="mt-1 text-3xl font-extrabold tracking-tight">Users</h1>
         </div>
         <div className="flex items-center gap-2 text-[13px]">
           <span className="text-muted">
@@ -54,122 +97,170 @@ export default async function AdminPage({ searchParams }: { searchParams: Promis
         </div>
       </div>
 
-      <nav aria-label="Account lists" className="mt-6 flex gap-1 overflow-x-auto rounded-2xl bg-ink/5 p-1">
-        {TABS.map((t) => {
-          const on = t.id === current.id;
-          const n = count(t.id);
-          return (
-            <Link
-              key={t.id}
-              href={`/admin?tab=${t.id}`}
-              aria-current={on ? "page" : undefined}
-              className={cn(
-                "flex flex-1 items-center justify-center gap-2 whitespace-nowrap rounded-xl px-3 py-2 text-sm font-semibold transition",
-                on ? "bg-card text-ink shadow-soft" : "text-muted hover:text-ink",
-              )}
-            >
-              {t.label}
-              <span className={cn("rounded-full px-2 py-px text-[12px] font-bold", t.id === "pending" && n ? "bg-shu text-white" : "bg-ink/8 text-ink-soft")}>{n}</span>
-            </Link>
-          );
-        })}
-      </nav>
+      <dl className="mt-6 grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-5">
+        {stats.map((s) => (
+          <div key={s.label} className="rounded-2xl border border-line bg-card px-4 py-3 shadow-soft">
+            <dt className="text-[12px] font-semibold text-muted">{s.label}</dt>
+            <dd className="mt-0.5 text-2xl font-extrabold tabular-nums tracking-tight">{s.value}</dd>
+          </div>
+        ))}
+      </dl>
 
-      {accounts.length === 0 ? (
-        <div className="mt-6 grid justify-items-center gap-3 rounded-3xl border border-dashed border-line-strong px-6 py-14 text-center text-ink-soft">
-          <Inbox className="size-8 text-muted" strokeWidth={1.75} />
-          {current.empty}
+      <form action="/admin" className="mt-6 flex max-w-md items-center gap-2">
+        <input type="hidden" name="sort" value={sort} />
+        <input type="hidden" name="dir" value={dir === 1 ? "asc" : "desc"} />
+        <label className="relative flex-1">
+          <span className="sr-only">Search users</span>
+          <Search className="pointer-events-none absolute left-3 top-1/2 size-4 -translate-y-1/2 text-muted" />
+          <input
+            type="search"
+            name="q"
+            defaultValue={params.q}
+            placeholder="Search by name or email"
+            className="h-10 w-full rounded-xl border border-line-strong bg-card pl-9 pr-3 text-sm outline-none transition placeholder:text-muted focus:border-ink/50 focus:ring-4 focus:ring-ink/5"
+          />
+        </label>
+      </form>
+
+      <p className="mt-4 text-[12px] text-muted">
+        Study time counts while the site is open, in front and used in the last 2 minutes. Days are Japan time; “7 days” includes today.
+        Progress = characters written correctly and vocabulary answered correctly at least once — hover a level for the details.
+      </p>
+
+      {shown.length === 0 ? (
+        <div className="mt-4 grid justify-items-center gap-3 rounded-3xl border border-dashed border-line-strong px-6 py-14 text-center text-ink-soft">
+          <Users className="size-8 text-muted" strokeWidth={1.75} />
+          {q ? "No one matches your search." : "No one has registered yet."}
         </div>
       ) : (
-        <ul className="mt-6 space-y-4">
-          {accounts.map((a) => (
-            <AccountCard key={a.id} account={a} self={a.id === me.id} />
-          ))}
-        </ul>
+        <div className="mt-3 overflow-x-auto rounded-3xl border border-line bg-card shadow-soft">
+          <table className="w-full border-collapse text-[13px]">
+            <thead className="border-b border-line bg-ink/[0.025]">
+              <tr>
+                {header("name", "User", "left")}
+                <th scope="col" className="px-3 py-2.5 text-left font-semibold text-muted">
+                  Country
+                </th>
+                <th scope="col" className="px-3 py-2.5 text-left font-semibold text-muted">
+                  Target
+                </th>
+                {header("registered", "Registered", "left")}
+                {header("signin", "Last sign-in", "left")}
+                {header("active", "Last active", "left")}
+                {header("today", "Today")}
+                {header("week", "7 days")}
+                {header("total", "Total")}
+                {levels.map((l) => header(`level:${l}`, l))}
+                <th scope="col" className="px-3 py-2.5">
+                  <span className="sr-only">Actions</span>
+                </th>
+              </tr>
+            </thead>
+            <tbody>
+              {shown.map((u) => (
+                <UserRowView key={u.id} user={u} self={u.id === me.id} />
+              ))}
+            </tbody>
+          </table>
+        </div>
       )}
+      <p className="mt-3 text-right text-[12px] text-muted">
+        {shown.length} of {users.length} users · times in Japan time (JST)
+      </p>
     </div>
   );
 }
 
-function AccountCard({ account: a, self }: { account: Profile; self: boolean }) {
-  const address = [a.addressLine1, a.addressLine2, a.city, a.region, `${a.postalCode}`, a.country].filter(Boolean).join(", ");
+function When({ date }: { date: Date | null }) {
+  if (!date) return <span className="text-muted">—</span>;
   return (
-    <li className="rounded-3xl border border-line bg-card p-5 shadow-soft sm:p-6">
-      <div className="flex flex-wrap items-start justify-between gap-x-4 gap-y-1">
-        <div className="min-w-0">
-          <h2 className="flex flex-wrap items-center gap-2 text-lg font-bold">
-            {a.fullName}
-            {a.role === "admin" && <span className="rounded-full bg-ai-soft px-2 py-px text-[11px] font-bold uppercase tracking-wider text-ai">Admin</span>}
-            {self && <span className="rounded-full bg-ink/8 px-2 py-px text-[11px] font-bold uppercase tracking-wider text-ink-soft">You</span>}
-          </h2>
-          <a href={`mailto:${a.email}`} className="break-all text-sm text-ink-soft hover:text-shu hover:underline">
-            {a.email}
-          </a>
-        </div>
-        <p className="text-[13px] text-muted">
-          {a.status === "pending" || !a.reviewedAt ? "Requested" : a.status === "approved" ? "Approved" : "Rejected"}{" "}
-          {when.format(a.status === "pending" || !a.reviewedAt ? a.createdAt : a.reviewedAt)} JST
-        </p>
+    <time dateTime={date.toISOString()} title={`${formatDateTime(date)} JST`} className="whitespace-nowrap">
+      {timeAgo(date)}
+    </time>
+  );
+}
+
+function UserRowView({ user: u, self }: { user: UserRow; self: boolean }) {
+  const address = [u.area, u.city, u.region, u.postalCode].filter(Boolean).join(", ");
+  return (
+    <tr className="border-b border-line align-top last:border-0 hover:bg-ink/[0.02]">
+      <td className="min-w-56 px-3 py-3">
+        <details className="group">
+          <summary className="cursor-pointer list-none [&::-webkit-details-marker]:hidden">
+            <span className="flex flex-wrap items-center gap-1.5 font-semibold text-ink group-open:text-shu">
+              {u.fullName}
+              {u.role === "admin" && <span className="rounded-full bg-ai-soft px-1.5 py-px text-[10px] font-bold uppercase tracking-wider text-ai">Admin</span>}
+              {self && <span className="rounded-full bg-ink/8 px-1.5 py-px text-[10px] font-bold uppercase tracking-wider text-ink-soft">You</span>}
+            </span>
+            <span className="block break-all text-muted">{u.email}</span>
+          </summary>
+          <dl className="mt-2 grid grid-cols-[auto_1fr] gap-x-3 gap-y-1 rounded-xl bg-ink/[0.03] p-2.5 text-[12px]">
+            <dt className="text-muted">Born</dt>
+            <dd>{u.dateOfBirth ? `${formatDate(u.dateOfBirth)} (age ${ageOn(u.dateOfBirth)})` : "—"}</dd>
+            <dt className="text-muted">Address</dt>
+            <dd>{address || "—"}</dd>
+            <dt className="text-muted">Registered</dt>
+            <dd>{formatDateTime(u.createdAt)} JST</dd>
+            {u.progress.map((p) => (
+              <ProgressDetail key={p.level} progress={p} />
+            ))}
+          </dl>
+        </details>
+      </td>
+      <td className="whitespace-nowrap px-3 py-3">{countryName(u.country)}</td>
+      <td className="px-3 py-3 font-semibold">{u.targetLevel}</td>
+      <td className="whitespace-nowrap px-3 py-3">{formatDayJst(u.createdAt)}</td>
+      <td className="px-3 py-3">
+        <When date={u.lastSignInAt} />
+      </td>
+      <td className="px-3 py-3">
+        <When date={u.lastActiveAt} />
+      </td>
+      <td className="whitespace-nowrap px-3 py-3 text-right tabular-nums">{formatDuration(u.today)}</td>
+      <td className="whitespace-nowrap px-3 py-3 text-right tabular-nums">{formatDuration(u.week)}</td>
+      <td className="whitespace-nowrap px-3 py-3 text-right font-semibold tabular-nums">{formatDuration(u.total)}</td>
+      {u.progress.map((p) => (
+        <td key={p.level} className="min-w-24 px-3 py-3 text-right" title={p.parts.map((x) => `${x.label} ${x.learned}/${x.total}`).join(" · ")}>
+          <span className="font-semibold tabular-nums">{Math.round(pct(p) * 100)}%</span>
+          <ProgressBar value={p.learned} max={p.total} className="ml-auto mt-1 w-16" />
+        </td>
+      ))}
+      <td className="px-2 py-2 text-right">{!self && <RowActions user={u} />}</td>
+    </tr>
+  );
+}
+
+function ProgressDetail({ progress: p }: { progress: LevelProgress }) {
+  return (
+    <>
+      <dt className="text-muted">{p.level}</dt>
+      <dd>
+        {p.parts.map((x) => `${x.label} ${x.learned}/${x.total}`).join(" · ")}
+      </dd>
+    </>
+  );
+}
+
+function RowActions({ user: u }: { user: UserRow }) {
+  return (
+    <details className="relative inline-block text-left">
+      <summary aria-label={`Actions for ${u.fullName}`} className="grid size-8 cursor-pointer list-none place-items-center rounded-lg text-muted hover:bg-ink/5 hover:text-ink [&::-webkit-details-marker]:hidden">
+        <MoreHorizontal className="size-4" />
+      </summary>
+      <div className="absolute right-0 z-20 mt-1 grid w-max min-w-48 gap-1 rounded-2xl border border-line bg-card p-1.5 shadow-lift">
+        <ResetPassword id={u.id} name={u.fullName} />
+        <form action={deleteAccount.bind(null, u.id)}>
+          <SubmitButton
+            variant="ghost"
+            size="sm"
+            className="w-full justify-start text-shu hover:bg-shu-soft hover:text-shu"
+            pendingLabel="Deleting…"
+            confirm={`Delete ${u.fullName}'s account, details and study history for good? This can't be undone.`}
+          >
+            <Trash2 className="size-4" /> Delete account
+          </SubmitButton>
+        </form>
       </div>
-
-      <dl className="mt-4 grid gap-x-6 gap-y-2 text-sm sm:grid-cols-[auto_1fr]">
-        <dt className="text-muted">Occupation</dt>
-        <dd className="font-medium">{a.occupation}</dd>
-        <dt className="text-muted">JLPT</dt>
-        <dd className="font-medium">
-          {a.passedLevel ? `Passed ${a.passedLevel}` : "None passed yet"} <span className="text-muted">→</span> target {a.targetLevel}
-        </dd>
-        <dt className="text-muted">Address</dt>
-        <dd className="font-medium">{address}</dd>
-        {a.status !== "pending" && (
-          <>
-            <dt className="text-muted">Requested</dt>
-            <dd>{when.format(a.createdAt)} JST</dd>
-          </>
-        )}
-      </dl>
-
-      {!self && (
-        <div className="mt-5 flex flex-wrap items-center gap-2 border-t border-line pt-4">
-          {a.status !== "approved" && (
-            <form action={approve.bind(null, a.id)}>
-              <SubmitButton variant="accent" size="sm" pendingLabel="Approving…">
-                <Check className="size-4" /> Approve
-              </SubmitButton>
-            </form>
-          )}
-          {a.status === "pending" && (
-            <form action={reject.bind(null, a.id)}>
-              <SubmitButton variant="outline" size="sm" pendingLabel="Rejecting…" confirm={`Reject ${a.fullName}'s request?`}>
-                <X className="size-4" /> Reject
-              </SubmitButton>
-            </form>
-          )}
-          {a.status === "approved" && (
-            <>
-              <form action={reject.bind(null, a.id)}>
-                <SubmitButton variant="outline" size="sm" pendingLabel="Removing…" confirm={`Remove ${a.fullName}'s access to NihonGo?`}>
-                  <Ban className="size-4" /> Remove access
-                </SubmitButton>
-              </form>
-              <ResetPassword id={a.id} name={a.fullName} />
-            </>
-          )}
-          {a.status === "rejected" && (
-            <form action={deleteAccount.bind(null, a.id)} className="ml-auto">
-              <SubmitButton
-                variant="ghost"
-                size="sm"
-                className="text-shu hover:bg-shu-soft hover:text-shu"
-                pendingLabel="Deleting…"
-                confirm={`Delete ${a.fullName}'s account and details for good? This can't be undone.`}
-              >
-                <Trash2 className="size-4" /> Delete account
-              </SubmitButton>
-            </form>
-          )}
-        </div>
-      )}
-    </li>
+    </details>
   );
 }

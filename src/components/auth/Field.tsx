@@ -14,6 +14,7 @@ export function Field({
   error,
   hint,
   optional,
+  required,
   className,
   children,
 }: {
@@ -22,13 +23,22 @@ export function Field({
   error?: string;
   hint?: ReactNode;
   optional?: boolean;
+  /** Shows a red * after the label. */
+  required?: boolean;
   className?: string;
   children: ReactNode;
 }) {
   return (
     <div className={className}>
       <label htmlFor={name} className="mb-1.5 flex items-baseline justify-between gap-2 text-[13px] font-semibold text-ink-soft">
-        <span>{label}</span>
+        <span>
+          {label}
+          {required && (
+            <span aria-hidden className="ml-0.5 text-shu">
+              *
+            </span>
+          )}
+        </span>
         {optional && <span className="text-[12px] font-normal text-muted">Optional</span>}
       </label>
       {children}

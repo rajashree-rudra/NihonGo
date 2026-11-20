@@ -1,15 +1,14 @@
 import "server-only";
 import { redirect } from "next/navigation";
 import { db } from "@/lib/db";
-import { accessOf, type Access, type Role } from "@/lib/access";
+import { roleOf, type Role } from "@/lib/access";
 import type { Area } from "@/lib/supabase/env";
-import { supabaseServer, supabaseService } from "@/lib/supabase/server";
+import { supabaseServer } from "@/lib/supabase/server";
 
 export interface Viewer {
   id: string;
   email: string;
   name: string;
-  access: Access;
   role: Role;
 }
 
@@ -19,18 +18,13 @@ export async function getViewer(area: Area = "site"): Promise<Viewer | null> {
   const { data } = await supabase.auth.getClaims();
   const claims = data?.claims;
   if (!claims) return null;
-  return {
-    id: claims.sub,
-    email: claims.email ?? "",
-    name: String(claims.user_metadata?.full_name ?? ""),
-    ...accessOf(claims),
-  };
+  return { id: claims.sub, email: claims.email ?? "", name: String(claims.user_metadata?.full_name ?? ""), role: roleOf(claims) };
 }
 
-/** Is this account an approved admin? Checked in the database, not only in the token. */
+/** Is this account an admin? Checked in the database, not only in the token. */
 export async function isAdminAccount(id: string): Promise<boolean> {
-  const profile = await db().profile.findUnique({ where: { id }, select: { role: true, status: true } });
-  return profile?.role === "admin" && profile.status === "approved";
+  const profile = await db().profile.findUnique({ where: { id }, select: { role: true } });
+  return profile?.role === "admin";
 }
 
 /** For admin pages and actions: the admin signed in to the panel. Anyone else goes to the admin sign-in. */
@@ -46,14 +40,4 @@ export function isAdminEmail(email: string): boolean {
     .split(",")
     .map((e) => e.trim().toLowerCase())
     .includes(email.toLowerCase());
-}
-
-/** Records the admin's decision: in the account's sign-in token first, then in its profile. */
-export async function setAccess(userId: string, status: Access): Promise<void> {
-  const profile = await db().profile.findUniqueOrThrow({ where: { id: userId }, select: { role: true } });
-  const { error } = await supabaseService().auth.admin.updateUserById(userId, {
-    app_metadata: { access: status, role: profile.role },
-  });
-  if (error) throw error;
-  await db().profile.update({ where: { id: userId }, data: { status, reviewedAt: new Date() } });
 }

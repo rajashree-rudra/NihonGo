@@ -6,13 +6,13 @@ import { buttonClass } from "@/components/ui/Button";
 import { Field, FormError, PasswordInput, fieldProps, inputClass } from "@/components/auth/Field";
 import { signIn } from "../actions";
 
-export function LoginForm({ next }: { next: string }) {
+export function LoginForm({ next, email }: { next: string; email?: string }) {
   const [state, action, pending] = useActionState(signIn, undefined);
   return (
     <form action={action} className="space-y-4">
       <input type="hidden" name="next" value={next} />
       <Field label="Email" name="email">
-        <input {...fieldProps("email")} type="email" autoComplete="email" required defaultValue={state?.values?.email} className={inputClass} />
+        <input {...fieldProps("email")} type="email" autoComplete="email" required defaultValue={state?.values?.email ?? email} className={inputClass} />
       </Field>
       <Field label="Password" name="password">
         <PasswordInput {...fieldProps("password")} autoComplete="current-password" required />

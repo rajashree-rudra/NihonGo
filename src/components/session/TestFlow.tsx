@@ -12,12 +12,18 @@ import { cn } from "@/components/ui/cn";
 import { SessionSummary } from "./SessionSummary";
 import { StudySession } from "./StudySession";
 import { ALL, SectionTabs, sectionItems } from "./SectionTabs";
+import { LockedSection } from "./LockedSection";
+import type { PreviewProps } from "@/components/auth/Locked";
 import type { Result } from "./types";
 
 interface Props {
   charSet: CharSet;
   title: string;
   backHref: string;
+  /** Signed out: every group is listed, but only the open characters can be tested. */
+  preview?: PreviewProps;
+  /** Register box shown below the test in a preview */
+  gate?: React.ReactNode;
 }
 
 type Count = number | "all";
@@ -52,8 +58,10 @@ function ownLevelOnly(charSet: CharSet): CharSet {
 }
 
 /** Test: characters of the chosen section in random order, answer hidden; setup → session → summary. */
-export function TestFlow({ charSet: fullSet, title, backHref }: Props) {
+export function TestFlow({ charSet: fullSet, title, backHref, preview, gate }: Props) {
   const charSet = useMemo(() => ownLevelOnly(fullSet), [fullSet]);
+  const open = useMemo(() => (preview ? new Set(preview.open) : null), [preview]);
+  const poolOf = (s: string) => sectionItems(charSet, s).filter((i) => !open || open.has(i.char));
   const [stage, setStage] = useState<Stage>({ kind: "setup" });
   const [section, setSection] = useState(ALL);
   const [count, setCount] = useState<Count>(20);
@@ -66,22 +74,30 @@ export function TestFlow({ charSet: fullSet, title, backHref }: Props) {
   const tabs = (onChange: (s: string) => void) => <SectionTabs charSet={charSet} value={section} onChange={onChange} />;
 
   if (stage.kind === "setup") {
+    if (preview && poolOf(section).length === 0) {
+      const group = charSet.sections.find((s) => s.id === section);
+      return <LockedSection title={title} backHref={backHref} tabs={tabs(setSection)} next={preview.next} mode="test" count={group?.items.length ?? 0} kind={charSet.kind} />;
+    }
     return (
+      <>
       <TestSetup
         charSet={charSet}
         title={title}
         backHref={backHref}
         tabs={tabs(setSection)}
-        pool={sectionItems(charSet, section)}
+        pool={poolOf(section)}
         count={count}
         onCount={setCount}
-        onStart={() => run(pick(sectionItems(charSet, section), count))}
+        onStart={() => run(pick(poolOf(section), count))}
       />
+      {gate}
+      </>
     );
   }
 
   if (stage.kind === "done") {
     return (
+      <>
       <SessionSummary
         mode="test"
         title={title}
@@ -91,10 +107,13 @@ export function TestFlow({ charSet: fullSet, title, backHref }: Props) {
         onRestart={() => setStage({ kind: "setup" })}
         onRetryMissed={(items) => run(shuffle(items))}
       />
+      {gate}
+      </>
     );
   }
 
   return (
+    <>
     <StudySession
       key={stage.id}
       charSet={charSet}
@@ -104,11 +123,14 @@ export function TestFlow({ charSet: fullSet, title, backHref }: Props) {
       backHref={backHref}
       onFinish={(results) => setStage({ kind: "done", queue: stage.queue, results })}
       tabs={tabs((s) => {
-        // Switching group mid-test starts a fresh test on that group.
+        // Switching group mid-test starts a fresh test on that group (a locked one shows its Register box).
         setSection(s);
-        run(pick(sectionItems(charSet, s), count));
+        if (poolOf(s).length) run(pick(poolOf(s), count));
+        else setStage({ kind: "setup" });
       })}
     />
+    {gate}
+    </>
   );
 }
 

@@ -4,27 +4,34 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 import { LogOut, ShieldCheck } from "lucide-react";
-import { VIEWER_COOKIE, decodeViewer, type ViewerHint } from "@/lib/access";
+import type { ViewerHint } from "@/lib/access";
+import { safeNext } from "@/lib/access";
 import { signOut } from "@/app/(auth)/actions";
+import { buttonClass } from "@/components/ui/Button";
 import { cn } from "@/components/ui/cn";
 
-function readViewer(): ViewerHint | null {
-  const raw = document.cookie.split("; ").find((c) => c.startsWith(`${VIEWER_COOKIE}=`));
-  return decodeViewer(raw?.slice(VIEWER_COOKIE.length + 1));
+/** Signed out: Sign in (+ Register from small tablets up). Both come back to this page. */
+export function SignedOutActions() {
+  const next = encodeURIComponent(safeNext(usePathname()));
+  return (
+    <>
+      <Link href={`/login?next=${next}`} className={buttonClass({ variant: "ghost", size: "sm" })}>
+        Sign in
+      </Link>
+      <Link href={`/register?next=${next}`} className={buttonClass({ variant: "accent", size: "sm", className: "max-sm:hidden" })}>
+        Register
+      </Link>
+    </>
+  );
 }
 
 /** The signed-in account's initial; opens name, email, admin panel (for admins) and sign out. */
-export function AccountMenu() {
+export function AccountMenu({ viewer }: { viewer: ViewerHint }) {
   const pathname = usePathname();
-  const [viewer, setViewer] = useState<ViewerHint | null>(null);
   const [open, setOpen] = useState(false);
   const ref = useRef<HTMLDivElement>(null);
 
-  // The proxy refreshes the cookie on every page request.
-  useEffect(() => {
-    setViewer(readViewer());
-    setOpen(false);
-  }, [pathname]);
+  useEffect(() => setOpen(false), [pathname]);
 
   useEffect(() => {
     if (!open) return;
@@ -39,7 +46,6 @@ export function AccountMenu() {
     };
   }, [open]);
 
-  if (!viewer) return null;
   const initial = (viewer.name || viewer.email).trim().charAt(0).toUpperCase();
 
   return (

@@ -29,7 +29,7 @@ export function ResetPassword({ id, name }: { id: string; name: string }) {
 
   return (
     <form action={action} onSubmit={(e) => !window.confirm(`Give ${name} a new password? Their old one stops working.`) && e.preventDefault()}>
-      <button type="submit" disabled={pending} className={buttonClass({ variant: "ghost", size: "sm" })}>
+      <button type="submit" disabled={pending} className={buttonClass({ variant: "ghost", size: "sm", className: "w-full justify-start" })}>
         <KeyRound className="size-4" />
         {pending ? "Resetting…" : state?.error ?? "Reset password"}
       </button>

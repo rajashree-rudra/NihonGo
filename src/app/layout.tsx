@@ -2,6 +2,7 @@ import type { Metadata, Viewport } from "next";
 import { Klee_One, Noto_Sans_JP, Plus_Jakarta_Sans } from "next/font/google";
 import { SiteHeader } from "@/components/layout/SiteHeader";
 import { MarkerToolbar } from "@/components/marker/MarkerToolbar";
+import { ActivityTracker } from "@/components/layout/ActivityTracker";
 import { THEME_BOOT_SCRIPT } from "@/lib/theme-boot";
 import "./globals.css";
 
@@ -38,6 +39,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <SiteHeader />
         <main className="pb-12">{children}</main>
         <MarkerToolbar />
+        <ActivityTracker />
       </body>
     </html>
   );

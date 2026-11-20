@@ -6,7 +6,7 @@ import { ArrowLeft, ArrowRight, Check, ListChecks, RotateCcw, Volume2, X } from 
 import { quizOptions, type QuizGroup, type QuizWord } from "@/data/quiz";
 import { kanaToRomaji } from "@/data/romaji";
 import { speak, warmTextAudio } from "@/lib/audio";
-import { romajiStore } from "@/lib/settings";
+import { markLearned, romajiStore } from "@/lib/settings";
 import { Button, ButtonLink } from "@/components/ui/Button";
 import { GroupPicker, type GroupOption } from "@/components/ui/GroupPicker";
 import { LevelBadge } from "@/components/ui/LevelBadge";
@@ -41,7 +41,8 @@ function shuffle<T>(arr: T[]): T[] {
 }
 
 /** Multiple-choice quiz: a word in kanji → pick its reading, or a reading → pick the word. */
-export function QuizFlow({ words, groups, title, backHref }: { words: QuizWord[]; groups: QuizGroup[]; title: string; backHref: string }) {
+/** `learnSetId`: a vocabulary quiz — each word answered correctly counts as learned in that set (progress). */
+export function QuizFlow({ words, groups, title, backHref, learnSetId }: { words: QuizWord[]; groups: QuizGroup[]; title: string; backHref: string; learnSetId?: string }) {
   const [stage, setStage] = useState<Stage>({ kind: "setup" });
   const [mode, setMode] = useState<Mode>("k2h");
   const [group, setGroup] = useState(ALL);
@@ -64,6 +65,7 @@ export function QuizFlow({ words, groups, title, backHref }: { words: QuizWord[]
         mode={mode}
         title={title}
         backHref={backHref}
+        learnSetId={learnSetId}
         onDone={(answers) => setStage({ kind: "done", questions: stage.questions, answers })}
       />
     );
@@ -156,7 +158,21 @@ export function QuizFlow({ words, groups, title, backHref }: { words: QuizWord[]
   );
 }
 
-function QuizRun({ questions, mode, title, backHref, onDone }: { questions: Question[]; mode: Mode; title: string; backHref: string; onDone: (answers: string[]) => void }) {
+function QuizRun({
+  questions,
+  mode,
+  title,
+  backHref,
+  learnSetId,
+  onDone,
+}: {
+  questions: Question[];
+  mode: Mode;
+  title: string;
+  backHref: string;
+  learnSetId?: string;
+  onDone: (answers: string[]) => void;
+}) {
   const [index, setIndex] = useState(0);
   const [answers, setAnswers] = useState<string[]>([]);
   const [showRomaji, setShowRomaji] = romajiStore.useValue();
@@ -174,8 +190,9 @@ function QuizRun({ questions, mode, title, backHref, onDone }: { questions: Ques
         return next;
       });
       if (q.word.say) void speak(q.word.say);
+      if (learnSetId && option === correct) markLearned(learnSetId, q.word.word);
     },
-    [chosen, index, q],
+    [chosen, index, q, correct, learnSetId],
   );
   const next = useCallback(() => {
     if (chosen === undefined) return;

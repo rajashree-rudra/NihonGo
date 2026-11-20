@@ -1,6 +1,7 @@
 "use client";
 
 import { createMemoryStore, createPersistentStore } from "./store";
+import { queueLearned } from "./tracking";
 
 export const soundStore = createPersistentStore("nihongo:sound", true);
 export const strictStore = createPersistentStore("nihongo:strict", true);
@@ -15,14 +16,16 @@ export const romajiStore = createPersistentStore("nihongo:show-romaji", true);
 /** Kanji list: show the meaning and readings next to each kanji (hide them to self-test). */
 export const kanjiInfoStore = createPersistentStore("nihongo:kanji-info", true);
 
-/** Characters the learner has written correctly at least once, per char set. */
+/**
+ * What the learner has learned, per set: characters written correctly and vocabulary answered correctly
+ * in a quiz, at least once. New items are also sent to the account (admin panel progress).
+ */
 export const progressStore = createPersistentStore<Record<string, string[]>>("nihongo:progress", {});
 
-export function markLearned(setId: string, char: string) {
-  progressStore.set((p) => {
-    const list = p[setId] ?? [];
-    return list.includes(char) ? p : { ...p, [setId]: [...list, char] };
-  });
+export function markLearned(setId: string, item: string) {
+  // Always sent: this device's list may be another account's (a shared computer).
+  queueLearned(setId, item);
+  if (!progressStore.get()[setId]?.includes(item)) progressStore.set((p) => ({ ...p, [setId]: [...(p[setId] ?? []), item] }));
 }
 /** Practice examples: show the Japanese (hide it to translate from the English). */
 export const practiceJapaneseStore = createPersistentStore("nihongo:practice-japanese", true);

@@ -27,5 +27,14 @@ export default async function QuizPage({ params }: Props) {
   const m = found?.module;
   const quiz = m?.charSet?.details ? quizFromKanjiBook(m.charSet) : m?.vocabSet ? quizFromVocab(m.vocabSet) : null;
   if (!found || !quiz) notFound();
-  return <QuizFlow words={quiz.words} groups={quiz.groups} title={found.module.title} backHref={`/${level}/${module}`} />;
+  return (
+    <QuizFlow
+      words={quiz.words}
+      groups={quiz.groups}
+      title={found.module.title}
+      backHref={`/${level}/${module}`}
+      // Vocabulary quizzes count towards progress (kanji are learned by writing them).
+      learnSetId={m?.vocabSet?.id}
+    />
+  );
 }

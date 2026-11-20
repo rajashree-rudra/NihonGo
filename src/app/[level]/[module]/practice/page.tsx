@@ -1,30 +1,17 @@
-import { Suspense } from "react";
-import type { Metadata } from "next";
-import { notFound } from "next/navigation";
-import { allCharModules, getModule } from "@/data/levels";
-import { PracticeFlow } from "@/components/session/PracticeFlow";
+// /n5/kanji/practice etc. — the preview for signed-out visitors (first kana rows / kanji groups). Signed-in accounts
+// get the full page at the same address (src/proxy.ts serves src/app/full/[level]/[module]/practice).
+import { SessionPage, sessionMetadata, sessionStaticParams, type SessionParams } from "@/components/session/SessionPages";
 
 export const dynamicParams = false;
 
 export function generateStaticParams() {
-  return allCharModules().map(({ level, module }) => ({ level: level.id, module: module.id }));
+  return sessionStaticParams();
 }
 
-type Props = { params: Promise<{ level: string; module: string }> };
-
-export async function generateMetadata({ params }: Props): Promise<Metadata> {
-  const { level, module } = await params;
-  const found = getModule(level, module);
-  return { title: found ? `${found.module.title} practice · ${found.level.title}` : undefined };
+export function generateMetadata(props: SessionParams) {
+  return sessionMetadata(props, "practice");
 }
 
-export default async function PracticePage({ params }: Props) {
-  const { level, module } = await params;
-  const found = getModule(level, module);
-  if (!found) notFound();
-  return (
-    <Suspense>
-      <PracticeFlow charSet={found.charSet} title={found.module.title} backHref={`/${level}/${module}`} />
-    </Suspense>
-  );
+export default function PreviewPracticePage(props: SessionParams) {
+  return <SessionPage {...props} mode="practice" preview />;
 }

@@ -1,6 +1,7 @@
 // NihonGo database (Supabase Postgres). Change the models here, then create a migration:
 //   npm run db:migrate -- --name <what-changed>
 // Deploys apply new migrations automatically (prisma migrate deploy). See README → "Accounts and database".
+// Every table has Row Level Security on (added in its migration), so only the server reaches the data.
 
 generator client {
   provider = "prisma-client"
@@ -9,15 +10,6 @@ generator client {
 
 datasource db {
   provider = "postgresql"
-}
-
-/// Whether an account may use the site. Registering creates a `pending` request; the admin approves or rejects it.
-enum AccessStatus {
-  pending
-  approved
-  rejected
-
-  @@map("access_status")
 }
 
 enum Role {
@@ -37,30 +29,56 @@ enum JlptLevel {
   @@map("jlpt_level")
 }
 
-/// One row per account: what the person gave when registering, and the admin's decision.
-/// `id` is the Supabase Auth user id (auth.users.id); sign-in itself (email, password) is handled by Supabase Auth.
+/// One row per account: what the person gave when registering. `id` is the Supabase Auth user id
+/// (auth.users.id); sign-in itself (email, password, last sign-in) is handled by Supabase Auth.
 model Profile {
-  id           String       @id @db.Uuid
-  email        String       @unique
-  fullName     String       @map("full_name")
+  id           String        @id @db.Uuid
+  email        String        @unique
+  fullName     String        @map("full_name")
+  /// Asked at registration (accounts made before it was asked have none)
+  dateOfBirth  DateTime?     @map("date_of_birth") @db.Date
+  /// ISO 3166-1 alpha-2 code, e.g. "JP"
   country      String
-  postalCode   String       @map("postal_code")
+  postalCode   String?       @map("postal_code")
   /// Prefecture / state / province / division
-  region       String
-  city         String
-  addressLine1 String       @map("address_line1")
-  addressLine2 String?      @map("address_line2")
-  occupation   String
-  /// Highest JLPT level passed; null = none yet
-  passedLevel  JlptLevel?   @map("passed_level")
-  targetLevel  JlptLevel    @map("target_level")
-  status       AccessStatus @default(pending)
-  role         Role         @default(user)
-  /// When the admin last approved, rejected or removed access
-  reviewedAt   DateTime?    @map("reviewed_at") @db.Timestamptz(3)
-  createdAt    DateTime     @default(now()) @map("created_at") @db.Timestamptz(3)
-  updatedAt    DateTime     @updatedAt @map("updated_at") @db.Timestamptz(3)
+  region       String?
+  city         String?
+  /// Town / district / area within the city
+  area         String?
+  targetLevel  JlptLevel     @map("target_level")
+  role         Role          @default(user)
+  /// Last time the site counted study time for this account
+  lastActiveAt DateTime?     @map("last_active_at") @db.Timestamptz(3)
+  createdAt    DateTime      @default(now()) @map("created_at") @db.Timestamptz(3)
+  updatedAt    DateTime      @updatedAt @map("updated_at") @db.Timestamptz(3)
+  activity     ActivityDay[]
+  learned      LearnedItem[]
 
-  @@index([status, createdAt])
   @@map("profiles")
+}
+
+/// Time spent studying (the site open, in front, and used in the last 2 minutes), per account per day (Japan time).
+model ActivityDay {
+  userId  String   @map("user_id") @db.Uuid
+  day     DateTime @db.Date
+  seconds Int      @default(0)
+  profile Profile  @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@id([userId, day])
+  @@index([day])
+  @@map("activity_days")
+}
+
+/// What an account has learned: characters written correctly and vocabulary answered correctly, at least once.
+model LearnedItem {
+  userId    String   @map("user_id") @db.Uuid
+  /// The character or vocabulary set, e.g. "hiragana", "n5-kanji", "n5-vocab"
+  setId     String   @map("set_id")
+  /// The character or word
+  item      String
+  learnedAt DateTime @default(now()) @map("learned_at") @db.Timestamptz(3)
+  profile   Profile  @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@id([userId, setId, item])
+  @@map("learned_items")
 }

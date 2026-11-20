@@ -4,16 +4,14 @@ import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
 import { db } from "@/lib/db";
 import { isAdminEmail } from "@/lib/auth";
-import { VIEWER_COOKIE, accessOf, safeNext, viewerCookie } from "@/lib/access";
+import { VIEWER_COOKIE, roleOf, safeNext, viewerCookie } from "@/lib/access";
 import { parseRegistration, type FormValues } from "@/lib/registration";
 import { supabaseServer, supabaseService } from "@/lib/supabase/server";
 
 export type FormState = { error?: string; fieldErrors?: Record<string, string>; values?: FormValues } | undefined;
 
-/** Updates the header's account cookie right away (a redirect from a Server Function skips the proxy). */
-async function rememberViewer(user: Parameters<typeof viewerCookie>[0] | null | undefined) {
-  if (user) (await cookies()).set(viewerCookie(user, process.env.NODE_ENV === "production"));
-}
+/** Set after registering, read by /login. */
+const REGISTERED_COOKIE = "nihongo-registered";
 
 export async function signIn(_prev: FormState, form: FormData): Promise<FormState> {
   const email = String(form.get("email") ?? "").trim().toLowerCase();
@@ -26,13 +24,14 @@ export async function signIn(_prev: FormState, form: FormData): Promise<FormStat
     const wrong = error.code === "invalid_credentials" || error.status === 400;
     return { error: wrong ? "Wrong email or password." : "Couldn't sign in right now. Please try again.", values: { email } };
   }
-  await rememberViewer(data.user);
+  // Update the header's account cookie now: a redirect from a Server Function skips the proxy.
+  (await cookies()).set(viewerCookie(data.user, process.env.NODE_ENV === "production"));
   // An admin signing in to the site is signed in to the admin panel too (its own, independent session).
-  if (accessOf(data.user).role === "admin") await (await supabaseServer("admin")).auth.signInWithPassword({ email, password });
-  redirect(accessOf(data.user).access === "approved" ? safeNext(form.get("next")) : "/pending");
+  if (roleOf(data.user) === "admin") await (await supabaseServer("admin")).auth.signInWithPassword({ email, password });
+  redirect(safeNext(form.get("next")));
 }
 
-/** Creates the account and its access request, then signs the person in. */
+/** Creates the account. The person then signs in on /login (registering doesn't sign them in). */
 export async function register(_prev: FormState, form: FormData): Promise<FormState> {
   // Bots fill every field, including this hidden one.
   if (String(form.get("website") ?? "")) return { error: "Couldn't create the account. Please try again." };
@@ -40,15 +39,15 @@ export async function register(_prev: FormState, form: FormData): Promise<FormSt
   const { data: reg, errors, values } = parseRegistration(form);
   if (!reg) return { fieldErrors: errors, values };
 
-  const admin = isAdminEmail(reg.email);
+  const role = isAdminEmail(reg.email) ? "admin" : "user";
   const auth = supabaseService().auth.admin;
-  // Created already confirmed: there's no email check yet — the admin's approval is the check.
+  // Created already confirmed: there's no email check.
   const { data, error } = await auth.createUser({
     email: reg.email,
     password: reg.password,
     email_confirm: true,
     user_metadata: { full_name: reg.fullName },
-    app_metadata: { access: admin ? "approved" : "pending", role: admin ? "admin" : "user" },
+    app_metadata: { role },
   });
   if (error || !data.user) {
     if (error?.code === "email_exists" || error?.status === 422) {
@@ -61,20 +60,17 @@ export async function register(_prev: FormState, form: FormData): Promise<FormSt
 
   const { password: _password, ...details } = reg;
   try {
-    await db().profile.create({
-      data: { id: data.user.id, ...details, status: admin ? "approved" : "pending", role: admin ? "admin" : "user", reviewedAt: admin ? new Date() : null },
-    });
+    await db().profile.create({ data: { id: data.user.id, ...details, role } });
   } catch (e) {
     console.error("register: profile insert failed", e);
     await auth.deleteUser(data.user.id); // don't leave an account without its details
     return { error: "Couldn't create the account. Please try again.", values };
   }
 
-  const supabase = await supabaseServer();
-  const { data: session } = await supabase.auth.signInWithPassword({ email: reg.email, password: reg.password });
-  await rememberViewer(session.user);
-  if (admin) await (await supabaseServer("admin")).auth.signInWithPassword({ email: reg.email, password: reg.password });
-  redirect(admin ? "/admin" : "/pending");
+  // The sign-in page greets them and fills in their email (kept out of the URL).
+  (await cookies()).set(REGISTERED_COOKIE, reg.email, { path: "/login", maxAge: 600, httpOnly: true, sameSite: "lax", secure: process.env.NODE_ENV === "production" });
+  const next = safeNext(form.get("next"));
+  redirect(`/login?registered=1${next === "/" ? "" : `&next=${encodeURIComponent(next)}`}`);
 }
 
 /** Signs out of the site only (this browser); an admin panel session stays. */
@@ -83,13 +79,4 @@ export async function signOut(): Promise<void> {
   await supabase.auth.signOut({ scope: "local" });
   (await cookies()).delete(VIEWER_COOKIE);
   redirect("/login");
-}
-
-/** On /pending: fetches a fresh sign-in token (with the admin's latest decision) and goes on if approved. */
-export async function refreshAccess(): Promise<void> {
-  const supabase = await supabaseServer();
-  const { data } = await supabase.auth.refreshSession();
-  if (!data.session) redirect("/login");
-  await rememberViewer(data.user);
-  redirect(accessOf(data.user).access === "approved" ? "/" : "/pending");
 }

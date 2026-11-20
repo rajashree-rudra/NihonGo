@@ -1,7 +1,7 @@
 "use server";
 
 import { redirect } from "next/navigation";
-import { accessOf } from "@/lib/access";
+import { roleOf } from "@/lib/access";
 import { isAdminAccount } from "@/lib/auth";
 import { supabaseServer } from "@/lib/supabase/server";
 
@@ -19,7 +19,7 @@ export async function adminSignIn(_prev: AdminLoginState, form: FormData): Promi
     const wrong = error.code === "invalid_credentials" || error.status === 400;
     return { error: wrong ? "Wrong email or password." : "Couldn't sign in right now. Please try again.", email };
   }
-  if (accessOf(data.user).role !== "admin" || !(await isAdminAccount(data.user.id))) {
+  if (roleOf(data.user) !== "admin" || !(await isAdminAccount(data.user.id))) {
     await supabase.auth.signOut({ scope: "local" });
     return { error: "This account doesn't have admin access.", email };
   }

@@ -2,6 +2,7 @@ import Link from "next/link";
 import { ArrowRight, AudioLines, Lock, PenLine, Target } from "lucide-react";
 import { LEVELS } from "@/data/levels";
 import { cn } from "@/components/ui/cn";
+import { SignedOutCta } from "@/components/auth/SignedOutCta";
 
 const LEVEL_KANJI: Record<string, string> = { n5: "五", n4: "四", n3: "三", n2: "二", n1: "一" };
 
@@ -26,6 +27,7 @@ export default function HomePage() {
         <p className="relative mx-auto mt-5 max-w-xl text-pretty text-base text-ink-soft sm:text-lg">
           Pick your JLPT level. Hear every character in a natural native voice and learn to write it stroke by stroke.
         </p>
+        <SignedOutCta className="relative mt-8" />
       </section>
 
       <section aria-label="JLPT levels" className="grid gap-4 sm:grid-cols-2 lg:grid-cols-5">
@@ -108,6 +110,8 @@ export default function HomePage() {
           </div>
         ))}
       </section>
+
+      <SignedOutCta band className="mt-16" />
     </div>
   );
 }

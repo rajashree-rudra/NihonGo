@@ -1,23 +1,16 @@
-// Who may use the site. The admin's decision is stored twice: in the `profiles` table (the record the admin
-// panel shows) and in the account's Supabase `app_metadata`, which is inside the sign-in token — so every page
-// can check it instantly, without asking the database.
+// Who may use the site: every signed-in account. Admins (role "admin" in the account's Supabase `app_metadata`,
+// which is inside the sign-in token) also get the admin panel, which has its own sign-in.
 
-export type Access = "pending" | "approved" | "rejected";
 export type Role = "user" | "admin";
 
 /** Pages for signed-out visitors only. */
 export const AUTH_PAGES = ["/login", "/register"];
-/** Where signed-in accounts wait until they're approved (or see that they weren't). */
-export const WAITING_PAGE = "/pending";
+/** API routes that work without signing in (the registration form uses them). */
+export const PUBLIC_API = ["/api/postcode"];
 
-/** Reads access and role from a sign-in token's claims. */
-export function accessOf(claims: { app_metadata?: Record<string, unknown> } | null | undefined): {
-  access: Access;
-  role: Role;
-} {
-  const meta = claims?.app_metadata ?? {};
-  const access = meta.access === "approved" || meta.access === "rejected" ? meta.access : "pending";
-  return { access, role: meta.role === "admin" ? "admin" : "user" };
+/** Reads the role from a sign-in token's claims (or a Supabase user object). */
+export function roleOf(claims: { app_metadata?: Record<string, unknown> } | null | undefined): Role {
+  return claims?.app_metadata?.role === "admin" ? "admin" : "user";
 }
 
 /**
@@ -32,19 +25,15 @@ export interface ViewerHint {
   role: Role;
 }
 
-/** Cookie value (Next URL-encodes it when setting and decodes it when reading). */
-export function encodeViewer(v: ViewerHint): string {
-  return JSON.stringify(v);
-}
-
 /** The viewer cookie for an account (its token claims or Supabase user object). */
 export function viewerCookie(
   user: { email?: string; user_metadata?: Record<string, unknown>; app_metadata?: Record<string, unknown> },
   secure: boolean,
 ) {
+  const hint: ViewerHint = { name: String(user.user_metadata?.full_name ?? ""), email: user.email ?? "", role: roleOf(user) };
   return {
     name: VIEWER_COOKIE,
-    value: encodeViewer({ name: String(user.user_metadata?.full_name ?? ""), email: user.email ?? "", role: accessOf(user).role }),
+    value: JSON.stringify(hint), // Next URL-encodes it when setting and decodes it when reading
     path: "/",
     sameSite: "lax" as const,
     secure,
@@ -66,6 +55,6 @@ export function decodeViewer(raw: string | undefined): ViewerHint | null {
 /** A same-site path to return to after signing in; anything else becomes "/". */
 export function safeNext(next: unknown): string {
   if (typeof next !== "string" || !next.startsWith("/") || next.startsWith("//") || next.startsWith("/\\")) return "/";
-  if (AUTH_PAGES.some((p) => next === p || next.startsWith(`${p}?`)) || next.startsWith(WAITING_PAGE)) return "/";
+  if (AUTH_PAGES.some((p) => next === p || next.startsWith(`${p}?`)) || next.startsWith("/api/")) return "/";
   return next;
 }

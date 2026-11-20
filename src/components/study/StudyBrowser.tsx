@@ -5,6 +5,8 @@ import { SearchX } from "lucide-react";
 import { warmTextAudio } from "@/lib/audio";
 import { TabBar } from "@/components/ui/TabBar";
 import { cn } from "@/components/ui/cn";
+import { MembersGate } from "@/components/auth/MembersGate";
+import { LockedCards } from "@/components/auth/Locked";
 import { StudyToolbar } from "./StudyToolbar";
 
 const ALL = "all";
@@ -28,6 +30,20 @@ interface Props<T> {
   placeholder: string;
   /** Grid for small cards (vocabulary) or a single column (grammar). */
   layout: "grid" | "list";
+  preview?: BrowserPreview;
+}
+
+/**
+ * Signed out: `sections` hold only the preview's open items (none for most categories). Everything else is as for
+ * members — every tab, category and count — and what isn't open shows as locked cards.
+ */
+export interface BrowserPreview {
+  /** Real item count per section id */
+  totals: Record<string, number>;
+  /** e.g. "all 718 words in 22 categories" */
+  all: string;
+  /** This page, to come back to after registering */
+  next: string;
 }
 
 const normalise = (s: string) => s.toLowerCase().replace(/\s+/g, "");
@@ -36,7 +52,7 @@ const normalise = (s: string) => s.toLowerCase().replace(/\s+/g, "");
  * Shared vocabulary/grammar browser: section tabs (All + categories, kept in ?s=), search
  * across everything, and the example/romaji display switches.
  */
-export function StudyBrowser<T>({ sections, searchText, renderItem, itemKey, noun, placeholder, layout }: Props<T>) {
+export function StudyBrowser<T>({ sections, searchText, renderItem, itemKey, noun, placeholder, layout, preview }: Props<T>) {
   const [section, setSection] = useState(ALL);
   const [query, setQuery] = useState("");
   const deferred = useDeferredValue(query);
@@ -83,8 +99,10 @@ export function StudyBrowser<T>({ sections, searchText, renderItem, itemKey, nou
 
   const visible = useMemo(() => {
     const pool = matches ? sections : sections.filter((s) => section === ALL || s.id === section);
-    return pool.map((s) => ({ ...s, items: matches ? s.items.filter(matches) : s.items })).filter((s) => s.items.length);
-  }, [sections, section, matches]);
+    return pool
+      .map((s) => ({ ...s, items: matches ? s.items.filter(matches) : s.items }))
+      .filter((s) => s.items.length || (preview && !matches));
+  }, [sections, section, matches, preview]);
   const shown = visible.reduce((n, s) => n + s.items.length, 0);
 
   // Render progressively: the first PAGE cards, then more as the sentinel scrolls into view.
@@ -106,10 +124,13 @@ export function StudyBrowser<T>({ sections, searchText, renderItem, itemKey, nou
       budget -= items.length;
       return { ...s, shownItems: items };
     })
-    .filter((s) => s.shownItems.length);
+    .filter((s) => s.shownItems.length || (preview && !matches));
 
-  const tabs = [{ id: ALL, label: "All", count: total }, ...sections.map((s) => ({ id: s.id, label: s.tab, count: s.items.length }))];
+  const totalOf = (s: BrowserSection<T>) => preview?.totals[s.id] ?? s.items.length;
+  const fullTotal = preview ? sections.reduce((n, s) => n + totalOf(s), 0) : total;
+  const tabs = [{ id: ALL, label: "All", count: fullTotal }, ...sections.map((s) => ({ id: s.id, label: s.tab, count: totalOf(s) }))];
   const word = (n: number) => (n === 1 ? noun[0] : noun[1]);
+  const chosen = section === ALL ? fullTotal : totalOf(sections.find((s) => s.id === section) ?? sections[0]);
   let counter = 0;
 
   return (
@@ -120,7 +141,7 @@ export function StudyBrowser<T>({ sections, searchText, renderItem, itemKey, nou
           query={query}
           onQuery={setQuery}
           placeholder={placeholder}
-          summary={q ? `${shown} ${word(shown)} found for “${deferred.trim()}”` : `${shown} ${word(shown)}`}
+          summary={q ? `${shown} ${word(shown)} found for “${deferred.trim()}”` : `${preview ? chosen : shown} ${word(preview ? chosen : shown)}`}
         />
       </div>
 
@@ -139,18 +160,34 @@ export function StudyBrowser<T>({ sections, searchText, renderItem, itemKey, nou
                   {s.title}
                 </h2>
                 <span className="shrink-0 font-jp text-sm text-muted">
-                  {s.jp} · {s.items.length}
+                  {s.jp} · {totalOf(s)}
                 </span>
               </div>
-              <div className={cn(layout === "grid" ? "grid items-start gap-3 md:grid-cols-2 xl:grid-cols-3" : "mx-auto max-w-3xl space-y-4")}>
-                {s.shownItems.map((it) => (
-                  <div key={itemKey(it)} className="min-w-0">
-                    {renderItem(it, ++counter)}
-                  </div>
-                ))}
-              </div>
+              {s.shownItems.length > 0 && (
+                <div className={cn(layout === "grid" ? "grid items-start gap-3 md:grid-cols-2 xl:grid-cols-3" : "mx-auto max-w-3xl space-y-4")}>
+                  {s.shownItems.map((it) => (
+                    <div key={itemKey(it)} className="min-w-0">
+                      {renderItem(it, ++counter)}
+                    </div>
+                  ))}
+                </div>
+              )}
+              {preview && !matches && totalOf(s) > s.items.length && (
+                <div className={s.shownItems.length ? "mt-3" : undefined}>
+                  <LockedCards count={totalOf(s) - s.items.length} layout={layout} next={preview.next}>
+                    {s.items.length
+                      ? `+${totalOf(s) - s.items.length} more ${word(totalOf(s) - s.items.length)} in ${s.title} — register free`
+                      : `${totalOf(s)} ${word(totalOf(s))} in ${s.title} — register free to see them`}
+                  </LockedCards>
+                </div>
+              )}
             </section>
           ))}
+          {preview && (
+            <MembersGate next={preview.next} title="Register free to see everything">
+              Create a free account to see {preview.all} with their examples — and to take quizzes and track your progress.
+            </MembersGate>
+          )}
           {limit < shown && (
             <div ref={sentinel} className="flex justify-center py-6">
               <button

@@ -3,7 +3,7 @@
 import { randomBytes } from "node:crypto";
 import { revalidatePath } from "next/cache";
 import { db } from "@/lib/db";
-import { requireAdmin, setAccess } from "@/lib/auth";
+import { requireAdmin } from "@/lib/auth";
 import { supabaseService } from "@/lib/supabase/server";
 
 const UUID = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
@@ -16,22 +16,12 @@ async function targetAccount(id: unknown): Promise<string> {
   return id;
 }
 
-export async function approve(id: string): Promise<void> {
-  await setAccess(await targetAccount(id), "approved");
-  revalidatePath("/admin");
-}
-
-/** Rejects a request, or removes an approved account's access. */
-export async function reject(id: string): Promise<void> {
-  await setAccess(await targetAccount(id), "rejected");
-  revalidatePath("/admin");
-}
-
+/** Deletes the account, its details and its study history. */
 export async function deleteAccount(id: string): Promise<void> {
   const uid = await targetAccount(id);
   const { error } = await supabaseService().auth.admin.deleteUser(uid);
   if (error && error.status !== 404) throw error;
-  await db().profile.deleteMany({ where: { id: uid } });
+  await db().profile.deleteMany({ where: { id: uid } }); // activity and learned items go with it (cascade)
   revalidatePath("/admin");
 }
 

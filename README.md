@@ -21,30 +21,56 @@ npm run build && npm start
 | `/n5/vocabulary?s=verbs` | Word list by category, search, collapsible example sentences |
 | `/n4/grammar` | Grammar points with structure, notes and examples |
 
-| `/login`, `/register` | Sign in · request access (name, email, address, occupation, JLPT passed and target) |
-| `/pending` | Where a new account waits until the admin approves it |
-| `/admin`, `/admin/login` | Admin panel (its own sign-in): approve or reject requests, remove access, reset a password |
+| `/register`, `/login` | Create an account (JLPT target, name, email, password, date of birth, country, postcode → address filled in) · sign in |
+| `/admin`, `/admin/login` | Admin panel (its own sign-in): every user with last sign-in, study time (today, 7 days, total) and progress per JLPT level; reset a password, delete an account |
 
 All routes are generated from the level registry (`src/data/levels.ts`), so new content needs no new pages.
 
 ## Accounts and database
 
-Every page needs an approved account. `src/proxy.ts` sends signed-out visitors to `/login` and accounts that
-aren't approved yet to `/pending`. Registering creates a **pending** request; the admin approves it in `/admin`.
-Emails listed in `ADMIN_EMAILS` become admins when they register.
+Who sees what (`src/proxy.ts`):
 
-The admin panel has its **own, independent sign-in** (`/admin/login`, cookie `sb-nihongo-admin`, sent only to
-`/admin`): an admin stays signed in to the panel whatever account the site is signed in as — e.g. a test
-request — and signing out of one doesn't sign out of the other. An admin who signs in to the site is signed in
-to the panel too.
+Signed-out visitors see every page as members do — every section, group, category tab and count — but only the
+first few items can be read, heard, practised or tested; the rest is shown locked (faint characters, blank cards,
+"Unlock … — register free" chips) to show how much more there is.
 
-- **Sign-in:** Supabase Auth (email + password, sessions in cookies via `@supabase/ssr`). There's no email
-  confirmation yet — the admin's approval is the check — so a forgotten password is reset from the admin panel.
-- **Data:** Supabase Postgres through Prisma (`prisma/schema.prisma`, client in `src/lib/db.ts`). The access
-  decision is also copied into the account's sign-in token (`app_metadata`), so pages check it without a database query.
-  A change of access reaches a signed-in user when their token renews (within an hour).
+| Page | Open without an account | Signed in |
+| --- | --- | --- |
+| `/` (landing), `/n5` (level) | everything | everything |
+| `/n5/hiragana`, `/n5/katakana` (chart, practice, test) | the first 2 rows of the chart | everything |
+| `/n5/kanji` (list, practice, test) | the first 2 groups | everything |
+| `/n5/vocabulary`, `/n5/grammar` | 5 words / 5 grammar points of each of the first 3 categories | everything |
+| `/n5/kanji/quiz`, `/n5/vocabulary/quiz` | — (→ `/login`, then back) | everything |
+
+Each previewed page is built ahead of time in two versions: the preview at its own address (`src/app/[level]/[module]`
+and its `practice/`, `test/`) and the full page under `/full/…` (`src/app/full/…`), which the proxy serves at the
+page's own address to signed-in accounts. The preview is made from `src/data/preview.ts`: the set keeps its whole
+structure, but a locked item keeps only its character (no meaning, readings, examples or memory tricks), so the
+locked content isn't in the page. The amounts are `PREVIEW_GROUPS` and `PREVIEW_LISTS`.
+
+Anyone can register at `/register` — no email check, no approval — and then signs in (registering doesn't sign
+them in); Register and Sign in from a preview come back to that page. Sessions last as long as the browser keeps
+cookies (400 days, renewed whenever the site is used). Emails listed in `ADMIN_EMAILS` become admins when they register.
+
+- **Registration:** the form is in `src/app/(auth)/register/`, its checks in `src/lib/registration.ts`. Countries
+  are stored as ISO codes (`src/lib/countries.ts`). Entering a postcode fills in the address through
+  `/api/postcode` (Japan: zipcloud, India: api.postalpincode.in, ~60 more countries: Zippopotam.us; elsewhere
+  the person types it). Everything stays editable.
+- **Study tracking** (`src/lib/tracking.ts`, `src/components/layout/ActivityTracker.tsx`, `/api/track`): time
+  counts while the site is open, in front (visible and focused, so tabs don't double count) and used in the last
+  2 minutes; it's sent every 2 minutes and when the page is left, and stored per day in Japan time. "Learned" =
+  a character written correctly in practice or test, or a word answered correctly in a vocabulary quiz, at least
+  once (`markLearned` in `src/lib/settings.ts`). A level's progress counts its kana, kanji and vocabulary
+  (`src/app/admin/users.ts`); grammar has no exercises yet.
+- **Admin panel:** its **own, independent sign-in** (`/admin/login`, cookie `sb-nihongo-admin`, sent only to
+  `/admin`): an admin stays signed in to the panel whatever account the site is signed in as, and signing out of
+  one doesn't sign out of the other. An admin who signs in to the site is signed in to the panel too.
+- **Sign-in:** Supabase Auth (email + password, sessions in cookies via `@supabase/ssr`). A forgotten password is
+  reset from the admin panel (there's no email sending).
+- **Data:** Supabase Postgres through Prisma (`prisma/schema.prisma`, client in `src/lib/db.ts`): `profiles`,
+  `activity_days`, `learned_items`.
 - **Security:** every table has Row Level Security on with no policies, so Supabase's public Data API can't touch
-  it; only the server reaches the data. Server Functions check access themselves, not only the proxy.
+  it; only the server reaches the data. Server Functions and API routes check the account themselves, not only the proxy.
 - **Kanji, vocabulary and grammar stay in `src/data/`** — the database holds only per-user data.
 
 Settings: copy `.env.example` to `.env.local` and fill it in. For the live site, each one also goes where
@@ -59,7 +85,9 @@ npm run db:status                           # which migrations the database has
 ```
 
 New migrations are applied by the GitHub deploy before the new site goes live. Give every new table
-`ALTER TABLE "…" ENABLE ROW LEVEL SECURITY;` in its migration.
+`ALTER TABLE "…" ENABLE ROW LEVEL SECURITY;` in its migration. To remove or rename a column without breaking the
+site that's live during a deploy, do it in two migrations: first add the new and make the old optional, then
+remove the old (see `prisma/migrations/*_registration_and_tracking` and `*_remove_access_requests`).
 
 ## Content
 

@@ -8,6 +8,7 @@ import { warmTextAudio } from "@/lib/audio";
 import { kanjiInfoStore, romajiStore, starStore } from "@/lib/settings";
 import { GroupPicker, type GroupOption } from "@/components/ui/GroupPicker";
 import { cn } from "@/components/ui/cn";
+import type { PreviewProps } from "@/components/auth/Locked";
 import { KanjiGroup } from "./KanjiGroup";
 
 const LEVELS = ["N2", "N3", "N4", "N5"] as const;
@@ -17,7 +18,9 @@ const PAGE = 12; // groups rendered per step while scrolling
  * Grouped kanji list: every kanji is a collapsible row; groups can be opened, closed or
  * practised as a whole. Search, level filter and jump-to-group live in a sticky toolbar.
  */
-export function KanjiBook({ charSet, basePath }: { charSet: CharSet; basePath: string }) {
+/** `preview` (signed out): every group as members see it, but only the open kanji can be read; the rest are locked. */
+export function KanjiBook({ charSet, basePath, preview }: { charSet: CharSet; basePath: string; preview?: PreviewProps }) {
+  const openChars = useMemo(() => (preview ? new Set(preview.open) : null), [preview]);
   const details = charSet.details ?? {};
   const [query, setQuery] = useState("");
   const [level, setLevel] = useState<string>("all");
@@ -347,6 +350,7 @@ export function KanjiBook({ charSet, basePath }: { charSet: CharSet; basePath: s
               showInfo={showInfo}
               isStarred={(c) => starred.has(starKey(c))}
               onStar={toggleStar}
+              locked={openChars && !g.items.some((k) => openChars.has(k.char)) ? { next: basePath } : undefined}
             />
           ))}
           {limit < groups.length && (

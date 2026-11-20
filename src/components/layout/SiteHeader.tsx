@@ -7,7 +7,8 @@ import { Mars, Moon, Sun, Venus, Volume2, VolumeX } from "lucide-react";
 import { soundStore, themeStore, voiceStore, type Voice } from "@/lib/settings";
 import { IconButton } from "@/components/ui/IconButton";
 import { cn } from "@/components/ui/cn";
-import { AccountMenu } from "./AccountMenu";
+import { useViewer } from "@/lib/viewer";
+import { AccountMenu, SignedOutActions } from "./AccountMenu";
 
 export function SoundToggle({ className, size }: { className?: string; size?: string }) {
   const [sound, setSound] = soundStore.useValue();
@@ -72,8 +73,9 @@ export function SiteHeader() {
   const pathname = usePathname();
   // Practice/test screens have their own top bar; on phones every pixel goes to the writing box.
   const inSession = /\/(practice|test)$/.test(pathname);
-  // Sign-in, registration, the waiting page and the admin panel (its own sign-in) have nothing to play and no site account menu.
-  const accountPage = pathname === "/login" || pathname === "/register" || pathname === "/pending" || pathname.startsWith("/admin");
+  // Sign-in, registration and the admin panel (its own sign-in) have nothing to play and no site account menu.
+  const accountPage = pathname === "/login" || pathname === "/register" || pathname.startsWith("/admin");
+  const viewer = useViewer();
   return (
     <header className={cn("sticky top-0 z-40 border-b border-line/70 bg-paper/80 backdrop-blur-xl", inSession && "max-sm:hidden")}>
       <div className="mx-auto flex h-14 max-w-6xl items-center justify-between px-5 sm:h-16">
@@ -88,12 +90,14 @@ export function SiteHeader() {
         <div className="flex items-center gap-2">
           {!accountPage && (
             <>
-              <VoiceToggle />
+              {/* Signed out on a phone: room for "Sign in" instead of the voice switch. */}
+              <VoiceToggle className={viewer === null ? "max-sm:hidden" : undefined} />
               <SoundToggle />
             </>
           )}
           <ThemeToggle />
-          {!accountPage && <AccountMenu />}
+          {!accountPage &&
+            (viewer ? <AccountMenu viewer={viewer} /> : viewer === null ? <SignedOutActions /> : <span aria-hidden className="size-9" />)}
         </div>
       </div>
     </header>

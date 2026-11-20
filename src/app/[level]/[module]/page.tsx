@@ -1,94 +1,17 @@
-import type { Metadata } from "next";
-import { notFound } from "next/navigation";
-import { ListChecks, PenLine, Target } from "lucide-react";
-import { allModules, getLearnModule } from "@/data/levels";
-import { ButtonLink } from "@/components/ui/Button";
-import { CharChart } from "@/components/chart/CharChart";
-import { KanjiBook } from "@/components/kanji/KanjiBook";
-import { ModuleHeader } from "@/components/modules/ModuleHeader";
-import { GrammarBrowser, VocabBrowser } from "@/components/study/Browsers";
+// /n5/kanji etc. — the preview for signed-out visitors. Signed-in accounts get the full page at the same address
+// (src/proxy.ts serves them src/app/full/[level]/[module]). See src/components/modules/ModulePage.tsx.
+import { ModulePage, moduleMetadata, moduleStaticParams, type ModuleParams } from "@/components/modules/ModulePage";
 
 export const dynamicParams = false;
 
 export function generateStaticParams() {
-  return allModules().map(({ level, module }) => ({ level: level.id, module: module.id }));
+  return moduleStaticParams();
 }
 
-type Props = { params: Promise<{ level: string; module: string }> };
-
-export async function generateMetadata({ params }: Props): Promise<Metadata> {
-  const { level, module } = await params;
-  const found = getLearnModule(level, module);
-  if (!found) return {};
-  const kind = found.module.charSet ? "chart" : "list";
-  return { title: `${found.level.title} ${found.module.title}${kind === "chart" ? " chart" : ""}` };
+export function generateMetadata(props: ModuleParams) {
+  return moduleMetadata(props);
 }
 
-export default async function ModulePage({ params }: Props) {
-  const { level: levelId, module: moduleId } = await params;
-  const found = getLearnModule(levelId, moduleId);
-  if (!found) notFound();
-  const { level, module } = found;
-  const base = `/${level.id}/${module.id}`;
-
-  if (module.charSet) {
-    return (
-      <div className="mx-auto max-w-6xl px-5 pt-8">
-        <ModuleHeader
-          level={level}
-          module={module}
-          hint={
-            module.charSet.details
-              ? `${module.charSet.items.length} kanji · open a kanji for examples, or tap the speaker to hear it`
-              : `${module.charSet.items.length} characters · tap any character to hear it`
-          }
-          actions={
-            <>
-              <ButtonLink href={`${base}/practice`} variant="primary" size="lg" icon={<PenLine className="size-5" />} className="flex-1 lg:flex-none">
-                Practice
-              </ButtonLink>
-              <ButtonLink href={`${base}/test`} variant="accent" size="lg" icon={<Target className="size-5" />} className="flex-1 lg:flex-none">
-                Test
-              </ButtonLink>
-              {module.charSet.details && (
-                <ButtonLink href={`${base}/quiz`} variant="outline" size="lg" icon={<ListChecks className="size-5" />} className="flex-1 lg:flex-none">
-                  Quiz
-                </ButtonLink>
-              )}
-            </>
-          }
-        />
-        {/* Kanji books (grouped, with examples) use the list view; other sets use the chart. */}
-        <div className={module.charSet.details ? "mt-6" : "mt-10"}>
-          {module.charSet.details ? <KanjiBook charSet={module.charSet} basePath={base} /> : <CharChart charSet={module.charSet} basePath={base} />}
-        </div>
-      </div>
-    );
-  }
-
-  const vocab = module.vocabSet;
-  const grammar = module.grammarSet;
-  if (!vocab && !grammar) notFound();
-
-  return (
-    <div className="mx-auto max-w-6xl px-4 pt-8 sm:px-5">
-      <ModuleHeader
-        level={level}
-        module={module}
-        hint={
-          vocab
-            ? `${vocab.items.length} words · tap the speaker to hear any word or sentence`
-            : `${grammar!.items.length} grammar points · tap the speaker to hear any example`
-        }
-        actions={
-          vocab && (
-            <ButtonLink href={`${base}/quiz`} variant="primary" size="lg" icon={<ListChecks className="size-5" />} className="flex-1 lg:flex-none">
-              Quiz
-            </ButtonLink>
-          )
-        }
-      />
-      <div className="mt-6">{vocab ? <VocabBrowser set={vocab} /> : <GrammarBrowser set={grammar!} />}</div>
-    </div>
-  );
+export default function PreviewModulePage(props: ModuleParams) {
+  return <ModulePage {...props} preview />;
 }
